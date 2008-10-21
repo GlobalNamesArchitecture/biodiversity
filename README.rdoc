@@ -1,0 +1,36 @@
+= Biodiversity
+
+Parses species scientific name and breaks it into elements.
+
+== Installation
+
+To install gem you need RubyGems >= 1.2.0
+
+  $ gem sources -a http://gems.github.com (you only have to do this once)
+  $ sudo gem install dimus-biodiversity
+
+== Example usage
+
+* You can parse file with species names from command line. File should contain one scientific name per line
+
+  nnparser file_with_names
+  
+* You can use it as a library
+
+  require 'biodiversity'
+  
+  parser = ScientificNameParser.new
+  
+  # to parse a scientific name 
+  parser.parse("Plantago major")
+  
+  # to clean name up
+  parser.parse("             Plantago       major    ").value
+  
+  # to get only cleaned up latin part of the name
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").canonical
+  
+  # to get detailed information about elements of the name
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").details
+  
+  
