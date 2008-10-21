@@ -107,6 +107,7 @@ describe ScientificName do
     #   author is exception
     parse("Tuber liui A S. Xu 1999").should_not be_nil
     parse("Agaricus squamula Berk. & M.A. Curtis 1860").should_not be_nil
+    parse("Peltula coriacea Büdel, Henssen & Wessels 1986").should_not be_nil
   end
   
   
@@ -231,13 +232,13 @@ describe ScientificName do
     parse("Acarospora cratericola 1929").should_not be_nil
     parse("Agaricus acris var. (b.)").should_not be_nil  
     value("Agaricus acris var. (b.)").should == "Agaricus acris var. (b.)"  
-    parse("Agaricus acris var. (b.)").should_not be_nil  
+    parse("Agaricus acris var. (b.)").should_not be_nil 
     value("Agaricus acris var. (b.&c.)").should == "Agaricus acris var. (b.c.)"  
     details("Agaricus acris var. (b.&c.)").should == {:editorial_markup=>"(b.c.)", :subspecies=>[{:type=>"var.", :value=>nil}], :species=>"acris", :genus=>"Agaricus", :is_valid=>false}
 
   end
   
   it "should not have this problems, but it has them" do
-    parse("Saccharomyces drosophilae anon.").should be_nil
+    parse("Saccharomyces drosophilae anon.").should_not be_nil
   end
 end

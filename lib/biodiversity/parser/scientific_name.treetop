@@ -260,7 +260,7 @@ grammar ScientificName
   end
   
   rule name_part
-    space a:species_name space b:selector space c:editorials_full {
+    space a:species_name space b:selector space_hard c:editorials_full {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -324,7 +324,7 @@ grammar ScientificName
   end
   
   rule subspecies_name
-    sel:selector space a:latin_word {
+    sel:selector space_hard a:latin_word {
       def value 
         sel.apply(a)
       end
@@ -362,7 +362,7 @@ grammar ScientificName
   end
   
   rule selector
-    ("f.sp."/"f."/"B"/"ssp."/"mut."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
+    ("f.sp."/"f."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
@@ -496,8 +496,12 @@ grammar ScientificName
       end
     }
   end
-  
+    
   rule space
-    [ ]*
+    space_hard*
+  end
+
+  rule space_hard
+    [\s]
   end
 end
