@@ -1741,7 +1741,7 @@ module ScientificName
       elements[3]
     end
 
-    def space
+    def space_hard
       elements[4]
     end
 
@@ -1847,7 +1847,7 @@ module ScientificName
           r5 = _nt_selector
           s1 << r5
           if r5
-            r6 = _nt_space
+            r6 = _nt_space_hard
             s1 << r6
             if r6
               r7 = _nt_editorials_full
@@ -2020,7 +2020,7 @@ module ScientificName
       elements[0]
     end
 
-    def space
+    def space_hard
       elements[1]
     end
 
@@ -2056,7 +2056,7 @@ module ScientificName
     r1 = _nt_selector
     s0 << r1
     if r1
-      r2 = _nt_space
+      r2 = _nt_space_hard
       s0 << r2
       if r2
         r3 = _nt_latin_word
@@ -2328,305 +2328,317 @@ module ScientificName
               r0 = r5
               r0.extend(Selector0)
             else
-              if input.index("sect.", index) == index
-                r6 = (SyntaxNode).new(input, index...(index + 5))
-                @index += 5
+              if input.index("pseudovar.", index) == index
+                r6 = (SyntaxNode).new(input, index...(index + 10))
+                @index += 10
               else
-                terminal_parse_failure("sect.")
+                terminal_parse_failure("pseudovar.")
                 r6 = nil
               end
               if r6
                 r0 = r6
                 r0.extend(Selector0)
               else
-                if input.index("ser.", index) == index
-                  r7 = (SyntaxNode).new(input, index...(index + 4))
-                  @index += 4
+                if input.index("sect.", index) == index
+                  r7 = (SyntaxNode).new(input, index...(index + 5))
+                  @index += 5
                 else
-                  terminal_parse_failure("ser.")
+                  terminal_parse_failure("sect.")
                   r7 = nil
                 end
                 if r7
                   r0 = r7
                   r0.extend(Selector0)
                 else
-                  if input.index("var.", index) == index
+                  if input.index("ser.", index) == index
                     r8 = (SyntaxNode).new(input, index...(index + 4))
                     @index += 4
                   else
-                    terminal_parse_failure("var.")
+                    terminal_parse_failure("ser.")
                     r8 = nil
                   end
                   if r8
                     r0 = r8
                     r0.extend(Selector0)
                   else
-                    if input.index("subvar.", index) == index
-                      r9 = (SyntaxNode).new(input, index...(index + 7))
-                      @index += 7
+                    if input.index("var.", index) == index
+                      r9 = (SyntaxNode).new(input, index...(index + 4))
+                      @index += 4
                     else
-                      terminal_parse_failure("subvar.")
+                      terminal_parse_failure("var.")
                       r9 = nil
                     end
                     if r9
                       r0 = r9
                       r0.extend(Selector0)
                     else
-                      if input.index("[var.]", index) == index
-                        r10 = (SyntaxNode).new(input, index...(index + 6))
-                        @index += 6
+                      if input.index("subvar.", index) == index
+                        r10 = (SyntaxNode).new(input, index...(index + 7))
+                        @index += 7
                       else
-                        terminal_parse_failure("[var.]")
+                        terminal_parse_failure("subvar.")
                         r10 = nil
                       end
                       if r10
                         r0 = r10
                         r0.extend(Selector0)
                       else
-                        if input.index("subsp.", index) == index
+                        if input.index("[var.]", index) == index
                           r11 = (SyntaxNode).new(input, index...(index + 6))
                           @index += 6
                         else
-                          terminal_parse_failure("subsp.")
+                          terminal_parse_failure("[var.]")
                           r11 = nil
                         end
                         if r11
                           r0 = r11
                           r0.extend(Selector0)
                         else
-                          if input.index("subf.", index) == index
-                            r12 = (SyntaxNode).new(input, index...(index + 5))
-                            @index += 5
+                          if input.index("subsp.", index) == index
+                            r12 = (SyntaxNode).new(input, index...(index + 6))
+                            @index += 6
                           else
-                            terminal_parse_failure("subf.")
+                            terminal_parse_failure("subsp.")
                             r12 = nil
                           end
                           if r12
                             r0 = r12
                             r0.extend(Selector0)
                           else
-                            if input.index("race", index) == index
-                              r13 = (SyntaxNode).new(input, index...(index + 4))
-                              @index += 4
+                            if input.index("subf.", index) == index
+                              r13 = (SyntaxNode).new(input, index...(index + 5))
+                              @index += 5
                             else
-                              terminal_parse_failure("race")
+                              terminal_parse_failure("subf.")
                               r13 = nil
                             end
                             if r13
                               r0 = r13
                               r0.extend(Selector0)
                             else
-                              if input.index("α", index) == index
-                                r14 = (SyntaxNode).new(input, index...(index + 2))
-                                @index += 2
+                              if input.index("race", index) == index
+                                r14 = (SyntaxNode).new(input, index...(index + 4))
+                                @index += 4
                               else
-                                terminal_parse_failure("α")
+                                terminal_parse_failure("race")
                                 r14 = nil
                               end
                               if r14
                                 r0 = r14
                                 r0.extend(Selector0)
                               else
-                                if input.index("ββ", index) == index
-                                  r15 = (SyntaxNode).new(input, index...(index + 4))
-                                  @index += 4
+                                if input.index("α", index) == index
+                                  r15 = (SyntaxNode).new(input, index...(index + 2))
+                                  @index += 2
                                 else
-                                  terminal_parse_failure("ββ")
+                                  terminal_parse_failure("α")
                                   r15 = nil
                                 end
                                 if r15
                                   r0 = r15
                                   r0.extend(Selector0)
                                 else
-                                  if input.index("β", index) == index
-                                    r16 = (SyntaxNode).new(input, index...(index + 2))
-                                    @index += 2
+                                  if input.index("ββ", index) == index
+                                    r16 = (SyntaxNode).new(input, index...(index + 4))
+                                    @index += 4
                                   else
-                                    terminal_parse_failure("β")
+                                    terminal_parse_failure("ββ")
                                     r16 = nil
                                   end
                                   if r16
                                     r0 = r16
                                     r0.extend(Selector0)
                                   else
-                                    if input.index("γ", index) == index
+                                    if input.index("β", index) == index
                                       r17 = (SyntaxNode).new(input, index...(index + 2))
                                       @index += 2
                                     else
-                                      terminal_parse_failure("γ")
+                                      terminal_parse_failure("β")
                                       r17 = nil
                                     end
                                     if r17
                                       r0 = r17
                                       r0.extend(Selector0)
                                     else
-                                      if input.index("δ", index) == index
+                                      if input.index("γ", index) == index
                                         r18 = (SyntaxNode).new(input, index...(index + 2))
                                         @index += 2
                                       else
-                                        terminal_parse_failure("δ")
+                                        terminal_parse_failure("γ")
                                         r18 = nil
                                       end
                                       if r18
                                         r0 = r18
                                         r0.extend(Selector0)
                                       else
-                                        if input.index("ε", index) == index
+                                        if input.index("δ", index) == index
                                           r19 = (SyntaxNode).new(input, index...(index + 2))
                                           @index += 2
                                         else
-                                          terminal_parse_failure("ε")
+                                          terminal_parse_failure("δ")
                                           r19 = nil
                                         end
                                         if r19
                                           r0 = r19
                                           r0.extend(Selector0)
                                         else
-                                          if input.index("φ", index) == index
+                                          if input.index("ε", index) == index
                                             r20 = (SyntaxNode).new(input, index...(index + 2))
                                             @index += 2
                                           else
-                                            terminal_parse_failure("φ")
+                                            terminal_parse_failure("ε")
                                             r20 = nil
                                           end
                                           if r20
                                             r0 = r20
                                             r0.extend(Selector0)
                                           else
-                                            if input.index("θ", index) == index
+                                            if input.index("φ", index) == index
                                               r21 = (SyntaxNode).new(input, index...(index + 2))
                                               @index += 2
                                             else
-                                              terminal_parse_failure("θ")
+                                              terminal_parse_failure("φ")
                                               r21 = nil
                                             end
                                             if r21
                                               r0 = r21
                                               r0.extend(Selector0)
                                             else
-                                              if input.index("μ", index) == index
+                                              if input.index("θ", index) == index
                                                 r22 = (SyntaxNode).new(input, index...(index + 2))
                                                 @index += 2
                                               else
-                                                terminal_parse_failure("μ")
+                                                terminal_parse_failure("θ")
                                                 r22 = nil
                                               end
                                               if r22
                                                 r0 = r22
                                                 r0.extend(Selector0)
                                               else
-                                                if input.index("a.", index) == index
+                                                if input.index("μ", index) == index
                                                   r23 = (SyntaxNode).new(input, index...(index + 2))
                                                   @index += 2
                                                 else
-                                                  terminal_parse_failure("a.")
+                                                  terminal_parse_failure("μ")
                                                   r23 = nil
                                                 end
                                                 if r23
                                                   r0 = r23
                                                   r0.extend(Selector0)
                                                 else
-                                                  if input.index("b.", index) == index
+                                                  if input.index("a.", index) == index
                                                     r24 = (SyntaxNode).new(input, index...(index + 2))
                                                     @index += 2
                                                   else
-                                                    terminal_parse_failure("b.")
+                                                    terminal_parse_failure("a.")
                                                     r24 = nil
                                                   end
                                                   if r24
                                                     r0 = r24
                                                     r0.extend(Selector0)
                                                   else
-                                                    if input.index("c.", index) == index
+                                                    if input.index("b.", index) == index
                                                       r25 = (SyntaxNode).new(input, index...(index + 2))
                                                       @index += 2
                                                     else
-                                                      terminal_parse_failure("c.")
+                                                      terminal_parse_failure("b.")
                                                       r25 = nil
                                                     end
                                                     if r25
                                                       r0 = r25
                                                       r0.extend(Selector0)
                                                     else
-                                                      if input.index("d.", index) == index
+                                                      if input.index("c.", index) == index
                                                         r26 = (SyntaxNode).new(input, index...(index + 2))
                                                         @index += 2
                                                       else
-                                                        terminal_parse_failure("d.")
+                                                        terminal_parse_failure("c.")
                                                         r26 = nil
                                                       end
                                                       if r26
                                                         r0 = r26
                                                         r0.extend(Selector0)
                                                       else
-                                                        if input.index("e.", index) == index
+                                                        if input.index("d.", index) == index
                                                           r27 = (SyntaxNode).new(input, index...(index + 2))
                                                           @index += 2
                                                         else
-                                                          terminal_parse_failure("e.")
+                                                          terminal_parse_failure("d.")
                                                           r27 = nil
                                                         end
                                                         if r27
                                                           r0 = r27
                                                           r0.extend(Selector0)
                                                         else
-                                                          if input.index("g.", index) == index
+                                                          if input.index("e.", index) == index
                                                             r28 = (SyntaxNode).new(input, index...(index + 2))
                                                             @index += 2
                                                           else
-                                                            terminal_parse_failure("g.")
+                                                            terminal_parse_failure("e.")
                                                             r28 = nil
                                                           end
                                                           if r28
                                                             r0 = r28
                                                             r0.extend(Selector0)
                                                           else
-                                                            if input.index("k.", index) == index
+                                                            if input.index("g.", index) == index
                                                               r29 = (SyntaxNode).new(input, index...(index + 2))
                                                               @index += 2
                                                             else
-                                                              terminal_parse_failure("k.")
+                                                              terminal_parse_failure("g.")
                                                               r29 = nil
                                                             end
                                                             if r29
                                                               r0 = r29
                                                               r0.extend(Selector0)
                                                             else
-                                                              if input.index("****", index) == index
-                                                                r30 = (SyntaxNode).new(input, index...(index + 4))
-                                                                @index += 4
+                                                              if input.index("k.", index) == index
+                                                                r30 = (SyntaxNode).new(input, index...(index + 2))
+                                                                @index += 2
                                                               else
-                                                                terminal_parse_failure("****")
+                                                                terminal_parse_failure("k.")
                                                                 r30 = nil
                                                               end
                                                               if r30
                                                                 r0 = r30
                                                                 r0.extend(Selector0)
                                                               else
-                                                                if input.index("**", index) == index
-                                                                  r31 = (SyntaxNode).new(input, index...(index + 2))
-                                                                  @index += 2
+                                                                if input.index("****", index) == index
+                                                                  r31 = (SyntaxNode).new(input, index...(index + 4))
+                                                                  @index += 4
                                                                 else
-                                                                  terminal_parse_failure("**")
+                                                                  terminal_parse_failure("****")
                                                                   r31 = nil
                                                                 end
                                                                 if r31
                                                                   r0 = r31
                                                                   r0.extend(Selector0)
                                                                 else
-                                                                  if input.index("*", index) == index
-                                                                    r32 = (SyntaxNode).new(input, index...(index + 1))
-                                                                    @index += 1
+                                                                  if input.index("**", index) == index
+                                                                    r32 = (SyntaxNode).new(input, index...(index + 2))
+                                                                    @index += 2
                                                                   else
-                                                                    terminal_parse_failure("*")
+                                                                    terminal_parse_failure("**")
                                                                     r32 = nil
                                                                   end
                                                                   if r32
                                                                     r0 = r32
                                                                     r0.extend(Selector0)
                                                                   else
-                                                                    self.index = i0
-                                                                    r0 = nil
+                                                                    if input.index("*", index) == index
+                                                                      r33 = (SyntaxNode).new(input, index...(index + 1))
+                                                                      @index += 1
+                                                                    else
+                                                                      terminal_parse_failure("*")
+                                                                      r33 = nil
+                                                                    end
+                                                                    if r33
+                                                                      r0 = r33
+                                                                      r0.extend(Selector0)
+                                                                    else
+                                                                      self.index = i0
+                                                                      r0 = nil
+                                                                    end
                                                                   end
                                                                 end
                                                               end
@@ -3417,12 +3429,7 @@ module ScientificName
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[ ]'), index) == index
-        r1 = (SyntaxNode).new(input, index...(index + 1))
-        @index += 1
-      else
-        r1 = nil
-      end
+      r1 = _nt_space_hard
       if r1
         s0 << r1
       else
@@ -3432,6 +3439,26 @@ module ScientificName
     r0 = SyntaxNode.new(input, i0...index, s0)
 
     node_cache[:space][start_index] = r0
+
+    return r0
+  end
+
+  def _nt_space_hard
+    start_index = index
+    if node_cache[:space_hard].has_key?(index)
+      cached = node_cache[:space_hard][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    if input.index(Regexp.new('[\\s]'), index) == index
+      r0 = (SyntaxNode).new(input, index...(index + 1))
+      @index += 1
+    else
+      r0 = nil
+    end
+
+    node_cache[:space_hard][start_index] = r0
 
     return r0
   end
