@@ -3,7 +3,7 @@ require 'rubygems'
 gem 'biodiversity'
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
-require 'scientific_name'
+require 'biodiversity'
 
 if ARGV.empty?
   puts "Usage:\n\nnnparse file_with_scientific_names\n\n"
@@ -12,13 +12,13 @@ end
 
 
 parser = ScientificNameParser.new
-
+debug = true
 # parse a file with names
-count = 0
+count = count2 = 0
 IO.foreach(ARGV[-1]) do |n|
-  puts 'started' if count2 == 0
+  puts 'started' if count2 == 0 && debug
   count2 += 1
-  puts count2.to_s + "/" + count.to_s if count2 % 10000 == 0
+  puts count2.to_s + "/" + count.to_s if count2 % 10000 == 0 && debug
   n.strip!
   unless parser.parse n
     puts n

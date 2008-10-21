@@ -2,8 +2,8 @@ dir = File.dirname("__FILE__")
 require 'rubygems'
 require 'spec'
 require 'treetop'
-
-Treetop.load(File.expand_path(dir + '../../lib/scientific_name'))
+require 'biodiversity'
+Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name'))
 
 describe ScientificName do
   before(:all) do

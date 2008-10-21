@@ -25,7 +25,6 @@ gemspec = Gem::Specification.new do |s|
   s.bindir = "bin"
   s.executables = ["nnparse"]
   s.require_path = "lib"
-  s.autorequire = "biodiversity"
   s.has_rdoc = false
   s.add_dependency "treetop"
 end
