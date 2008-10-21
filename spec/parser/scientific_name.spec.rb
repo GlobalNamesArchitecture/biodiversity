@@ -207,7 +207,7 @@ describe ScientificName do
     
     parse("Arthopyrenia hyalospora x").should_not be_nil
     value("Arthopyrenia hyalospora X").should == "Arthopyrenia hyalospora \303\227 ?"  
-    canonical("Arthopyrenia hyalospora x").should == "Arthopyrenia hyalospora \303\227 ?"
+    canonical("Arthopyrenia hyalospora x").should == "Arthopyrenia hyalospora"
     details("Arthopyrenia hyalospora x").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>"?"}}  
     parse("Arthopyrenia hyalospora × ?").should_not be_nil
     details("Arthopyrenia hyalospora × ?").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>"?"}}
@@ -239,6 +239,6 @@ describe ScientificName do
   end
   
   it "should not have this problems, but it has them" do
-    parse("Saccharomyces drosophilae anon.").should_not be_nil
+    parse("Saccharomyces drosophilae anon.").should be_nil
   end
 end

@@ -1,7 +1,7 @@
 grammar ScientificName
 
   rule composite_scientific_name
-    a:scientific_name hybrid_separator b:scientific_name {
+    a:scientific_name space hybrid_separator space b:scientific_name space {
       def value
         a.value + " × " + b.value
       end
@@ -19,7 +19,7 @@ grammar ScientificName
       end
       
       def canonical
-        a.canonical + " × ?"
+        a.canonical
       end
       
       def details
@@ -381,7 +381,7 @@ grammar ScientificName
   end
   
   rule species_name
-    space hybrid_separator space  a:cap_latin_word space b:latin_word space {
+    hybrid_separator space_hard  a:cap_latin_word space_hard b:latin_word {
       def value
         "× " + a.value + " " + b.value
       end
@@ -393,7 +393,7 @@ grammar ScientificName
       end
     }
     /
-    space hybrid_separator space  a:cap_latin_word space {
+    hybrid_separator space_hard  a:cap_latin_word {
       def value
         "× " + a.value
       end
@@ -405,7 +405,7 @@ grammar ScientificName
       end
     }
     /
-    space a:cap_latin_word space hybrid_separator space b:latin_word space {
+    a:cap_latin_word space_hard hybrid_separator space_hard b:latin_word {
       def value
         a.value + " × " + b.value
       end
@@ -417,7 +417,7 @@ grammar ScientificName
       end
     }
     /
-    space a:cap_latin_word space b:subgenus space c:latin_word space {
+    a:cap_latin_word space_hard b:subgenus space_hard c:latin_word {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -429,7 +429,7 @@ grammar ScientificName
       end
     } 
     /
-    space a:cap_latin_word space b:latin_word space {
+    a:cap_latin_word space_hard b:latin_word {
       def value
         a.value + " " + b.value 
       end
@@ -455,7 +455,7 @@ grammar ScientificName
   end
 
   rule latin_word
-    space [a-zë] [a-z\-ëüäöï]+ space {
+    [a-zë] [a-z\-ëüäöï]+ {
       def value 
         text_value.strip
       end
@@ -463,7 +463,7 @@ grammar ScientificName
   end
   
   rule cap_latin_word
-    space [A-Z] [a-zë] [a-z\-ëüäöï]+ space {
+    [A-Z] [a-zë] [a-z\-ëüäöï]+ {
       def value
         text_value.strip
       end
@@ -498,10 +498,10 @@ grammar ScientificName
   end
     
   rule space
-    space_hard*
+    [\s]*
   end
 
   rule space_hard
-    [\s]
+    [\s]+
   end
 end

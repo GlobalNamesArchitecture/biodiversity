@@ -10,12 +10,24 @@ module ScientificName
       elements[0]
     end
 
-    def hybrid_separator
+    def space
       elements[1]
     end
 
-    def b
+    def hybrid_separator
       elements[2]
+    end
+
+    def space
+      elements[3]
+    end
+
+    def b
+      elements[4]
+    end
+
+    def space
+      elements[5]
     end
   end
 
@@ -56,7 +68,7 @@ module ScientificName
     end
     
     def canonical
-      a.canonical + " × ?"
+      a.canonical
     end
     
     def details
@@ -77,11 +89,23 @@ module ScientificName
     r2 = _nt_scientific_name
     s1 << r2
     if r2
-      r3 = _nt_hybrid_separator
+      r3 = _nt_space
       s1 << r3
       if r3
-        r4 = _nt_scientific_name
+        r4 = _nt_hybrid_separator
         s1 << r4
+        if r4
+          r5 = _nt_space
+          s1 << r5
+          if r5
+            r6 = _nt_scientific_name
+            s1 << r6
+            if r6
+              r7 = _nt_space
+              s1 << r7
+            end
+          end
+        end
       end
     end
     if s1.last
@@ -95,49 +119,49 @@ module ScientificName
     if r1
       r0 = r1
     else
-      i5, s5 = index, []
-      r6 = _nt_scientific_name
-      s5 << r6
-      if r6
-        r7 = _nt_space
-        s5 << r7
-        if r7
-          r8 = _nt_hybrid_separator
-          s5 << r8
-          if r8
-            r9 = _nt_space
-            s5 << r9
-            if r9
+      i8, s8 = index, []
+      r9 = _nt_scientific_name
+      s8 << r9
+      if r9
+        r10 = _nt_space
+        s8 << r10
+        if r10
+          r11 = _nt_hybrid_separator
+          s8 << r11
+          if r11
+            r12 = _nt_space
+            s8 << r12
+            if r12
               if input.index(Regexp.new('[\\?]'), index) == index
-                r11 = (SyntaxNode).new(input, index...(index + 1))
+                r14 = (SyntaxNode).new(input, index...(index + 1))
                 @index += 1
               else
-                r11 = nil
+                r14 = nil
               end
-              if r11
-                r10 = r11
+              if r14
+                r13 = r14
               else
-                r10 = SyntaxNode.new(input, index...index)
+                r13 = SyntaxNode.new(input, index...index)
               end
-              s5 << r10
+              s8 << r13
             end
           end
         end
       end
-      if s5.last
-        r5 = (SyntaxNode).new(input, i5...index, s5)
-        r5.extend(CompositeScientificName2)
-        r5.extend(CompositeScientificName3)
+      if s8.last
+        r8 = (SyntaxNode).new(input, i8...index, s8)
+        r8.extend(CompositeScientificName2)
+        r8.extend(CompositeScientificName3)
       else
-        self.index = i5
-        r5 = nil
+        self.index = i8
+        r8 = nil
       end
-      if r5
-        r0 = r5
+      if r8
+        r0 = r8
       else
-        r12 = _nt_scientific_name
-        if r12
-          r0 = r12
+        r15 = _nt_scientific_name
+        if r15
+          r0 = r15
         else
           self.index = i0
           r0 = nil
@@ -2678,32 +2702,24 @@ module ScientificName
   end
 
   module SpeciesName0
-    def space
+    def hybrid_separator
       elements[0]
     end
 
-    def hybrid_separator
+    def space_hard
       elements[1]
     end
 
-    def space
+    def a
       elements[2]
     end
 
-    def a
+    def space_hard
       elements[3]
     end
 
-    def space
-      elements[4]
-    end
-
     def b
-      elements[5]
-    end
-
-    def space
-      elements[6]
+      elements[4]
     end
   end
 
@@ -2720,24 +2736,16 @@ module ScientificName
   end
 
   module SpeciesName2
-    def space
+    def hybrid_separator
       elements[0]
     end
 
-    def hybrid_separator
+    def space_hard
       elements[1]
     end
 
-    def space
-      elements[2]
-    end
-
     def a
-      elements[3]
-    end
-
-    def space
-      elements[4]
+      elements[2]
     end
   end
 
@@ -2754,32 +2762,24 @@ module ScientificName
   end
 
   module SpeciesName4
-    def space
+    def a
       elements[0]
     end
 
-    def a
+    def space_hard
       elements[1]
     end
 
-    def space
+    def hybrid_separator
       elements[2]
     end
 
-    def hybrid_separator
+    def space_hard
       elements[3]
     end
 
-    def space
-      elements[4]
-    end
-
     def b
-      elements[5]
-    end
-
-    def space
-      elements[6]
+      elements[4]
     end
   end
 
@@ -2796,32 +2796,24 @@ module ScientificName
   end
 
   module SpeciesName6
-    def space
+    def a
       elements[0]
     end
 
-    def a
+    def space_hard
       elements[1]
     end
 
-    def space
+    def b
       elements[2]
     end
 
-    def b
+    def space_hard
       elements[3]
     end
 
-    def space
-      elements[4]
-    end
-
     def c
-      elements[5]
-    end
-
-    def space
-      elements[6]
+      elements[4]
     end
   end
 
@@ -2838,24 +2830,16 @@ module ScientificName
   end
 
   module SpeciesName8
-    def space
+    def a
       elements[0]
     end
 
-    def a
+    def space_hard
       elements[1]
     end
 
-    def space
-      elements[2]
-    end
-
     def b
-      elements[3]
-    end
-
-    def space
-      elements[4]
+      elements[2]
     end
   end
 
@@ -2882,28 +2866,20 @@ module ScientificName
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_space
+    r2 = _nt_hybrid_separator
     s1 << r2
     if r2
-      r3 = _nt_hybrid_separator
+      r3 = _nt_space_hard
       s1 << r3
       if r3
-        r4 = _nt_space
+        r4 = _nt_cap_latin_word
         s1 << r4
         if r4
-          r5 = _nt_cap_latin_word
+          r5 = _nt_space_hard
           s1 << r5
           if r5
-            r6 = _nt_space
+            r6 = _nt_latin_word
             s1 << r6
-            if r6
-              r7 = _nt_latin_word
-              s1 << r7
-              if r7
-                r8 = _nt_space
-                s1 << r8
-              end
-            end
           end
         end
       end
@@ -2919,141 +2895,109 @@ module ScientificName
     if r1
       r0 = r1
     else
-      i9, s9 = index, []
-      r10 = _nt_space
-      s9 << r10
-      if r10
-        r11 = _nt_hybrid_separator
-        s9 << r11
+      i7, s7 = index, []
+      r8 = _nt_hybrid_separator
+      s7 << r8
+      if r8
+        r9 = _nt_space_hard
+        s7 << r9
+        if r9
+          r10 = _nt_cap_latin_word
+          s7 << r10
+        end
+      end
+      if s7.last
+        r7 = (SyntaxNode).new(input, i7...index, s7)
+        r7.extend(SpeciesName2)
+        r7.extend(SpeciesName3)
+      else
+        self.index = i7
+        r7 = nil
+      end
+      if r7
+        r0 = r7
+      else
+        i11, s11 = index, []
+        r12 = _nt_cap_latin_word
+        s11 << r12
+        if r12
+          r13 = _nt_space_hard
+          s11 << r13
+          if r13
+            r14 = _nt_hybrid_separator
+            s11 << r14
+            if r14
+              r15 = _nt_space_hard
+              s11 << r15
+              if r15
+                r16 = _nt_latin_word
+                s11 << r16
+              end
+            end
+          end
+        end
+        if s11.last
+          r11 = (SyntaxNode).new(input, i11...index, s11)
+          r11.extend(SpeciesName4)
+          r11.extend(SpeciesName5)
+        else
+          self.index = i11
+          r11 = nil
+        end
         if r11
-          r12 = _nt_space
-          s9 << r12
-          if r12
-            r13 = _nt_cap_latin_word
-            s9 << r13
-            if r13
-              r14 = _nt_space
-              s9 << r14
+          r0 = r11
+        else
+          i17, s17 = index, []
+          r18 = _nt_cap_latin_word
+          s17 << r18
+          if r18
+            r19 = _nt_space_hard
+            s17 << r19
+            if r19
+              r20 = _nt_subgenus
+              s17 << r20
+              if r20
+                r21 = _nt_space_hard
+                s17 << r21
+                if r21
+                  r22 = _nt_latin_word
+                  s17 << r22
+                end
+              end
             end
           end
-        end
-      end
-      if s9.last
-        r9 = (SyntaxNode).new(input, i9...index, s9)
-        r9.extend(SpeciesName2)
-        r9.extend(SpeciesName3)
-      else
-        self.index = i9
-        r9 = nil
-      end
-      if r9
-        r0 = r9
-      else
-        i15, s15 = index, []
-        r16 = _nt_space
-        s15 << r16
-        if r16
-          r17 = _nt_cap_latin_word
-          s15 << r17
+          if s17.last
+            r17 = (SyntaxNode).new(input, i17...index, s17)
+            r17.extend(SpeciesName6)
+            r17.extend(SpeciesName7)
+          else
+            self.index = i17
+            r17 = nil
+          end
           if r17
-            r18 = _nt_space
-            s15 << r18
-            if r18
-              r19 = _nt_hybrid_separator
-              s15 << r19
-              if r19
-                r20 = _nt_space
-                s15 << r20
-                if r20
-                  r21 = _nt_latin_word
-                  s15 << r21
-                  if r21
-                    r22 = _nt_space
-                    s15 << r22
-                  end
-                end
-              end
-            end
-          end
-        end
-        if s15.last
-          r15 = (SyntaxNode).new(input, i15...index, s15)
-          r15.extend(SpeciesName4)
-          r15.extend(SpeciesName5)
-        else
-          self.index = i15
-          r15 = nil
-        end
-        if r15
-          r0 = r15
-        else
-          i23, s23 = index, []
-          r24 = _nt_space
-          s23 << r24
-          if r24
-            r25 = _nt_cap_latin_word
-            s23 << r25
-            if r25
-              r26 = _nt_space
-              s23 << r26
-              if r26
-                r27 = _nt_subgenus
-                s23 << r27
-                if r27
-                  r28 = _nt_space
-                  s23 << r28
-                  if r28
-                    r29 = _nt_latin_word
-                    s23 << r29
-                    if r29
-                      r30 = _nt_space
-                      s23 << r30
-                    end
-                  end
-                end
-              end
-            end
-          end
-          if s23.last
-            r23 = (SyntaxNode).new(input, i23...index, s23)
-            r23.extend(SpeciesName6)
-            r23.extend(SpeciesName7)
+            r0 = r17
           else
-            self.index = i23
-            r23 = nil
-          end
-          if r23
-            r0 = r23
-          else
-            i31, s31 = index, []
-            r32 = _nt_space
-            s31 << r32
-            if r32
-              r33 = _nt_cap_latin_word
-              s31 << r33
-              if r33
-                r34 = _nt_space
-                s31 << r34
-                if r34
-                  r35 = _nt_latin_word
-                  s31 << r35
-                  if r35
-                    r36 = _nt_space
-                    s31 << r36
-                  end
-                end
+            i23, s23 = index, []
+            r24 = _nt_cap_latin_word
+            s23 << r24
+            if r24
+              r25 = _nt_space_hard
+              s23 << r25
+              if r25
+                r26 = _nt_latin_word
+                s23 << r26
               end
             end
-            if s31.last
-              r31 = (SyntaxNode).new(input, i31...index, s31)
-              r31.extend(SpeciesName8)
-              r31.extend(SpeciesName9)
+            if s23.last
+              r23 = (SyntaxNode).new(input, i23...index, s23)
+              r23.extend(SpeciesName8)
+              r23.extend(SpeciesName9)
             else
-              self.index = i31
-              r31 = nil
+              self.index = i23
+              r23 = nil
             end
-            if r31
-              r0 = r31
+            if r23
+              r0 = r23
             else
               self.index = i0
               r0 = nil
@@ -3146,13 +3090,6 @@ module ScientificName
   end
 
   module LatinWord0
-    def space
-      elements[0]
-    end
-
-    def space
-      elements[3]
-    end
   end
 
   module LatinWord1
@@ -3170,7 +3107,82 @@ module ScientificName
     end
 
     i0, s0 = index, []
-    r1 = _nt_space
+    if input.index(Regexp.new('[a-zë]'), index) == index
+      r1 = (SyntaxNode).new(input, index...(index + 1))
+      @index += 1
+    else
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      s2, i2 = [], index
+      loop do
+        if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
+          r3 = (SyntaxNode).new(input, index...(index + 1))
+          @index += 1
+        else
+          r3 = nil
+        end
+        if r3
+          s2 << r3
+        else
+          break
+        end
+      end
+      if s2.empty?
+        self.index = i2
+        r2 = nil
+      else
+        r2 = SyntaxNode.new(input, i2...index, s2)
+      end
+      s0 << r2
+    end
+    if s0.last
+      r0 = (SyntaxNode).new(input, i0...index, s0)
+      r0.extend(LatinWord0)
+      r0.extend(LatinWord1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:latin_word][start_index] = r0
+
+    return r0
+  end
+
+  module CapLatinWord0
+  end
+
+  module CapLatinWord1
+    def value
+      text_value.strip
+    end
+    
+    def canonical 
+      text_value.strip
+    end
+    
+    def details 
+      {:name_type => "Uninomial", :uninomial => value}
+    end
+  end
+
+  def _nt_cap_latin_word
+    start_index = index
+    if node_cache[:cap_latin_word].has_key?(index)
+      cached = node_cache[:cap_latin_word][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    if input.index(Regexp.new('[A-Z]'), index) == index
+      r1 = (SyntaxNode).new(input, index...(index + 1))
+      @index += 1
+    else
+      r1 = nil
+    end
     s0 << r1
     if r1
       if input.index(Regexp.new('[a-zë]'), index) == index
@@ -3202,104 +3214,6 @@ module ScientificName
           r3 = SyntaxNode.new(input, i3...index, s3)
         end
         s0 << r3
-        if r3
-          r5 = _nt_space
-          s0 << r5
-        end
-      end
-    end
-    if s0.last
-      r0 = (SyntaxNode).new(input, i0...index, s0)
-      r0.extend(LatinWord0)
-      r0.extend(LatinWord1)
-    else
-      self.index = i0
-      r0 = nil
-    end
-
-    node_cache[:latin_word][start_index] = r0
-
-    return r0
-  end
-
-  module CapLatinWord0
-    def space
-      elements[0]
-    end
-
-    def space
-      elements[4]
-    end
-  end
-
-  module CapLatinWord1
-    def value
-      text_value.strip
-    end
-    
-    def canonical 
-      text_value.strip
-    end
-    
-    def details 
-      {:name_type => "Uninomial", :uninomial => value}
-    end
-  end
-
-  def _nt_cap_latin_word
-    start_index = index
-    if node_cache[:cap_latin_word].has_key?(index)
-      cached = node_cache[:cap_latin_word][index]
-      @index = cached.interval.end if cached
-      return cached
-    end
-
-    i0, s0 = index, []
-    r1 = _nt_space
-    s0 << r1
-    if r1
-      if input.index(Regexp.new('[A-Z]'), index) == index
-        r2 = (SyntaxNode).new(input, index...(index + 1))
-        @index += 1
-      else
-        r2 = nil
-      end
-      s0 << r2
-      if r2
-        if input.index(Regexp.new('[a-zë]'), index) == index
-          r3 = (SyntaxNode).new(input, index...(index + 1))
-          @index += 1
-        else
-          r3 = nil
-        end
-        s0 << r3
-        if r3
-          s4, i4 = [], index
-          loop do
-            if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
-              r5 = (SyntaxNode).new(input, index...(index + 1))
-              @index += 1
-            else
-              r5 = nil
-            end
-            if r5
-              s4 << r5
-            else
-              break
-            end
-          end
-          if s4.empty?
-            self.index = i4
-            r4 = nil
-          else
-            r4 = SyntaxNode.new(input, i4...index, s4)
-          end
-          s0 << r4
-          if r4
-            r6 = _nt_space
-            s0 << r6
-          end
-        end
       end
     end
     if s0.last
@@ -3429,7 +3343,12 @@ module ScientificName
 
     s0, i0 = [], index
     loop do
-      r1 = _nt_space_hard
+      if input.index(Regexp.new('[\\s]'), index) == index
+        r1 = (SyntaxNode).new(input, index...(index + 1))
+        @index += 1
+      else
+        r1 = nil
+      end
       if r1
         s0 << r1
       else
@@ -3451,11 +3370,25 @@ module ScientificName
       return cached
     end
 
-    if input.index(Regexp.new('[\\s]'), index) == index
-      r0 = (SyntaxNode).new(input, index...(index + 1))
-      @index += 1
-    else
+    s0, i0 = [], index
+    loop do
+      if input.index(Regexp.new('[\\s]'), index) == index
+        r1 = (SyntaxNode).new(input, index...(index + 1))
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      self.index = i0
       r0 = nil
+    else
+      r0 = SyntaxNode.new(input, i0...index, s0)
     end
 
     node_cache[:space_hard][start_index] = r0
