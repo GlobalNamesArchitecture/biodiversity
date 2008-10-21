@@ -106,6 +106,7 @@ describe ScientificName do
     #   Phthora vastatrix d?Hérelle 1909
     #   author is exception
     parse("Tuber liui A S. Xu 1999").should_not be_nil
+    parse("Agaricus squamula Berk. & M.A. Curtis 1860").should_not be_nil
   end
   
   

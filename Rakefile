@@ -9,6 +9,11 @@ require 'rake/gempackagetask'
 
 task :default => :spec
 
+
+task :tt do
+  system("tt #{dir}/lib/biodiversity/parser/scientific_name.treetop")
+end
+
 Spec::Rake::SpecTask.new do |t|
   t.pattern = 'spec/**/*spec.rb'
 end
@@ -32,3 +37,4 @@ end
 Rake::GemPackageTask.new(gemspec) do |pkg|
   pkg.need_tar = true
 end
+
