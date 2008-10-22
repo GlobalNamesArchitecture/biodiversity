@@ -11,11 +11,11 @@ To install gem you need RubyGems >= 1.2.0
 
 == Example usage
 
-* You can parse file with species names from command line. File should contain one scientific name per line
+You can parse file with species names from command line. File should contain one scientific name per line
 
   nnparser file_with_names
   
-* You can use it as a library
+You can use it as a library
 
   require 'biodiversity'
   

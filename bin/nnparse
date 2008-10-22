@@ -4,25 +4,45 @@ gem 'dimus-biodiversity'
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
+require 'yaml'
 
 if ARGV.empty?
-  puts "Usage:\n\nnnparse file_with_scientific_names\n\n"
+  puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.yml\n\n"
   exit
 end
 
 
 parser = ScientificNameParser.new
-debug = true
+
+output = ARGV[1] || 'parsed.yml'
+o = File.open(output,'w')
+
 # parse a file with names
 count = count2 = 0
-IO.foreach(ARGV[-1]) do |n|
-  puts 'started' if count2 == 0 && debug
+names = []
+IO.foreach(ARGV[0]) do |n|
+  name_dict = {}
+  puts 'Parsing names' if count2 == 0
   count2 += 1
-  puts count2.to_s + "/" + count.to_s if count2 % 10000 == 0 && debug
+  p count2  if count2 % 5000 == 0
   n.strip!
-  unless parser.parse n
-    puts n
+  name_dict = {:input => n} 
+  parsed = parser.parse n
+  unless parsed
+    name_dict[:details] = {:parsed => false}
+    names << name_dict
     count += 1
-  end    
+  else
+    name_dict[:output] = parsed.value
+    name_dict[:caononical] = parsed.canonical
+    name_dict[:details] = parsed.details
+    name_dict[:parsed => true]
+    names << name_dict
+  end
 end
-puts count.to_s
+$KCODE = 'UTF8'
+puts "Converting results to YAML"
+results = YAML.dump(names)
+puts "Writing restuls to #{output} file"
+o.write(results)
+puts "Found #{count2} records, #{count} of them could not be parsed."
