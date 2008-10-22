@@ -285,7 +285,7 @@ grammar ScientificName
       end
     }
     /
-    space a:species_name space b:latin_word {
+    space a:species_name space b:latin_word &[^\.] {
       def value
         a.value + " " + b.value
       end

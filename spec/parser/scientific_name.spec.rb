@@ -108,8 +108,9 @@ describe ScientificName do
     parse("Tuber liui A S. Xu 1999").should_not be_nil
     parse("Agaricus squamula Berk. & M.A. Curtis 1860").should_not be_nil
     parse("Peltula coriacea Büdel, Henssen & Wessels 1986").should_not be_nil
+    #had to add no dot rule for trinomials without a rank to make it to work
+    parse("Saccharomyces drosophilae anon.").should_not be_nil
   end
-  
   
   it 'should parse several authors with several years' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").should_not be_nil
@@ -131,7 +132,6 @@ describe ScientificName do
   end
   
   it "should parse name with f." do
-    
     parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
     value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
     canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
@@ -238,7 +238,4 @@ describe ScientificName do
 
   end
   
-  it "should not have this problems, but it has them" do
-    parse("Saccharomyces drosophilae anon.").should be_nil
-  end
 end

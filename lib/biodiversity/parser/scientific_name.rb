@@ -1833,6 +1833,7 @@ module ScientificName
     def b
       elements[3]
     end
+
   end
 
   module NamePart5
@@ -1930,6 +1931,22 @@ module ScientificName
             if r16
               r17 = _nt_latin_word
               s13 << r17
+              if r17
+                i18 = index
+                if input.index(Regexp.new('[^\\.]'), index) == index
+                  r19 = (SyntaxNode).new(input, index...(index + 1))
+                  @index += 1
+                else
+                  r19 = nil
+                end
+                if r19
+                  self.index = i18
+                  r18 = SyntaxNode.new(input, index...index)
+                else
+                  r18 = nil
+                end
+                s13 << r18
+              end
             end
           end
         end
@@ -1944,13 +1961,13 @@ module ScientificName
         if r13
           r0 = r13
         else
-          r18 = _nt_species_name
-          if r18
-            r0 = r18
+          r20 = _nt_species_name
+          if r20
+            r0 = r20
           else
-            r19 = _nt_cap_latin_word
-            if r19
-              r0 = r19
+            r21 = _nt_cap_latin_word
+            if r21
+              r0 = r21
             else
               self.index = i0
               r0 = nil
