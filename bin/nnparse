@@ -34,6 +34,7 @@ IO.foreach(ARGV[0]) do |n|
   unless parsed
     name_dict[:details] = {:parsed => false}
     last_result = JSON.generate name_dict
+    puts n
     count += 1
   else
     name_dict[:output] = parsed.value

@@ -31,7 +31,7 @@ grammar ScientificName
   end
   
   rule scientific_name
-    name_authors_part
+    name_part_authors_mix
     /
     space a:name_part space b:authors_part space c:status_part space {
       def value
@@ -100,7 +100,19 @@ grammar ScientificName
     latin_word
   end
   
-  rule name_authors_part 
+  rule name_part_authors_mix
+    a:species_name space b:authors_part space c:subspecies_name space d:authors_part {
+      def value
+        a.value + " " + b.value + " " + c.value + " " + d.value
+      end
+      def canonical
+        a.canonical + " " + c.canonical
+      end
+      def details
+        a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details})
+      end
+    }
+    /
     a:species_name space b:authors_part space c:subspecies_name {
       def value 
         a.value + " " + b.value + " " + c.value

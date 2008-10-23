@@ -53,7 +53,8 @@ describe ScientificName do
   it 'should parse species autonym for complex subspecies authorships' do
     parse("Aus bus Linn. var. bus").should_not be_nil
     details("Aus bus Linn. var. bus").should == {:species=>"bus", :species_authors=>{:authors=>{:names=>["Linn."]}}, :genus=>"Aus", :subspecies=>[{:rank=>"var.", :value=>"bus"}]}
-    # aus genus, bus species, Linn. author, var. rank, bus infraspecific epithet 
+    parse("Agalinis purpurea (L.) Briton var. borealis (Berg.) Peterson 1987").should_not be_nil
+    details("Agalinis purpurea (L.) Briton var. borealis (Berg.) Peterson 1987").should == {:species=>"purpurea", :genus=>"Agalinis", :species_authors=>{:orig_authors=>{:names=>["L."]}, :authors=>{:names=>["Briton"]}}, :subspecies_authors=>{:orig_authors=>{:names=>["Berg."]}, :authors=>{:year=>"1987", :names=>["Peterson"]}}, :subspecies=>[{:value=>"borealis", :rank=>"var."}]}
   end
   
   it 'should parse several authors' do

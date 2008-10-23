@@ -295,7 +295,7 @@ module ScientificName
     end
 
     i0 = index
-    r1 = _nt_name_authors_part
+    r1 = _nt_name_part_authors_mix
     if r1
       r0 = r1
     else
@@ -544,7 +544,49 @@ module ScientificName
     return r0
   end
 
-  module NameAuthorsPart0
+  module NamePartAuthorsMix0
+    def a
+      elements[0]
+    end
+
+    def space
+      elements[1]
+    end
+
+    def b
+      elements[2]
+    end
+
+    def space
+      elements[3]
+    end
+
+    def c
+      elements[4]
+    end
+
+    def space
+      elements[5]
+    end
+
+    def d
+      elements[6]
+    end
+  end
+
+  module NamePartAuthorsMix1
+    def value
+      a.value + " " + b.value + " " + c.value + " " + d.value
+    end
+    def canonical
+      a.canonical + " " + c.canonical
+    end
+    def details
+      a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details})
+    end
+  end
+
+  module NamePartAuthorsMix2
     def a
       elements[0]
     end
@@ -566,7 +608,7 @@ module ScientificName
     end
   end
 
-  module NameAuthorsPart1
+  module NamePartAuthorsMix3
     def value 
       a.value + " " + b.value + " " + c.value
     end
@@ -578,43 +620,89 @@ module ScientificName
     end
   end
 
-  def _nt_name_authors_part
+  def _nt_name_part_authors_mix
     start_index = index
-    if node_cache[:name_authors_part].has_key?(index)
-      cached = node_cache[:name_authors_part][index]
+    if node_cache[:name_part_authors_mix].has_key?(index)
+      cached = node_cache[:name_part_authors_mix][index]
       @index = cached.interval.end if cached
       return cached
     end
 
-    i0, s0 = index, []
-    r1 = _nt_species_name
-    s0 << r1
-    if r1
-      r2 = _nt_space
-      s0 << r2
-      if r2
-        r3 = _nt_authors_part
-        s0 << r3
-        if r3
-          r4 = _nt_space
-          s0 << r4
-          if r4
-            r5 = _nt_subspecies_name
-            s0 << r5
+    i0 = index
+    i1, s1 = index, []
+    r2 = _nt_species_name
+    s1 << r2
+    if r2
+      r3 = _nt_space
+      s1 << r3
+      if r3
+        r4 = _nt_authors_part
+        s1 << r4
+        if r4
+          r5 = _nt_space
+          s1 << r5
+          if r5
+            r6 = _nt_subspecies_name
+            s1 << r6
+            if r6
+              r7 = _nt_space
+              s1 << r7
+              if r7
+                r8 = _nt_authors_part
+                s1 << r8
+              end
+            end
           end
         end
       end
     end
-    if s0.last
-      r0 = (SyntaxNode).new(input, i0...index, s0)
-      r0.extend(NameAuthorsPart0)
-      r0.extend(NameAuthorsPart1)
+    if s1.last
+      r1 = (SyntaxNode).new(input, i1...index, s1)
+      r1.extend(NamePartAuthorsMix0)
+      r1.extend(NamePartAuthorsMix1)
     else
-      self.index = i0
-      r0 = nil
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      i9, s9 = index, []
+      r10 = _nt_species_name
+      s9 << r10
+      if r10
+        r11 = _nt_space
+        s9 << r11
+        if r11
+          r12 = _nt_authors_part
+          s9 << r12
+          if r12
+            r13 = _nt_space
+            s9 << r13
+            if r13
+              r14 = _nt_subspecies_name
+              s9 << r14
+            end
+          end
+        end
+      end
+      if s9.last
+        r9 = (SyntaxNode).new(input, i9...index, s9)
+        r9.extend(NamePartAuthorsMix2)
+        r9.extend(NamePartAuthorsMix3)
+      else
+        self.index = i9
+        r9 = nil
+      end
+      if r9
+        r0 = r9
+      else
+        self.index = i0
+        r0 = nil
+      end
     end
 
-    node_cache[:name_authors_part][start_index] = r0
+    node_cache[:name_part_authors_mix][start_index] = r0
 
     return r0
   end
