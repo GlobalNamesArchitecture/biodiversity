@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version = '0.0.7'
   s.date = '2008-10-21'
   
-  s.summary = "scientific species name parser"
+  s.summary = "scientific species name parser\n\nExecutable is nnparse"
   s.description = "Biodiversity library provides a parser tool for scientific species names"
   
   s.authors = ['Dmitry Mozzherin']
