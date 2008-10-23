@@ -31,6 +31,8 @@ grammar ScientificName
   end
   
   rule scientific_name
+    name_authors_part
+    /
     space a:name_part space b:authors_part space c:status_part space {
       def value
         a.value + " " + b.value + " " + c.value
@@ -96,6 +98,20 @@ grammar ScientificName
     }
     /
     latin_word
+  end
+  
+  rule name_authors_part 
+    a:species_name space b:authors_part space c:subspecies_name {
+      def value 
+        a.value + " " + b.value + " " + c.value
+      end
+      def canonical
+        a.canonical + " " + c.canonical
+      end
+      def details
+        a.details.merge(c.details).merge({:species_authors=>b.details})
+      end
+    }
   end
   
   rule authors_part
@@ -214,7 +230,9 @@ grammar ScientificName
   rule author_name_separator
     ("&"/",") {
       def apply(a,b)
-        a.value + " " + text_value + " " + b.value
+        sep = text_value.strip
+        sep = " " + sep if sep == "&"
+        a.value + sep + " " + b.value
       end
 
       def details(a,b)
@@ -260,7 +278,7 @@ grammar ScientificName
   end
   
   rule name_part
-    space a:species_name space b:selector space_hard c:editorials_full {
+    space a:species_name space b:rank space_hard c:editorials_full {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -295,7 +313,7 @@ grammar ScientificName
       end
       
       def details
-        a.details.merge({:subspecies => {:type => "n/a", :value =>b.value}})
+        a.details.merge({:subspecies => {:rank => "n/a", :value =>b.value}})
       end
     }
     /
@@ -324,7 +342,7 @@ grammar ScientificName
   end
   
   rule subspecies_name
-    sel:selector space_hard a:latin_word {
+    sel:rank space_hard a:latin_word {
       def value 
         sel.apply(a)
       end
@@ -352,16 +370,16 @@ grammar ScientificName
   end
   
   rule editorials
-    space a:selector space [&]? space b:editorials {
+    space a:rank space [&]? space b:editorials {
       def value
         a.value + b.value
       end 
     }
     /
-    selector
+    rank
   end
   
-  rule selector
+  rule rank
     ("f.sp."/"f."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
@@ -375,13 +393,13 @@ grammar ScientificName
         " " + a.value
       end
       def details(a = nil)
-        {:subspecies => [{:type => text_value, :value => (a.value rescue nil)}]}
+        {:subspecies => [{:rank => text_value, :value => (a.value rescue nil)}]}
       end
     }
   end
   
   rule species_name
-    hybrid_separator space_hard  a:cap_latin_word space_hard b:latin_word {
+    hybrid_separator space_hard a:cap_latin_word space_hard b:latin_word {
       def value
         "× " + a.value + " " + b.value
       end
@@ -393,7 +411,7 @@ grammar ScientificName
       end
     }
     /
-    hybrid_separator space_hard  a:cap_latin_word {
+    hybrid_separator space_hard a:cap_latin_word {
       def value
         "× " + a.value
       end
@@ -417,7 +435,7 @@ grammar ScientificName
       end
     }
     /
-    a:cap_latin_word space_hard b:subgenus space_hard c:latin_word {
+    a:cap_latin_word space b:subgenus space c:latin_word {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -473,7 +491,7 @@ grammar ScientificName
       end
       
       def details 
-        {:name_type => "Uninomial", :uninomial => value}
+        {:uninomial => value}
       end
     }
   end

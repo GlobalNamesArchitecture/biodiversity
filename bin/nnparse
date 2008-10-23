@@ -1,26 +1,29 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-gem 'dimus-biodiversity'
+gem 'dimus-biodiversity' rescue gem 'biodiversity'
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
-require 'yaml'
+require 'json/ext'
 
 if ARGV.empty?
-  puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.yml\n\n"
+  puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.json\n\n"
   exit
 end
 
 
 parser = ScientificNameParser.new
 
-output = ARGV[1] || 'parsed.yml'
+output = ARGV[1] || 'parsed.json'
 o = File.open(output,'w')
 
 # parse a file with names
 count = count2 = 0
 names = []
+last_result = nil
+o.write("[\n")
 IO.foreach(ARGV[0]) do |n|
+  o.write(last_result + ",\n") if last_result
   name_dict = {}
   puts 'Parsing names' if count2 == 0
   count2 += 1
@@ -30,19 +33,16 @@ IO.foreach(ARGV[0]) do |n|
   parsed = parser.parse n
   unless parsed
     name_dict[:details] = {:parsed => false}
-    names << name_dict
+    last_result = JSON.generate name_dict
     count += 1
   else
     name_dict[:output] = parsed.value
-    name_dict[:caononical] = parsed.canonical
+    name_dict[:canononical] = parsed.canonical
     name_dict[:details] = parsed.details
     name_dict[:parsed => true]
-    names << name_dict
+    last_result =  JSON.generate name_dict
   end
 end
-$KCODE = 'UTF8'
-puts "Converting results to YAML"
-results = YAML.dump(names)
-puts "Writing restuls to #{output} file"
-o.write(results)
+o.write(last_result + "\n") if last_result
+o.write("]")
 puts "Found #{count2} records, #{count} of them could not be parsed."

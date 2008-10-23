@@ -31,7 +31,7 @@ describe ScientificName do
     parse(sn).should_not be_nil
     value(sn).should == 'Pseudocercospora'
     canonical(sn).should == 'Pseudocercospora'
-    details(sn).should == {:uninomial=>"Pseudocercospora", :name_type=>"Uninomial"}
+    details(sn).should == {:uninomial=>"Pseudocercospora"}
   end
   
   it 'should parse canonical' do
@@ -51,7 +51,8 @@ describe ScientificName do
   end
   
   it 'should parse species autonym for complex subspecies authorships' do
-    #parse("Aus bus Linn. var. bus").should_not be_nil
+    parse("Aus bus Linn. var. bus").should_not be_nil
+    details("Aus bus Linn. var. bus").should == {:species=>"bus", :species_authors=>{:authors=>{:names=>["Linn."]}}, :genus=>"Aus", :subspecies=>[{:rank=>"var.", :value=>"bus"}]}
     # aus genus, bus species, Linn. author, var. rank, bus infraspecific epithet 
   end
   
@@ -91,6 +92,7 @@ describe ScientificName do
     
     parse("Cladoniicola staurospora Diederich, van den Boom & Aptroot 2001").should_not be_nil
     parse("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should_not be_nil
+    value("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981"
     parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
     parse("Pleurotus ëous (Berk.) Sacc. 1887").should_not be_nil
     parse("Lecanora wetmorei Śliwa 2004").should_not be_nil
@@ -135,7 +137,7 @@ describe ScientificName do
     parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
     value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
     canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
-    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should ==  {:subspecies=>[{:type=>"f.", :value=>"dahliae"}], :authors=>{:year=>"1967", :names=>["Movss."]}, :species=>"fuliginea", :genus=>"Sphaerotheca"}
+    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should ==  {:subspecies=>[{:rank=>"f.", :value=>"dahliae"}], :authors=>{:year=>"1967", :names=>["Movss."]}, :species=>"fuliginea", :genus=>"Sphaerotheca"}
   end
   
   it "should parse name with var." do
@@ -147,7 +149,7 @@ describe ScientificName do
   it "should parse name with several subspecies names NOT BOTANICAL CODE BUT NOT INFREQUENT" do
     parse("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should_not be_nil
     value("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
-    details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>[{:type=>"var.", :value=>"zonatum"}, {:type=>"f.", :value=>"parvum"}], :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum", :is_valid=>false}  
+    details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>[{:rank=>"var.", :value=>"zonatum"}, {:rank=>"f.", :value=>"parvum"}], :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum", :is_valid=>false}  
   end
   
   it "should parse status BOTANICAL RARE" do
@@ -215,12 +217,12 @@ describe ScientificName do
 
   
 
-  it "should parse name with subspecies without rank selector NOT BOTANICAL" do
+  it "should parse name with subspecies without rank NOT BOTANICAL" do
     name = "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     parse(name).should_not be_nil
     value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     canonical(name).should == "Hydnellum scrobiculatum zonatum"
-    details(name).should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>{:type=>"n/a", :value=>"zonatum"}, :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum"}
+    details(name).should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>{:rank=>"n/a", :value=>"zonatum"}, :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum"}
   end
   
   it "should not parse utf-8 chars in name part" do
@@ -234,7 +236,7 @@ describe ScientificName do
     value("Agaricus acris var. (b.)").should == "Agaricus acris var. (b.)"  
     parse("Agaricus acris var. (b.)").should_not be_nil 
     value("Agaricus acris var. (b.&c.)").should == "Agaricus acris var. (b.c.)"  
-    details("Agaricus acris var. (b.&c.)").should == {:editorial_markup=>"(b.c.)", :subspecies=>[{:type=>"var.", :value=>nil}], :species=>"acris", :genus=>"Agaricus", :is_valid=>false}
+    details("Agaricus acris var. (b.&c.)").should == {:editorial_markup=>"(b.c.)", :subspecies=>[{:rank=>"var.", :value=>nil}], :species=>"acris", :genus=>"Agaricus", :is_valid=>false}
 
   end
   

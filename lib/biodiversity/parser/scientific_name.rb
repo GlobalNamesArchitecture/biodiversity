@@ -295,110 +295,115 @@ module ScientificName
     end
 
     i0 = index
-    i1, s1 = index, []
-    r2 = _nt_space
-    s1 << r2
-    if r2
-      r3 = _nt_name_part
-      s1 << r3
-      if r3
-        r4 = _nt_space
-        s1 << r4
-        if r4
-          r5 = _nt_authors_part
-          s1 << r5
-          if r5
-            r6 = _nt_space
-            s1 << r6
-            if r6
-              r7 = _nt_status_part
-              s1 << r7
-              if r7
-                r8 = _nt_space
-                s1 << r8
-              end
-            end
-          end
-        end
-      end
-    end
-    if s1.last
-      r1 = (SyntaxNode).new(input, i1...index, s1)
-      r1.extend(ScientificName0)
-      r1.extend(ScientificName1)
-    else
-      self.index = i1
-      r1 = nil
-    end
+    r1 = _nt_name_authors_part
     if r1
       r0 = r1
     else
-      i9, s9 = index, []
-      r10 = _nt_space
-      s9 << r10
-      if r10
-        r11 = _nt_name_part
-        s9 << r11
-        if r11
-          r12 = _nt_space
-          s9 << r12
-          if r12
-            r13 = _nt_authors_part
-            s9 << r13
-            if r13
-              r14 = _nt_space
-              s9 << r14
-            end
-          end
-        end
-      end
-      if s9.last
-        r9 = (SyntaxNode).new(input, i9...index, s9)
-        r9.extend(ScientificName2)
-        r9.extend(ScientificName3)
-      else
-        self.index = i9
-        r9 = nil
-      end
-      if r9
-        r0 = r9
-      else
-        i15, s15 = index, []
-        r16 = _nt_space
-        s15 << r16
-        if r16
-          r17 = _nt_name_part
-          s15 << r17
-          if r17
-            r18 = _nt_space
-            s15 << r18
-            if r18
-              r19 = _nt_year
-              s15 << r19
-              if r19
-                r20 = _nt_space
-                s15 << r20
+      i2, s2 = index, []
+      r3 = _nt_space
+      s2 << r3
+      if r3
+        r4 = _nt_name_part
+        s2 << r4
+        if r4
+          r5 = _nt_space
+          s2 << r5
+          if r5
+            r6 = _nt_authors_part
+            s2 << r6
+            if r6
+              r7 = _nt_space
+              s2 << r7
+              if r7
+                r8 = _nt_status_part
+                s2 << r8
+                if r8
+                  r9 = _nt_space
+                  s2 << r9
+                end
               end
             end
           end
         end
-        if s15.last
-          r15 = (SyntaxNode).new(input, i15...index, s15)
-          r15.extend(ScientificName4)
-          r15.extend(ScientificName5)
-        else
-          self.index = i15
-          r15 = nil
+      end
+      if s2.last
+        r2 = (SyntaxNode).new(input, i2...index, s2)
+        r2.extend(ScientificName0)
+        r2.extend(ScientificName1)
+      else
+        self.index = i2
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        i10, s10 = index, []
+        r11 = _nt_space
+        s10 << r11
+        if r11
+          r12 = _nt_name_part
+          s10 << r12
+          if r12
+            r13 = _nt_space
+            s10 << r13
+            if r13
+              r14 = _nt_authors_part
+              s10 << r14
+              if r14
+                r15 = _nt_space
+                s10 << r15
+              end
+            end
+          end
         end
-        if r15
-          r0 = r15
+        if s10.last
+          r10 = (SyntaxNode).new(input, i10...index, s10)
+          r10.extend(ScientificName2)
+          r10.extend(ScientificName3)
         else
-          r21 = _nt_name_part
-          if r21
-            r0 = r21
+          self.index = i10
+          r10 = nil
+        end
+        if r10
+          r0 = r10
+        else
+          i16, s16 = index, []
+          r17 = _nt_space
+          s16 << r17
+          if r17
+            r18 = _nt_name_part
+            s16 << r18
+            if r18
+              r19 = _nt_space
+              s16 << r19
+              if r19
+                r20 = _nt_year
+                s16 << r20
+                if r20
+                  r21 = _nt_space
+                  s16 << r21
+                end
+              end
+            end
+          end
+          if s16.last
+            r16 = (SyntaxNode).new(input, i16...index, s16)
+            r16.extend(ScientificName4)
+            r16.extend(ScientificName5)
           else
-            self.index = i0
-            r0 = nil
+            self.index = i16
+            r16 = nil
+          end
+          if r16
+            r0 = r16
+          else
+            r22 = _nt_name_part
+            if r22
+              r0 = r22
+            else
+              self.index = i0
+              r0 = nil
+            end
           end
         end
       end
@@ -535,6 +540,81 @@ module ScientificName
     end
 
     node_cache[:status_word][start_index] = r0
+
+    return r0
+  end
+
+  module NameAuthorsPart0
+    def a
+      elements[0]
+    end
+
+    def space
+      elements[1]
+    end
+
+    def b
+      elements[2]
+    end
+
+    def space
+      elements[3]
+    end
+
+    def c
+      elements[4]
+    end
+  end
+
+  module NameAuthorsPart1
+    def value 
+      a.value + " " + b.value + " " + c.value
+    end
+    def canonical
+      a.canonical + " " + c.canonical
+    end
+    def details
+      a.details.merge(c.details).merge({:species_authors=>b.details})
+    end
+  end
+
+  def _nt_name_authors_part
+    start_index = index
+    if node_cache[:name_authors_part].has_key?(index)
+      cached = node_cache[:name_authors_part][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_species_name
+    s0 << r1
+    if r1
+      r2 = _nt_space
+      s0 << r2
+      if r2
+        r3 = _nt_authors_part
+        s0 << r3
+        if r3
+          r4 = _nt_space
+          s0 << r4
+          if r4
+            r5 = _nt_subspecies_name
+            s0 << r5
+          end
+        end
+      end
+    end
+    if s0.last
+      r0 = (SyntaxNode).new(input, i0...index, s0)
+      r0.extend(NameAuthorsPart0)
+      r0.extend(NameAuthorsPart1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:name_authors_part][start_index] = r0
 
     return r0
   end
@@ -1208,7 +1288,9 @@ module ScientificName
 
   module AuthorNameSeparator0
     def apply(a,b)
-      a.value + " " + text_value + " " + b.value
+      sep = text_value.strip
+      sep = " " + sep if sep == "&"
+      a.value + sep + " " + b.value
     end
 
     def details(a,b)
@@ -1846,7 +1928,7 @@ module ScientificName
     end
     
     def details
-      a.details.merge({:subspecies => {:type => "n/a", :value =>b.value}})
+      a.details.merge({:subspecies => {:rank => "n/a", :value =>b.value}})
     end
   end
 
@@ -1869,7 +1951,7 @@ module ScientificName
         r4 = _nt_space
         s1 << r4
         if r4
-          r5 = _nt_selector
+          r5 = _nt_rank
           s1 << r5
           if r5
             r6 = _nt_space_hard
@@ -2094,7 +2176,7 @@ module ScientificName
     end
 
     i0, s0 = index, []
-    r1 = _nt_selector
+    r1 = _nt_rank
     s0 << r1
     if r1
       r2 = _nt_space_hard
@@ -2236,7 +2318,7 @@ module ScientificName
     r2 = _nt_space
     s1 << r2
     if r2
-      r3 = _nt_selector
+      r3 = _nt_rank
       s1 << r3
       if r3
         r4 = _nt_space
@@ -2276,7 +2358,7 @@ module ScientificName
     if r1
       r0 = r1
     else
-      r9 = _nt_selector
+      r9 = _nt_rank
       if r9
         r0 = r9
       else
@@ -2290,7 +2372,7 @@ module ScientificName
     return r0
   end
 
-  module Selector0
+  module Rank0
     def value
       text_value.strip
     end
@@ -2301,14 +2383,14 @@ module ScientificName
       " " + a.value
     end
     def details(a = nil)
-      {:subspecies => [{:type => text_value, :value => (a.value rescue nil)}]}
+      {:subspecies => [{:rank => text_value, :value => (a.value rescue nil)}]}
     end
   end
 
-  def _nt_selector
+  def _nt_rank
     start_index = index
-    if node_cache[:selector].has_key?(index)
-      cached = node_cache[:selector][index]
+    if node_cache[:rank].has_key?(index)
+      cached = node_cache[:rank][index]
       @index = cached.interval.end if cached
       return cached
     end
@@ -2323,7 +2405,7 @@ module ScientificName
     end
     if r1
       r0 = r1
-      r0.extend(Selector0)
+      r0.extend(Rank0)
     else
       if input.index("f.", index) == index
         r2 = (SyntaxNode).new(input, index...(index + 2))
@@ -2334,7 +2416,7 @@ module ScientificName
       end
       if r2
         r0 = r2
-        r0.extend(Selector0)
+        r0.extend(Rank0)
       else
         if input.index("B", index) == index
           r3 = (SyntaxNode).new(input, index...(index + 1))
@@ -2345,7 +2427,7 @@ module ScientificName
         end
         if r3
           r0 = r3
-          r0.extend(Selector0)
+          r0.extend(Rank0)
         else
           if input.index("ssp.", index) == index
             r4 = (SyntaxNode).new(input, index...(index + 4))
@@ -2356,7 +2438,7 @@ module ScientificName
           end
           if r4
             r0 = r4
-            r0.extend(Selector0)
+            r0.extend(Rank0)
           else
             if input.index("mut.", index) == index
               r5 = (SyntaxNode).new(input, index...(index + 4))
@@ -2367,7 +2449,7 @@ module ScientificName
             end
             if r5
               r0 = r5
-              r0.extend(Selector0)
+              r0.extend(Rank0)
             else
               if input.index("pseudovar.", index) == index
                 r6 = (SyntaxNode).new(input, index...(index + 10))
@@ -2378,7 +2460,7 @@ module ScientificName
               end
               if r6
                 r0 = r6
-                r0.extend(Selector0)
+                r0.extend(Rank0)
               else
                 if input.index("sect.", index) == index
                   r7 = (SyntaxNode).new(input, index...(index + 5))
@@ -2389,7 +2471,7 @@ module ScientificName
                 end
                 if r7
                   r0 = r7
-                  r0.extend(Selector0)
+                  r0.extend(Rank0)
                 else
                   if input.index("ser.", index) == index
                     r8 = (SyntaxNode).new(input, index...(index + 4))
@@ -2400,7 +2482,7 @@ module ScientificName
                   end
                   if r8
                     r0 = r8
-                    r0.extend(Selector0)
+                    r0.extend(Rank0)
                   else
                     if input.index("var.", index) == index
                       r9 = (SyntaxNode).new(input, index...(index + 4))
@@ -2411,7 +2493,7 @@ module ScientificName
                     end
                     if r9
                       r0 = r9
-                      r0.extend(Selector0)
+                      r0.extend(Rank0)
                     else
                       if input.index("subvar.", index) == index
                         r10 = (SyntaxNode).new(input, index...(index + 7))
@@ -2422,7 +2504,7 @@ module ScientificName
                       end
                       if r10
                         r0 = r10
-                        r0.extend(Selector0)
+                        r0.extend(Rank0)
                       else
                         if input.index("[var.]", index) == index
                           r11 = (SyntaxNode).new(input, index...(index + 6))
@@ -2433,7 +2515,7 @@ module ScientificName
                         end
                         if r11
                           r0 = r11
-                          r0.extend(Selector0)
+                          r0.extend(Rank0)
                         else
                           if input.index("subsp.", index) == index
                             r12 = (SyntaxNode).new(input, index...(index + 6))
@@ -2444,7 +2526,7 @@ module ScientificName
                           end
                           if r12
                             r0 = r12
-                            r0.extend(Selector0)
+                            r0.extend(Rank0)
                           else
                             if input.index("subf.", index) == index
                               r13 = (SyntaxNode).new(input, index...(index + 5))
@@ -2455,7 +2537,7 @@ module ScientificName
                             end
                             if r13
                               r0 = r13
-                              r0.extend(Selector0)
+                              r0.extend(Rank0)
                             else
                               if input.index("race", index) == index
                                 r14 = (SyntaxNode).new(input, index...(index + 4))
@@ -2466,7 +2548,7 @@ module ScientificName
                               end
                               if r14
                                 r0 = r14
-                                r0.extend(Selector0)
+                                r0.extend(Rank0)
                               else
                                 if input.index("α", index) == index
                                   r15 = (SyntaxNode).new(input, index...(index + 2))
@@ -2477,7 +2559,7 @@ module ScientificName
                                 end
                                 if r15
                                   r0 = r15
-                                  r0.extend(Selector0)
+                                  r0.extend(Rank0)
                                 else
                                   if input.index("ββ", index) == index
                                     r16 = (SyntaxNode).new(input, index...(index + 4))
@@ -2488,7 +2570,7 @@ module ScientificName
                                   end
                                   if r16
                                     r0 = r16
-                                    r0.extend(Selector0)
+                                    r0.extend(Rank0)
                                   else
                                     if input.index("β", index) == index
                                       r17 = (SyntaxNode).new(input, index...(index + 2))
@@ -2499,7 +2581,7 @@ module ScientificName
                                     end
                                     if r17
                                       r0 = r17
-                                      r0.extend(Selector0)
+                                      r0.extend(Rank0)
                                     else
                                       if input.index("γ", index) == index
                                         r18 = (SyntaxNode).new(input, index...(index + 2))
@@ -2510,7 +2592,7 @@ module ScientificName
                                       end
                                       if r18
                                         r0 = r18
-                                        r0.extend(Selector0)
+                                        r0.extend(Rank0)
                                       else
                                         if input.index("δ", index) == index
                                           r19 = (SyntaxNode).new(input, index...(index + 2))
@@ -2521,7 +2603,7 @@ module ScientificName
                                         end
                                         if r19
                                           r0 = r19
-                                          r0.extend(Selector0)
+                                          r0.extend(Rank0)
                                         else
                                           if input.index("ε", index) == index
                                             r20 = (SyntaxNode).new(input, index...(index + 2))
@@ -2532,7 +2614,7 @@ module ScientificName
                                           end
                                           if r20
                                             r0 = r20
-                                            r0.extend(Selector0)
+                                            r0.extend(Rank0)
                                           else
                                             if input.index("φ", index) == index
                                               r21 = (SyntaxNode).new(input, index...(index + 2))
@@ -2543,7 +2625,7 @@ module ScientificName
                                             end
                                             if r21
                                               r0 = r21
-                                              r0.extend(Selector0)
+                                              r0.extend(Rank0)
                                             else
                                               if input.index("θ", index) == index
                                                 r22 = (SyntaxNode).new(input, index...(index + 2))
@@ -2554,7 +2636,7 @@ module ScientificName
                                               end
                                               if r22
                                                 r0 = r22
-                                                r0.extend(Selector0)
+                                                r0.extend(Rank0)
                                               else
                                                 if input.index("μ", index) == index
                                                   r23 = (SyntaxNode).new(input, index...(index + 2))
@@ -2565,7 +2647,7 @@ module ScientificName
                                                 end
                                                 if r23
                                                   r0 = r23
-                                                  r0.extend(Selector0)
+                                                  r0.extend(Rank0)
                                                 else
                                                   if input.index("a.", index) == index
                                                     r24 = (SyntaxNode).new(input, index...(index + 2))
@@ -2576,7 +2658,7 @@ module ScientificName
                                                   end
                                                   if r24
                                                     r0 = r24
-                                                    r0.extend(Selector0)
+                                                    r0.extend(Rank0)
                                                   else
                                                     if input.index("b.", index) == index
                                                       r25 = (SyntaxNode).new(input, index...(index + 2))
@@ -2587,7 +2669,7 @@ module ScientificName
                                                     end
                                                     if r25
                                                       r0 = r25
-                                                      r0.extend(Selector0)
+                                                      r0.extend(Rank0)
                                                     else
                                                       if input.index("c.", index) == index
                                                         r26 = (SyntaxNode).new(input, index...(index + 2))
@@ -2598,7 +2680,7 @@ module ScientificName
                                                       end
                                                       if r26
                                                         r0 = r26
-                                                        r0.extend(Selector0)
+                                                        r0.extend(Rank0)
                                                       else
                                                         if input.index("d.", index) == index
                                                           r27 = (SyntaxNode).new(input, index...(index + 2))
@@ -2609,7 +2691,7 @@ module ScientificName
                                                         end
                                                         if r27
                                                           r0 = r27
-                                                          r0.extend(Selector0)
+                                                          r0.extend(Rank0)
                                                         else
                                                           if input.index("e.", index) == index
                                                             r28 = (SyntaxNode).new(input, index...(index + 2))
@@ -2620,7 +2702,7 @@ module ScientificName
                                                           end
                                                           if r28
                                                             r0 = r28
-                                                            r0.extend(Selector0)
+                                                            r0.extend(Rank0)
                                                           else
                                                             if input.index("g.", index) == index
                                                               r29 = (SyntaxNode).new(input, index...(index + 2))
@@ -2631,7 +2713,7 @@ module ScientificName
                                                             end
                                                             if r29
                                                               r0 = r29
-                                                              r0.extend(Selector0)
+                                                              r0.extend(Rank0)
                                                             else
                                                               if input.index("k.", index) == index
                                                                 r30 = (SyntaxNode).new(input, index...(index + 2))
@@ -2642,7 +2724,7 @@ module ScientificName
                                                               end
                                                               if r30
                                                                 r0 = r30
-                                                                r0.extend(Selector0)
+                                                                r0.extend(Rank0)
                                                               else
                                                                 if input.index("****", index) == index
                                                                   r31 = (SyntaxNode).new(input, index...(index + 4))
@@ -2653,7 +2735,7 @@ module ScientificName
                                                                 end
                                                                 if r31
                                                                   r0 = r31
-                                                                  r0.extend(Selector0)
+                                                                  r0.extend(Rank0)
                                                                 else
                                                                   if input.index("**", index) == index
                                                                     r32 = (SyntaxNode).new(input, index...(index + 2))
@@ -2664,7 +2746,7 @@ module ScientificName
                                                                   end
                                                                   if r32
                                                                     r0 = r32
-                                                                    r0.extend(Selector0)
+                                                                    r0.extend(Rank0)
                                                                   else
                                                                     if input.index("*", index) == index
                                                                       r33 = (SyntaxNode).new(input, index...(index + 1))
@@ -2675,7 +2757,7 @@ module ScientificName
                                                                     end
                                                                     if r33
                                                                       r0 = r33
-                                                                      r0.extend(Selector0)
+                                                                      r0.extend(Rank0)
                                                                     else
                                                                       self.index = i0
                                                                       r0 = nil
@@ -2713,7 +2795,7 @@ module ScientificName
       end
     end
 
-    node_cache[:selector][start_index] = r0
+    node_cache[:rank][start_index] = r0
 
     return r0
   end
@@ -2817,7 +2899,7 @@ module ScientificName
       elements[0]
     end
 
-    def space_hard
+    def space
       elements[1]
     end
 
@@ -2825,7 +2907,7 @@ module ScientificName
       elements[2]
     end
 
-    def space_hard
+    def space
       elements[3]
     end
 
@@ -2968,13 +3050,13 @@ module ScientificName
           r18 = _nt_cap_latin_word
           s17 << r18
           if r18
-            r19 = _nt_space_hard
+            r19 = _nt_space
             s17 << r19
             if r19
               r20 = _nt_subgenus
               s17 << r20
               if r20
-                r21 = _nt_space_hard
+                r21 = _nt_space
                 s17 << r21
                 if r21
                   r22 = _nt_latin_word
@@ -3181,7 +3263,7 @@ module ScientificName
     end
     
     def details 
-      {:name_type => "Uninomial", :uninomial => value}
+      {:uninomial => value}
     end
   end
 
