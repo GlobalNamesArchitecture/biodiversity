@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'biodiversity'
-  s.version = '0.0.8'
+  s.version = '0.0.9'
   s.date = '2008-10-21'
   
   s.summary = "scientific species name parser\n\nExecutable is nnparse"
@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.bindir = "bin"
   s.executable = %w(nnparse)
   
-  s.files = %w(LICENSE README.rdoc Rakefile spec/parser spec/parser/scientific_name.spec.rb lib/biodiversity lib/biodiversity/parser lib/biodiversity/parser/scientific_name.rb lib/biodiversity/parser/scientific_name.treetop lib/biodiversity/parser.rb lib/biodiversity.rb bin/nnparse)
+  s.files = %w(LICENSE README.rdoc Rakefile conf conf/environment.rb spec/parser spec/parser/scientific_name.spec.rb spec/guid  spec/guid/lsid.spec.rb lib/biodiversity lib/biodiversity/parser lib/biodiversity/guid.rb lib/biodiversity/guid lib/biodiversity/guid/lsid.rb lib/biodiversity/parser/scientific_name.rb lib/biodiversity/parser/scientific_name.treetop lib/biodiversity/parser.rb lib/biodiversity.rb bin/nnparse)
 end

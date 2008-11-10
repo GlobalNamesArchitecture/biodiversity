@@ -10,7 +10,7 @@ protected
     rdf = ''
     open(LSID_RESOLVER_URL + lsid) do |f|
       f.each do |line|
-        rdf += line
+        rdf += line if !line.strip.blank?
       end
     end
     rdf
