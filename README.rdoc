@@ -33,4 +33,6 @@ You can use it as a library
   # to get detailed information about elements of the name
   parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").details
   
-  
+  # to resolve lsid and get back RDF file
+  LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
+
