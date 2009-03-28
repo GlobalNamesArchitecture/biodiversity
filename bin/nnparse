@@ -4,7 +4,7 @@ gem 'dimus-biodiversity' rescue gem 'biodiversity'
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
-require 'json/ext'
+require 'json'
 
 if ARGV.empty?
   puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.json\n\n"

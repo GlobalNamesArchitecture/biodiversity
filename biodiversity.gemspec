@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'biodiversity'
-  s.version = '0.0.9'
+  s.version = '0.0.10'
   s.date = '2008-10-21'
   
   s.summary = "scientific species name parser\n\nExecutable is nnparse"
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = false
   
   s.add_dependency 'treetop', ['>= 1.2.4']
-  s.add_dependency 'json', ['>= 1.1.3']
+  #s.add_dependency 'json', ['>= 1.1.3']
 
   s.bindir = "bin"
   s.executable = %w(nnparse)
