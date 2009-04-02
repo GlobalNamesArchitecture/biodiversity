@@ -1,3 +1,4 @@
+# encoding: UTF-8
 grammar ScientificName
 
   rule composite_scientific_name
@@ -27,7 +28,7 @@ grammar ScientificName
       end
     }
     /
-    scientific_name
+    scientific_name 
   end
   
   rule scientific_name
@@ -315,7 +316,7 @@ grammar ScientificName
       end
     }
     /
-    space a:species_name space b:latin_word &[^\.] {
+    space a:species_name space b:latin_word !'.' {
       def value
         a.value + " " + b.value
       end
@@ -385,6 +386,9 @@ grammar ScientificName
     space a:rank space [&]? space b:editorials {
       def value
         a.value + b.value
+      end
+      def details
+        {:editorial_markup => value, :is_valid => false}
       end 
     }
     /
@@ -483,23 +487,15 @@ grammar ScientificName
       end
     }
   end
-
-  rule latin_word
-    [a-zë] [a-z\-ëüäöï]+ {
-      def value 
-        text_value.strip
-      end
-    }
-  end
   
   rule cap_latin_word
-    [A-Z] [a-zë] [a-z\-ëüäöï]+ {
+    a:[A-Z] b:latin_word {
       def value
-        text_value.strip
+        a.text_value + b.value
       end
       
       def canonical 
-        text_value.strip
+        value
       end
       
       def details 
@@ -507,7 +503,68 @@ grammar ScientificName
       end
     }
   end
+
+  rule latin_word
+    a:[a-zë] b:full_name_letters {
+      def value
+        a.text_value + b.value
+      end
+     }
+     /
+     a:digraph b:full_name_letters {
+      def value
+        a.value + b.value
+      end
+     }
+  end
+    
+#  rule latin_word
+#    full_name_letters
+    # a:valid_name_letters b:full_name_letters {
+    #   def value
+    #     a.value + b.value
+    #   end
+    # }
+#  end
   
+  rule full_name_letters
+    a:digraph b:full_name_letters {
+      def value
+        a.value + b.value
+      end
+    }
+    /
+    a:valid_name_letters b:digraph c:full_name_letters {
+      def value
+        a.value + b.value + c.value
+      end
+    }
+    /
+    valid_name_letters
+  end
+  
+  rule valid_name_letters
+    [a-z\-ëüäöï]+ {
+      def value
+        text_value
+      end
+    }
+  end 
+  
+  rule digraph
+    [æ] {
+   def value
+     'ae'
+   end
+   }
+      /
+   [œ] {
+   def value
+     'oe'
+   end
+   }
+  end
+    
   rule hybrid_separator
     ("x"/"X"/"×") {
       def value
@@ -517,6 +574,8 @@ grammar ScientificName
   end
   
   rule year
+    year_with_character
+    /
     [0-9\?]+ {
       def value
         text_value.strip
@@ -526,7 +585,15 @@ grammar ScientificName
       end
     }
   end
-    
+  
+  rule year_with_character
+    a:[0-9\?]+ [a-z] {
+      def value
+        a.text_value
+      end
+    }
+  end
+  
   rule space
     [\s]*
   end

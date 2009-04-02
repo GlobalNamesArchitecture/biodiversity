@@ -2392,6 +2392,9 @@ module ScientificName
     def value
       a.value + b.value
     end
+    def details
+      {:editorial_markup => value, :is_valid => false}
+    end
   end
 
   def _nt_editorials
@@ -3277,78 +3280,23 @@ module ScientificName
     return r0
   end
 
-  module LatinWord0
-  end
-
-  module LatinWord1
-    def value 
-      text_value.strip
-    end
-  end
-
-  def _nt_latin_word
-    start_index = index
-    if node_cache[:latin_word].has_key?(index)
-      cached = node_cache[:latin_word][index]
-      @index = cached.interval.end if cached
-      return cached
-    end
-
-    i0, s0 = index, []
-    if input.index(Regexp.new('[a-zë]'), index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
-    else
-      r1 = nil
-    end
-    s0 << r1
-    if r1
-      s2, i2 = [], index
-      loop do
-        if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
-        else
-          r3 = nil
-        end
-        if r3
-          s2 << r3
-        else
-          break
-        end
-      end
-      if s2.empty?
-        self.index = i2
-        r2 = nil
-      else
-        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
-      end
-      s0 << r2
-    end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(LatinWord0)
-      r0.extend(LatinWord1)
-    else
-      self.index = i0
-      r0 = nil
-    end
-
-    node_cache[:latin_word][start_index] = r0
-
-    return r0
-  end
-
   module CapLatinWord0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
   end
 
   module CapLatinWord1
     def value
-      text_value.strip
+      a.text_value + b.value
     end
     
     def canonical 
-      text_value.strip
+      value
     end
     
     def details 
@@ -3373,36 +3321,8 @@ module ScientificName
     end
     s0 << r1
     if r1
-      if input.index(Regexp.new('[a-zë]'), index) == index
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
-      else
-        r2 = nil
-      end
+      r2 = _nt_latin_word
       s0 << r2
-      if r2
-        s3, i3 = [], index
-        loop do
-          if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
-          else
-            r4 = nil
-          end
-          if r4
-            s3 << r4
-          else
-            break
-          end
-        end
-        if s3.empty?
-          self.index = i3
-          r3 = nil
-        else
-          r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
-        end
-        s0 << r3
-      end
     end
     if s0.last
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
@@ -3414,6 +3334,290 @@ module ScientificName
     end
 
     node_cache[:cap_latin_word][start_index] = r0
+
+    return r0
+  end
+
+  module LatinWord0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module LatinWord1
+    def value
+      a.text_value + b.value
+    end
+  end
+
+  module LatinWord2
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module LatinWord3
+    def value
+      a.value + b.value
+    end
+  end
+
+  def _nt_latin_word
+    start_index = index
+    if node_cache[:latin_word].has_key?(index)
+      cached = node_cache[:latin_word][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    if input.index(Regexp.new('[a-zë]'), index) == index
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      @index += 1
+    else
+      r2 = nil
+    end
+    s1 << r2
+    if r2
+      r3 = _nt_full_name_letters
+      s1 << r3
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(LatinWord0)
+      r1.extend(LatinWord1)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      i4, s4 = index, []
+      r5 = _nt_digraph
+      s4 << r5
+      if r5
+        r6 = _nt_full_name_letters
+        s4 << r6
+      end
+      if s4.last
+        r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
+        r4.extend(LatinWord2)
+        r4.extend(LatinWord3)
+      else
+        self.index = i4
+        r4 = nil
+      end
+      if r4
+        r0 = r4
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:latin_word][start_index] = r0
+
+    return r0
+  end
+
+  module FullNameLetters0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module FullNameLetters1
+    def value
+      a.value + b.value
+    end
+  end
+
+  module FullNameLetters2
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+
+    def c
+      elements[2]
+    end
+  end
+
+  module FullNameLetters3
+    def value
+      a.value + b.value + c.value
+    end
+  end
+
+  def _nt_full_name_letters
+    start_index = index
+    if node_cache[:full_name_letters].has_key?(index)
+      cached = node_cache[:full_name_letters][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    r2 = _nt_digraph
+    s1 << r2
+    if r2
+      r3 = _nt_full_name_letters
+      s1 << r3
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(FullNameLetters0)
+      r1.extend(FullNameLetters1)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      i4, s4 = index, []
+      r5 = _nt_valid_name_letters
+      s4 << r5
+      if r5
+        r6 = _nt_digraph
+        s4 << r6
+        if r6
+          r7 = _nt_full_name_letters
+          s4 << r7
+        end
+      end
+      if s4.last
+        r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
+        r4.extend(FullNameLetters2)
+        r4.extend(FullNameLetters3)
+      else
+        self.index = i4
+        r4 = nil
+      end
+      if r4
+        r0 = r4
+      else
+        r8 = _nt_valid_name_letters
+        if r8
+          r0 = r8
+        else
+          self.index = i0
+          r0 = nil
+        end
+      end
+    end
+
+    node_cache[:full_name_letters][start_index] = r0
+
+    return r0
+  end
+
+  module ValidNameLetters0
+    def value
+      text_value
+    end
+  end
+
+  def _nt_valid_name_letters
+    start_index = index
+    if node_cache[:valid_name_letters].has_key?(index)
+      cached = node_cache[:valid_name_letters][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    s0, i0 = [], index
+    loop do
+      if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
+        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      self.index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(ValidNameLetters0)
+    end
+
+    node_cache[:valid_name_letters][start_index] = r0
+
+    return r0
+  end
+
+  module Digraph0
+    def value
+      'ae'
+    end
+  end
+
+  module Digraph1
+    def value
+      'oe'
+    end
+  end
+
+  def _nt_digraph
+    start_index = index
+    if node_cache[:digraph].has_key?(index)
+      cached = node_cache[:digraph][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index(Regexp.new('[æ]'), index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      r1.extend(Digraph0)
+      @index += 1
+    else
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if input.index(Regexp.new('[œ]'), index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2.extend(Digraph1)
+        @index += 1
+      else
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:digraph][start_index] = r0
 
     return r0
   end
@@ -3494,29 +3698,107 @@ module ScientificName
       return cached
     end
 
-    s0, i0 = [], index
+    i0 = index
+    r1 = _nt_year_with_character
+    if r1
+      r0 = r1
+    else
+      s2, i2 = [], index
+      loop do
+        if input.index(Regexp.new('[0-9\\?]'), index) == index
+          r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          r3 = nil
+        end
+        if r3
+          s2 << r3
+        else
+          break
+        end
+      end
+      if s2.empty?
+        self.index = i2
+        r2 = nil
+      else
+        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+        r2.extend(Year0)
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:year][start_index] = r0
+
+    return r0
+  end
+
+  module YearWithCharacter0
+    def a
+      elements[0]
+    end
+
+  end
+
+  module YearWithCharacter1
+    def value
+      a.text_value
+    end
+  end
+
+  def _nt_year_with_character
+    start_index = index
+    if node_cache[:year_with_character].has_key?(index)
+      cached = node_cache[:year_with_character][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    s1, i1 = [], index
     loop do
       if input.index(Regexp.new('[0-9\\?]'), index) == index
-        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
-        r1 = nil
+        r2 = nil
       end
-      if r1
-        s0 << r1
+      if r2
+        s1 << r2
       else
         break
       end
     end
-    if s0.empty?
+    if s1.empty?
+      self.index = i1
+      r1 = nil
+    else
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+    end
+    s0 << r1
+    if r1
+      if input.index(Regexp.new('[a-z]'), index) == index
+        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r3 = nil
+      end
+      s0 << r3
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(YearWithCharacter0)
+      r0.extend(YearWithCharacter1)
+    else
       self.index = i0
       r0 = nil
-    else
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(Year0)
     end
 
-    node_cache[:year][start_index] = r0
+    node_cache[:year_with_character][start_index] = r0
 
     return r0
   end

@@ -51,6 +51,29 @@ describe ScientificName do
     details(sn).should == {:subgenus=>"Amerigo", :authors=>{:year=>"1999", :names=>["Author"]}, :species=>"pealeii", :genus=>"Doriteuthis"}
   end
   
+  it 'should parse æ in the name' do
+    names = [
+      ["Læptura laetifica Dow, 1913", "Laeptura laetifica Dow 1913"],
+      ["Leptura lætifica Dow, 1913", "Leptura laetifica Dow 1913"],
+      ["Leptura leætifica Dow, 1913", "Leptura leaetifica Dow 1913"],
+      ["Leæptura laetifica Dow, 1913", "Leaeptura laetifica Dow 1913"],
+      ["Leœptura laetifica Dow, 1913", "Leoeptura laetifica Dow 1913"]
+    ]
+    names.each do |name_pair|
+      parse(name_pair[0]).should_not be_nil
+      value(name_pair[0]).should == name_pair[1]
+    end
+  end
+
+  it 'should parse year' do
+    sn = "Platypus bicaudatulus Schedl 1935"
+    parse(sn).should_not be_nil
+    value(sn).should == "Platypus bicaudatulus Schedl 1935"
+    sn = "Platypus bicaudatulus Schedl, 1935h"
+    parse(sn).should_not be_nil
+    value(sn).should == "Platypus bicaudatulus Schedl 1935"
+  end
+  
   it 'should parse species autonym for complex subspecies authorships' do
     parse("Aus bus Linn. var. bus").should_not be_nil
     details("Aus bus Linn. var. bus").should == {:species=>"bus", :species_authors=>{:authors=>{:names=>["Linn."]}}, :genus=>"Aus", :subspecies=>[{:rank=>"var.", :value=>"bus"}]}
@@ -114,6 +137,7 @@ describe ScientificName do
     parse("Peltula coriacea Büdel, Henssen & Wessels 1986").should_not be_nil
     #had to add no dot rule for trinomials without a rank to make it to work
     parse("Saccharomyces drosophilae anon.").should_not be_nil
+    details("Saccharomyces drosophilae anon.").should == {}
   end
   
   it 'should parse several authors with several years' do
@@ -225,6 +249,9 @@ describe ScientificName do
     value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     canonical(name).should == "Hydnellum scrobiculatum zonatum"
     details(name).should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>{:rank=>"n/a", :value=>"zonatum"}, :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum"}
+    sp = "Begonia pingbienensis angustior"
+    parse(sp).should_not be_nil
+    details(sp).should == {:genus=>"Begonia", :species=>"pingbienensis", :subspecies=>{:rank=>"n/a", :value=>"angustior"}}
   end
   
   it "should not parse utf-8 chars in name part" do
