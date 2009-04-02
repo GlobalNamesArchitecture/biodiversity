@@ -741,6 +741,10 @@ module ScientificName
       elements[1]
     end
 
+    def ex_sep
+      elements[2]
+    end
+
     def space
       elements[3]
     end
@@ -821,13 +825,7 @@ module ScientificName
         r7 = _nt_space
         s5 << r7
         if r7
-          if input.index("ex", index) == index
-            r8 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
-          else
-            terminal_parse_failure("ex")
-            r8 = nil
-          end
+          r8 = _nt_ex_sep
           s5 << r8
           if r8
             r9 = _nt_space
@@ -984,9 +982,44 @@ module ScientificName
       elements[3]
     end
 
+    def space
+      elements[5]
+    end
+
+    def space
+      elements[7]
+    end
+
+    def b
+      elements[8]
+    end
   end
 
   module OriginalAuthorsNamesFull1
+    def value
+      "(" + a.value + " " + b.value + ")"
+    end
+    def details
+      {:orig_authors => a.details[:authors], :year => b.details[:year]}
+    end
+  end
+
+  module OriginalAuthorsNamesFull2
+    def space
+      elements[1]
+    end
+
+    def a
+      elements[2]
+    end
+
+    def space
+      elements[3]
+    end
+
+  end
+
+  module OriginalAuthorsNamesFull3
     def value
       "(" + a.value + ")"
     end
@@ -1003,44 +1036,120 @@ module ScientificName
       return cached
     end
 
-    i0, s0 = index, []
+    i0 = index
+    i1, s1 = index, []
     if input.index("(", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
       terminal_parse_failure("(")
-      r1 = nil
+      r2 = nil
     end
-    s0 << r1
-    if r1
-      r2 = _nt_space
-      s0 << r2
-      if r2
-        r3 = _nt_authors_names_full
-        s0 << r3
-        if r3
-          r4 = _nt_space
-          s0 << r4
-          if r4
+    s1 << r2
+    if r2
+      r3 = _nt_space
+      s1 << r3
+      if r3
+        r4 = _nt_authors_names
+        s1 << r4
+        if r4
+          r5 = _nt_space
+          s1 << r5
+          if r5
             if input.index(")", index) == index
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
               terminal_parse_failure(")")
-              r5 = nil
+              r6 = nil
             end
-            s0 << r5
+            s1 << r6
+            if r6
+              r7 = _nt_space
+              s1 << r7
+              if r7
+                if input.index(Regexp.new('[,]'), index) == index
+                  r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
+                else
+                  r9 = nil
+                end
+                if r9
+                  r8 = r9
+                else
+                  r8 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s1 << r8
+                if r8
+                  r10 = _nt_space
+                  s1 << r10
+                  if r10
+                    r11 = _nt_year
+                    s1 << r11
+                  end
+                end
+              end
+            end
           end
         end
       end
     end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(OriginalAuthorsNamesFull0)
-      r0.extend(OriginalAuthorsNamesFull1)
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(OriginalAuthorsNamesFull0)
+      r1.extend(OriginalAuthorsNamesFull1)
     else
-      self.index = i0
-      r0 = nil
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      i12, s12 = index, []
+      if input.index("(", index) == index
+        r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure("(")
+        r13 = nil
+      end
+      s12 << r13
+      if r13
+        r14 = _nt_space
+        s12 << r14
+        if r14
+          r15 = _nt_authors_names_full
+          s12 << r15
+          if r15
+            r16 = _nt_space
+            s12 << r16
+            if r16
+              if input.index(")", index) == index
+                r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
+              else
+                terminal_parse_failure(")")
+                r17 = nil
+              end
+              s12 << r17
+            end
+          end
+        end
+      end
+      if s12.last
+        r12 = instantiate_node(SyntaxNode,input, i12...index, s12)
+        r12.extend(OriginalAuthorsNamesFull2)
+        r12.extend(OriginalAuthorsNamesFull3)
+      else
+        self.index = i12
+        r12 = nil
+      end
+      if r12
+        r0 = r12
+      else
+        self.index = i0
+        r0 = nil
+      end
     end
 
     node_cache[:original_authors_names_full][start_index] = r0
@@ -1135,6 +1244,10 @@ module ScientificName
       elements[1]
     end
 
+    def ex_sep
+      elements[2]
+    end
+
     def space
       elements[3]
     end
@@ -1168,13 +1281,7 @@ module ScientificName
       r2 = _nt_space
       s0 << r2
       if r2
-        if input.index("ex", index) == index
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
-        else
-          terminal_parse_failure("ex")
-          r3 = nil
-        end
+        r3 = _nt_ex_sep
         s0 << r3
         if r3
           r4 = _nt_space
@@ -1290,6 +1397,45 @@ module ScientificName
     return r0
   end
 
+  def _nt_ex_sep
+    start_index = index
+    if node_cache[:ex_sep].has_key?(index)
+      cached = node_cache[:ex_sep][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index("ex", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      @index += 2
+    else
+      terminal_parse_failure("ex")
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if input.index("in", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
+        @index += 2
+      else
+        terminal_parse_failure("in")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:ex_sep][start_index] = r0
+
+    return r0
+  end
+
   module AuthorsNames0
     def a
       elements[0]
@@ -1378,7 +1524,7 @@ module ScientificName
   module AuthorNameSeparator0
     def apply(a,b)
       sep = text_value.strip
-      sep = " " + sep if sep == "&"
+      sep = " et" if ["&","and","et"].include? sep
       a.value + sep + " " + b.value
     end
 
@@ -1418,8 +1564,32 @@ module ScientificName
         r0 = r2
         r0.extend(AuthorNameSeparator0)
       else
-        self.index = i0
-        r0 = nil
+        if input.index("and", index) == index
+          r3 = instantiate_node(SyntaxNode,input, index...(index + 3))
+          @index += 3
+        else
+          terminal_parse_failure("and")
+          r3 = nil
+        end
+        if r3
+          r0 = r3
+          r0.extend(AuthorNameSeparator0)
+        else
+          if input.index("et", index) == index
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 2))
+            @index += 2
+          else
+            terminal_parse_failure("et")
+            r4 = nil
+          end
+          if r4
+            r0 = r4
+            r0.extend(AuthorNameSeparator0)
+          else
+            self.index = i0
+            r0 = nil
+          end
+        end
       end
     end
 
@@ -2104,17 +2274,17 @@ module ScientificName
               s13 << r17
               if r17
                 i18 = index
-                if input.index(Regexp.new('[^\\.]'), index) == index
+                if input.index(Regexp.new('[\\.]'), index) == index
                   r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
                   @index += 1
                 else
                   r19 = nil
                 end
                 if r19
+                  r18 = nil
+                else
                   self.index = i18
                   r18 = instantiate_node(SyntaxNode,input, index...index)
-                else
-                  r18 = nil
                 end
                 s13 << r18
               end
@@ -3748,6 +3918,9 @@ module ScientificName
     def value
       a.text_value
     end
+    def details
+      {:year => value}
+    end
   end
 
   def _nt_year_with_character
@@ -3781,7 +3954,7 @@ module ScientificName
     end
     s0 << r1
     if r1
-      if input.index(Regexp.new('[a-z]'), index) == index
+      if input.index(Regexp.new('[a-zA-Z]'), index) == index
         r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else

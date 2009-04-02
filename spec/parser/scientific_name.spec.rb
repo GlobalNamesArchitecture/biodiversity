@@ -72,6 +72,8 @@ describe ScientificName do
     sn = "Platypus bicaudatulus Schedl, 1935h"
     parse(sn).should_not be_nil
     value(sn).should == "Platypus bicaudatulus Schedl 1935"
+    details(sn).should == {:genus=>"Platypus", :species=>"bicaudatulus", :authors=>{:names=>["Schedl"], :year=>"1935"}}
+    parse("Platypus bicaudatulus Schedl, 1935B").should_not be_nil
   end
   
   it 'should parse species autonym for complex subspecies authorships' do
@@ -84,18 +86,24 @@ describe ScientificName do
   it 'should parse several authors' do
     sn = "Pseudocercospora dendrobii U. Braun & Crous"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous"
+    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should == {
         :authors=>{:names=>["U. Braun","Crous"]},
         :species=>"dendrobii", 
         :genus=>"Pseudocercospora"}
+    sn = "Pseudocercospora dendrobii U. Braun and Crous"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"
+    sn = "Pseudocercospora dendrobii U. Braun et Crous"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"    
   end
 
   it 'should parse several authors with a year' do
     sn = "Pseudocercospora dendrobii U. Braun & Crous 2003"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous 2003"
+    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous 2003"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should == {
         :authors=>{:names=>["U. Braun","Crous"], :year => "2003"},
@@ -103,21 +111,29 @@ describe ScientificName do
         :genus=>"Pseudocercospora"}
     sn = "Pseudocercospora dendrobii Crous, 2003"
     parse(sn).should_not be_nil
+    parse("Zophosis persis (Chatanay, 1914)").should_not be_nil
+    parse("Zophosis persis (Chatanay 1914)").should_not be_nil
+    parse("Zophosis persis (Chatanay), 1914").should_not be_nil
+    value("Zophosis persis (Chatanay), 1914").should == "Zophosis persis (Chatanay 1914)"
+    details("Zophosis persis (Chatanay), 1914").should == {:genus=>"Zophosis", :species=>"persis", :orig_authors=>{:names=>["Chatanay"]}, :year=>"1914"}
+    
+    parse("Zophosis persis (Chatanay) 1914").should_not be_nil
+    #parse("Zophosis persis Chatanay (1914)").should_not be_nil
   end  
   
   it 'should parse scientific name' do
     parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").should_not be_nil
-    value("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003"
+    value("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun et Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
     {:orig_authors=>{:names=>["H.C. Burnett"]}, :species=>"dendrobii", :authors=>{:year=>"2003", :names=>["U. Braun", "Crous"]}, :genus=>"Pseudocercospora"}
   
     parse("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should_not be_nil
-    value("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should == "Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934"
+    value("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should == "Stagonospora polyspora M.T. Lucas et Sousa da Câmara 1934"
     details("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should == {:authors=>{:year=>"1934", :names=>["M.T. Lucas", "Sousa da C\303\242mara"]}, :species=>"polyspora", :genus=>"Stagonospora"}
     
     parse("Cladoniicola staurospora Diederich, van den Boom & Aptroot 2001").should_not be_nil
     parse("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should_not be_nil
-    value("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981"
+    value("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman et E.A. Herrm.) Van der Walt et Arx 1981"
     parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
     parse("Pleurotus ëous (Berk.) Sacc. 1887").should_not be_nil
     parse("Lecanora wetmorei Śliwa 2004").should_not be_nil
@@ -137,12 +153,12 @@ describe ScientificName do
     parse("Peltula coriacea Büdel, Henssen & Wessels 1986").should_not be_nil
     #had to add no dot rule for trinomials without a rank to make it to work
     parse("Saccharomyces drosophilae anon.").should_not be_nil
-    details("Saccharomyces drosophilae anon.").should == {}
+    details("Saccharomyces drosophilae anon.").should == {:genus=>"Saccharomyces", :species=>"drosophilae", :authors=>{:names=>["anon."]}}
   end
   
   it 'should parse several authors with several years' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").should_not be_nil
-    value("Pseudocercospora dendrobii(H.C.     Burnett1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003"
+    value("Pseudocercospora dendrobii(H.C.     Burnett1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun et Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
     details("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == {:orig_authors=>{:year=>"1883", :names=>["H.C. Burnett"]}, :species=>"dendrobii", :authors=>{:year=>"2003", :names=>["U. Braun", "Crous"]}, :genus=>"Pseudocercospora"}
   end
@@ -174,7 +190,7 @@ describe ScientificName do
   
   it "should parse name with several subspecies names NOT BOTANICAL CODE BUT NOT INFREQUENT" do
     parse("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should_not be_nil
-    value("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
+    value("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall et D.E. Stuntz 1972"
     details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>[{:rank=>"var.", :value=>"zonatum"}, {:rank=>"f.", :value=>"parvum"}], :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum", :is_valid=>false}  
   end
   
@@ -209,6 +225,7 @@ describe ScientificName do
     #invalid but happens
     parse("Mycosphaerella eryngii (Fr. Duby) ex Oudem. 1897").should_not be_nil
     parse("Mycosphaerella eryngii (Fr.ex Duby) ex Oudem. 1897").should_not be_nil
+    parse("Salmonella werahensis (Castellani) Hauduroy and Ehringer in Hauduroy 1937").should_not be_nil
   end
   
   it "should parse multiplication sign" do
@@ -246,7 +263,7 @@ describe ScientificName do
   it "should parse name with subspecies without rank NOT BOTANICAL" do
     name = "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     parse(name).should_not be_nil
-    value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
+    value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall et D.E. Stuntz 1972"
     canonical(name).should == "Hydnellum scrobiculatum zonatum"
     details(name).should == {:orig_authors=>{:names=>["Banker"]}, :subspecies=>{:rank=>"n/a", :value=>"zonatum"}, :species=>"scrobiculatum", :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :genus=>"Hydnellum"}
     sp = "Begonia pingbienensis angustior"

@@ -138,7 +138,7 @@ grammar ScientificName
       end
     }
     /
-    a:simple_authors_part space "ex" space b:simple_authors_part {
+    a:simple_authors_part space ex_sep space b:simple_authors_part {
       def value 
         a.value + " ex " + b.value
       end
@@ -180,6 +180,15 @@ grammar ScientificName
   end
   
   rule original_authors_names_full
+    "(" space a:authors_names space ")" space [,]? space b:year {
+      def value
+        "(" + a.value + " " + b.value + ")"
+      end
+      def details
+        {:orig_authors => a.details[:authors], :year => b.details[:year]}
+      end
+    }
+    /
     "(" space a:authors_names_full space ")" {
       def value
         "(" + a.value + ")"
@@ -203,7 +212,7 @@ grammar ScientificName
   end
   
   rule authors_revised_name
-    a:authors_names_full space "ex" space b:authors_names_full {
+    a:authors_names_full space ex_sep space b:authors_names_full {
       def value
         a.value + " ex " + b.value
       end
@@ -225,6 +234,10 @@ grammar ScientificName
     /
     authors_names
   end
+  
+  rule ex_sep
+    ("ex"/"in")
+  end
       
   rule authors_names
     a:author_name space sep:author_name_separator space b:authors_names {
@@ -241,10 +254,10 @@ grammar ScientificName
   end  
   
   rule author_name_separator
-    ("&"/",") {
+    ("&"/","/"and"/"et") {
       def apply(a,b)
         sep = text_value.strip
-        sep = " " + sep if sep == "&"
+        sep = " et" if ["&","and","et"].include? sep
         a.value + sep + " " + b.value
       end
 
@@ -316,7 +329,7 @@ grammar ScientificName
       end
     }
     /
-    space a:species_name space b:latin_word !'.' {
+    space a:species_name space b:latin_word ![\.] {
       def value
         a.value + " " + b.value
       end
@@ -517,15 +530,6 @@ grammar ScientificName
       end
      }
   end
-    
-#  rule latin_word
-#    full_name_letters
-    # a:valid_name_letters b:full_name_letters {
-    #   def value
-    #     a.value + b.value
-    #   end
-    # }
-#  end
   
   rule full_name_letters
     a:digraph b:full_name_letters {
@@ -587,9 +591,12 @@ grammar ScientificName
   end
   
   rule year_with_character
-    a:[0-9\?]+ [a-z] {
+    a:[0-9\?]+ [a-zA-Z] {
       def value
         a.text_value
+      end
+      def details
+        {:year => value}
       end
     }
   end
