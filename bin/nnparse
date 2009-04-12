@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-gem 'dimus-biodiversity' rescue gem 'biodiversity'
+gem 'dimus-biodiversity' rescue gem 'biodiversity' rescue nil
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
