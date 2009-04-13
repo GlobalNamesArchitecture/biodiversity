@@ -3522,6 +3522,9 @@ module ScientificName
     def value
       a.text_value + b.value
     end
+    def details
+      {}
+    end
   end
 
   module LatinWord2
@@ -3537,6 +3540,9 @@ module ScientificName
   module LatinWord3
     def value
       a.value + b.value
+    end
+    def details
+      {}
     end
   end
 
@@ -3614,6 +3620,9 @@ module ScientificName
     def value
       a.value + b.value
     end
+    def details
+      {}
+    end
   end
 
   module FullNameLetters2
@@ -3633,6 +3642,9 @@ module ScientificName
   module FullNameLetters3
     def value
       a.value + b.value + c.value
+    end
+    def details
+      {}
     end
   end
 
@@ -3703,6 +3715,9 @@ module ScientificName
   module ValidNameLetters0
     def value
       text_value
+    end
+    def details
+      {}
     end
   end
 
@@ -3795,6 +3810,9 @@ module ScientificName
   module HybridSeparator0
     def value
       "x"
+    end
+    def details
+      {}
     end
   end
 
@@ -3976,6 +3994,13 @@ module ScientificName
     return r0
   end
 
+  module Space0
+    def details
+      {
+      }
+    end
+  end
+
   def _nt_space
     start_index = index
     if node_cache[:space].has_key?(index)
@@ -3999,10 +4024,17 @@ module ScientificName
       end
     end
     r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+    r0.extend(Space0)
 
     node_cache[:space][start_index] = r0
 
     return r0
+  end
+
+  module SpaceHard0
+    def details
+      {}
+    end
   end
 
   def _nt_space_hard
@@ -4032,6 +4064,7 @@ module ScientificName
       r0 = nil
     else
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(SpaceHard0)
     end
 
     node_cache[:space_hard][start_index] = r0

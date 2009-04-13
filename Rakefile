@@ -9,6 +9,21 @@ require 'rake/gempackagetask'
 
 task :default => :spec
 
+#begin
+#  require 'jeweler'
+#  Jeweler::Tasks.new do |gemspec|
+#    gemspec.name = "biodiversity"
+#    gemspec.summary = "scientific species name parser\n\nExecutable is nnparse"
+#    gemspec.email = "dmozzherin {et} eol {dt} org"
+#    gemspec.homepage = "http://github.com/dimus/biodiversity"
+#    gemspec.description = "Biodiversity library provides a parser tool for scientific species names"
+#    gemspec.authors = ["Dmitry Mozzherin", "Anna Shipunova"]
+#  end
+#rescue LoadError
+#  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+#end
+
+
 
 task :tt do
   system("tt #{dir}/lib/biodiversity/parser/scientific_name.treetop")

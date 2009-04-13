@@ -522,11 +522,17 @@ grammar ScientificName
       def value
         a.text_value + b.value
       end
+      def details
+        {}
+      end
      }
      /
      a:digraph b:full_name_letters {
       def value
         a.value + b.value
+      end
+      def details
+        {}
       end
      }
   end
@@ -536,11 +542,17 @@ grammar ScientificName
       def value
         a.value + b.value
       end
+      def details
+        {}
+      end
     }
     /
     a:valid_name_letters b:digraph c:full_name_letters {
       def value
         a.value + b.value + c.value
+      end
+      def details
+        {}
       end
     }
     /
@@ -551,6 +563,9 @@ grammar ScientificName
     [a-z\-ëüäöï]+ {
       def value
         text_value
+      end
+      def details
+        {}
       end
     }
   end 
@@ -573,6 +588,9 @@ grammar ScientificName
     ("x"/"X"/"×") {
       def value
         "x"
+      end
+      def details
+        {}
       end
     }
   end
@@ -602,10 +620,19 @@ grammar ScientificName
   end
   
   rule space
-    [\s]*
+    [\s]* {
+      def details
+        {
+        }
+      end
+    }
   end
 
   rule space_hard
-    [\s]+
+    [\s]+ {
+      def details
+        {}
+      end
+    }
   end
 end
