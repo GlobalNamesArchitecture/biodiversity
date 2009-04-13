@@ -27,6 +27,7 @@ task :default => :spec
 
 task :tt do
   system("tt #{dir}/lib/biodiversity/parser/scientific_name.treetop")
+  system("tt #{dir}/lib/biodiversity/parser/scientific_name_dirty.treetop")
 end
 
 task :files do
