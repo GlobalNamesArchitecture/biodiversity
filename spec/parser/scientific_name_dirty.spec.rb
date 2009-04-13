@@ -32,6 +32,25 @@ describe ScientificNameDirty do
     parse("Betula verucose (L.) Bar. 1899").should_not be_nil
   end
   
+  it 'should parse year with []' do
+    parse("Anthoscopus Cabanis [1851]").should_not be_nil
+    value("Anthoscopus Cabanis [185?]").should == "Anthoscopus Cabanis (185?)"
+    parse("Anthoscopus Cabanis [1851?]").should_not be_nil
+    value("Anthoscopus Cabanis [1851]").should == "Anthoscopus Cabanis (1851)"
+    value("Anthoscopus Cabanis [1851?]").should == "Anthoscopus Cabanis (1851?)"
+    details("Anthoscopus Cabanis [1851?]").should == {:uninomial=>"Anthoscopus", :authors=>{:names=>["Cabanis"], :approximate_year=>"(1851?)"}}
+    
+    parse("Trismegistia monodii Ando, 1973 [1974]").should_not be_nil
+    details("Trismegistia monodii Ando, 1973 [1974]").should == {:genus=>"Trismegistia", :species=>"monodii", :authors=>{:ambiguous_year=>"1973 [1974]", :names=>["Ando"]}}
+  end
+
+
+#  it 'should parse author with []' do
+ #     puts parse("Farsetia mutabilis [R.Br.]")#.should_not be_nil
+ #   value("Anthoscopus Cabanis [185?]").should == "Anthoscopus Cabanis (185?)"
+ #   details("Anthoscopus Cabanis [1851?]").should == {:uninomial=>"Anthoscopus", :authors=>{:names=>["Cabanis"], :approximate_year=>"(1851?)"}}
+  #end
+  
   # it 'should parse names with unparsed parts at the end' do
   #   #parse("Ctenomys pearsoni Lessa and Langguth, 1983 (action needed)").should_not be_nil
   #   #value("Ctenomys pearsoni Lessa and Langguth, 1983 (action needed)").should = ''

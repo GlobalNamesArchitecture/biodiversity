@@ -5,6 +5,48 @@ grammar ScientificNameDirty
     super
   end
   
+#  rule original_authors_names_full
+#    super
+#  end
+#  
+#  rule incorrect_original_authors_names
+#    "[" space a:authors_names_full space "]" {
+#      def value
+#        "(" + a.value + ")"
+#      end
+#      def details
+#        {:orig_authors => a.details[:authors]}
+#      end
+#    }
+#  end
+  
+  rule year
+    a:[\d]+ space b:approximate_year {
+      def value 
+        a.text_value + " " + b.text_value
+      end
+      def details
+        {:ambiguous_year => value}
+      end
+    }
+    /
+    approximate_year
+    /
+    super
+  end
+  
+  rule approximate_year
+    "[" space a:([\d] [\d] [\d] [\d\?]+) space "]" {
+      def value
+       "(" + a.text_value + ")"
+      end      
+      def details
+        {:approximate_year => value}
+      end
+    }
+  end
+  
+
   # rule authors_separator
   #   "and" {
   #     def apply(a,b)

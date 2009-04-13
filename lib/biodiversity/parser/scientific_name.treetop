@@ -198,6 +198,15 @@ grammar ScientificName
       end
     }
     /
+    "[" space a:authors_names_full space "]" {
+       def value
+         "(" + a.value + ")"
+       end
+       def details
+         {:orig_authors => a.details[:authors]}
+       end
+     }
+     /
     "(" space a:unknown_auth space ")" {
       def value
         "(" + a.value + ")"
