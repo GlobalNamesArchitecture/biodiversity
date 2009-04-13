@@ -3,3 +3,4 @@
 biodiversity*.gem
 *json
 tmp
+.DS_Store

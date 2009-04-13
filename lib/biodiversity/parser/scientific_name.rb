@@ -1057,6 +1057,10 @@ module ScientificName
       elements[1]
     end
 
+    def a
+      elements[2]
+    end
+
     def space
       elements[3]
     end
@@ -1064,6 +1068,26 @@ module ScientificName
   end
 
   module OriginalAuthorsNamesFull7
+    def value
+      "(" + a.value + ")"
+    end
+    def details
+      {:orig_authors => a.details[:authors]}
+    end
+  end
+
+  module OriginalAuthorsNamesFull8
+    def space
+      elements[1]
+    end
+
+    def space
+      elements[3]
+    end
+
+  end
+
+  module OriginalAuthorsNamesFull9
     def value
       "(?)"
     end
@@ -1192,11 +1216,11 @@ module ScientificName
         r0 = r12
       else
         i18, s18 = index, []
-        if input.index("(", index) == index
+        if input.index("[", index) == index
           r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
-          terminal_parse_failure("(")
+          terminal_parse_failure("[")
           r19 = nil
         end
         s18 << r19
@@ -1204,17 +1228,17 @@ module ScientificName
           r20 = _nt_space
           s18 << r20
           if r20
-            r21 = _nt_unknown_auth
+            r21 = _nt_authors_names_full
             s18 << r21
             if r21
               r22 = _nt_space
               s18 << r22
               if r22
-                if input.index(")", index) == index
+                if input.index("]", index) == index
                   r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
                   @index += 1
                 else
-                  terminal_parse_failure(")")
+                  terminal_parse_failure("]")
                   r23 = nil
                 end
                 s18 << r23
@@ -1246,13 +1270,7 @@ module ScientificName
             r26 = _nt_space
             s24 << r26
             if r26
-              if input.index("?", index) == index
-                r27 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure("?")
-                r27 = nil
-              end
+              r27 = _nt_unknown_auth
               s24 << r27
               if r27
                 r28 = _nt_space
@@ -1281,8 +1299,57 @@ module ScientificName
           if r24
             r0 = r24
           else
-            self.index = i0
-            r0 = nil
+            i30, s30 = index, []
+            if input.index("(", index) == index
+              r31 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure("(")
+              r31 = nil
+            end
+            s30 << r31
+            if r31
+              r32 = _nt_space
+              s30 << r32
+              if r32
+                if input.index("?", index) == index
+                  r33 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
+                else
+                  terminal_parse_failure("?")
+                  r33 = nil
+                end
+                s30 << r33
+                if r33
+                  r34 = _nt_space
+                  s30 << r34
+                  if r34
+                    if input.index(")", index) == index
+                      r35 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                      @index += 1
+                    else
+                      terminal_parse_failure(")")
+                      r35 = nil
+                    end
+                    s30 << r35
+                  end
+                end
+              end
+            end
+            if s30.last
+              r30 = instantiate_node(SyntaxNode,input, i30...index, s30)
+              r30.extend(OriginalAuthorsNamesFull8)
+              r30.extend(OriginalAuthorsNamesFull9)
+            else
+              self.index = i30
+              r30 = nil
+            end
+            if r30
+              r0 = r30
+            else
+              self.index = i0
+              r0 = nil
+            end
           end
         end
       end
