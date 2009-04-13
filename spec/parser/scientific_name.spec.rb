@@ -162,6 +162,20 @@ describe ScientificName do
     canonical("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
     details("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == {:orig_authors=>{:year=>"1883", :names=>["H.C. Burnett"]}, :species=>"dendrobii", :authors=>{:year=>"2003", :names=>["U. Braun", "Crous"]}, :genus=>"Pseudocercospora"}
   end
+  
+  it 'should parse unknown original authors (auct.)/(hort.)/(?)' do
+    parse("Tragacantha leporina (?) Kuntze").should_not be_nil
+    value("Tragacantha    leporina (    ?      )       Kuntze").should == "Tragacantha leporina (?) Kuntze"
+    parse("Lachenalia tricolor var. nelsonii (auct.) Baker").should_not be_nil
+    value("Lachenalia tricolor var. nelsonii (  auct. ) Baker").should == "Lachenalia tricolor var. nelsonii (auct.) Baker"
+    details("Lachenalia tricolor var. nelsonii (  auct. ) Baker").should == {:genus=>"Lachenalia", :species=>"tricolor", :subspecies=>[{:rank=>"var.", :value=>"nelsonii"}], :orig_authors=>"unknown", :authors=>{:names=>["Baker"]}}
+  end
+  
+  it 'should parse unknown authors auct./anon./hort' do
+    parse("Puya acris hort. ex Gentil").should_not be_nil
+    
+  end
+  
 
   it 'should not parse serveral authors groups with several years NOT CORRECT' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003").should be_nil
@@ -175,17 +189,29 @@ describe ScientificName do
     details("Trematosphaeria phaeospora(E. Müll.) L.       Holm 1957 ").should == {:orig_authors=>{:names=>["E. M\303\274ll."]}, :species=>"phaeospora", :authors=>{:year=>"1957", :names=>["L. Holm"]}, :genus=>"Trematosphaeria"} 
   end
   
-  it "should parse name with f." do
-    parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
-    value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
-    canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
-    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should ==  {:subspecies=>[{:rank=>"f.", :value=>"dahliae"}], :authors=>{:year=>"1967", :names=>["Movss."]}, :species=>"fuliginea", :genus=>"Sphaerotheca"}
-  end
-  
   it "should parse name with var." do
     parse("Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861").should_not be_nil
     value("Phaeographis     inusta    var. macularis(Leight.)  A.L.       Sm.     1861").should == "Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861"
     canonical("Phaeographis     inusta    var. macularis(Leight.)  A.L.       Sm.     1861").should == "Phaeographis inusta macularis"
+  end
+  
+  it "should parse name with forma/fo./form./f." do
+    parse("Caulerpa cupressoides forma nuda").should_not be_nil
+    value("Caulerpa cupressoides forma nuda").should == "Caulerpa cupressoides f. nuda"
+    canonical("Caulerpa cupressoides forma nuda").should == "Caulerpa cupressoides nuda"
+    details("Caulerpa cupressoides forma nuda").should == {:genus=>"Caulerpa", :species=>"cupressoides", :subspecies=>[{:rank=>"f.", :value=>"nuda"}]}
+    parse("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should_not be_nil
+    value("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == "Chlorocyperus glaber f. fasciculariforme (Lojac.) Soó"
+    canonical("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == "Chlorocyperus glaber fasciculariforme"
+    details("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == {:genus=>"Chlorocyperus", :species=>"glaber", :subspecies=>[{:rank=>"f.", :value=>"fasciculariforme"}], :orig_authors=>{:names=>["Lojac."]}, :authors=>{:names=>["Soó"]}}
+    parse("Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros.").should_not be_nil
+    value("Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros.").should == "Bambusa nana Roxb. f. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
+    canonical("Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros.").should == "Bambusa nana alphonse-karri"
+    details("Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros.").should == {:genus=>"Bambusa", :species=>"nana", :subspecies=>[{:rank=>"f.", :value=>"alphonse-karri"}], :species_authors=>{:authors=>{:names=>["Roxb."]}}, :subspecies_authors=>{:original_revised_name_authors=>{:revised_authors=>{:names=>["Mitford"]}, :authors=>{:names=>["Satow"]}}, :revised_name_authors=>{:revised_authors=>{:names=>["Makino"]}, :authors=>{:names=>["Shiros."]}}}}
+    parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
+    value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
+    canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
+    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should ==  {:subspecies=>[{:rank=>"f.", :value=>"dahliae"}], :authors=>{:year=>"1967", :names=>["Movss."]}, :species=>"fuliginea", :genus=>"Sphaerotheca"} 
   end
   
   it "should parse name with several subspecies names NOT BOTANICAL CODE BUT NOT INFREQUENT" do

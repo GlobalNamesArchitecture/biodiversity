@@ -104,10 +104,10 @@ grammar ScientificName
   rule name_part_authors_mix
     a:species_name space b:authors_part space c:subspecies_name space d:authors_part {
       def value
-        a.value + " " + b.value + " " + c.value + " " + d.value
+        (a.value + " " + b.value + " " + c.value + " " + d.value).gsub(/\s+/,' ')
       end
       def canonical
-        a.canonical + " " + c.canonical
+        (a.canonical + " " + c.canonical).gsub(/\s+/,' ')
       end
       def details
         a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details})
@@ -116,10 +116,10 @@ grammar ScientificName
     /
     a:species_name space b:authors_part space c:subspecies_name {
       def value 
-        a.value + " " + b.value + " " + c.value
+        (a.value + " " + b.value + " " + c.value).gsub(/\s+/,' ')
       end
       def canonical
-        a.canonical + " " + c.canonical
+        (a.canonical + " " + c.canonical).gsub(/\s+/,' ')
       end
       def details
         a.details.merge(c.details).merge({:species_authors=>b.details})
@@ -197,6 +197,24 @@ grammar ScientificName
         {:orig_authors => a.details[:authors]}
       end
     }
+    /
+    "(" space a:unknown_auth space ")" {
+      def value
+        "(" + a.value + ")"
+      end
+      def details
+        {:orig_authors => a.details[:authors]}
+      end
+    }
+    /
+    "(" space "?" space ")" {
+      def value
+        "(?)"
+      end
+      def details
+        {:orig_authors => "unknown"}
+      end
+    }
   end
     
   rule original_authors_revised_name
@@ -233,6 +251,19 @@ grammar ScientificName
     }
     /
     authors_names
+    /
+    unknown_auth
+  end
+  
+  rule unknown_auth
+    ("auct."/"hort."/"anon.") {
+      def value
+        text_value
+      end
+      def details
+        {:authors => "unknown"}
+      end
+    }
   end
   
   rule ex_sep
@@ -409,7 +440,7 @@ grammar ScientificName
   end
   
   rule rank
-    ("f.sp."/"f."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
+    ("f.sp."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
@@ -423,6 +454,26 @@ grammar ScientificName
       end
       def details(a = nil)
         {:subspecies => [{:rank => text_value, :value => (a.value rescue nil)}]}
+      end
+    }
+    /
+    rank_forma
+  end
+  
+  rule rank_forma
+    ("forma"/"form."/"fo."/"f.")
+    {
+      def value
+        "f."
+      end
+      def apply(a)
+        " " + value + " " + a.value
+      end
+      def canonical(a)
+        " " + a.value
+      end
+      def details(a = nil)
+        {:subspecies => [{:rank => value, :value => (a.value rescue nil)}]}
       end
     }
   end
