@@ -1,0 +1,35 @@
+grammar ScientificNameDirty
+  include ScientificName
+
+  rule composite_scientific_name
+    super
+  end
+  
+  # rule authors_separator
+  #   "and" {
+  #     def apply(a,b)
+  #       a.value + " & " + b.value
+  #     end
+  # 
+  #     def details(a,b)
+  #       {:authors => {:names => a.details[:authors][:names] + b.details[:authors][:names]}}
+  #     end
+  #   }
+  #   /
+  #   super
+  # end
+  # 
+  # rule year
+  #   [0-9] [0-9A-Za-z\?\-]+ {
+  #     def value
+  #       text_value
+  #     end
+  #     def details
+  #       {:year => value}
+  #     end
+  #   }
+  #   /
+  #   super
+  # end
+
+end
