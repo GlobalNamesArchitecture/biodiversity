@@ -13,6 +13,7 @@ end
 
 
 parser = ScientificNameParser.new
+dirty_parser = ScientificNameDirtyParser.new
 
 output = ARGV[1] || 'parsed.json'
 o = File.open(output,'w')
@@ -30,7 +31,7 @@ IO.foreach(ARGV[0]) do |n|
   p count2  if count2 % 5000 == 0
   n.strip!
   name_dict = {:input => n} 
-  parsed = parser.parse n
+  parsed = parser.parse(n) || dirty_parser.parse(n)
   unless parsed
     name_dict[:details] = {:parsed => false}
     last_result = JSON.generate name_dict

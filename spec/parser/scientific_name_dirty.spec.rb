@@ -42,6 +42,8 @@ describe ScientificNameDirty do
     
     parse("Trismegistia monodii Ando, 1973 [1974]").should_not be_nil
     details("Trismegistia monodii Ando, 1973 [1974]").should == {:genus=>"Trismegistia", :species=>"monodii", :authors=>{:ambiguous_year=>"1973 [1974]", :names=>["Ando"]}}
+    parse("Zygaena witti Wiegel [1973]").should_not be_nil
+    parse("Deyeuxia coarctata Kunth, 1815 [1816]").should_not be_nil
   end
 
   it 'should parse year page number' do
