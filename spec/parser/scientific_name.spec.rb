@@ -171,8 +171,8 @@ describe ScientificName do
     details("Lachenalia tricolor var. nelsonii (  auct. ) Baker").should == {:genus=>"Lachenalia", :species=>"tricolor", :subspecies=>[{:rank=>"var.", :value=>"nelsonii"}], :orig_authors=>"unknown", :authors=>{:names=>["Baker"]}}
   end
   
-  it 'should parse unknown authors auct./anon./hort' do
-    parse("Puya acris hort. ex Gentil").should_not be_nil
+  it 'should parse unknown authors auct./anon./hort./ht.' do
+    parse("Puya acris ht. ex Gentil").should_not be_nil
     
   end
   
@@ -194,6 +194,16 @@ describe ScientificName do
     value("Phaeographis     inusta    var. macularis(Leight.)  A.L.       Sm.     1861").should == "Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861"
     canonical("Phaeographis     inusta    var. macularis(Leight.)  A.L.       Sm.     1861").should == "Phaeographis inusta macularis"
   end
+  
+#  "subsect."/"subtrib."/"subgen."/"morph."/"trib."/
+it "should parse name with morph." do
+  val = "Callideriphus flavicollis morph. reductus Fuchs 1961"
+  parse(val).should_not be_nil
+  (val).should == "Callideriphus flavicollis morph. reductus Fuchs 1961"
+  canonical(val).should == "Callideriphus flavicollis reductus"
+  #details(val).should == {}
+end
+
   
   it "should parse name with forma/fo./form./f." do
     parse("Caulerpa cupressoides forma nuda").should_not be_nil
@@ -311,5 +321,17 @@ describe ScientificName do
     details("Agaricus acris var. (b.&c.)").should == {:editorial_markup=>"(b.c.)", :subspecies=>[{:rank=>"var.", :value=>nil}], :species=>"acris", :genus=>"Agaricus", :is_valid=>false}
 
   end
+
+  # Moraea spathulata ( (L. f.) ) Klatt
+  # Eichornia crassipes ( (Martius) ) Solms-Laub.
+  # Vitex agnus-castus fo. alba ( (West.) ) Rehder
+  # Pelargonium cucullatum ( (L.) ) L'Her.
+  # Meiostemon humbertii ( (H. Perrier) ) Exell & Stace
+  # it 'should parse double parenthesis' do
+  #   val = "Eichornia crassipes ( (Martius) Solms-Laub."
+  #   parse(val).should_not be_nil
+  #   value(val).should == "Eichornia crassipes (Martius) Solms-Laub."
+  # end
+
   
 end

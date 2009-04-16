@@ -265,7 +265,7 @@ grammar ScientificName
   end
   
   rule unknown_auth
-    ("auct."/"hort."/"anon.") {
+    ("auct."/"hort."/"anon."/"ht.") {
       def value
         text_value
       end
@@ -449,7 +449,7 @@ grammar ScientificName
   end
   
   rule rank
-    ("f.sp."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
+    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value

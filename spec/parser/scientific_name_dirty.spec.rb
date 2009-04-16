@@ -44,6 +44,46 @@ describe ScientificNameDirty do
     details("Trismegistia monodii Ando, 1973 [1974]").should == {:genus=>"Trismegistia", :species=>"monodii", :authors=>{:ambiguous_year=>"1973 [1974]", :names=>["Ando"]}}
   end
 
+  it 'should parse year page number' do
+    val = "Gymnodactylus irregularis WERMUTH 1965: 54"
+    parse(val).should_not be_nil
+    value(val).should == "Gymnodactylus irregularis WERMUTH 1965"
+    details(val).should == {:genus=>"Gymnodactylus", :species=>"irregularis", :authors=>{:names=>["WERMUTH"], :year=>"1965"}}    
+  end
+  
+  # Moraea spathulata ( (L. f.) ) Klatt
+  # Eichornia crassipes ( (Martius) ) Solms-Laub.
+  # Vitex agnus-castus fo. alba ( (West.) ) Rehder
+  # Pelargonium cucullatum ( (L.) ) L'Her.
+  # Meiostemon humbertii ( (H. Perrier) ) Exell & Stace
+ # it 'should parse double parenthesis' do
+ #   val = "Eichornia crassipes ((Martius) Solms-Laub."
+#    parse(val).should_not be_nil
+    # value(val).should == "Gymnodactylus irregularis WERMUTH 1965"
+    # details(val).should == {:genus=>"Gymnodactylus", :species=>"irregularis", :authors=>{:names=>["WERMUTH"], :year=>"1965"}}    
+  end
+  
+  
+  
+  # Acomys "Geoffroy, I." 1838
+  # Verpericola megasoma "Dall" Pils.
+  # Auricotes neoclayae "Price, Hellenthal and Palma 2003"
+  # Leccinum cinnamomeum var. cinnamomeum "A.H. Sm.
+  
+  # it 'should parse quote' do
+  #   val = 'Acomys "Geoffroy, I." 1838'
+  # end
+  
+
+  it 'should parse canonical with garbage' do
+    sn = '' 
+    # Euschides (LeConte JL 1858
+    parse(sn).should_not be_nil
+    # value(sn).should == 'Euschides'
+    # canonical(sn).should == 'Euschides'
+    # details(sn).should == {:uninomial=>"Euschides"} 
+  end
+
 
 #  it 'should parse author with []' do
  #     puts parse("Farsetia mutabilis [R.Br.]")#.should_not be_nil

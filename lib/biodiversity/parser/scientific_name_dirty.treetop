@@ -2,6 +2,8 @@ grammar ScientificNameDirty
   include ScientificName
 
   rule composite_scientific_name
+    name_part_with_garbage
+    /
     super
   end
   
@@ -30,13 +32,23 @@ grammar ScientificNameDirty
       end
     }
     /
+    a:[\d]+ page_number
+    {
+      def value 
+        a.text_value
+      end
+      def details
+        {:year => value}
+      end      
+    }
+    /
     approximate_year
     /
     super
   end
   
   rule approximate_year
-    "[" space a:([\d] [\d] [\d] [\d\?]+) space "]" {
+    "[" space a:([\d] [\d] [\d] [\d\?]+) space "]"+ {
       def value
        "(" + a.text_value + ")"
       end      
@@ -44,8 +56,19 @@ grammar ScientificNameDirty
         {:approximate_year => value}
       end
     }
+  end 
+  
+  rule page_number
+    ":" space [\d]+
+    {
+      def value
+      end
+    }
   end
   
+  rule name_part_with_garbage
+    a:cap_latin_name space b:latin_name
+  end
 
   # rule authors_separator
   #   "and" {
