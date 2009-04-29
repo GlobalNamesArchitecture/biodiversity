@@ -173,7 +173,6 @@ describe ScientificName do
   
   it 'should parse unknown authors auct./anon./hort./ht.' do
     parse("Puya acris ht. ex Gentil").should_not be_nil
-    
   end
   
 
@@ -195,15 +194,25 @@ describe ScientificName do
     canonical("Phaeographis     inusta    var. macularis(Leight.)  A.L.       Sm.     1861").should == "Phaeographis inusta macularis"
   end
   
-#  "subsect."/"subtrib."/"subgen."/"morph."/"trib."/
 it "should parse name with morph." do
   val = "Callideriphus flavicollis morph. reductus Fuchs 1961"
   parse(val).should_not be_nil
-  (val).should == "Callideriphus flavicollis morph. reductus Fuchs 1961"
+  value(val).should == "Callideriphus flavicollis morph. reductus Fuchs 1961"
   canonical(val).should == "Callideriphus flavicollis reductus"
   #details(val).should == {}
 end
 
+#  "subsect."/"subtrib."/"subgen."/"trib."/
+#Stipa Speg. subgen. Leptostipa
+#Sporobolus subgen. Sporobolus R.Br.
+
+it 'should parse name with "subsect."/"subtrib."/"subgen."/"trib."' do
+  val = "Sporobolus subgen. Sporobolus R.Br."
+  parse(val).should_not be_nil
+  # value(val).should == val
+  # canonical(val).should == "Callideriphus flavicollis reductus"
+  # details(val).should == {}
+end
   
   it "should parse name with forma/fo./form./f." do
     parse("Caulerpa cupressoides forma nuda").should_not be_nil
@@ -322,16 +331,19 @@ end
 
   end
 
-  # Moraea spathulata ( (L. f.) ) Klatt
-  # Eichornia crassipes ( (Martius) ) Solms-Laub.
-  # Vitex agnus-castus fo. alba ( (West.) ) Rehder
-  # Pelargonium cucullatum ( (L.) ) L'Her.
-  # Meiostemon humbertii ( (H. Perrier) ) Exell & Stace
-  # it 'should parse double parenthesis' do
-  #   val = "Eichornia crassipes ( (Martius) Solms-Laub."
-  #   parse(val).should_not be_nil
-  #   value(val).should == "Eichornia crassipes (Martius) Solms-Laub."
-  # end
+  it 'should parse double parenthesis' do
+    val = "Eichornia crassipes ( (Martius) ) Solms-Laub."
+    parse(val).should_not be_nil
+    value(val).should == "Eichornia crassipes (Martius) Solms-Laub."
+    details(val).should == {:genus=>"Eichornia", :species=>"crassipes", :orig_authors=>{:names=>["Martius"]}, :authors=>{:names=>["Solms-Laub."]}}   
+  end
 
+#  val = "Ferganoconcha? oblonga"
+  it 'should parse genus?' do
+    val = "Ferganoconcha? oblonga"
+    parse(val).should_not be_nil
+    value(val).should == "Ferganoconcha oblonga"
+    details(val).should == {:genus=>"Ferganoconcha", :species=>"oblonga"}   
+  end
   
 end

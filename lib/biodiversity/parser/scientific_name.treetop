@@ -180,7 +180,7 @@ grammar ScientificName
   end
   
   rule original_authors_names_full
-    "(" space a:authors_names space ")" space [,]? space b:year {
+    left_bracket space a:authors_names space right_bracket space [,]? space b:year {
       def value
         "(" + a.value + " " + b.value + ")"
       end
@@ -189,7 +189,7 @@ grammar ScientificName
       end
     }
     /
-    "(" space a:authors_names_full space ")" {
+    left_bracket space a:authors_names_full space right_bracket {
       def value
         "(" + a.value + ")"
       end
@@ -207,7 +207,7 @@ grammar ScientificName
        end
      }
      /
-    "(" space a:unknown_auth space ")" {
+    left_bracket space a:unknown_auth space right_bracket {
       def value
         "(" + a.value + ")"
       end
@@ -216,7 +216,7 @@ grammar ScientificName
       end
     }
     /
-    "(" space "?" space ")" {
+    left_bracket space "?" space right_bracket {
       def value
         "(?)"
       end
@@ -227,7 +227,7 @@ grammar ScientificName
   end
     
   rule original_authors_revised_name
-    "(" space a:authors_revised_name space ")" {
+    left_bracket space a:authors_revised_name space right_bracket {
       def value
         "(" + a.value + ")"
       end
@@ -560,8 +560,42 @@ grammar ScientificName
       end
     }
   end
+
+  #  "subsect."/"subtrib."/"subgen."/"trib."/
+  rule genus_rank
+    ("subsect."/"subtrib."/"subgen."/"trib.")
+    {
+      def value
+        text_value.strip
+      end
+      def apply(a)
+        " " + text_value + " " + a.value
+      end
+      def canonical(a)
+        " " + a.value
+      end
+      def details(a = nil)
+        {:subgenus => [{:rank => text_value, :value => (a.value rescue nil)}]}
+      end
+    }
+  end
+  
   
   rule cap_latin_word
+    a:[A-Z] b:latin_word "?" {
+      def value
+        a.text_value + b.value
+      end
+      
+      def canonical 
+        value
+      end
+      
+      def details 
+        {:uninomial => value}
+      end
+    }
+    /
     a:[A-Z] b:latin_word {
       def value
         a.text_value + b.value
@@ -678,6 +712,28 @@ grammar ScientificName
       end
     }
   end
+
+#    Next two rles only for ( (author) )
+#    doesn't touch parenthesis inside another one like (bla-bla-bla1 (bla-bla-bla2))
+
+    rule left_bracket
+      "( ("/"("
+      {
+        def value
+          "("
+        end
+      }
+    end
+
+    rule right_bracket
+      ") )"/")"
+      {
+        def value
+          ")"
+        end
+      }
+    end
+  
   
   rule space
     [\s]* {

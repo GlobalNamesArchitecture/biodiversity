@@ -1,0 +1,39 @@
+grammar ScientificNameLastPart
+  include ScientificName
+  include ScientificNameDirty
+
+  rule composite_scientific_name
+    name_part_with_garbage
+  end
+    
+  rule name_part_with_garbage
+    a:species_name space [^ш]+ {
+      def value 
+        a.value
+      end
+      def canonical
+        a.canonical
+      end
+      def details
+        a.details
+      end
+    }
+    /
+    a:name_part space [^ш]+ {
+      def value 
+        a.value
+      end
+      def canonical
+        a.canonical
+      end
+      def details
+        a.details
+      end
+    }
+  end
+  
+  rule garbage
+    [.]*
+  end
+
+end
