@@ -1,5 +1,5 @@
 grammar ScientificNameDirty
-  include ScientificName
+  include ScientificNameClean
  
   rule composite_scientific_name
     super

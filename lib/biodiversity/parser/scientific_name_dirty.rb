@@ -5,7 +5,7 @@ module ScientificNameDirty
     @root || :composite_scientific_name
   end
 
-  include ScientificName
+  include ScientificNameClean
 
   def _nt_composite_scientific_name
     start_index = index
@@ -37,11 +37,32 @@ module ScientificNameDirty
   end
 
   module Year1
-    def value 
+
+    def value
       a.text_value + " " + b.text_value
     end
     def details
       {:ambiguous_year => value}
+    end
+  end
+
+  module Year2
+    def a
+      elements[0]
+    end
+
+    def page_number
+      elements[1]
+    end
+  end
+
+  module Year3
+
+    def value
+      a.text_value
+    end
+    def details
+      {:year => value}
     end
   end
 
@@ -95,16 +116,59 @@ module ScientificNameDirty
     if r1
       r0 = r1
     else
-      r6 = _nt_approximate_year
+      i6, s6 = index, []
+      s7, i7 = [], index
+      loop do
+        if input.index(Regexp.new('[\\d]'), index) == index
+          r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          r8 = nil
+        end
+        if r8
+          s7 << r8
+        else
+          break
+        end
+      end
+      if s7.empty?
+        self.index = i7
+        r7 = nil
+      else
+        r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+      end
+      s6 << r7
+      if r7
+        r9 = _nt_page_number
+        s6 << r9
+      end
+      if s6.last
+        r6 = instantiate_node(SyntaxNode,input, i6...index, s6)
+        r6.extend(Year2)
+        r6.extend(Year3)
+      else
+        self.index = i6
+        r6 = nil
+      end
       if r6
         r0 = r6
       else
-        r7 = super
-        if r7
-          r0 = r7
+        r10 = _nt_double_year
+        if r10
+          r0 = r10
         else
-          self.index = i0
-          r0 = nil
+          r11 = _nt_approximate_year
+          if r11
+            r0 = r11
+          else
+            r12 = super
+            if r12
+              r0 = r12
+            else
+              self.index = i0
+              r0 = nil
+            end
+          end
         end
       end
     end
@@ -133,9 +197,10 @@ module ScientificNameDirty
   end
 
   module ApproximateYear2
+
     def value
      "(" + a.text_value + ")"
-    end      
+    end
     def details
       {:approximate_year => value}
     end
@@ -223,12 +288,26 @@ module ScientificNameDirty
           r9 = _nt_space
           s0 << r9
           if r9
-            if input.index("]", index) == index
-              r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("]")
+            s10, i10 = [], index
+            loop do
+              if input.index("]", index) == index
+                r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
+              else
+                terminal_parse_failure("]")
+                r11 = nil
+              end
+              if r11
+                s10 << r11
+              else
+                break
+              end
+            end
+            if s10.empty?
+              self.index = i10
               r10 = nil
+            else
+              r10 = instantiate_node(SyntaxNode,input, i10...index, s10)
             end
             s0 << r10
           end
@@ -249,8 +328,146 @@ module ScientificNameDirty
     return r0
   end
 
+  module DoubleYear0
+  end
+
+  module DoubleYear1
+
+    def value
+      text_value
+    end
+    def details
+      {:year => value}
+    end
+  end
+
+  def _nt_double_year
+    start_index = index
+    if node_cache[:double_year].has_key?(index)
+      cached = node_cache[:double_year][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    if input.index(Regexp.new('[0-9]'), index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      @index += 1
+    else
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      s2, i2 = [], index
+      loop do
+        if input.index(Regexp.new('[0-9A-Za-z\\?\\-]'), index) == index
+          r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          r3 = nil
+        end
+        if r3
+          s2 << r3
+        else
+          break
+        end
+      end
+      if s2.empty?
+        self.index = i2
+        r2 = nil
+      else
+        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+      end
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(DoubleYear0)
+      r0.extend(DoubleYear1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:double_year][start_index] = r0
+
+    return r0
+  end
+
+  module PageNumber0
+    def space
+      elements[1]
+    end
+
+  end
+
+  module PageNumber1
+
+    def value
+    end
+  end
+
+  def _nt_page_number
+    start_index = index
+    if node_cache[:page_number].has_key?(index)
+      cached = node_cache[:page_number][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    if input.index(":", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      @index += 1
+    else
+      terminal_parse_failure(":")
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      r2 = _nt_space
+      s0 << r2
+      if r2
+        s3, i3 = [], index
+        loop do
+          if input.index(Regexp.new('[\\d]'), index) == index
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            r4 = nil
+          end
+          if r4
+            s3 << r4
+          else
+            break
+          end
+        end
+        if s3.empty?
+          self.index = i3
+          r3 = nil
+        else
+          r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+        end
+        s0 << r3
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(PageNumber0)
+      r0.extend(PageNumber1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:page_number][start_index] = r0
+
+    return r0
+  end
+
 end
 
 class ScientificNameDirtyParser < Treetop::Runtime::CompiledParser
   include ScientificNameDirty
 end
+

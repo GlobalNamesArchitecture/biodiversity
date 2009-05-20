@@ -1,5 +1,5 @@
 # encoding: UTF-8
-module ScientificName
+module ScientificNameClean
   include Treetop::Runtime
 
   def root
@@ -203,17 +203,27 @@ module ScientificName
     def space
       elements[6]
     end
+
+    def d
+      elements[7]
+    end
+
+    def space
+      elements[8]
+    end
   end
 
   module ScientificName1
     def value
-      a.value + " " + b.value + " " + c.value
+      a.value + " " + b.value + " " + c.apply(d)
     end
+  
     def canonical
       a.canonical
     end
+  
     def details
-      a.details.merge(b.details).merge(c.details)
+      a.details.merge(b.details).merge(c.details(d))
     end
   end
 
@@ -237,17 +247,27 @@ module ScientificName
     def space
       elements[4]
     end
+
+    def c
+      elements[5]
+    end
+
+    def space
+      elements[6]
+    end
   end
 
   module ScientificName3
     def value
-      a.value + " " + b.value
+      a.value + " " + b.apply(c)
     end
+  
     def canonical
       a.canonical
     end
+  
     def details
-      a.details.merge(b.details)
+      a.details.merge(b.details(c))
     end
   end
 
@@ -271,9 +291,85 @@ module ScientificName
     def space
       elements[4]
     end
+
+    def c
+      elements[5]
+    end
+
+    def space
+      elements[6]
+    end
   end
 
   module ScientificName5
+    def value
+      a.value + " " + b.value + " " + c.value
+    end
+    def canonical
+      a.canonical
+    end
+    def details
+      a.details.merge(b.details).merge(c.details)
+    end
+  end
+
+  module ScientificName6
+    def space
+      elements[0]
+    end
+
+    def a
+      elements[1]
+    end
+
+    def space
+      elements[2]
+    end
+
+    def b
+      elements[3]
+    end
+
+    def space
+      elements[4]
+    end
+  end
+
+  module ScientificName7
+    def value
+      a.value + " " + b.value
+    end
+    def canonical
+      a.canonical
+    end
+    def details
+      a.details.merge(b.details)
+    end
+  end
+
+  module ScientificName8
+    def space
+      elements[0]
+    end
+
+    def a
+      elements[1]
+    end
+
+    def space
+      elements[2]
+    end
+
+    def b
+      elements[3]
+    end
+
+    def space
+      elements[4]
+    end
+  end
+
+  module ScientificName9
     def value
       a.value + " " + b.value
     end
@@ -316,11 +412,19 @@ module ScientificName
               r7 = _nt_space
               s2 << r7
               if r7
-                r8 = _nt_status_part
+                r8 = _nt_taxon_concept_rank
                 s2 << r8
                 if r8
                   r9 = _nt_space
                   s2 << r9
+                  if r9
+                    r10 = _nt_authors_part
+                    s2 << r10
+                    if r10
+                      r11 = _nt_space
+                      s2 << r11
+                    end
+                  end
                 end
               end
             end
@@ -338,72 +442,150 @@ module ScientificName
       if r2
         r0 = r2
       else
-        i10, s10 = index, []
-        r11 = _nt_space
-        s10 << r11
-        if r11
-          r12 = _nt_name_part
-          s10 << r12
-          if r12
-            r13 = _nt_space
-            s10 << r13
-            if r13
-              r14 = _nt_authors_part
-              s10 << r14
-              if r14
-                r15 = _nt_space
-                s10 << r15
-              end
-            end
-          end
-        end
-        if s10.last
-          r10 = instantiate_node(SyntaxNode,input, i10...index, s10)
-          r10.extend(ScientificName2)
-          r10.extend(ScientificName3)
-        else
-          self.index = i10
-          r10 = nil
-        end
-        if r10
-          r0 = r10
-        else
-          i16, s16 = index, []
-          r17 = _nt_space
-          s16 << r17
-          if r17
-            r18 = _nt_name_part
-            s16 << r18
-            if r18
-              r19 = _nt_space
-              s16 << r19
-              if r19
-                r20 = _nt_year
-                s16 << r20
-                if r20
-                  r21 = _nt_space
-                  s16 << r21
+        i12, s12 = index, []
+        r13 = _nt_space
+        s12 << r13
+        if r13
+          r14 = _nt_name_part
+          s12 << r14
+          if r14
+            r15 = _nt_space
+            s12 << r15
+            if r15
+              r16 = _nt_taxon_concept_rank
+              s12 << r16
+              if r16
+                r17 = _nt_space
+                s12 << r17
+                if r17
+                  r18 = _nt_authors_part
+                  s12 << r18
+                  if r18
+                    r19 = _nt_space
+                    s12 << r19
+                  end
                 end
               end
             end
           end
-          if s16.last
-            r16 = instantiate_node(SyntaxNode,input, i16...index, s16)
-            r16.extend(ScientificName4)
-            r16.extend(ScientificName5)
-          else
-            self.index = i16
-            r16 = nil
-          end
-          if r16
-            r0 = r16
-          else
+        end
+        if s12.last
+          r12 = instantiate_node(SyntaxNode,input, i12...index, s12)
+          r12.extend(ScientificName2)
+          r12.extend(ScientificName3)
+        else
+          self.index = i12
+          r12 = nil
+        end
+        if r12
+          r0 = r12
+        else
+          i20, s20 = index, []
+          r21 = _nt_space
+          s20 << r21
+          if r21
             r22 = _nt_name_part
+            s20 << r22
             if r22
-              r0 = r22
+              r23 = _nt_space
+              s20 << r23
+              if r23
+                r24 = _nt_authors_part
+                s20 << r24
+                if r24
+                  r25 = _nt_space
+                  s20 << r25
+                  if r25
+                    r26 = _nt_status_part
+                    s20 << r26
+                    if r26
+                      r27 = _nt_space
+                      s20 << r27
+                    end
+                  end
+                end
+              end
+            end
+          end
+          if s20.last
+            r20 = instantiate_node(SyntaxNode,input, i20...index, s20)
+            r20.extend(ScientificName4)
+            r20.extend(ScientificName5)
+          else
+            self.index = i20
+            r20 = nil
+          end
+          if r20
+            r0 = r20
+          else
+            i28, s28 = index, []
+            r29 = _nt_space
+            s28 << r29
+            if r29
+              r30 = _nt_name_part
+              s28 << r30
+              if r30
+                r31 = _nt_space
+                s28 << r31
+                if r31
+                  r32 = _nt_authors_part
+                  s28 << r32
+                  if r32
+                    r33 = _nt_space
+                    s28 << r33
+                  end
+                end
+              end
+            end
+            if s28.last
+              r28 = instantiate_node(SyntaxNode,input, i28...index, s28)
+              r28.extend(ScientificName6)
+              r28.extend(ScientificName7)
             else
-              self.index = i0
-              r0 = nil
+              self.index = i28
+              r28 = nil
+            end
+            if r28
+              r0 = r28
+            else
+              i34, s34 = index, []
+              r35 = _nt_space
+              s34 << r35
+              if r35
+                r36 = _nt_name_part
+                s34 << r36
+                if r36
+                  r37 = _nt_space
+                  s34 << r37
+                  if r37
+                    r38 = _nt_year
+                    s34 << r38
+                    if r38
+                      r39 = _nt_space
+                      s34 << r39
+                    end
+                  end
+                end
+              end
+              if s34.last
+                r34 = instantiate_node(SyntaxNode,input, i34...index, s34)
+                r34.extend(ScientificName8)
+                r34.extend(ScientificName9)
+              else
+                self.index = i34
+                r34 = nil
+              end
+              if r34
+                r0 = r34
+              else
+                r40 = _nt_name_part
+                if r40
+                  r0 = r40
+                else
+                  self.index = i0
+                  r0 = nil
+                end
+              end
             end
           end
         end
@@ -970,6 +1152,10 @@ module ScientificName
   end
 
   module OriginalAuthorsNamesFull0
+    def left_bracket
+      elements[0]
+    end
+
     def space
       elements[1]
     end
@@ -980,6 +1166,10 @@ module ScientificName
 
     def space
       elements[3]
+    end
+
+    def right_bracket
+      elements[4]
     end
 
     def space
@@ -1005,6 +1195,10 @@ module ScientificName
   end
 
   module OriginalAuthorsNamesFull2
+    def left_bracket
+      elements[0]
+    end
+
     def space
       elements[1]
     end
@@ -1017,6 +1211,9 @@ module ScientificName
       elements[3]
     end
 
+    def right_bracket
+      elements[4]
+    end
   end
 
   module OriginalAuthorsNamesFull3
@@ -1053,6 +1250,10 @@ module ScientificName
   end
 
   module OriginalAuthorsNamesFull6
+    def left_bracket
+      elements[0]
+    end
+
     def space
       elements[1]
     end
@@ -1065,6 +1266,9 @@ module ScientificName
       elements[3]
     end
 
+    def right_bracket
+      elements[4]
+    end
   end
 
   module OriginalAuthorsNamesFull7
@@ -1077,6 +1281,10 @@ module ScientificName
   end
 
   module OriginalAuthorsNamesFull8
+    def left_bracket
+      elements[0]
+    end
+
     def space
       elements[1]
     end
@@ -1085,6 +1293,9 @@ module ScientificName
       elements[3]
     end
 
+    def right_bracket
+      elements[4]
+    end
   end
 
   module OriginalAuthorsNamesFull9
@@ -1106,13 +1317,7 @@ module ScientificName
 
     i0 = index
     i1, s1 = index, []
-    if input.index("(", index) == index
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
-    else
-      terminal_parse_failure("(")
-      r2 = nil
-    end
+    r2 = _nt_left_bracket
     s1 << r2
     if r2
       r3 = _nt_space
@@ -1124,13 +1329,7 @@ module ScientificName
           r5 = _nt_space
           s1 << r5
           if r5
-            if input.index(")", index) == index
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure(")")
-              r6 = nil
-            end
+            r6 = _nt_right_bracket
             s1 << r6
             if r6
               r7 = _nt_space
@@ -1174,13 +1373,7 @@ module ScientificName
       r0 = r1
     else
       i12, s12 = index, []
-      if input.index("(", index) == index
-        r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
-      else
-        terminal_parse_failure("(")
-        r13 = nil
-      end
+      r13 = _nt_left_bracket
       s12 << r13
       if r13
         r14 = _nt_space
@@ -1192,13 +1385,7 @@ module ScientificName
             r16 = _nt_space
             s12 << r16
             if r16
-              if input.index(")", index) == index
-                r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure(")")
-                r17 = nil
-              end
+              r17 = _nt_right_bracket
               s12 << r17
             end
           end
@@ -1258,13 +1445,7 @@ module ScientificName
           r0 = r18
         else
           i24, s24 = index, []
-          if input.index("(", index) == index
-            r25 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
-          else
-            terminal_parse_failure("(")
-            r25 = nil
-          end
+          r25 = _nt_left_bracket
           s24 << r25
           if r25
             r26 = _nt_space
@@ -1276,13 +1457,7 @@ module ScientificName
                 r28 = _nt_space
                 s24 << r28
                 if r28
-                  if input.index(")", index) == index
-                    r29 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                    @index += 1
-                  else
-                    terminal_parse_failure(")")
-                    r29 = nil
-                  end
+                  r29 = _nt_right_bracket
                   s24 << r29
                 end
               end
@@ -1300,13 +1475,7 @@ module ScientificName
             r0 = r24
           else
             i30, s30 = index, []
-            if input.index("(", index) == index
-              r31 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("(")
-              r31 = nil
-            end
+            r31 = _nt_left_bracket
             s30 << r31
             if r31
               r32 = _nt_space
@@ -1324,13 +1493,7 @@ module ScientificName
                   r34 = _nt_space
                   s30 << r34
                   if r34
-                    if input.index(")", index) == index
-                      r35 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                      @index += 1
-                    else
-                      terminal_parse_failure(")")
-                      r35 = nil
-                    end
+                    r35 = _nt_right_bracket
                     s30 << r35
                   end
                 end
@@ -1361,6 +1524,10 @@ module ScientificName
   end
 
   module OriginalAuthorsRevisedName0
+    def left_bracket
+      elements[0]
+    end
+
     def space
       elements[1]
     end
@@ -1373,6 +1540,9 @@ module ScientificName
       elements[3]
     end
 
+    def right_bracket
+      elements[4]
+    end
   end
 
   module OriginalAuthorsRevisedName1
@@ -1394,13 +1564,7 @@ module ScientificName
     end
 
     i0, s0 = index, []
-    if input.index("(", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
-    else
-      terminal_parse_failure("(")
-      r1 = nil
-    end
+    r1 = _nt_left_bracket
     s0 << r1
     if r1
       r2 = _nt_space
@@ -1412,13 +1576,7 @@ module ScientificName
           r4 = _nt_space
           s0 << r4
           if r4
-            if input.index(")", index) == index
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure(")")
-              r5 = nil
-            end
+            r5 = _nt_right_bracket
             s0 << r5
           end
         end
@@ -1656,8 +1814,20 @@ module ScientificName
           r0 = r3
           r0.extend(UnknownAuth0)
         else
-          self.index = i0
-          r0 = nil
+          if input.index("ht.", index) == index
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
+            @index += 3
+          else
+            terminal_parse_failure("ht.")
+            r4 = nil
+          end
+          if r4
+            r0 = r4
+            r0.extend(UnknownAuth0)
+          else
+            self.index = i0
+            r0 = nil
+          end
         end
       end
     end
@@ -1963,9 +2133,18 @@ module ScientificName
   end
 
   module AuthorWord1
+    def value
+      text_value.strip
+    end
+    def details
+      {:authors => {:names => [value]}}
+    end
   end
 
   module AuthorWord2
+  end
+
+  module AuthorWord3
     def value
       text_value.gsub(/\s+/, " ").strip
     end
@@ -1985,6 +2164,7 @@ module ScientificName
     i0 = index
     if input.index("A S. Xu", index) == index
       r1 = instantiate_node(SyntaxNode,input, index...(index + 7))
+      r1.extend(AuthorWord0)
       @index += 7
     else
       terminal_parse_failure("A S. Xu")
@@ -2003,7 +2183,7 @@ module ScientificName
       end
       if r3
         r2 = r3
-        r2.extend(AuthorWord0)
+        r2.extend(AuthorWord1)
       else
         if input.index("f.", index) == index
           r4 = instantiate_node(SyntaxNode,input, index...(index + 2))
@@ -2014,7 +2194,7 @@ module ScientificName
         end
         if r4
           r2 = r4
-          r2.extend(AuthorWord0)
+          r2.extend(AuthorWord1)
         else
           if input.index("bis", index) == index
             r5 = instantiate_node(SyntaxNode,input, index...(index + 3))
@@ -2025,7 +2205,7 @@ module ScientificName
           end
           if r5
             r2 = r5
-            r2.extend(AuthorWord0)
+            r2.extend(AuthorWord1)
           else
             if input.index("arg.", index) == index
               r6 = instantiate_node(SyntaxNode,input, index...(index + 4))
@@ -2036,7 +2216,7 @@ module ScientificName
             end
             if r6
               r2 = r6
-              r2.extend(AuthorWord0)
+              r2.extend(AuthorWord1)
             else
               if input.index("da", index) == index
                 r7 = instantiate_node(SyntaxNode,input, index...(index + 2))
@@ -2047,7 +2227,7 @@ module ScientificName
               end
               if r7
                 r2 = r7
-                r2.extend(AuthorWord0)
+                r2.extend(AuthorWord1)
               else
                 if input.index("der", index) == index
                   r8 = instantiate_node(SyntaxNode,input, index...(index + 3))
@@ -2058,7 +2238,7 @@ module ScientificName
                 end
                 if r8
                   r2 = r8
-                  r2.extend(AuthorWord0)
+                  r2.extend(AuthorWord1)
                 else
                   if input.index("den", index) == index
                     r9 = instantiate_node(SyntaxNode,input, index...(index + 3))
@@ -2069,7 +2249,7 @@ module ScientificName
                   end
                   if r9
                     r2 = r9
-                    r2.extend(AuthorWord0)
+                    r2.extend(AuthorWord1)
                   else
                     if input.index("de", index) == index
                       r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
@@ -2080,7 +2260,7 @@ module ScientificName
                     end
                     if r10
                       r2 = r10
-                      r2.extend(AuthorWord0)
+                      r2.extend(AuthorWord1)
                     else
                       if input.index("du", index) == index
                         r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
@@ -2091,7 +2271,7 @@ module ScientificName
                       end
                       if r11
                         r2 = r11
-                        r2.extend(AuthorWord0)
+                        r2.extend(AuthorWord1)
                       else
                         if input.index("la", index) == index
                           r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
@@ -2102,7 +2282,7 @@ module ScientificName
                         end
                         if r12
                           r2 = r12
-                          r2.extend(AuthorWord0)
+                          r2.extend(AuthorWord1)
                         else
                           if input.index("ter", index) == index
                             r13 = instantiate_node(SyntaxNode,input, index...(index + 3))
@@ -2113,7 +2293,7 @@ module ScientificName
                           end
                           if r13
                             r2 = r13
-                            r2.extend(AuthorWord0)
+                            r2.extend(AuthorWord1)
                           else
                             if input.index("van", index) == index
                               r14 = instantiate_node(SyntaxNode,input, index...(index + 3))
@@ -2124,7 +2304,7 @@ module ScientificName
                             end
                             if r14
                               r2 = r14
-                              r2.extend(AuthorWord0)
+                              r2.extend(AuthorWord1)
                             else
                               if input.index("et al.\{\?\}", index) == index
                                 r15 = instantiate_node(SyntaxNode,input, index...(index + 9))
@@ -2135,7 +2315,7 @@ module ScientificName
                               end
                               if r15
                                 r2 = r15
-                                r2.extend(AuthorWord0)
+                                r2.extend(AuthorWord1)
                               else
                                 if input.index("et al.", index) == index
                                   r16 = instantiate_node(SyntaxNode,input, index...(index + 6))
@@ -2146,7 +2326,7 @@ module ScientificName
                                 end
                                 if r16
                                   r2 = r16
-                                  r2.extend(AuthorWord0)
+                                  r2.extend(AuthorWord1)
                                 else
                                   self.index = i2
                                   r2 = nil
@@ -2339,8 +2519,8 @@ module ScientificName
         end
         if s17.last
           r17 = instantiate_node(SyntaxNode,input, i17...index, s17)
-          r17.extend(AuthorWord1)
           r17.extend(AuthorWord2)
+          r17.extend(AuthorWord3)
         else
           self.index = i17
           r17 = nil
@@ -2929,360 +3109,372 @@ module ScientificName
 
     i0 = index
     i1 = index
-    if input.index("f.sp.", index) == index
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
-      @index += 5
+    if input.index("morph.", index) == index
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
+      @index += 6
     else
-      terminal_parse_failure("f.sp.")
+      terminal_parse_failure("morph.")
       r2 = nil
     end
     if r2
       r1 = r2
       r1.extend(Rank0)
     else
-      if input.index("B", index) == index
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if input.index("f.sp.", index) == index
+        r3 = instantiate_node(SyntaxNode,input, index...(index + 5))
+        @index += 5
       else
-        terminal_parse_failure("B")
+        terminal_parse_failure("f.sp.")
         r3 = nil
       end
       if r3
         r1 = r3
         r1.extend(Rank0)
       else
-        if input.index("ssp.", index) == index
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 4))
-          @index += 4
+        if input.index("B", index) == index
+          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
         else
-          terminal_parse_failure("ssp.")
+          terminal_parse_failure("B")
           r4 = nil
         end
         if r4
           r1 = r4
           r1.extend(Rank0)
         else
-          if input.index("mut.", index) == index
+          if input.index("ssp.", index) == index
             r5 = instantiate_node(SyntaxNode,input, index...(index + 4))
             @index += 4
           else
-            terminal_parse_failure("mut.")
+            terminal_parse_failure("ssp.")
             r5 = nil
           end
           if r5
             r1 = r5
             r1.extend(Rank0)
           else
-            if input.index("pseudovar.", index) == index
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 10))
-              @index += 10
+            if input.index("mut.", index) == index
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 4))
+              @index += 4
             else
-              terminal_parse_failure("pseudovar.")
+              terminal_parse_failure("mut.")
               r6 = nil
             end
             if r6
               r1 = r6
               r1.extend(Rank0)
             else
-              if input.index("sect.", index) == index
-                r7 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                @index += 5
+              if input.index("pseudovar.", index) == index
+                r7 = instantiate_node(SyntaxNode,input, index...(index + 10))
+                @index += 10
               else
-                terminal_parse_failure("sect.")
+                terminal_parse_failure("pseudovar.")
                 r7 = nil
               end
               if r7
                 r1 = r7
                 r1.extend(Rank0)
               else
-                if input.index("ser.", index) == index
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                  @index += 4
+                if input.index("sect.", index) == index
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + 5))
+                  @index += 5
                 else
-                  terminal_parse_failure("ser.")
+                  terminal_parse_failure("sect.")
                   r8 = nil
                 end
                 if r8
                   r1 = r8
                   r1.extend(Rank0)
                 else
-                  if input.index("var.", index) == index
+                  if input.index("ser.", index) == index
                     r9 = instantiate_node(SyntaxNode,input, index...(index + 4))
                     @index += 4
                   else
-                    terminal_parse_failure("var.")
+                    terminal_parse_failure("ser.")
                     r9 = nil
                   end
                   if r9
                     r1 = r9
                     r1.extend(Rank0)
                   else
-                    if input.index("subvar.", index) == index
-                      r10 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                      @index += 7
+                    if input.index("var.", index) == index
+                      r10 = instantiate_node(SyntaxNode,input, index...(index + 4))
+                      @index += 4
                     else
-                      terminal_parse_failure("subvar.")
+                      terminal_parse_failure("var.")
                       r10 = nil
                     end
                     if r10
                       r1 = r10
                       r1.extend(Rank0)
                     else
-                      if input.index("[var.]", index) == index
-                        r11 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                        @index += 6
+                      if input.index("subvar.", index) == index
+                        r11 = instantiate_node(SyntaxNode,input, index...(index + 7))
+                        @index += 7
                       else
-                        terminal_parse_failure("[var.]")
+                        terminal_parse_failure("subvar.")
                         r11 = nil
                       end
                       if r11
                         r1 = r11
                         r1.extend(Rank0)
                       else
-                        if input.index("subsp.", index) == index
+                        if input.index("[var.]", index) == index
                           r12 = instantiate_node(SyntaxNode,input, index...(index + 6))
                           @index += 6
                         else
-                          terminal_parse_failure("subsp.")
+                          terminal_parse_failure("[var.]")
                           r12 = nil
                         end
                         if r12
                           r1 = r12
                           r1.extend(Rank0)
                         else
-                          if input.index("subf.", index) == index
-                            r13 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                            @index += 5
+                          if input.index("subsp.", index) == index
+                            r13 = instantiate_node(SyntaxNode,input, index...(index + 6))
+                            @index += 6
                           else
-                            terminal_parse_failure("subf.")
+                            terminal_parse_failure("subsp.")
                             r13 = nil
                           end
                           if r13
                             r1 = r13
                             r1.extend(Rank0)
                           else
-                            if input.index("race", index) == index
-                              r14 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                              @index += 4
+                            if input.index("subf.", index) == index
+                              r14 = instantiate_node(SyntaxNode,input, index...(index + 5))
+                              @index += 5
                             else
-                              terminal_parse_failure("race")
+                              terminal_parse_failure("subf.")
                               r14 = nil
                             end
                             if r14
                               r1 = r14
                               r1.extend(Rank0)
                             else
-                              if input.index("α", index) == index
-                                r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                @index += 1
+                              if input.index("race", index) == index
+                                r15 = instantiate_node(SyntaxNode,input, index...(index + 4))
+                                @index += 4
                               else
-                                terminal_parse_failure("α")
+                                terminal_parse_failure("race")
                                 r15 = nil
                               end
                               if r15
                                 r1 = r15
                                 r1.extend(Rank0)
                               else
-                                if input.index("ββ", index) == index
-                                  r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                  @index += 2
+                                if input.index("α", index) == index
+                                  r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                  @index += 1
                                 else
-                                  terminal_parse_failure("ββ")
+                                  terminal_parse_failure("α")
                                   r16 = nil
                                 end
                                 if r16
                                   r1 = r16
                                   r1.extend(Rank0)
                                 else
-                                  if input.index("β", index) == index
-                                    r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                    @index += 1
+                                  if input.index("ββ", index) == index
+                                    r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                    @index += 2
                                   else
-                                    terminal_parse_failure("β")
+                                    terminal_parse_failure("ββ")
                                     r17 = nil
                                   end
                                   if r17
                                     r1 = r17
                                     r1.extend(Rank0)
                                   else
-                                    if input.index("γ", index) == index
+                                    if input.index("β", index) == index
                                       r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                       @index += 1
                                     else
-                                      terminal_parse_failure("γ")
+                                      terminal_parse_failure("β")
                                       r18 = nil
                                     end
                                     if r18
                                       r1 = r18
                                       r1.extend(Rank0)
                                     else
-                                      if input.index("δ", index) == index
+                                      if input.index("γ", index) == index
                                         r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                         @index += 1
                                       else
-                                        terminal_parse_failure("δ")
+                                        terminal_parse_failure("γ")
                                         r19 = nil
                                       end
                                       if r19
                                         r1 = r19
                                         r1.extend(Rank0)
                                       else
-                                        if input.index("ε", index) == index
+                                        if input.index("δ", index) == index
                                           r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                           @index += 1
                                         else
-                                          terminal_parse_failure("ε")
+                                          terminal_parse_failure("δ")
                                           r20 = nil
                                         end
                                         if r20
                                           r1 = r20
                                           r1.extend(Rank0)
                                         else
-                                          if input.index("φ", index) == index
+                                          if input.index("ε", index) == index
                                             r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                             @index += 1
                                           else
-                                            terminal_parse_failure("φ")
+                                            terminal_parse_failure("ε")
                                             r21 = nil
                                           end
                                           if r21
                                             r1 = r21
                                             r1.extend(Rank0)
                                           else
-                                            if input.index("θ", index) == index
+                                            if input.index("φ", index) == index
                                               r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                               @index += 1
                                             else
-                                              terminal_parse_failure("θ")
+                                              terminal_parse_failure("φ")
                                               r22 = nil
                                             end
                                             if r22
                                               r1 = r22
                                               r1.extend(Rank0)
                                             else
-                                              if input.index("μ", index) == index
+                                              if input.index("θ", index) == index
                                                 r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                                 @index += 1
                                               else
-                                                terminal_parse_failure("μ")
+                                                terminal_parse_failure("θ")
                                                 r23 = nil
                                               end
                                               if r23
                                                 r1 = r23
                                                 r1.extend(Rank0)
                                               else
-                                                if input.index("a.", index) == index
-                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                  @index += 2
+                                                if input.index("μ", index) == index
+                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                  @index += 1
                                                 else
-                                                  terminal_parse_failure("a.")
+                                                  terminal_parse_failure("μ")
                                                   r24 = nil
                                                 end
                                                 if r24
                                                   r1 = r24
                                                   r1.extend(Rank0)
                                                 else
-                                                  if input.index("b.", index) == index
+                                                  if input.index("a.", index) == index
                                                     r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                     @index += 2
                                                   else
-                                                    terminal_parse_failure("b.")
+                                                    terminal_parse_failure("a.")
                                                     r25 = nil
                                                   end
                                                   if r25
                                                     r1 = r25
                                                     r1.extend(Rank0)
                                                   else
-                                                    if input.index("c.", index) == index
+                                                    if input.index("b.", index) == index
                                                       r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                       @index += 2
                                                     else
-                                                      terminal_parse_failure("c.")
+                                                      terminal_parse_failure("b.")
                                                       r26 = nil
                                                     end
                                                     if r26
                                                       r1 = r26
                                                       r1.extend(Rank0)
                                                     else
-                                                      if input.index("d.", index) == index
+                                                      if input.index("c.", index) == index
                                                         r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                         @index += 2
                                                       else
-                                                        terminal_parse_failure("d.")
+                                                        terminal_parse_failure("c.")
                                                         r27 = nil
                                                       end
                                                       if r27
                                                         r1 = r27
                                                         r1.extend(Rank0)
                                                       else
-                                                        if input.index("e.", index) == index
+                                                        if input.index("d.", index) == index
                                                           r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                           @index += 2
                                                         else
-                                                          terminal_parse_failure("e.")
+                                                          terminal_parse_failure("d.")
                                                           r28 = nil
                                                         end
                                                         if r28
                                                           r1 = r28
                                                           r1.extend(Rank0)
                                                         else
-                                                          if input.index("g.", index) == index
+                                                          if input.index("e.", index) == index
                                                             r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                             @index += 2
                                                           else
-                                                            terminal_parse_failure("g.")
+                                                            terminal_parse_failure("e.")
                                                             r29 = nil
                                                           end
                                                           if r29
                                                             r1 = r29
                                                             r1.extend(Rank0)
                                                           else
-                                                            if input.index("k.", index) == index
+                                                            if input.index("g.", index) == index
                                                               r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                               @index += 2
                                                             else
-                                                              terminal_parse_failure("k.")
+                                                              terminal_parse_failure("g.")
                                                               r30 = nil
                                                             end
                                                             if r30
                                                               r1 = r30
                                                               r1.extend(Rank0)
                                                             else
-                                                              if input.index("****", index) == index
-                                                                r31 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                                                @index += 4
+                                                              if input.index("k.", index) == index
+                                                                r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                                                @index += 2
                                                               else
-                                                                terminal_parse_failure("****")
+                                                                terminal_parse_failure("k.")
                                                                 r31 = nil
                                                               end
                                                               if r31
                                                                 r1 = r31
                                                                 r1.extend(Rank0)
                                                               else
-                                                                if input.index("**", index) == index
-                                                                  r32 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                  @index += 2
+                                                                if input.index("****", index) == index
+                                                                  r32 = instantiate_node(SyntaxNode,input, index...(index + 4))
+                                                                  @index += 4
                                                                 else
-                                                                  terminal_parse_failure("**")
+                                                                  terminal_parse_failure("****")
                                                                   r32 = nil
                                                                 end
                                                                 if r32
                                                                   r1 = r32
                                                                   r1.extend(Rank0)
                                                                 else
-                                                                  if input.index("*", index) == index
-                                                                    r33 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                    @index += 1
+                                                                  if input.index("**", index) == index
+                                                                    r33 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                                                    @index += 2
                                                                   else
-                                                                    terminal_parse_failure("*")
+                                                                    terminal_parse_failure("**")
                                                                     r33 = nil
                                                                   end
                                                                   if r33
                                                                     r1 = r33
                                                                     r1.extend(Rank0)
                                                                   else
-                                                                    self.index = i1
-                                                                    r1 = nil
+                                                                    if input.index("*", index) == index
+                                                                      r34 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                                      @index += 1
+                                                                    else
+                                                                      terminal_parse_failure("*")
+                                                                      r34 = nil
+                                                                    end
+                                                                    if r34
+                                                                      r1 = r34
+                                                                      r1.extend(Rank0)
+                                                                    else
+                                                                      self.index = i1
+                                                                      r1 = nil
+                                                                    end
                                                                   end
                                                                 end
                                                               end
@@ -3318,9 +3510,9 @@ module ScientificName
     if r1
       r0 = r1
     else
-      r34 = _nt_rank_forma
-      if r34
-        r0 = r34
+      r35 = _nt_rank_forma
+      if r35
+        r0 = r35
       else
         self.index = i0
         r0 = nil
@@ -3800,6 +3992,120 @@ module ScientificName
     return r0
   end
 
+  module TaxonConceptRank0
+    def value
+      "sec."
+    end
+    def apply(a)
+      " " + value + " " + a.value
+    end
+    def details(a = nil)
+      {:taxon_concept => a.details}
+    end
+  end
+
+  def _nt_taxon_concept_rank
+    start_index = index
+    if node_cache[:taxon_concept_rank].has_key?(index)
+      cached = node_cache[:taxon_concept_rank][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    if input.index("sec.", index) == index
+      r0 = instantiate_node(SyntaxNode,input, index...(index + 4))
+      r0.extend(TaxonConceptRank0)
+      @index += 4
+    else
+      terminal_parse_failure("sec.")
+      r0 = nil
+    end
+
+    node_cache[:taxon_concept_rank][start_index] = r0
+
+    return r0
+  end
+
+  module GenusRank0
+    def value
+      text_value.strip
+    end
+    def apply(a)
+      " " + text_value + " " + a.value
+    end
+    def canonical(a)
+      " " + a.value
+    end
+    def details(a = nil)
+      {:subgenus => [{:rank => text_value, :value => (a.value rescue nil)}]}
+    end
+  end
+
+  def _nt_genus_rank
+    start_index = index
+    if node_cache[:genus_rank].has_key?(index)
+      cached = node_cache[:genus_rank][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index("subsect.", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 8))
+      @index += 8
+    else
+      terminal_parse_failure("subsect.")
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+      r0.extend(GenusRank0)
+    else
+      if input.index("subtrib.", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 8))
+        @index += 8
+      else
+        terminal_parse_failure("subtrib.")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+        r0.extend(GenusRank0)
+      else
+        if input.index("subgen.", index) == index
+          r3 = instantiate_node(SyntaxNode,input, index...(index + 7))
+          @index += 7
+        else
+          terminal_parse_failure("subgen.")
+          r3 = nil
+        end
+        if r3
+          r0 = r3
+          r0.extend(GenusRank0)
+        else
+          if input.index("trib.", index) == index
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 5))
+            @index += 5
+          else
+            terminal_parse_failure("trib.")
+            r4 = nil
+          end
+          if r4
+            r0 = r4
+            r0.extend(GenusRank0)
+          else
+            self.index = i0
+            r0 = nil
+          end
+        end
+      end
+    end
+
+    node_cache[:genus_rank][start_index] = r0
+
+    return r0
+  end
+
   module CapLatinWord0
     def a
       elements[0]
@@ -3808,6 +4114,7 @@ module ScientificName
     def b
       elements[1]
     end
+
   end
 
   module CapLatinWord1
@@ -3824,6 +4131,44 @@ module ScientificName
     end
   end
 
+  module CapLatinWord2
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module CapLatinWord3
+    def value
+      a.text_value + b.value
+    end
+    
+    def canonical 
+      value
+    end
+    
+    def details 
+      {:uninomial => value}
+    end
+  end
+
+  module CapLatinWord4
+    def value
+      text_value
+    end
+    
+    def canonical
+      value
+    end
+    
+    def details
+      {:uninomial => value}
+    end
+  end
+
   def _nt_cap_latin_word
     start_index = index
     if node_cache[:cap_latin_word].has_key?(index)
@@ -3832,25 +4177,301 @@ module ScientificName
       return cached
     end
 
-    i0, s0 = index, []
-    if input.index(Regexp.new('[A-Z]'), index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+    i0 = index
+    i1, s1 = index, []
+    if input.index(Regexp.new('[A-ZŒÆ]'), index) == index
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
+      r2 = nil
+    end
+    s1 << r2
+    if r2
+      r3 = _nt_latin_word
+      s1 << r3
+      if r3
+        if input.index("?", index) == index
+          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure("?")
+          r4 = nil
+        end
+        s1 << r4
+      end
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(CapLatinWord0)
+      r1.extend(CapLatinWord1)
+    else
+      self.index = i1
       r1 = nil
     end
-    s0 << r1
     if r1
-      r2 = _nt_latin_word
-      s0 << r2
-    end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(CapLatinWord0)
-      r0.extend(CapLatinWord1)
+      r0 = r1
     else
-      self.index = i0
-      r0 = nil
+      i5, s5 = index, []
+      if input.index(Regexp.new('[A-ZŒÆ]'), index) == index
+        r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r6 = nil
+      end
+      s5 << r6
+      if r6
+        r7 = _nt_latin_word
+        s5 << r7
+      end
+      if s5.last
+        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+        r5.extend(CapLatinWord2)
+        r5.extend(CapLatinWord3)
+      else
+        self.index = i5
+        r5 = nil
+      end
+      if r5
+        r0 = r5
+      else
+        i8 = index
+        if input.index("Ca", index) == index
+          r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
+          @index += 2
+        else
+          terminal_parse_failure("Ca")
+          r9 = nil
+        end
+        if r9
+          r8 = r9
+          r8.extend(CapLatinWord4)
+        else
+          if input.index("Ea", index) == index
+            r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
+            @index += 2
+          else
+            terminal_parse_failure("Ea")
+            r10 = nil
+          end
+          if r10
+            r8 = r10
+            r8.extend(CapLatinWord4)
+          else
+            if input.index("Ge", index) == index
+              r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
+              @index += 2
+            else
+              terminal_parse_failure("Ge")
+              r11 = nil
+            end
+            if r11
+              r8 = r11
+              r8.extend(CapLatinWord4)
+            else
+              if input.index("Ia", index) == index
+                r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                @index += 2
+              else
+                terminal_parse_failure("Ia")
+                r12 = nil
+              end
+              if r12
+                r8 = r12
+                r8.extend(CapLatinWord4)
+              else
+                if input.index("Io", index) == index
+                  r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                  @index += 2
+                else
+                  terminal_parse_failure("Io")
+                  r13 = nil
+                end
+                if r13
+                  r8 = r13
+                  r8.extend(CapLatinWord4)
+                else
+                  if input.index("Io", index) == index
+                    r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                    @index += 2
+                  else
+                    terminal_parse_failure("Io")
+                    r14 = nil
+                  end
+                  if r14
+                    r8 = r14
+                    r8.extend(CapLatinWord4)
+                  else
+                    if input.index("Ix", index) == index
+                      r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                      @index += 2
+                    else
+                      terminal_parse_failure("Ix")
+                      r15 = nil
+                    end
+                    if r15
+                      r8 = r15
+                      r8.extend(CapLatinWord4)
+                    else
+                      if input.index("Lo", index) == index
+                        r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                        @index += 2
+                      else
+                        terminal_parse_failure("Lo")
+                        r16 = nil
+                      end
+                      if r16
+                        r8 = r16
+                        r8.extend(CapLatinWord4)
+                      else
+                        if input.index("Oa", index) == index
+                          r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                          @index += 2
+                        else
+                          terminal_parse_failure("Oa")
+                          r17 = nil
+                        end
+                        if r17
+                          r8 = r17
+                          r8.extend(CapLatinWord4)
+                        else
+                          if input.index("Ra", index) == index
+                            r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                            @index += 2
+                          else
+                            terminal_parse_failure("Ra")
+                            r18 = nil
+                          end
+                          if r18
+                            r8 = r18
+                            r8.extend(CapLatinWord4)
+                          else
+                            if input.index("Ty", index) == index
+                              r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                              @index += 2
+                            else
+                              terminal_parse_failure("Ty")
+                              r19 = nil
+                            end
+                            if r19
+                              r8 = r19
+                              r8.extend(CapLatinWord4)
+                            else
+                              if input.index("Ua", index) == index
+                                r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                @index += 2
+                              else
+                                terminal_parse_failure("Ua")
+                                r20 = nil
+                              end
+                              if r20
+                                r8 = r20
+                                r8.extend(CapLatinWord4)
+                              else
+                                if input.index("Aa", index) == index
+                                  r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                  @index += 2
+                                else
+                                  terminal_parse_failure("Aa")
+                                  r21 = nil
+                                end
+                                if r21
+                                  r8 = r21
+                                  r8.extend(CapLatinWord4)
+                                else
+                                  if input.index("Ja", index) == index
+                                    r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                    @index += 2
+                                  else
+                                    terminal_parse_failure("Ja")
+                                    r22 = nil
+                                  end
+                                  if r22
+                                    r8 = r22
+                                    r8.extend(CapLatinWord4)
+                                  else
+                                    if input.index("Zu", index) == index
+                                      r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                      @index += 2
+                                    else
+                                      terminal_parse_failure("Zu")
+                                      r23 = nil
+                                    end
+                                    if r23
+                                      r8 = r23
+                                      r8.extend(CapLatinWord4)
+                                    else
+                                      if input.index("La", index) == index
+                                        r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                        @index += 2
+                                      else
+                                        terminal_parse_failure("La")
+                                        r24 = nil
+                                      end
+                                      if r24
+                                        r8 = r24
+                                        r8.extend(CapLatinWord4)
+                                      else
+                                        if input.index("Qu", index) == index
+                                          r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                          @index += 2
+                                        else
+                                          terminal_parse_failure("Qu")
+                                          r25 = nil
+                                        end
+                                        if r25
+                                          r8 = r25
+                                          r8.extend(CapLatinWord4)
+                                        else
+                                          if input.index("As", index) == index
+                                            r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                            @index += 2
+                                          else
+                                            terminal_parse_failure("As")
+                                            r26 = nil
+                                          end
+                                          if r26
+                                            r8 = r26
+                                            r8.extend(CapLatinWord4)
+                                          else
+                                            if input.index("Ba", index) == index
+                                              r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                              @index += 2
+                                            else
+                                              terminal_parse_failure("Ba")
+                                              r27 = nil
+                                            end
+                                            if r27
+                                              r8 = r27
+                                              r8.extend(CapLatinWord4)
+                                            else
+                                              self.index = i8
+                                              r8 = nil
+                                            end
+                                          end
+                                        end
+                                      end
+                                    end
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+        if r8
+          r0 = r8
+        else
+          self.index = i0
+          r0 = nil
+        end
+      end
     end
 
     node_cache[:cap_latin_word][start_index] = r0
@@ -3906,7 +4527,7 @@ module ScientificName
 
     i0 = index
     i1, s1 = index, []
-    if input.index(Regexp.new('[a-zë]'), index) == index
+    if input.index(Regexp.new('[a-zëüäöïé]'), index) == index
       r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -4081,7 +4702,7 @@ module ScientificName
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[a-z\\-ëüäöï]'), index) == index
+      if input.index(Regexp.new('[a-z\\-ëüäöïé]'), index) == index
         r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -4344,6 +4965,98 @@ module ScientificName
     return r0
   end
 
+  module LeftBracket0
+    def value
+      "("
+    end
+  end
+
+  def _nt_left_bracket
+    start_index = index
+    if node_cache[:left_bracket].has_key?(index)
+      cached = node_cache[:left_bracket][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index("( (", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 3))
+      @index += 3
+    else
+      terminal_parse_failure("( (")
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if input.index("(", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2.extend(LeftBracket0)
+        @index += 1
+      else
+        terminal_parse_failure("(")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:left_bracket][start_index] = r0
+
+    return r0
+  end
+
+  module RightBracket0
+    def value
+      ")"
+    end
+  end
+
+  def _nt_right_bracket
+    start_index = index
+    if node_cache[:right_bracket].has_key?(index)
+      cached = node_cache[:right_bracket][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index(") )", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 3))
+      @index += 3
+    else
+      terminal_parse_failure(") )")
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if input.index(")", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2.extend(RightBracket0)
+        @index += 1
+      else
+        terminal_parse_failure(")")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:right_bracket][start_index] = r0
+
+    return r0
+  end
+
   module Space0
     def details
       {
@@ -4424,6 +5137,6 @@ module ScientificName
 
 end
 
-class ScientificNameParser < Treetop::Runtime::CompiledParser
-  include ScientificName
+class ScientificNameCleanParser < Treetop::Runtime::CompiledParser
+  include ScientificNameClean
 end

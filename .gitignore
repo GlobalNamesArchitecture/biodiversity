@@ -2,5 +2,6 @@
 *.swo
 biodiversity*.gem
 *json
+*xml
 tmp
 .DS_Store

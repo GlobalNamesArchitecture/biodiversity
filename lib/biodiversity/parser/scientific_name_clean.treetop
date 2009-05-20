@@ -1,5 +1,5 @@
 # encoding: UTF-8
-grammar ScientificName
+grammar ScientificNameClean
 
   rule composite_scientific_name
     a:scientific_name space hybrid_separator space b:scientific_name space {
@@ -34,6 +34,34 @@ grammar ScientificName
   rule scientific_name
     name_part_authors_mix
     /
+    space a:name_part space b:authors_part space c:taxon_concept_rank space d:authors_part space {
+      def value
+        a.value + " " + b.value + " " + c.apply(d)
+      end
+    
+      def canonical
+        a.canonical
+      end
+    
+      def details
+        a.details.merge(b.details).merge(c.details(d))
+      end    
+    }
+    / 
+    space a:name_part space b:taxon_concept_rank space c:authors_part space {
+      def value
+        a.value + " " + b.apply(c)
+      end
+    
+      def canonical
+        a.canonical
+      end
+    
+      def details
+        a.details.merge(b.details(c))
+      end    
+    }
+    / 
     space a:name_part space b:authors_part space c:status_part space {
       def value
         a.value + " " + b.value + " " + c.value
@@ -322,7 +350,14 @@ grammar ScientificName
   end
   
   rule author_word
-    "A S. Xu"
+    "A S. Xu" {
+      def value
+        text_value.strip
+      end
+      def details
+        {:authors => {:names => [value]}}
+      end
+    }
     /
     ("anon."/"f."/"bis"/"arg."/"da"/"der"/"den"/"de"/"du"/"la"/"ter"/"van"/"et al.\{\?\}"/"et al.") {
       def value
@@ -560,6 +595,20 @@ grammar ScientificName
       end
     }
   end
+  
+  rule taxon_concept_rank
+    "sec." {
+      def value
+        "sec."
+      end
+      def apply(a)
+        " " + value + " " + a.value
+      end
+      def details(a = nil)
+        {:taxon_concept => a.details}
+      end    
+    }
+  end
 
   #  "subsect."/"subtrib."/"subgen."/"trib."/
   rule genus_rank
@@ -582,7 +631,7 @@ grammar ScientificName
   
   
   rule cap_latin_word
-    a:[A-Z] b:latin_word "?" {
+    a:[A-ZŒÆ] b:latin_word "?" {
       def value
         a.text_value + b.value
       end
@@ -596,7 +645,7 @@ grammar ScientificName
       end
     }
     /
-    a:[A-Z] b:latin_word {
+    a:[A-ZŒÆ] b:latin_word {
       def value
         a.text_value + b.value
       end
@@ -609,10 +658,24 @@ grammar ScientificName
         {:uninomial => value}
       end
     }
+    /
+    ("Ca"/"Ea"/"Ge"/"Ia"/"Io"/"Io"/"Ix"/"Lo"/"Oa"/"Ra"/"Ty"/"Ua"/"Aa"/"Ja"/"Zu"/"La"/"Qu"/"As"/"Ba") {
+      def value
+        text_value
+      end
+      
+      def canonical
+        value
+      end
+      
+      def details
+        {:uninomial => value}
+      end
+    }
   end
 
   rule latin_word
-    a:[a-zë] b:full_name_letters {
+    a:[a-zëüäöïé] b:full_name_letters {
       def value
         a.text_value + b.value
       end
@@ -654,7 +717,7 @@ grammar ScientificName
   end
   
   rule valid_name_letters
-    [a-z\-ëüäöï]+ {
+    [a-z\-ëüäöïé]+ {
       def value
         text_value
       end

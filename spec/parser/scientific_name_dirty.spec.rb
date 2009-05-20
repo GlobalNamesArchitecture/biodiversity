@@ -4,7 +4,7 @@ require 'spec'
 require 'treetop'
 require 'yaml'
 
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name'))
+Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_clean'))
 Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_dirty'))
 
 describe ScientificNameDirty do
@@ -69,12 +69,12 @@ describe ScientificNameDirty do
   #   val = 'Acomys "Geoffroy, I." 1838'
   # end
 
- it 'should parse author with []' do
-   # OK parse("Farsetia mutabilis [ R.Br. ]").should_not be_nil
-   parse("Farsetia mutabilis [R.Br.]").should_not be_nil
-   # value("Farsetia mutabilis [R.Br.]").should == "Farsetia mutabilis [R.Br.]"
-   # details("Farsetia mutabilis [R.Br.]").should == {}
-  end
+  # it 'should parse author with []' do
+  #  # OK parse("Farsetia mutabilis [ R.Br. ]").should_not be_nil
+  #  parse("Farsetia mutabilis [R.Br.]").should_not be_nil
+  #  # value("Farsetia mutabilis [R.Br.]").should == "Farsetia mutabilis [R.Br.]"
+  #  # details("Farsetia mutabilis [R.Br.]").should == {}
+  # end
   
   it 'should parse dirty years' do
     parse("Tridentella tangeroae Bruce, 1988B").should_not be_nil

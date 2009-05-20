@@ -1,5 +1,6 @@
-grammar ScientificNameLastPart
-  include ScientificName
+# encoding: UTF-8
+grammar ScientificNameCanonical
+  include ScientificNameClean
   include ScientificNameDirty
 
   rule composite_scientific_name

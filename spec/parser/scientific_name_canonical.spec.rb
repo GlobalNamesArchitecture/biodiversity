@@ -4,14 +4,14 @@ require 'spec'
 require 'treetop'
 require 'yaml'
 
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name'))
+Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_clean'))
 Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_dirty'))
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_last_part'))
+Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_canonical'))
 
 
-describe ScientificNameLastPart do
+describe ScientificNameCanonical do
   before(:all) do
-    @parser = ScientificNameLastPartParser.new 
+    @parser = ScientificNameCanonicalParser.new 
   end
   
   def parse(input)
