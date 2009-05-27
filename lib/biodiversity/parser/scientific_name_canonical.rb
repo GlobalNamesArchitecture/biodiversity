@@ -34,6 +34,9 @@ module ScientificNameCanonical
       elements[1]
     end
 
+    def b
+      elements[2]
+    end
   end
 
   module NamePartWithGarbage1
@@ -44,7 +47,7 @@ module ScientificNameCanonical
       a.canonical
     end
     def details
-      a.details
+      a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
     end
   end
 
@@ -57,6 +60,9 @@ module ScientificNameCanonical
       elements[1]
     end
 
+    def b
+      elements[2]
+    end
   end
 
   module NamePartWithGarbage3
@@ -67,7 +73,7 @@ module ScientificNameCanonical
       a.canonical
     end
     def details
-      a.details
+      a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
     end
   end
 

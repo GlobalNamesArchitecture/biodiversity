@@ -8,7 +8,7 @@ grammar ScientificNameCanonical
   end
     
   rule name_part_with_garbage
-    a:species_name space [^ш]+ {
+    a:species_name space b:[^ш]+ {
       def value 
         a.value
       end
@@ -16,11 +16,11 @@ grammar ScientificNameCanonical
         a.canonical
       end
       def details
-        a.details
+        a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
       end
     }
     /
-    a:name_part space [^ш]+ {
+    a:name_part space b:[^ш]+ {
       def value 
         a.value
       end
@@ -28,7 +28,7 @@ grammar ScientificNameCanonical
         a.canonical
       end
       def details
-        a.details
+        a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
       end
     }
   end

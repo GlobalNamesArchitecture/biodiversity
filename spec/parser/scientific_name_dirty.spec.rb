@@ -38,10 +38,10 @@ describe ScientificNameDirty do
     parse("Anthoscopus Cabanis [1851?]").should_not be_nil
     value("Anthoscopus Cabanis [1851]").should == "Anthoscopus Cabanis (1851)"
     value("Anthoscopus Cabanis [1851?]").should == "Anthoscopus Cabanis (1851?)"
-    details("Anthoscopus Cabanis [1851?]").should == {:uninomial=>"Anthoscopus", :authors=>{:names=>["Cabanis"], :approximate_year=>"(1851?)"}}
+    details("Anthoscopus Cabanis [1851?]").should == {:uninomial=>"Anthoscopus", :authors=>{:names=>["Cabanis"], :approximate_year=>"(1851?)"}, :name_part_verbatim=>"Anthoscopus", :auth_part_verbatim=>"Cabanis [1851?]"}
     
     parse("Trismegistia monodii Ando, 1973 [1974]").should_not be_nil
-    details("Trismegistia monodii Ando, 1973 [1974]").should == {:genus=>"Trismegistia", :species=>"monodii", :authors=>{:ambiguous_year=>"1973 [1974]", :names=>["Ando"]}}
+    details("Trismegistia monodii Ando, 1973 [1974]").should == {:genus=>"Trismegistia", :species=>"monodii", :authors=>{:names=>["Ando"], :ambiguous_year=>"1973 [1974]"}, :name_part_verbatim=>"Trismegistia monodii", :auth_part_verbatim=>"Ando, 1973 [1974]"}
     parse("Zygaena witti Wiegel [1973]").should_not be_nil
     parse("Deyeuxia coarctata Kunth, 1815 [1816]").should_not be_nil
   end
@@ -50,14 +50,14 @@ describe ScientificNameDirty do
     val = "Gymnodactylus irregularis WERMUTH 1965: 54"
     parse(val).should_not be_nil
     value(val).should == "Gymnodactylus irregularis WERMUTH 1965"
-    details(val).should == {:genus=>"Gymnodactylus", :species=>"irregularis", :authors=>{:names=>["WERMUTH"], :year=>"1965"}}    
+    details(val).should == {:genus=>"Gymnodactylus", :species=>"irregularis", :authors=>{:names=>["WERMUTH"], :year=>"1965"}, :name_part_verbatim=>"Gymnodactylus irregularis", :auth_part_verbatim=>"WERMUTH 1965: 54"}   
   end
   
   it 'should parse double parenthesis' do
    val = "Meiostemon humbertii ( (H. Perrier) ) Exell & Stace"
     parse(val).should_not be_nil
     value(val).should == "Meiostemon humbertii (H. Perrier) Exell et Stace"
-    details(val).should == {:genus=>"Meiostemon", :species=>"humbertii", :orig_authors=>{:names=>["H. Perrier"]}, :authors=>{:names=>["Exell", "Stace"]}}
+    details(val).should == {:genus=>"Meiostemon", :species=>"humbertii", :orig_authors=>{:names=>["H. Perrier"]}, :authors=>{:names=>["Exell", "Stace"]}, :name_part_verbatim=>"Meiostemon humbertii", :auth_part_verbatim=>"( (H. Perrier) ) Exell & Stace"}
   end  
   
   # Acomys "Geoffroy, I." 1838

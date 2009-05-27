@@ -223,7 +223,7 @@ module ScientificNameClean
     end
   
     def details
-      a.details.merge(b.details).merge(c.details(d))
+      a.details.merge(b.details).merge(c.details(d)).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value + " " + d.text_value).gsub(/\s{2,}/, ' ').strip})
     end
   end
 
@@ -267,7 +267,7 @@ module ScientificNameClean
     end
   
     def details
-      a.details.merge(b.details(c))
+      a.details.merge(b.details(c)).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value).gsub(/\s{2,}/, ' ').strip})
     end
   end
 
@@ -309,7 +309,7 @@ module ScientificNameClean
       a.canonical
     end
     def details
-      a.details.merge(b.details).merge(c.details)
+      a.details.merge(b.details).merge(c.details).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value).gsub(/\s{2,}/, ' ').strip})
     end
   end
 
@@ -343,7 +343,7 @@ module ScientificNameClean
       a.canonical
     end
     def details
-      a.details.merge(b.details)
+      a.details.merge(b.details).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value.gsub(/\s{2,}/, ' ')})
     end
   end
 
@@ -379,7 +379,7 @@ module ScientificNameClean
     end
     
     def details
-      a.details.merge(b.details).merge({:is_valid => false})
+      a.details.merge(b.details).merge({:is_valid => false}).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value.gsub(/\s{2,}/, ' ')})
     end
   end
 
@@ -765,7 +765,7 @@ module ScientificNameClean
       (a.canonical + " " + c.canonical).gsub(/\s+/,' ')
     end
     def details
-      a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details})
+      a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details}).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value + " " + d.text_value).gsub(/\s{2,}/, ' ')})
     end
   end
 
@@ -799,7 +799,7 @@ module ScientificNameClean
       (a.canonical + " " + c.canonical).gsub(/\s+/,' ')
     end
     def details
-      a.details.merge(c.details).merge({:species_authors=>b.details})
+      a.details.merge(c.details).merge({:species_authors=>b.details}).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value).gsub(/\s{2,}/, ' ')})
     end
   end
 

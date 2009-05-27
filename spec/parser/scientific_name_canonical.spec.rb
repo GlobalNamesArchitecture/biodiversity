@@ -32,9 +32,8 @@ describe ScientificNameCanonical do
     
   it 'should parse names with valid name part and unparseable rest' do
     [
-      ['Moraea spathulata ( (L. f. Klatt','Moraea spathulata',{:genus=>"Moraea", :species=>"spathulata"} ],
-      ['Verpericola megasoma ""Dall" Pils.','Verpericola megasoma',{:genus=>"Verpericola", :species=>"megasoma"}],
-     ['Euschides (LeConte JL 1858','Euschides', {:uninomial=>"Euschides"}] 
+      ['Moraea spathulata ( (L. f. Klatt','Moraea spathulata',{:genus=>"Moraea", :species=>"spathulata", :name_part_verbatim=>"Moraea spathulata", :auth_part_verbatim=>"( (L. f. Klatt"} ],
+      ['Verpericola megasoma ""Dall" Pils.','Verpericola megasoma',{:genus=>"Verpericola", :species=>"megasoma", :name_part_verbatim=>"Verpericola megasoma", :auth_part_verbatim=>"\"\"Dall\" Pils."}] 
     ].each do |n|
       parse(n[0]).should_not be_nil
       value(n[0]).should == n[1]
