@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.bindir = "bin"
   s.executable = %w(nnparse)
   
-  s.files = %w(LICENSE README.rdoc Rakefile conf conf/environment.rb spec/parser spec/parser/scientific_name.spec.rb spec/guid  spec/guid/lsid.spec.rb lib/biodiversity lib/biodiversity/parser lib/biodiversity/guid.rb lib/biodiversity/guid lib/biodiversity/guid/lsid.rb lib/biodiversity/parser/scientific_name.rb lib/biodiversity/parser/scientific_name.treetop lib/biodiversity/parser.rb lib/biodiversity.rb bin/nnparse)
+  s.files = %w(LICENSE README.rdoc Rakefile conf conf/environment.rb spec/parser spec/parser/scientific_name.spec.rb spec/parser/scientific_name_canonical.spec.rb spec/parser/scientific_name_clean.spec.rb spec/parser/scientific_name_clean.spec.rb spec/parser/scientific_name_dirty.spec.rb spec/guid  spec/guid/lsid.spec.rb lib/biodiversity lib/biodiversity/parser lib/biodiversity/guid.rb lib/biodiversity/guid lib/biodiversity/guid/lsid.rb lib/biodiversity/parser/scientific_name_clean.rb lib/biodiversity/parser/scientific_name_canonical.rb lib/biodiversity/parser/scientific_name_dirty.rb lib/biodiversity/parser/scientific_name_canonical.treetop lib/biodiversity/parser/scientific_name_clean.treetop lib/biodiversity/parser/scientific_name_dirty.treetop lib/biodiversity/parser.rb lib/biodiversity.rb bin/nnparse)
 end
