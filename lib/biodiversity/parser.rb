@@ -3,7 +3,8 @@ dir = File.dirname(__FILE__)
 require File.join(dir, *%w[parser scientific_name_clean])
 require File.join(dir, *%w[parser scientific_name_dirty])
 require File.join(dir, *%w[parser scientific_name_canonical])
-
+require 'rubygems'
+require 'json'
 
 class ScientificNameParser
   
@@ -11,10 +12,18 @@ class ScientificNameParser
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
+    @parser = nil
   end
   
   def parse(a_string)
-    @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
+    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
+    def @parser.to_json
+      JSON.generate self.details rescue ''
+    end
+    def @parser.pos_json
+      JSON.generate self.pos rescue ''
+    end
+    @parser
   end
 
 end
