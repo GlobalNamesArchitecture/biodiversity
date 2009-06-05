@@ -29,15 +29,20 @@ describe ScientificNameCanonical do
   def details(input)
     parse(input).details
   end
+  
+  def pos(input)
+    parse(input).pos
+  end
     
   it 'should parse names with valid name part and unparseable rest' do
     [
-      ['Moraea spathulata ( (L. f. Klatt','Moraea spathulata',{:genus=>"Moraea", :species=>"spathulata", :name_part_verbatim=>"Moraea spathulata", :auth_part_verbatim=>"( (L. f. Klatt"} ],
-      ['Verpericola megasoma ""Dall" Pils.','Verpericola megasoma',{:genus=>"Verpericola", :species=>"megasoma", :name_part_verbatim=>"Verpericola megasoma", :auth_part_verbatim=>"\"\"Dall\" Pils."}] 
+      ['Moraea spathulata ( (L. f. Klatt','Moraea spathulata',{:genus=>"Moraea", :species=>"spathulata", :name_part_verbatim=>"Moraea spathulata", :auth_part_verbatim=>"( (L. f. Klatt"}, {0=>["genus", 6], 7=>["species", 17]} ],
+      ['Verpericola megasoma ""Dall" Pils.','Verpericola megasoma',{:genus=>"Verpericola", :species=>"megasoma", :name_part_verbatim=>"Verpericola megasoma", :auth_part_verbatim=>"\"\"Dall\" Pils."}, {0=>["genus", 11], 12=>["species", 20]}] 
     ].each do |n|
       parse(n[0]).should_not be_nil
       value(n[0]).should == n[1]
       details(n[0]).should == n[2]
+      pos(n[0]).should == n[3]
     end
   end  
 end

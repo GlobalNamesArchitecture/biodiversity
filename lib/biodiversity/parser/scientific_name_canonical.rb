@@ -46,6 +46,11 @@ module ScientificNameCanonical
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
     end
@@ -72,6 +77,11 @@ module ScientificNameCanonical
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
     end

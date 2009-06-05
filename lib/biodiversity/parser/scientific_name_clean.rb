@@ -39,6 +39,11 @@ module ScientificNameClean
     def canonical
       a.canonical + " × " + b.canonical
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:hybrid => {:scientific_name1 => a.details, :scientific_name2 => b.details}}
     end
@@ -70,6 +75,10 @@ module ScientificNameClean
     
     def canonical
       a.canonical
+    end
+    
+    def pos
+      a.pos
     end
     
     def details
@@ -221,6 +230,10 @@ module ScientificNameClean
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos.merge(b.pos).merge(d.pos)
+    end
   
     def details
       a.details.merge(b.details).merge(c.details(d)).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value + " " + d.text_value).gsub(/\s{2,}/, ' ').strip})
@@ -265,6 +278,10 @@ module ScientificNameClean
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos.merge(c.pos)
+    end
   
     def details
       a.details.merge(b.details(c)).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value).gsub(/\s{2,}/, ' ').strip})
@@ -308,6 +325,11 @@ module ScientificNameClean
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       a.details.merge(b.details).merge(c.details).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value).gsub(/\s{2,}/, ' ').strip})
     end
@@ -342,6 +364,11 @@ module ScientificNameClean
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       a.details.merge(b.details).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value.gsub(/\s{2,}/, ' ')})
     end
@@ -376,6 +403,10 @@ module ScientificNameClean
     
     def canonical
       a.canonical
+    end
+    
+    def pos
+      a.pos.merge(b.pos)
     end
     
     def details
@@ -764,6 +795,11 @@ module ScientificNameClean
     def canonical
       (a.canonical + " " + c.canonical).gsub(/\s+/,' ')
     end
+    
+    def pos
+      a.pos.merge(b.pos).merge(c.pos).merge(d.pos)
+    end
+    
     def details
       a.details.merge(c.details).merge({:species_authors=>b.details, :subspecies_authors => d.details}).merge({:name_part_verbatim => a.text_value, :auth_part_verbatim => (b.text_value + " " + c.text_value + " " + d.text_value).gsub(/\s{2,}/, ' ')})
     end
@@ -908,7 +944,11 @@ module ScientificNameClean
     def value 
       a.value + " " + b.value
     end
-  
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       a.details.merge(b.details)
     end
@@ -941,6 +981,10 @@ module ScientificNameClean
       a.value + " ex " + b.value
     end
     
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:revised_name_authors => {:revised_authors => a.details[:authors], :authors => b.details[:authors]}}
     end
@@ -964,6 +1008,11 @@ module ScientificNameClean
     def value
       a.value + " " + b.value
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       a.details.merge(b.details)
     end
@@ -1096,6 +1145,11 @@ module ScientificNameClean
     def value
       a.value + " " + b.value
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       a.details.merge(b.details)
     end
@@ -1189,6 +1243,11 @@ module ScientificNameClean
     def value
       "(" + a.value + " " + b.value + ")"
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:orig_authors => a.details[:authors], :year => b.details[:year]}
     end
@@ -1220,6 +1279,11 @@ module ScientificNameClean
     def value
       "(" + a.value + ")"
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       {:orig_authors => a.details[:authors]}
     end
@@ -1244,6 +1308,11 @@ module ScientificNameClean
     def value
       "(" + a.value + ")"
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       {:orig_authors => a.details[:authors]}
     end
@@ -1275,6 +1344,11 @@ module ScientificNameClean
     def value
       "(" + a.value + ")"
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       {:orig_authors => a.details[:authors]}
     end
@@ -1550,6 +1624,10 @@ module ScientificNameClean
       "(" + a.value + ")"
     end
     
+    def pos
+      a.pos
+    end
+    
     def details
       {:original_revised_name_authors => a.details[:revised_name_authors]}
     end
@@ -1622,6 +1700,11 @@ module ScientificNameClean
     def value
       a.value + " ex " + b.value
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:revised_name_authors =>{:revised_authors => a.details[:authors], :authors => b.details[:authors]}}
     end
@@ -1690,6 +1773,11 @@ module ScientificNameClean
     def value 
       a.value + " " + b.value
     end
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:authors => {:names => a.details[:authors][:names]}.merge(b.details)}
     end
@@ -1767,6 +1855,11 @@ module ScientificNameClean
     def value
       text_value
     end
+    
+    def pos
+     {interval.begin => ['unknown_author', interval.end]}
+    end
+    
     def details
       {:authors => "unknown"}
     end
@@ -1903,6 +1996,10 @@ module ScientificNameClean
       sep.apply(a,b)
     end
     
+    def pos
+      sep.pos(a,b)
+    end
+    
     def details
       sep.details(a,b)
     end
@@ -1967,7 +2064,11 @@ module ScientificNameClean
       sep = " et" if ["&","and","et"].include? sep
       a.value + sep + " " + b.value
     end
-
+    
+    def pos(a,b)
+      a.pos.merge(b.pos)
+    end
+    
     def details(a,b)
       {:authors => {:names => a.details[:authors][:names] + b.details[:authors][:names]}}
     end
@@ -2064,7 +2165,11 @@ module ScientificNameClean
     def value
       a.value + " " + b.value
     end
-
+    
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       {:authors => {:names => [value]}}
     end
@@ -2127,6 +2232,11 @@ module ScientificNameClean
     def value
       text_value.strip
     end
+    
+    def pos
+      {interval.begin => ['author_word', 1], (interval.begin + 2) => ['author_word', 2], (interval.begin + 5) => ['author_word', 2]}
+    end
+    
     def details
       {:authors => {:names => [value]}}
     end
@@ -2136,6 +2246,12 @@ module ScientificNameClean
     def value
       text_value.strip
     end
+    
+    def pos
+      #cheating because there are several words in some of them
+      {interval.begin => ['author_word', interval.end]}
+    end
+    
     def details
       {:authors => {:names => [value]}}
     end
@@ -2148,6 +2264,11 @@ module ScientificNameClean
     def value
       text_value.gsub(/\s+/, " ").strip
     end
+    
+    def pos
+      {interval.begin => ['author_word', interval.end]}
+    end
+    
     def details
       {:authors => {:names => [value]}}
     end
@@ -2572,6 +2693,11 @@ module ScientificNameClean
     def canonical
       a.canonical
     end
+    
+    def pos
+      a.pos
+    end
+    
     def details
       a.details.merge(b.details).merge(c.details)
     end
@@ -2601,6 +2727,10 @@ module ScientificNameClean
     end
     def canonical
       a.canonical + b.canonical
+    end
+    
+    def pos
+      a.pos.merge(b.pos)
     end
     
     def details
@@ -2634,6 +2764,10 @@ module ScientificNameClean
     
     def canonical
       value
+    end
+    
+    def pos
+      a.pos.merge({b.interval.begin => ['subspecies' => b.interval.end]})
     end
     
     def details
@@ -2796,6 +2930,10 @@ module ScientificNameClean
       a.canonical + b.canonical
     end
     
+    def pos
+      a.pos.merge(b.pos)
+    end
+    
     def details
       c = a.details[:subspecies] + b.details_subspecies
       a.details.merge({:subspecies => c, :is_valid => false})
@@ -2867,6 +3005,10 @@ module ScientificNameClean
     end
     def canonical
       sel.canonical(a)
+    end
+    
+    def pos
+      {a.interval.begin => ['subspecies', a.interval.end]}
     end
     def details
       sel.details(a)
@@ -3633,6 +3775,11 @@ module ScientificNameClean
     def canonical
       a.value + " " + b.value
     end
+    
+    def pos
+      {a.interval.begin => ['genus', a.interval.end], b.interval.begin => ['species', b.interval.end]}
+    end
+    
     def details
       {:genus => a.value, :species => b.value, :cross => 'before'}
     end
@@ -3659,6 +3806,11 @@ module ScientificNameClean
     def canonical
       a.value
     end
+    
+    def pos
+      {a.interval.begin => ['uninomial', a.interval.end]}
+    end
+    
     def details
       {:uninomial => a.value, :cross => 'before'}
     end
@@ -3693,6 +3845,11 @@ module ScientificNameClean
     def canonical
       a.value + " " + b.value
     end
+    
+    def pos
+      {a.interval.begin => ['genus', a.interval.end], b.interval.begin => ['species', b.interval.end]}
+    end
+    
     def details
       {:genus => a.value, :species => b.value, :cross => 'inside'}
     end
@@ -3727,6 +3884,11 @@ module ScientificNameClean
     def canonical
       a.value + " " + c.value
     end
+    
+    def pos
+      {a.interval.begin => ['genus', a.interval.end]}.merge(b.pos).merge({c.interval.begin => ['subspecies', c.interval.end]})
+    end
+    
     def details
       {:genus => a.value, :subgenus => b.details, :species => c.value}
     end
@@ -3752,6 +3914,10 @@ module ScientificNameClean
     end
     def canonical
       value
+    end
+    
+    def pos
+      {a.interval.begin => ['genus', a.interval.end], b.interval.begin => ['species', b.interval.end]}
     end
     
     def details
@@ -3934,6 +4100,11 @@ module ScientificNameClean
     def value
       "(" + a.value + ")"
     end
+    
+    def pos
+      {a.interval.begin => ['subgenus', a.interval.end]}
+    end
+    
     def details
       a.value
     end
@@ -4119,11 +4290,15 @@ module ScientificNameClean
 
   module CapLatinWord1
     def value
-      a.text_value + b.value
+      (a.value rescue a.text_value) + b.value
     end
     
     def canonical 
       value
+    end
+    
+    def pos
+      {a.interval.begin => ['uninomial', a.interval.end]}
     end
     
     def details 
@@ -4143,11 +4318,15 @@ module ScientificNameClean
 
   module CapLatinWord3
     def value
-      a.text_value + b.value
+      (a.value rescue a.text_value) + b.value
     end
     
     def canonical 
       value
+    end
+    
+    def pos
+      {a.interval.begin => ['uninomial',b.interval.end]}
     end
     
     def details 
@@ -4162,6 +4341,10 @@ module ScientificNameClean
     
     def canonical
       value
+    end
+    
+    def pos
+      {interval.begin => ['uninomial', interval.end]}
     end
     
     def details
@@ -4179,25 +4362,37 @@ module ScientificNameClean
 
     i0 = index
     i1, s1 = index, []
-    if input.index(Regexp.new('[A-ZŒÆ]'), index) == index
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+    i2 = index
+    if input.index(Regexp.new('[A-Z]'), index) == index
+      r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
-      r2 = nil
+      r3 = nil
+    end
+    if r3
+      r2 = r3
+    else
+      r4 = _nt_cap_digraph
+      if r4
+        r2 = r4
+      else
+        self.index = i2
+        r2 = nil
+      end
     end
     s1 << r2
     if r2
-      r3 = _nt_latin_word
-      s1 << r3
-      if r3
+      r5 = _nt_latin_word
+      s1 << r5
+      if r5
         if input.index("?", index) == index
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
           terminal_parse_failure("?")
-          r4 = nil
+          r6 = nil
         end
-        s1 << r4
+        s1 << r6
       end
     end
     if s1.last
@@ -4211,241 +4406,253 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      i5, s5 = index, []
-      if input.index(Regexp.new('[A-ZŒÆ]'), index) == index
-        r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      i7, s7 = index, []
+      i8 = index
+      if input.index(Regexp.new('[A-Z]'), index) == index
+        r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
-        r6 = nil
+        r9 = nil
       end
-      s5 << r6
-      if r6
-        r7 = _nt_latin_word
-        s5 << r7
-      end
-      if s5.last
-        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
-        r5.extend(CapLatinWord2)
-        r5.extend(CapLatinWord3)
+      if r9
+        r8 = r9
       else
-        self.index = i5
-        r5 = nil
+        r10 = _nt_cap_digraph
+        if r10
+          r8 = r10
+        else
+          self.index = i8
+          r8 = nil
+        end
       end
-      if r5
-        r0 = r5
+      s7 << r8
+      if r8
+        r11 = _nt_latin_word
+        s7 << r11
+      end
+      if s7.last
+        r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+        r7.extend(CapLatinWord2)
+        r7.extend(CapLatinWord3)
       else
-        i8 = index
+        self.index = i7
+        r7 = nil
+      end
+      if r7
+        r0 = r7
+      else
+        i12 = index
         if input.index("Ca", index) == index
-          r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
+          r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
           @index += 2
         else
           terminal_parse_failure("Ca")
-          r9 = nil
+          r13 = nil
         end
-        if r9
-          r8 = r9
-          r8.extend(CapLatinWord4)
+        if r13
+          r12 = r13
+          r12.extend(CapLatinWord4)
         else
           if input.index("Ea", index) == index
-            r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
+            r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
             terminal_parse_failure("Ea")
-            r10 = nil
+            r14 = nil
           end
-          if r10
-            r8 = r10
-            r8.extend(CapLatinWord4)
+          if r14
+            r12 = r14
+            r12.extend(CapLatinWord4)
           else
             if input.index("Ge", index) == index
-              r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
+              r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
               @index += 2
             else
               terminal_parse_failure("Ge")
-              r11 = nil
+              r15 = nil
             end
-            if r11
-              r8 = r11
-              r8.extend(CapLatinWord4)
+            if r15
+              r12 = r15
+              r12.extend(CapLatinWord4)
             else
               if input.index("Ia", index) == index
-                r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
                 @index += 2
               else
                 terminal_parse_failure("Ia")
-                r12 = nil
+                r16 = nil
               end
-              if r12
-                r8 = r12
-                r8.extend(CapLatinWord4)
+              if r16
+                r12 = r16
+                r12.extend(CapLatinWord4)
               else
                 if input.index("Io", index) == index
-                  r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                  r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
                   @index += 2
                 else
                   terminal_parse_failure("Io")
-                  r13 = nil
+                  r17 = nil
                 end
-                if r13
-                  r8 = r13
-                  r8.extend(CapLatinWord4)
+                if r17
+                  r12 = r17
+                  r12.extend(CapLatinWord4)
                 else
                   if input.index("Io", index) == index
-                    r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                    r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
                     @index += 2
                   else
                     terminal_parse_failure("Io")
-                    r14 = nil
+                    r18 = nil
                   end
-                  if r14
-                    r8 = r14
-                    r8.extend(CapLatinWord4)
+                  if r18
+                    r12 = r18
+                    r12.extend(CapLatinWord4)
                   else
                     if input.index("Ix", index) == index
-                      r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                      r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
                       @index += 2
                     else
                       terminal_parse_failure("Ix")
-                      r15 = nil
+                      r19 = nil
                     end
-                    if r15
-                      r8 = r15
-                      r8.extend(CapLatinWord4)
+                    if r19
+                      r12 = r19
+                      r12.extend(CapLatinWord4)
                     else
                       if input.index("Lo", index) == index
-                        r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                        r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
                         @index += 2
                       else
                         terminal_parse_failure("Lo")
-                        r16 = nil
+                        r20 = nil
                       end
-                      if r16
-                        r8 = r16
-                        r8.extend(CapLatinWord4)
+                      if r20
+                        r12 = r20
+                        r12.extend(CapLatinWord4)
                       else
                         if input.index("Oa", index) == index
-                          r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                          r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
                           @index += 2
                         else
                           terminal_parse_failure("Oa")
-                          r17 = nil
+                          r21 = nil
                         end
-                        if r17
-                          r8 = r17
-                          r8.extend(CapLatinWord4)
+                        if r21
+                          r12 = r21
+                          r12.extend(CapLatinWord4)
                         else
                           if input.index("Ra", index) == index
-                            r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                            r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
                             @index += 2
                           else
                             terminal_parse_failure("Ra")
-                            r18 = nil
+                            r22 = nil
                           end
-                          if r18
-                            r8 = r18
-                            r8.extend(CapLatinWord4)
+                          if r22
+                            r12 = r22
+                            r12.extend(CapLatinWord4)
                           else
                             if input.index("Ty", index) == index
-                              r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                              r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
                               @index += 2
                             else
                               terminal_parse_failure("Ty")
-                              r19 = nil
+                              r23 = nil
                             end
-                            if r19
-                              r8 = r19
-                              r8.extend(CapLatinWord4)
+                            if r23
+                              r12 = r23
+                              r12.extend(CapLatinWord4)
                             else
                               if input.index("Ua", index) == index
-                                r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                 @index += 2
                               else
                                 terminal_parse_failure("Ua")
-                                r20 = nil
+                                r24 = nil
                               end
-                              if r20
-                                r8 = r20
-                                r8.extend(CapLatinWord4)
+                              if r24
+                                r12 = r24
+                                r12.extend(CapLatinWord4)
                               else
                                 if input.index("Aa", index) == index
-                                  r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                  r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                   @index += 2
                                 else
                                   terminal_parse_failure("Aa")
-                                  r21 = nil
+                                  r25 = nil
                                 end
-                                if r21
-                                  r8 = r21
-                                  r8.extend(CapLatinWord4)
+                                if r25
+                                  r12 = r25
+                                  r12.extend(CapLatinWord4)
                                 else
                                   if input.index("Ja", index) == index
-                                    r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                    r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                     @index += 2
                                   else
                                     terminal_parse_failure("Ja")
-                                    r22 = nil
+                                    r26 = nil
                                   end
-                                  if r22
-                                    r8 = r22
-                                    r8.extend(CapLatinWord4)
+                                  if r26
+                                    r12 = r26
+                                    r12.extend(CapLatinWord4)
                                   else
                                     if input.index("Zu", index) == index
-                                      r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                      r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                       @index += 2
                                     else
                                       terminal_parse_failure("Zu")
-                                      r23 = nil
+                                      r27 = nil
                                     end
-                                    if r23
-                                      r8 = r23
-                                      r8.extend(CapLatinWord4)
+                                    if r27
+                                      r12 = r27
+                                      r12.extend(CapLatinWord4)
                                     else
                                       if input.index("La", index) == index
-                                        r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                        r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                         @index += 2
                                       else
                                         terminal_parse_failure("La")
-                                        r24 = nil
+                                        r28 = nil
                                       end
-                                      if r24
-                                        r8 = r24
-                                        r8.extend(CapLatinWord4)
+                                      if r28
+                                        r12 = r28
+                                        r12.extend(CapLatinWord4)
                                       else
                                         if input.index("Qu", index) == index
-                                          r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                          r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                           @index += 2
                                         else
                                           terminal_parse_failure("Qu")
-                                          r25 = nil
+                                          r29 = nil
                                         end
-                                        if r25
-                                          r8 = r25
-                                          r8.extend(CapLatinWord4)
+                                        if r29
+                                          r12 = r29
+                                          r12.extend(CapLatinWord4)
                                         else
                                           if input.index("As", index) == index
-                                            r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                            r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                             @index += 2
                                           else
                                             terminal_parse_failure("As")
-                                            r26 = nil
+                                            r30 = nil
                                           end
-                                          if r26
-                                            r8 = r26
-                                            r8.extend(CapLatinWord4)
+                                          if r30
+                                            r12 = r30
+                                            r12.extend(CapLatinWord4)
                                           else
                                             if input.index("Ba", index) == index
-                                              r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                              r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                               @index += 2
                                             else
                                               terminal_parse_failure("Ba")
-                                              r27 = nil
+                                              r31 = nil
                                             end
-                                            if r27
-                                              r8 = r27
-                                              r8.extend(CapLatinWord4)
+                                            if r31
+                                              r12 = r31
+                                              r12.extend(CapLatinWord4)
                                             else
-                                              self.index = i8
-                                              r8 = nil
+                                              self.index = i12
+                                              r12 = nil
                                             end
                                           end
                                         end
@@ -4465,8 +4672,8 @@ module ScientificNameClean
             end
           end
         end
-        if r8
-          r0 = r8
+        if r12
+          r0 = r12
         else
           self.index = i0
           r0 = nil
@@ -4727,6 +4934,59 @@ module ScientificNameClean
     return r0
   end
 
+  module CapDigraph0
+    def value
+      'Ae'
+    end
+  end
+
+  module CapDigraph1
+    def value
+      'Oe'
+    end
+  end
+
+  def _nt_cap_digraph
+    start_index = index
+    if node_cache[:cap_digraph].has_key?(index)
+      cached = node_cache[:cap_digraph][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    if input.index("Æ", index) == index
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      r1.extend(CapDigraph0)
+      @index += 1
+    else
+      terminal_parse_failure("Æ")
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      if input.index("Œ", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2.extend(CapDigraph1)
+        @index += 1
+      else
+        terminal_parse_failure("Œ")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:cap_digraph][start_index] = r0
+
+    return r0
+  end
+
   module Digraph0
     def value
       'ae'
@@ -4748,21 +5008,23 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index(Regexp.new('[æ]'), index) == index
+    if input.index("æ", index) == index
       r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r1.extend(Digraph0)
       @index += 1
     else
+      terminal_parse_failure("æ")
       r1 = nil
     end
     if r1
       r0 = r1
     else
-      if input.index(Regexp.new('[œ]'), index) == index
+      if input.index("œ", index) == index
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         r2.extend(Digraph1)
         @index += 1
       else
+        terminal_parse_failure("œ")
         r2 = nil
       end
       if r2
@@ -4844,6 +5106,11 @@ module ScientificNameClean
     def value
       text_value.strip
     end
+    
+    def pos
+      {interval.begin => ['year', interval.end]}
+    end
+    
     def details
       {:year => value}
     end
@@ -4907,6 +5174,11 @@ module ScientificNameClean
     def value
       a.text_value
     end
+    
+    def pos
+      {interval.begin => ['year', interval.end]}
+    end
+    
     def details
       {:year => value}
     end

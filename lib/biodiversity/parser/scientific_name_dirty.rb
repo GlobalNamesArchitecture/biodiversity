@@ -41,6 +41,9 @@ module ScientificNameDirty
     def value
       a.text_value + " " + b.text_value
     end
+    def pos
+      {a.interval.begin => ['year', a.interval.end]}.merge(b.pos)
+    end
     def details
       {:ambiguous_year => value}
     end
@@ -61,6 +64,11 @@ module ScientificNameDirty
     def value
       a.text_value
     end
+    
+    def pos
+      {a.interval.begin => ['year', a.interval.end]}
+    end
+    
     def details
       {:year => value}
     end
@@ -201,6 +209,11 @@ module ScientificNameDirty
     def value
      "(" + a.text_value + ")"
     end
+    
+    def pos
+      {a.interval.begin => ['year', a.interval.end]}
+    end
+    
     def details
       {:approximate_year => value}
     end
@@ -336,6 +349,11 @@ module ScientificNameDirty
     def value
       text_value
     end
+    
+    def pos
+      {interval.begin => ['year', interval.end]}
+    end
+    
     def details
       {:year => value}
     end
