@@ -56,14 +56,16 @@ describe ScientificNameClean do
     canonical('Plantago major ESEFDSlj sdafsladjfasd fd ;asldfjasfas#&^&*^*^&}}').should == 'Plantago major'
   end
   
-  it 'should generate json output' do
-    json("Plantago major").should == '{"genus":"Plantago","species":"major"}'
+  it 'should generate pos_json output' do
     parse("Plantago major").pos_json.should == '{"0":["genus",8],"9":["species",14]}'
   end
   
-#   it 'should generate standardized json' do
-#     puts << DATA_END
-# Fagus|{"scientificName":{"parsed":"true"}}
-# DATA_END
-#   end
+  it 'should generate standardized json' do
+    f = open(File.expand_path(dir + "../../spec/parser/test_data.txt"))
+    f.each do |line|
+      name, jsn, notes = line.split("|")
+      next unless name && jsn
+      JSON.load(json(name)).should == JSON.load(jsn)
+    end
+  end
 end

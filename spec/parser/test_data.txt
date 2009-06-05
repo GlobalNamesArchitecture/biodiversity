@@ -1,0 +1,3 @@
+Pseudocercospora|{"scientificName":{"parsed":true,"verbatim":"Pseudocercospora","normalized":"Pseudocercospora","canonical":"Pseudocercospora","uninomial":"Pseudocercospora"}}|uninomial
+Pseudocercospora Speg. 1910|{}|uninomial with author and year
+Pseudocercospora Spegazzini, 1910|{}|uninomial with author and year

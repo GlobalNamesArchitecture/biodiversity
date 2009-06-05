@@ -9,6 +9,7 @@ require 'json'
 class ScientificNameParser
   
   def initialize
+    @verbatim = ''
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
@@ -16,9 +17,22 @@ class ScientificNameParser
   end
   
   def parse(a_string)
+    @verbatim = a_string
     @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
     def @parser.to_json
-      JSON.generate self.details rescue ''
+      parsed = !!self
+      res = {
+        :parsed => parsed,
+        :verbatim => self.text_value }
+      if parsed
+        res.merge!({
+          :normalized => self.value,
+          :canonical => self.canonical
+          })
+        res.merge!(self.details)
+      end
+      res = {:scientificName => res}
+      JSON.generate res
     end
     def @parser.pos_json
       JSON.generate self.pos rescue ''
