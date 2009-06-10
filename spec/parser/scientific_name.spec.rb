@@ -59,13 +59,5 @@ describe ScientificNameClean do
   it 'should generate pos_json output' do
     parse("Plantago major").pos_json.should == '{"0":["genus",8],"9":["species",14]}'
   end
-  
-  it 'should generate standardized json' do
-    f = open(File.expand_path(dir + "../../spec/parser/test_data.txt"))
-    f.each do |line|
-      name, jsn, notes = line.split("|")
-      next unless name && jsn
-      JSON.load(json(name)).should == JSON.load(jsn)
-    end
-  end
+
 end
