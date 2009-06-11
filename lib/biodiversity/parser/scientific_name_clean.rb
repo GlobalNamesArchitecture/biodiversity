@@ -2767,7 +2767,7 @@ module ScientificNameClean
     end
     
     def pos
-      a.pos.merge({b.interval.begin => ['subspecies' => b.interval.end]})
+      a.pos.merge({b.interval.begin => ['subspecies', b.interval.end]})
     end
     
     def details

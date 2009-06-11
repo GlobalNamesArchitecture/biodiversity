@@ -13,14 +13,22 @@ class ScientificNameParser
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
-    @parser = nil
+    @node = nil
   end
   
   def parse(a_string)
     @verbatim = a_string
-    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
-    def @parser.to_json
-      parsed = !!self
+    @node = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) rescue nil
+    self
+  end
+
+  def pos
+    @node.pos
+  end
+
+  def to_json 
+    parsed = !!@node
+    if parsed
       res = {
         :parsed => parsed,
         :verbatim => self.text_value }
@@ -33,11 +41,13 @@ class ScientificNameParser
       end
       res = {:scientificName => res}
       JSON.generate res
+    else
+      JSON.generate({:parsed => parsed, :verbatim => @verbatim})
     end
-    def @parser.pos_json
-      JSON.generate self.pos rescue ''
-    end
-    @parser
+  end
+
+  def pos_to_json
+    JSON.generate @node.pos rescue ''
   end
 
 end

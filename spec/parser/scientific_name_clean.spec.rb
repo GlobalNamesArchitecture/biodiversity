@@ -173,6 +173,9 @@ describe ScientificNameClean do
   end  
   
   it 'should parse scientific name' do
+    sn = "Abacetus laevicollis de Chaudoir, 1869"
+    parse(sn).should_not be_nil
+    canonical(sn).should == 'Abacetus laevicollis'
     parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun et Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
@@ -430,11 +433,11 @@ end
     value(sn).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall et D.E. Stuntz 1972"
     canonical(sn).should == "Hydnellum scrobiculatum zonatum"
     details(sn).should == {:genus=>"Hydnellum", :species=>"scrobiculatum", :subspecies=>{:rank=>"n/a", :value=>"zonatum"}, :orig_authors=>{:names=>["Banker"]}, :authors=>{:names=>["D. Hall", "D.E. Stuntz"], :year=>"1972"}, :name_part_verbatim=>"Hydnellum scrobiculatum zonatum", :auth_part_verbatim=>"(Banker) D. Hall & D.E. Stuntz 1972"}
-    pos(sn).should == {0=>["genus", 9], 10=>["species", 23], 24=>[{"subspecies"=>31}], 33=>["author_word", 39], 41=>["author_word", 43], 44=>["author_word", 48], 51=>["author_word", 55], 56=>["author_word", 62], 63=>["year", 67]}
+    pos(sn).should == {0=>["genus", 9], 10=>["species", 23], 24=>[{"subspecies",31}], 33=>["author_word", 39], 41=>["author_word", 43], 44=>["author_word", 48], 51=>["author_word", 55], 56=>["author_word", 62], 63=>["year", 67]}
     sn = "Begonia pingbienensis angustior"
     parse(sn).should_not be_nil
     details(sn).should == {:genus=>"Begonia", :species=>"pingbienensis", :subspecies=>{:rank=>"n/a", :value=>"angustior"}}
-    pos(sn).should == {0=>["genus", 7], 8=>["species", 21], 22=>[{"subspecies"=>31}]}
+    pos(sn).should == {0=>["genus", 7], 8=>["species", 21], 22=>[{"subspecies", 31}]}
   end
   
   it "should not parse unallowed utf-8 chars in name part" do
