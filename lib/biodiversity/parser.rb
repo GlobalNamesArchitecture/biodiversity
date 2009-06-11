@@ -21,9 +21,21 @@ class ScientificNameParser
     @node = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) rescue nil
     self
   end
+  
+  def value
+    @node.value if @node
+  end
 
   def pos
-    @node.pos
+    @node.pos if @node
+  end
+  
+  def details
+    @node.details if @node
+  end
+  
+  def canonical
+    @node.canonical if @node
   end
 
   def to_json 
@@ -31,13 +43,13 @@ class ScientificNameParser
     if parsed
       res = {
         :parsed => parsed,
-        :verbatim => self.text_value }
+        :verbatim => @node.text_value }
       if parsed
         res.merge!({
-          :normalized => self.value,
-          :canonical => self.canonical
+          :normalized => @node.value,
+          :canonical => @node.canonical
           })
-        res.merge!(self.details)
+        res.merge!(@node.details)
       end
       res = {:scientificName => res}
       JSON.generate res
