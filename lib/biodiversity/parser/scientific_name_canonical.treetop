@@ -8,6 +8,23 @@ grammar ScientificNameCanonical
   end
     
   rule name_part_with_garbage
+    a:species_name space b:latin_word space c:[^ш]+ {
+      def value 
+        a.value + " " + b.value
+      end
+      def canonical
+        a.canonical + " " + b.value
+      end
+      
+      def pos
+        a.pos.merge({b.interval.begin => ['subspecies', b.interval.end]})
+      end
+      
+      def details
+        a.details.merge({:subspecies => {:rank => 'n/a', :value => b.value}}).merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => c.text_value)
+      end
+    }
+    /
     a:species_name space b:[^ш]+ {
       def value 
         a.value

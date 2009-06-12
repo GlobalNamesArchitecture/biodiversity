@@ -175,7 +175,7 @@ describe ScientificNameClean do
   it 'should parse scientific name' do
     sn = "Abacetus laevicollis de Chaudoir, 1869"
     parse(sn).should_not be_nil
-    #TODO!!!!!! canonical(sn).should == 'Abacetus laevicollis'
+    canonical(sn).should == 'Abacetus laevicollis'
     parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun et Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
@@ -472,6 +472,27 @@ end
     value(sn).should == "Ferganoconcha oblonga"
     details(sn).should == {:genus=>"Ferganoconcha", :species=>"oblonga"}   
     pos(sn).should == {0=>["genus", 14], 15=>["species", 22]}
+  end
+  
+  it 'should parse new additions' do
+    sn = "Abacetus laevicollis de Chaudoir, 1869"
+    parse(sn).should_not be_nil
+    canonical(sn).should == 'Abacetus laevicollis'
+    sn = "Gastrosericus eremorum van Beaumont 1955"
+    canonical(sn).should == 'Gastrosericus eremorum'
+    sn = "Gastrosericus eremorum von Beaumont 1955"
+    canonical(sn).should == 'Gastrosericus eremorum'
+    sn = "Cypraeovula (Luponia) amphithales perdentata"
+    canonical(sn).should == 'Cypraeovula amphithales perdentata'
+    details(sn).should == {:genus=>"Cypraeovula", :subgenus=>"Luponia", :species=>"amphithales", :subspecies=>{:rank=>"n/a", :value=>"perdentata"}}
+    sn = "Polyrhachis orsyllus nat musculus Forel 1901"
+    canonical(sn).should == "Polyrhachis orsyllus musculus"
+    sn = 'Latrodectus 13-guttatus Thorell, 1875'
+    canonical(sn).should == 'Latrodectus 13-guttatus'
+    value(sn).should == 'Latrodectus 13-guttatus Thorell 1875'
+    sn = 'Latrodectus 3guttatus Thorell, 1875'
+    canonical(sn).should == 'Latrodectus 3-guttatus'
+    value(sn).should == 'Latrodectus 3-guttatus Thorell 1875'
   end
   
 end
