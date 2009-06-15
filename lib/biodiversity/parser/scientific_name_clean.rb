@@ -2659,8 +2659,19 @@ module ScientificNameClean
                   if r8
                     r0 = r8
                   else
-                    self.index = i0
-                    r0 = nil
+                    if input.index("von", index) == index
+                      r9 = instantiate_node(SyntaxNode,input, index...(index + 3))
+                      @index += 3
+                    else
+                      terminal_parse_failure("von")
+                      r9 = nil
+                    end
+                    if r9
+                      r0 = r9
+                    else
+                      self.index = i0
+                      r0 = nil
+                    end
                   end
                 end
               end
@@ -2950,7 +2961,7 @@ module ScientificNameClean
               r23 = _nt_space
               s20 << r23
               if r23
-                r24 = _nt_latin_word
+                r24 = _nt_species_word
                 s20 << r24
                 if r24
                   i25 = index
@@ -3130,7 +3141,7 @@ module ScientificNameClean
       r2 = _nt_space_hard
       s0 << r2
       if r2
-        r3 = _nt_latin_word
+        r3 = _nt_species_word
         s0 << r3
       end
     end
@@ -4056,7 +4067,7 @@ module ScientificNameClean
           r5 = _nt_space_hard
           s1 << r5
           if r5
-            r6 = _nt_latin_word
+            r6 = _nt_species_word
             s1 << r6
           end
         end
@@ -4108,7 +4119,7 @@ module ScientificNameClean
               r15 = _nt_space_hard
               s11 << r15
               if r15
-                r16 = _nt_latin_word
+                r16 = _nt_species_word
                 s11 << r16
               end
             end
@@ -4138,7 +4149,7 @@ module ScientificNameClean
                 r21 = _nt_space
                 s17 << r21
                 if r21
-                  r22 = _nt_latin_word
+                  r22 = _nt_species_word
                   s17 << r22
                 end
               end
@@ -4162,7 +4173,7 @@ module ScientificNameClean
               r25 = _nt_space_hard
               s23 << r25
               if r25
-                r26 = _nt_latin_word
+                r26 = _nt_species_word
                 s23 << r26
               end
             end
@@ -4795,6 +4806,97 @@ module ScientificNameClean
     end
 
     node_cache[:cap_latin_word][start_index] = r0
+
+    return r0
+  end
+
+  module SpeciesWord0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[2]
+    end
+  end
+
+  module SpeciesWord1
+    def value
+      a.text_value + "-"+ b.value
+    end
+  end
+
+  def _nt_species_word
+    start_index = index
+    if node_cache[:species_word].has_key?(index)
+      cached = node_cache[:species_word][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    s2, i2 = [], index
+    loop do
+      if input.index(Regexp.new('[0-9]'), index) == index
+        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r3 = nil
+      end
+      if r3
+        s2 << r3
+      else
+        break
+      end
+    end
+    if s2.empty?
+      self.index = i2
+      r2 = nil
+    else
+      r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+    end
+    s1 << r2
+    if r2
+      if input.index("-", index) == index
+        r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure("-")
+        r5 = nil
+      end
+      if r5
+        r4 = r5
+      else
+        r4 = instantiate_node(SyntaxNode,input, index...index)
+      end
+      s1 << r4
+      if r4
+        r6 = _nt_latin_word
+        s1 << r6
+      end
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(SpeciesWord0)
+      r1.extend(SpeciesWord1)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      r7 = _nt_latin_word
+      if r7
+        r0 = r7
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:species_word][start_index] = r0
 
     return r0
   end
