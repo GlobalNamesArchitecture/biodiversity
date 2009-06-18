@@ -3,65 +3,91 @@ grammar ScientificNameCanonical
   include ScientificNameClean
   include ScientificNameDirty
 
-  rule composite_scientific_name
-    name_part_with_garbage
+  rule root
+    multinomial_with_garbage
+    /
+    uninomial_with_garbage
   end
-    
-  rule name_part_with_garbage
-    a:species_name space b:latin_word space c:[^ш]+ {
-      def value 
+  
+  rule multinomial_with_garbage
+    a:genus space b:subgenus space c:species space_hard garbage {
+      def value
+        a.value + " " + b.value + " " + c.value
+      end
+      
+      def canonical
+        a.canonical + " " + b.canonical + " " + c.canonical
+      end
+      
+      def pos
+        a.pos.merge(b.pos).merge(c.pos)
+      end
+      
+      def details
+        a.details.merge(b.details).merge(c.details)
+      end
+    }
+    /
+    a:genus space b:subgenus space_hard garbage {
+      def value
         a.value + " " + b.value
       end
+      
       def canonical
-        a.canonical + " " + b.value
+        a.canonical + " " + b.canonical
       end
       
       def pos
-        a.pos.merge({b.interval.begin => ['subspecies', b.interval.end]})
+        a.pos.merge(b.pos)
       end
       
       def details
-        a.details.merge({:subspecies => {:rank => 'n/a', :value => b.value}}).merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => c.text_value)
+        a.details.merge(b.details)
       end
     }
     /
-    a:species_name space b:[^ш]+ {
-      def value 
-        a.value
+    a:genus space b:species space_hard garbage {
+      def value
+        a.value + " " + b.value
       end
+      
       def canonical
-        a.canonical
+        a.canonical + " " + b.canonical
       end
       
       def pos
-        a.pos
+        a.pos.merge(b.pos)
       end
       
       def details
-        a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
-      end
-    }
-    /
-    a:name_part space b:[^ш]+ {
-      def value 
-        a.value
-      end
-      def canonical
-        a.canonical
-      end
-      
-      def pos
-        a.pos
-      end
-      
-      def details
-        a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
+        a.details.merge(b.details)
       end
     }
   end
   
+  rule uninomial_with_garbage
+    a:uninomial_epitheton space_hard b:garbage {
+      def value
+        a.value
+      end
+      
+      def canonical
+        a.canonical
+      end
+      
+      def pos
+        a.pos
+      end
+      
+      def details
+        {:uninomial => a.details[:uninomial]}
+      end
+    }
+  end
+
+  
   rule garbage
-    [.]*
+    [^ш]+
   end
 
 end

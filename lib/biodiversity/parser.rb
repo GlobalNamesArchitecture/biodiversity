@@ -13,54 +13,37 @@ class ScientificNameParser
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
-    @node = nil
+    @parser = nil
   end
   
   def parse(a_string)
     @verbatim = a_string
-    @node = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) rescue nil
-    self
-  end
-  
-  def value
-    @node.value if @node
-  end
-
-  def pos
-    @node.pos if @node
-  end
-  
-  def details
-    @node.details if @node
-  end
-  
-  def canonical
-    @node.canonical if @node
-  end
-
-  def to_json 
-    parsed = !!@node
-    if parsed
+    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
+    def @parser.to_json
+      parsed = !!self
       res = {
         :parsed => parsed,
-        :verbatim => @node.text_value }
+        :verbatim => self.text_value }
       if parsed
         res.merge!({
-          :normalized => @node.value,
-          :canonical => @node.canonical
+          :normalized => self.value,
+          :canonical => self.canonical
           })
-        res.merge!(@node.details)
+        data = self.details
+        if data[:species] && data[:species][:namedHybrid]
+          data[:species].delete(:namedHybrid)
+          data = {:namedHybrid => data}
+        end
+        res.merge!(data)
       end
       res = {:scientificName => res}
       JSON.generate res
-    else
-      JSON.generate({:parsed => parsed, :verbatim => @verbatim})
     end
+    
+    def @parser.pos_json
+      JSON.generate self.pos rescue ''
+    end
+    @parser
   end
-
-  def pos_to_json
-    JSON.generate @node.pos rescue ''
-  end
-
 end
 

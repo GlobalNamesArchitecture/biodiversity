@@ -3,29 +3,41 @@ module ScientificNameCanonical
   include Treetop::Runtime
 
   def root
-    @root || :composite_scientific_name
+    @root || :root
   end
 
   include ScientificNameClean
 
   include ScientificNameDirty
 
-  def _nt_composite_scientific_name
+  def _nt_root
     start_index = index
-    if node_cache[:composite_scientific_name].has_key?(index)
-      cached = node_cache[:composite_scientific_name][index]
+    if node_cache[:root].has_key?(index)
+      cached = node_cache[:root][index]
       @index = cached.interval.end if cached
       return cached
     end
 
-    r0 = _nt_name_part_with_garbage
+    i0 = index
+    r1 = _nt_multinomial_with_garbage
+    if r1
+      r0 = r1
+    else
+      r2 = _nt_uninomial_with_garbage
+      if r2
+        r0 = r2
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
 
-    node_cache[:composite_scientific_name][start_index] = r0
+    node_cache[:root][start_index] = r0
 
     return r0
   end
 
-  module NamePartWithGarbage0
+  module MultinomialWithGarbage0
     def a
       elements[0]
     end
@@ -45,26 +57,75 @@ module ScientificNameCanonical
     def c
       elements[4]
     end
+
+    def space_hard
+      elements[5]
+    end
+
+    def garbage
+      elements[6]
+    end
   end
 
-  module NamePartWithGarbage1
-    def value 
+  module MultinomialWithGarbage1
+    def value
+      a.value + " " + b.value + " " + c.value
+    end
+    
+    def canonical
+      a.canonical + " " + b.canonical + " " + c.canonical
+    end
+    
+    def pos
+      a.pos.merge(b.pos).merge(c.pos)
+    end
+    
+    def details
+      a.details.merge(b.details).merge(c.details)
+    end
+  end
+
+  module MultinomialWithGarbage2
+    def a
+      elements[0]
+    end
+
+    def space
+      elements[1]
+    end
+
+    def b
+      elements[2]
+    end
+
+    def space_hard
+      elements[3]
+    end
+
+    def garbage
+      elements[4]
+    end
+  end
+
+  module MultinomialWithGarbage3
+    def value
       a.value + " " + b.value
     end
+    
     def canonical
-      a.canonical + " " + b.value
+      a.canonical + " " + b.canonical
     end
     
     def pos
-      a.pos.merge({b.interval.begin => ['subspecies', b.interval.end]})
+      a.pos.merge(b.pos)
     end
     
     def details
-      a.details.merge({:subspecies => {:rank => 'n/a', :value => b.value}}).merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => c.text_value)
+      a.details.merge(b.details)
     end
   end
 
-  module NamePartWithGarbage2
+  module MultinomialWithGarbage4
     def a
       elements[0]
     end
@@ -76,107 +137,74 @@ module ScientificNameCanonical
     def b
       elements[2]
     end
+
+    def space_hard
+      elements[3]
+    end
+
+    def garbage
+      elements[4]
+    end
   end
 
-  module NamePartWithGarbage3
-    def value 
-      a.value
+  module MultinomialWithGarbage5
+    def value
+      a.value + " " + b.value
     end
+    
     def canonical
-      a.canonical
+      a.canonical + " " + b.canonical
     end
     
     def pos
-      a.pos
+      a.pos.merge(b.pos)
     end
     
     def details
-      a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
+      a.details.merge(b.details)
     end
   end
 
-  module NamePartWithGarbage4
-    def a
-      elements[0]
-    end
-
-    def space
-      elements[1]
-    end
-
-    def b
-      elements[2]
-    end
-  end
-
-  module NamePartWithGarbage5
-    def value 
-      a.value
-    end
-    def canonical
-      a.canonical
-    end
-    
-    def pos
-      a.pos
-    end
-    
-    def details
-      a.details.merge(:name_part_verbatim => a.text_value, :auth_part_verbatim => b.text_value)
-    end
-  end
-
-  def _nt_name_part_with_garbage
+  def _nt_multinomial_with_garbage
     start_index = index
-    if node_cache[:name_part_with_garbage].has_key?(index)
-      cached = node_cache[:name_part_with_garbage][index]
+    if node_cache[:multinomial_with_garbage].has_key?(index)
+      cached = node_cache[:multinomial_with_garbage][index]
       @index = cached.interval.end if cached
       return cached
     end
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_species_name
+    r2 = _nt_genus
     s1 << r2
     if r2
       r3 = _nt_space
       s1 << r3
       if r3
-        r4 = _nt_latin_word
+        r4 = _nt_subgenus
         s1 << r4
         if r4
           r5 = _nt_space
           s1 << r5
           if r5
-            s6, i6 = [], index
-            loop do
-              if input.index(Regexp.new('[^ш]'), index) == index
-                r7 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                r7 = nil
-              end
-              if r7
-                s6 << r7
-              else
-                break
-              end
-            end
-            if s6.empty?
-              self.index = i6
-              r6 = nil
-            else
-              r6 = instantiate_node(SyntaxNode,input, i6...index, s6)
-            end
+            r6 = _nt_species
             s1 << r6
+            if r6
+              r7 = _nt_space_hard
+              s1 << r7
+              if r7
+                r8 = _nt_garbage
+                s1 << r8
+              end
+            end
           end
         end
       end
     end
     if s1.last
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-      r1.extend(NamePartWithGarbage0)
-      r1.extend(NamePartWithGarbage1)
+      r1.extend(MultinomialWithGarbage0)
+      r1.extend(MultinomialWithGarbage1)
     else
       self.index = i1
       r1 = nil
@@ -184,87 +212,65 @@ module ScientificNameCanonical
     if r1
       r0 = r1
     else
-      i8, s8 = index, []
-      r9 = _nt_species_name
-      s8 << r9
+      i9, s9 = index, []
+      r10 = _nt_genus
+      s9 << r10
+      if r10
+        r11 = _nt_space
+        s9 << r11
+        if r11
+          r12 = _nt_subgenus
+          s9 << r12
+          if r12
+            r13 = _nt_space_hard
+            s9 << r13
+            if r13
+              r14 = _nt_garbage
+              s9 << r14
+            end
+          end
+        end
+      end
+      if s9.last
+        r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+        r9.extend(MultinomialWithGarbage2)
+        r9.extend(MultinomialWithGarbage3)
+      else
+        self.index = i9
+        r9 = nil
+      end
       if r9
-        r10 = _nt_space
-        s8 << r10
-        if r10
-          s11, i11 = [], index
-          loop do
-            if input.index(Regexp.new('[^ш]'), index) == index
-              r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              r12 = nil
-            end
-            if r12
-              s11 << r12
-            else
-              break
-            end
-          end
-          if s11.empty?
-            self.index = i11
-            r11 = nil
-          else
-            r11 = instantiate_node(SyntaxNode,input, i11...index, s11)
-          end
-          s8 << r11
-        end
-      end
-      if s8.last
-        r8 = instantiate_node(SyntaxNode,input, i8...index, s8)
-        r8.extend(NamePartWithGarbage2)
-        r8.extend(NamePartWithGarbage3)
+        r0 = r9
       else
-        self.index = i8
-        r8 = nil
-      end
-      if r8
-        r0 = r8
-      else
-        i13, s13 = index, []
-        r14 = _nt_name_part
-        s13 << r14
-        if r14
-          r15 = _nt_space
-          s13 << r15
-          if r15
-            s16, i16 = [], index
-            loop do
-              if input.index(Regexp.new('[^ш]'), index) == index
-                r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                r17 = nil
-              end
-              if r17
-                s16 << r17
-              else
-                break
+        i15, s15 = index, []
+        r16 = _nt_genus
+        s15 << r16
+        if r16
+          r17 = _nt_space
+          s15 << r17
+          if r17
+            r18 = _nt_species
+            s15 << r18
+            if r18
+              r19 = _nt_space_hard
+              s15 << r19
+              if r19
+                r20 = _nt_garbage
+                s15 << r20
               end
             end
-            if s16.empty?
-              self.index = i16
-              r16 = nil
-            else
-              r16 = instantiate_node(SyntaxNode,input, i16...index, s16)
-            end
-            s13 << r16
           end
         end
-        if s13.last
-          r13 = instantiate_node(SyntaxNode,input, i13...index, s13)
-          r13.extend(NamePartWithGarbage4)
-          r13.extend(NamePartWithGarbage5)
+        if s15.last
+          r15 = instantiate_node(SyntaxNode,input, i15...index, s15)
+          r15.extend(MultinomialWithGarbage4)
+          r15.extend(MultinomialWithGarbage5)
         else
-          self.index = i13
-          r13 = nil
+          self.index = i15
+          r15 = nil
         end
-        if r13
-          r0 = r13
+        if r15
+          r0 = r15
         else
           self.index = i0
           r0 = nil
@@ -272,7 +278,72 @@ module ScientificNameCanonical
       end
     end
 
-    node_cache[:name_part_with_garbage][start_index] = r0
+    node_cache[:multinomial_with_garbage][start_index] = r0
+
+    return r0
+  end
+
+  module UninomialWithGarbage0
+    def a
+      elements[0]
+    end
+
+    def space_hard
+      elements[1]
+    end
+
+    def b
+      elements[2]
+    end
+  end
+
+  module UninomialWithGarbage1
+    def value
+      a.value
+    end
+    
+    def canonical
+      a.canonical
+    end
+    
+    def pos
+      a.pos
+    end
+    
+    def details
+      {:uninomial => a.details[:uninomial]}
+    end
+  end
+
+  def _nt_uninomial_with_garbage
+    start_index = index
+    if node_cache[:uninomial_with_garbage].has_key?(index)
+      cached = node_cache[:uninomial_with_garbage][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_uninomial_epitheton
+    s0 << r1
+    if r1
+      r2 = _nt_space_hard
+      s0 << r2
+      if r2
+        r3 = _nt_garbage
+        s0 << r3
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(UninomialWithGarbage0)
+      r0.extend(UninomialWithGarbage1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:uninomial_with_garbage][start_index] = r0
 
     return r0
   end
@@ -287,7 +358,7 @@ module ScientificNameCanonical
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[.]'), index) == index
+      if input.index(Regexp.new('[^ш]'), index) == index
         r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -299,7 +370,12 @@ module ScientificNameCanonical
         break
       end
     end
-    r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+    if s0.empty?
+      self.index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+    end
 
     node_cache[:garbage][start_index] = r0
 

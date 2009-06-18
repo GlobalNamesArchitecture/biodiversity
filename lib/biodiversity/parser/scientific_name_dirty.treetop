@@ -1,40 +1,63 @@
+# encoding: UTF-8
 grammar ScientificNameDirty
   include ScientificNameClean
- 
-  rule composite_scientific_name
+
+  rule root
     super
   end
   
-# rule original_authors_names_full
-# super
-# end
-#
-# rule incorrect_original_authors_names
-# "[" space a:authors_names_full space "]" {
-# def value
-# "(" + a.value + ")"
-# end
-# def details
-# {:orig_authors => a.details[:authors]}
-# end
-# }
-# end
+  rule species
+    a:species_epitheton space b:year {
+       def value
+         a.value + " " + b.value
+       end
+     
+       def canonical
+         a.canonical
+       end
+     
+       def pos
+         a.pos.merge(b.pos)
+       end
+     
+       def details
+         {:species => a.details[:species].merge(b.details)}
+       end
+     }
+     /
+     super
+  end
+
+  rule right_paren
+   ")" space ")"
+   /
+   super
+  end
+    
+  
+  
+  rule left_paren
+   "(" space "("
+   /
+   super
+  end
   
   rule year
-    a:[\d]+ space b:approximate_year {
+    a:year_number space b:approximate_year {
       def value
-        a.text_value + " " + b.text_value
+        a.value + " " + b.value
       end
+      
       def pos
-        {a.interval.begin => ['year', a.interval.end]}.merge(b.pos)
+        a.pos.merge(b.pos)
       end
+      
       def details
-        {:ambiguous_year => value}
+        {:year => a.value, :approximate_year => b.value}
       end
     }
     /
-    a:[\d]+ page_number
-    {
+    a:year_number space page_number {
       def value
         a.text_value
       end
@@ -48,15 +71,15 @@ grammar ScientificNameDirty
       end
     }
     /
-    double_year
-    /
     approximate_year
+    /
+    double_year
     /
     super
   end
   
   rule approximate_year
-    "[" space a:([\d] [\d] [\d] [\d\?]+) space "]"+ {
+    "[" space a:year_number space "]"+ {
       def value
        "(" + a.text_value + ")"
       end
@@ -71,8 +94,9 @@ grammar ScientificNameDirty
     }
   end
   
+  
   rule double_year
-    [0-9] [0-9A-Za-z\?\-]+ {
+    year_number "-" [0-9]+ [A-Za-z]? [\?]? {
       def value
         text_value
       end
@@ -94,5 +118,6 @@ grammar ScientificNameDirty
       end
     }
   end
-   
+  
+  
 end
