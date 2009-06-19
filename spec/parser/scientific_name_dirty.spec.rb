@@ -1,16 +1,10 @@
 # encoding: UTF-8
 dir = File.dirname("__FILE__")
-require 'rubygems'
-require 'spec'
-require 'yaml'
-require 'treetop'
-
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_clean'))
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_dirty'))
+require File.expand_path(dir + '../../spec/parser/spec_helper')
 
 describe ScientificNameDirty do
   before(:all) do
-    @parser = ScientificNameDirtyParser.new 
+   set_parser(ScientificNameDirtyParser.new)
   end
   
   def parse(input)

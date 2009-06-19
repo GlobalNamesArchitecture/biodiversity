@@ -1,38 +1,12 @@
+# encoding: UTF-8
 dir = File.dirname("__FILE__")
-require 'rubygems'
-require 'spec'
-require 'treetop'
-require 'yaml'
-
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_clean'))
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_dirty'))
-Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_canonical'))
-
+require File.expand_path(dir + '../../spec/parser/spec_helper')
 
 describe ScientificNameCanonical do
   before(:all) do
-    @parser = ScientificNameCanonicalParser.new 
+    set_parser(ScientificNameCanonicalParser.new)
   end
   
-  def parse(input)
-    @parser.parse(input)
-  end
-  
-  def value(input)
-    parse(input).value
-  end
-  
-  def canonical(input)
-    parse(input).canonical
-  end
-  
-  def details(input)
-    parse(input).details
-  end
-  
-  def pos(input)
-    parse(input).pos
-  end
     
   it 'should parse names with valid name part and unparseable rest' do
     [
