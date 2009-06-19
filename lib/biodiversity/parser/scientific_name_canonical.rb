@@ -58,12 +58,8 @@ module ScientificNameCanonical
       elements[4]
     end
 
-    def space_hard
-      elements[5]
-    end
-
     def garbage
-      elements[6]
+      elements[5]
     end
   end
 
@@ -98,12 +94,8 @@ module ScientificNameCanonical
       elements[2]
     end
 
-    def space_hard
-      elements[3]
-    end
-
     def garbage
-      elements[4]
+      elements[3]
     end
   end
 
@@ -138,12 +130,8 @@ module ScientificNameCanonical
       elements[2]
     end
 
-    def space_hard
-      elements[3]
-    end
-
     def garbage
-      elements[4]
+      elements[3]
     end
   end
 
@@ -190,12 +178,8 @@ module ScientificNameCanonical
             r6 = _nt_species
             s1 << r6
             if r6
-              r7 = _nt_space_hard
+              r7 = _nt_garbage
               s1 << r7
-              if r7
-                r8 = _nt_garbage
-                s1 << r8
-              end
             end
           end
         end
@@ -212,65 +196,57 @@ module ScientificNameCanonical
     if r1
       r0 = r1
     else
-      i9, s9 = index, []
-      r10 = _nt_genus
-      s9 << r10
-      if r10
-        r11 = _nt_space
-        s9 << r11
-        if r11
-          r12 = _nt_subgenus
-          s9 << r12
-          if r12
-            r13 = _nt_space_hard
-            s9 << r13
-            if r13
-              r14 = _nt_garbage
-              s9 << r14
-            end
-          end
-        end
-      end
-      if s9.last
-        r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
-        r9.extend(MultinomialWithGarbage2)
-        r9.extend(MultinomialWithGarbage3)
-      else
-        self.index = i9
-        r9 = nil
-      end
+      i8, s8 = index, []
+      r9 = _nt_genus
+      s8 << r9
       if r9
-        r0 = r9
+        r10 = _nt_space
+        s8 << r10
+        if r10
+          r11 = _nt_subgenus
+          s8 << r11
+          if r11
+            r12 = _nt_garbage
+            s8 << r12
+          end
+        end
+      end
+      if s8.last
+        r8 = instantiate_node(SyntaxNode,input, i8...index, s8)
+        r8.extend(MultinomialWithGarbage2)
+        r8.extend(MultinomialWithGarbage3)
       else
-        i15, s15 = index, []
-        r16 = _nt_genus
-        s15 << r16
-        if r16
-          r17 = _nt_space
-          s15 << r17
-          if r17
-            r18 = _nt_species
-            s15 << r18
-            if r18
-              r19 = _nt_space_hard
-              s15 << r19
-              if r19
-                r20 = _nt_garbage
-                s15 << r20
-              end
+        self.index = i8
+        r8 = nil
+      end
+      if r8
+        r0 = r8
+      else
+        i13, s13 = index, []
+        r14 = _nt_genus
+        s13 << r14
+        if r14
+          r15 = _nt_space
+          s13 << r15
+          if r15
+            r16 = _nt_species
+            s13 << r16
+            if r16
+              r17 = _nt_garbage
+              s13 << r17
             end
           end
         end
-        if s15.last
-          r15 = instantiate_node(SyntaxNode,input, i15...index, s15)
-          r15.extend(MultinomialWithGarbage4)
-          r15.extend(MultinomialWithGarbage5)
+        if s13.last
+          r13 = instantiate_node(SyntaxNode,input, i13...index, s13)
+          r13.extend(MultinomialWithGarbage4)
+          r13.extend(MultinomialWithGarbage5)
         else
-          self.index = i15
-          r15 = nil
+          self.index = i13
+          r13 = nil
         end
-        if r15
-          r0 = r15
+        if r13
+          r0 = r13
         else
           self.index = i0
           r0 = nil
@@ -288,12 +264,8 @@ module ScientificNameCanonical
       elements[0]
     end
 
-    def space_hard
-      elements[1]
-    end
-
     def b
-      elements[2]
+      elements[1]
     end
   end
 
@@ -327,12 +299,8 @@ module ScientificNameCanonical
     r1 = _nt_uninomial_epitheton
     s0 << r1
     if r1
-      r2 = _nt_space_hard
+      r2 = _nt_garbage
       s0 << r2
-      if r2
-        r3 = _nt_garbage
-        s0 << r3
-      end
     end
     if s0.last
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
@@ -344,6 +312,123 @@ module ScientificNameCanonical
     end
 
     node_cache[:uninomial_with_garbage][start_index] = r0
+
+    return r0
+  end
+
+  module Garbage0
+    def space
+      elements[0]
+    end
+
+    def space
+      elements[2]
+    end
+
+  end
+
+  module Garbage1
+    def space_hard
+      elements[0]
+    end
+
+  end
+
+  def _nt_garbage
+    start_index = index
+    if node_cache[:garbage].has_key?(index)
+      cached = node_cache[:garbage][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    r2 = _nt_space
+    s1 << r2
+    if r2
+      if input.index(Regexp.new('["\',.]'), index) == index
+        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r3 = nil
+      end
+      s1 << r3
+      if r3
+        r4 = _nt_space
+        s1 << r4
+        if r4
+          s5, i5 = [], index
+          loop do
+            if input.index(Regexp.new('[^щ]'), index) == index
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              r6 = nil
+            end
+            if r6
+              s5 << r6
+            else
+              break
+            end
+          end
+          r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+          s1 << r5
+        end
+      end
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(Garbage0)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      i7, s7 = index, []
+      r8 = _nt_space_hard
+      s7 << r8
+      if r8
+        s9, i9 = [], index
+        loop do
+          if input.index(Regexp.new('[^ш]'), index) == index
+            r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            r10 = nil
+          end
+          if r10
+            s9 << r10
+          else
+            break
+          end
+        end
+        if s9.empty?
+          self.index = i9
+          r9 = nil
+        else
+          r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+        end
+        s7 << r9
+      end
+      if s7.last
+        r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+        r7.extend(Garbage1)
+      else
+        self.index = i7
+        r7 = nil
+      end
+      if r7
+        r0 = r7
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:garbage][start_index] = r0
 
     return r0
   end

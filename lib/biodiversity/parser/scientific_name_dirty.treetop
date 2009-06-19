@@ -7,7 +7,7 @@ grammar ScientificNameDirty
   end
 
   rule scientific_name_5
-    a:scientific_name_4 space_hard garbage {
+    a:scientific_name_4 garbage {
       def value
         a.value
       end
@@ -29,6 +29,24 @@ grammar ScientificNameDirty
   end
   
   rule infraspecies
+    a:infraspecies_epitheton space b:year {
+      def value
+        a.value + " " + b.value
+      end
+  
+      def canonical
+        a.canonical
+      end
+  
+      def pos
+        a.pos.merge(b.pos)
+      end
+  
+      def details
+        {:infraspecies => a.details[:infraspecies].merge(b.details)}
+      end
+    }
+    /
     a:infraspecies_epitheton space epitheton_authorship_inconsistencies space b:authorship {
       def value
         a.value + " " + b.value
@@ -49,7 +67,6 @@ grammar ScientificNameDirty
     /
     super
   end
-  
   
   rule species
     a:species_epitheton space b:year {
@@ -114,7 +131,7 @@ grammar ScientificNameDirty
       end
     }
     /
-    year_number_with_dot
+    year_number_with_punctuation
     /
     approximate_year
     /
@@ -156,7 +173,7 @@ grammar ScientificNameDirty
     }
   end
   
-  rule year_number_with_dot
+  rule year_number_with_punctuation
     a:year_number "." {
       def value
         a.text_value
@@ -186,7 +203,9 @@ grammar ScientificNameDirty
   end
   
   rule garbage
-    [^ш]+
+    space (["',.]) space [^щ]*
+    /
+    space_hard [^ш]+
   end
   
 end

@@ -250,7 +250,6 @@ grammar ScientificNameClean
       end
       
       def details
-        #{:infraspecies => a.details[:infraspceies] << b.details[:infraspecies]}
         a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
         b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
         a.details.merge({:infraspecies => a_array + b_array})
@@ -320,7 +319,7 @@ grammar ScientificNameClean
   end
   
   rule taxon_concept_rank
-    "sec." {
+    ("sec."/"sensu.") {
       def value
         "sec."
       end
@@ -454,7 +453,7 @@ grammar ScientificNameClean
   end
   
   rule genus
-    a:cap_latin_word !(space_hard author_prefix_word) {
+    a:cap_latin_word !(space_hard author_prefix_word space_hard author_word) {
       def value
         a.value
       end
@@ -649,6 +648,28 @@ grammar ScientificNameClean
   
 
   rule simple_authorship
+    a:authors_names space [,]? space b:year? [,]? space "non" space authors_names space [,]? space year {
+      def value
+        a.value + " " + b.value
+      end
+      
+      def pos
+        a.pos.merge(b.pos)
+      end
+      
+      def details
+        details_with_arg(:basionymAuthorTeam)
+      end
+      
+      def details_with_arg(authorTeamType = 'basionymAuthorTeam')
+        { :authorship => text_value, 
+          authorTeamType.to_sym => {
+            :authorTeam => a.text_value.strip
+          }.merge(a.details).merge(b.details)
+        }
+      end
+    }
+    /
     a:authors_names space [,]? space b:year {
       def value
         a.value + " " + b.value
@@ -841,7 +862,7 @@ grammar ScientificNameClean
   end
   
   rule author_prefix_word
-    space ("bis"/"da"/"der"/"den"/"della"/"dela"/"de"/"du"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"bis"/"da"/"der"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end

@@ -81,6 +81,10 @@ describe ScientificNameDirty do
     details(sn).should == {:genus=>{:epitheton=>"Kitasatospora"}, :species=>{:epitheton=>"griseola", :authorship=>"Takahashi et al. 1985.", :basionymAuthorTeam=>{:authorTeam=>"Takahashi et al.", :author=>["Takahashi et al."], :year=>"1985"}}}
     sn = 'Beijerinckia derxii venezuelae corrig. Thompson and Skerman, 1981'
     details(sn).should == {:genus=>{:epitheton=>"Beijerinckia"}, :species=>{:epitheton=>"derxii"}, :infraspecies=>{:epitheton=>"venezuelae", :rank=>"n/a", :authorship=>"Thompson and Skerman, 1981", :basionymAuthorTeam=>{:authorTeam=>"Thompson and Skerman", :author=>["Thompson", "Skerman"], :year=>"1981"}}}
+    details('Streptomyces parvisporogenes ignotus 1960').should == {:genus=>{:epitheton=>"Streptomyces"}, :species=>{:epitheton=>"parvisporogenes"}, :infraspecies=>{:epitheton=>"ignotus", :rank=>"n/a", :year=>"1960"}}
+    details('Oscillaria caviae Simons 1920, according to Simons 1922').should == {:genus=>{:epitheton=>"Oscillaria"}, :species=>{:epitheton=>"caviae", :authorship=>"Simons 1920", :basionymAuthorTeam=>{:authorTeam=>"Simons", :author=>["Simons"], :year=>"1920"}}}
+    sn = 'Bacterium monocytogenes hominis"" Nyfeldt 1932'
+    details(sn).should == {:genus=>{:epitheton=>"Bacterium"}, :species=>{:epitheton=>"monocytogenes"}, :infraspecies=>{:epitheton=>"hominis", :rank=>"n/a"}}
   end
   
 end

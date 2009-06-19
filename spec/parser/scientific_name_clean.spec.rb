@@ -483,6 +483,16 @@ describe ScientificNameClean do
     sn = 'Thiobacillus x Parker and Prisk 1953' #have to figure out black lists for this one
     sn = 'Bacille de Plaut, Kritchevsky and Séguin 1921'
     details(sn).should == {:uninomial=>{:epitheton=>"Bacille", :authorship=>"de Plaut, Kritchevsky and Séguin 1921", :basionymAuthorTeam=>{:authorTeam=>"de Plaut, Kritchevsky and Séguin", :author=>["de Plaut", "Kritchevsky", "Séguin"], :year=>"1921"}}}
+    sn = 'Araneus van bruysseli Petrunkevitch, 1911'
+    details(sn).should == {:genus=>{:epitheton=>"Araneus"}, :species=>{:epitheton=>"van"}, :infraspecies=>{:epitheton=>"bruysseli", :rank=>"n/a", :authorship=>"Petrunkevitch, 1911", :basionymAuthorTeam=>{:authorTeam=>"Petrunkevitch", :author=>["Petrunkevitch"], :year=>"1911"}}}
+    sn = 'Sapromyces laidlawi ab Sabin 1941'
+    details(sn).should == {:genus=>{:epitheton=>"Sapromyces"}, :species=>{:epitheton=>"laidlawi", :authorship=>"ab Sabin 1941", :basionymAuthorTeam=>{:authorTeam=>"ab Sabin", :author=>["ab Sabin"], :year=>"1941"}}}
+    sn = 'Nocardia rugosa di Marco and Spalla 1957'
+    details(sn).should == {:genus=>{:epitheton=>"Nocardia"}, :species=>{:epitheton=>"rugosa", :authorship=>"di Marco and Spalla 1957", :basionymAuthorTeam=>{:authorTeam=>"di Marco and Spalla", :author=>["di Marco", "Spalla"], :year=>"1957"}}}
+    sn = 'Flexibacter elegans Lewin 1969 non Soriano 1945'
+    details(sn).should == {:genus=>{:epitheton=>"Flexibacter"}, :species=>{:epitheton=>"elegans", :authorship=>"Lewin 1969 non Soriano 1945", :basionymAuthorTeam=>{:authorTeam=>"Lewin", :author=>["Lewin"], :year=>"1969"}}}
+    sn = 'Flexibacter elegans Soriano 1945, non Lewin 1969'
+    details(sn).should == {:genus=>{:epitheton=>"Flexibacter"}, :species=>{:epitheton=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}
   end
   
 end

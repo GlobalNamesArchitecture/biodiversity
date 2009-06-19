@@ -66,6 +66,7 @@ Ferganoconcha? oblonga|{"scientificName":{"parsed":true, "verbatim":"Ferganoconc
 #unicode utf8 characters in name
 Rühlella|{"scientificName":{"parsed":true, "verbatim":"Rühlella", "normalized":"Rühlella", "canonical":"Rühlella", "uninomial":{"epitheton":"Rühlella"}}}
 Sténométope laevissimus Bibron 1855|{"scientificName":{"parsed":true, "verbatim":"Sténométope laevissimus Bibron 1855", "normalized":"Sténométope laevissimus Bibron 1855", "canonical":"Sténométope laevissimus", "genus":{"epitheton":"Sténométope"}, "species":{"epitheton":"laevissimus", "authorship":"Bibron 1855", "basionymAuthorTeam":{"authorTeam":"Bibron", "author":["Bibron"], "year":"1855"}}}}
+Choriozopella trägårdhi Lawrence, 1947|{"scientificName":{"parsed":true, "verbatim":"Choriozopella trägårdhi Lawrence, 1947", "normalized":"Choriozopella trägårdhi Lawrence 1947", "canonical":"Choriozopella trägårdhi", "genus":{"epitheton":"Choriozopella"}, "species":{"epitheton":"trägårdhi", "authorship":"Lawrence, 1947", "basionymAuthorTeam":{"authorTeam":"Lawrence", "author":["Lawrence"], "year":"1947"}}}}
 
 #digraph unicode characters
 Læptura laetifica Dow, 1913|{"scientificName":{"parsed":true, "verbatim":"Læptura laetifica Dow, 1913", "normalized":"Laeptura laetifica Dow 1913", "canonical":"Laeptura laetifica", "genus":{"epitheton":"Laeptura"}, "species":{"epitheton":"laetifica", "authorship":"Dow, 1913", "basionymAuthorTeam":{"authorTeam":"Dow", "author":["Dow"], "year":"1913"}}}}
@@ -191,6 +192,7 @@ Polypodium  x vulgare nothosubsp. mantoniae (Rothm.) Schidlay|{"scientificName":
 #concepts
 Senecio jacquinianus sec. Rchb.|{"scientificName":{"parsed":true, "verbatim":"Senecio jacquinianus sec. Rchb.", "normalized":"Senecio jacquinianus sec. Rchb.", "canonical":"Senecio jacquinianus", "genus":{"epitheton":"Senecio"}, "species":{"epitheton":"jacquinianus"}, "taxon_concept":{"authorship":"Rchb.", "basionymAuthorTeam":{"authorTeam":"Rchb.", "author":["Rchb."]}}}}
 #TODO Senecio legionensis sensu Samp., non Lange|{}
+#TODO Pseudomonas methanica (Söhngen 1906) sensu. Dworkin and Foster 1956|{}
 
 #empty spaces
    Asplenium         Xinexpectatum ( E.L.      Braun   1940 )     Morton(1956)   |{"scientificName":{"parsed":true, "verbatim":"   Asplenium         Xinexpectatum ( E.L.      Braun   1940 )     Morton(1956)   ", "normalized":"Asplenium × inexpectatum (E.L. Braun 1940) Morton 1956", "canonical":"Asplenium inexpectatum", "namedHybrid":{"genus":{"epitheton":"Asplenium"}, "species":{"epitheton":"inexpectatum", "authorship":"( E.L.      Braun   1940 )     Morton(1956)", "combinationAuthorTeam":{"authorTeam":"Morton", "author":["Morton"], "year":"1956"}, "basionymAuthorTeam":{"authorTeam":"E.L.      Braun", "author":["E.L. Braun"], "year":"1940"}}}}}
