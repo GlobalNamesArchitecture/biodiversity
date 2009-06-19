@@ -348,40 +348,6 @@ module ScientificNameCanonical
     return r0
   end
 
-  def _nt_garbage
-    start_index = index
-    if node_cache[:garbage].has_key?(index)
-      cached = node_cache[:garbage][index]
-      @index = cached.interval.end if cached
-      return cached
-    end
-
-    s0, i0 = [], index
-    loop do
-      if input.index(Regexp.new('[^ш]'), index) == index
-        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
-      else
-        r1 = nil
-      end
-      if r1
-        s0 << r1
-      else
-        break
-      end
-    end
-    if s0.empty?
-      self.index = i0
-      r0 = nil
-    else
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-    end
-
-    node_cache[:garbage][start_index] = r0
-
-    return r0
-  end
-
 end
 
 class ScientificNameCanonicalParser < Treetop::Runtime::CompiledParser

@@ -162,13 +162,13 @@ grammar ScientificNameClean
   
   
   rule multinomial_name
-    a:genus space b:subgenus space c:species space_hard d:infraspecies_mult {
+    a:genus space b:subgenus space species_prefix? space c:species space_hard d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
     
       def canonical
-        a.canonical + " " + c.canonical + " " + d.canonical
+        a.canonical + " " + b.canonical + " " + c.canonical + " " + d.canonical
       end
     
       def pos
@@ -180,7 +180,7 @@ grammar ScientificNameClean
       end
     }
     /  
-    a:genus space b:subgenus space c:species {
+    a:genus space b:subgenus space species_prefix? space c:species {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -198,7 +198,7 @@ grammar ScientificNameClean
       end
     }
     /
-    a:genus space_hard b:species space_hard c:infraspecies_mult {
+    a:genus space species_prefix? space b:species space_hard c:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value 
       end
@@ -216,7 +216,7 @@ grammar ScientificNameClean
       end
     }
     /
-    a:genus space_hard b:species {
+    a:genus space species_prefix? space b:species {
       def value
         a.value + " " + b.value 
       end
@@ -454,17 +454,21 @@ grammar ScientificNameClean
   end
   
   rule genus
-    cap_latin_word {
+    a:cap_latin_word !(space_hard author_prefix_word) {
+      def value
+        a.value
+      end
+      
       def pos
-        {interval.begin => ['genus', interval.end]}
+        {a.interval.begin => ['genus', a.interval.end]}
       end
       
       def canonical
-        value
+        a.value
       end
           
       def details
-        {:genus => {:epitheton => value}}
+        {:genus => {:epitheton => a.value}}
       end
     }
   end
@@ -508,7 +512,7 @@ grammar ScientificNameClean
   end
   
   rule authorship
-    a:basionym_authorship_with_parenthesis space b:simple_authorship space c:ex_authorship {
+    a:basionym_authorship_with_parenthesis space b:simple_authorship ","? space c:ex_authorship {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -540,7 +544,7 @@ grammar ScientificNameClean
     /
     basionym_authorship_with_parenthesis
     /
-    a:simple_authorship space b:ex_authorship {
+    a:simple_authorship ","? space b:ex_authorship {
       def value
         a.value + " " + b.value
       end
@@ -578,7 +582,7 @@ grammar ScientificNameClean
       end
     }
     /
-    left_paren space a:simple_authorship space b:ex_authorship space right_paren {
+    left_paren space a:simple_authorship ","? space b:ex_authorship space right_paren {
       def value
         "(" + a.value + " " + b.value + ")"
       end
@@ -790,7 +794,7 @@ grammar ScientificNameClean
       end
     }
     /
-    ("bis"/"arg."/"et al.\{\?\}"/"et al.") {
+    ("arg."/"et al.\{\?\}"/"et al.") {
       def value
         text_value.strip
       end
@@ -837,7 +841,7 @@ grammar ScientificNameClean
   end
   
   rule author_prefix_word
-    space ("da"/"der"/"den"/"de"/"du"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("bis"/"da"/"der"/"den"/"della"/"dela"/"de"/"du"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
@@ -924,14 +928,10 @@ grammar ScientificNameClean
       end
     }
   end
-  
-  #rule species_word
-  ##  (!"sensu" a:species_word_0) {
-   #   def value
-  #      a.value
-  #    end
-  #  }
-  #end
+
+  rule species_prefix
+    ("aff."/"corrig."/"?") &space_hard
+  end
   
   rule species_word
     a:[0-9]+ "-"? b:latin_word {
@@ -944,7 +944,7 @@ grammar ScientificNameClean
   end
 
   rule latin_word
-    a:[a-zëüäöïé] b:full_name_letters {
+    a:[a-zëüäöïéåóç] b:full_name_letters {
       def value
         a.text_value + b.value
       end
@@ -974,7 +974,7 @@ grammar ScientificNameClean
   end
 
   rule valid_name_letters
-    [a-z\-ëüäöïé]+ {
+    [a-z\-ëüäöïéåóç]+ {
       def value
         text_value
       end

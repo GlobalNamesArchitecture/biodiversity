@@ -16,5 +16,10 @@ describe ScientificNameClean do
       JSON.load(json(name)).should == JSON.load(jsn)
     end
   end
+  
+  it 'should generate reasonable output if parser failed' do
+    sn = 'ddd sljlkj 3223452432'
+    json(sn).should == '{"scientificName":{"parsed":false,"verbatim":"ddd sljlkj 3223452432"}}'
+  end
 
 end

@@ -22,4 +22,5 @@ describe ScientificNameCanonical do
       pos(n[0]).should == n[3]
     end
   end  
+
 end

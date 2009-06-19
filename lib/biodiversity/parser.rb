@@ -18,14 +18,13 @@ class ScientificNameParser
   
   def parse(a_string)
     @verbatim = a_string
-    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string)
+    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || {:verbatim => a_string}
     def @parser.to_json
-      parsed = !!self
-      res = {
-        :parsed => parsed,
-        :verbatim => self.text_value }
+      parsed = self.class != Hash
+      res = {:parsed => parsed}
       if parsed
         res.merge!({
+          :verbatim => self.text_value,
           :normalized => self.value,
           :canonical => self.canonical
           })
@@ -35,6 +34,8 @@ class ScientificNameParser
           data = {:namedHybrid => data}
         end
         res.merge!(data)
+      else
+        res.merge!(self)
       end
       res = {:scientificName => res}
       JSON.generate res

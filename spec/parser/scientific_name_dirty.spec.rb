@@ -7,43 +7,7 @@ describe ScientificNameDirty do
    set_parser(ScientificNameDirtyParser.new)
   end
   
-  def parse(input)
-    @parser.parse(input)
-  end
-  
-  def value(input)
-    parse(input).value
-  end
-  
-  def canonical(input)
-    parse(input).canonical
-  end
-  
-  def details(input)
-    parse(input).details
-  end
-  
-  def pos(input)
-    parse(input).pos
-  end
-  
-  def debug(input)
-    res = parse(input)
-    puts "<pre>"
-      if res
-        puts 'success!'
-        puts res.inspect
-      else
-        puts input
-        val = @parser.failure_reason.to_s.match(/column [0-9]*/).to_s.gsub(/column /,'').to_i
-        print ("-" * (val - 1))
-        print "^   Computer says 'no'!\n"
-        puts @parser.failure_reason
-        puts @parser.to_yaml
-      end
-    puts "</pre>"
-  end
-  
+
   it 'should parse clean names' do
     parse("Betula verucosa (L.) Bar. 1899").should_not be_nil
   end
@@ -105,6 +69,18 @@ describe ScientificNameDirty do
     sn = "Deyeuxia coarctata Kunth, 1815 [1816]"
     parse(sn).should_not be_nil
     pos(sn).should == {0=>["genus", 8], 9=>["species", 18], 19=>["author_word", 24], 26=>["year", 30], 32=>["year", 36]}
+  end
+  
+  it "should parse new stuff" do
+    sn = 'Zoropsis (TaKeoa) nishimurai Yaginuma, 1971' #skipping for now
+    sn = 'Campylobacter pyloridis Marshall et al.1985.'
+    details(sn).should == {:genus=>{:epitheton=>"Campylobacter"}, :species=>{:epitheton=>"pyloridis", :authorship=>"Marshall et al.1985.", :basionymAuthorTeam=>{:authorTeam=>"Marshall et al.", :author=>["Marshall et al."], :year=>"1985"}}}
+    sn = 'Staphylococcus hyicus chromogenes Devriese et al. 1978 (Approved Lists 1980).'
+    details(sn).should == {:genus=>{:epitheton=>"Staphylococcus"}, :species=>{:epitheton=>"hyicus"}, :infraspecies=>{:epitheton=>"chromogenes", :rank=>"n/a", :authorship=>"Devriese et al. 1978", :basionymAuthorTeam=>{:authorTeam=>"Devriese et al.", :author=>["Devriese et al."], :year=>"1978"}}}
+    sn = 'Kitasatospora corrig. griseola Takahashi et al. 1985.'
+    details(sn).should == {:genus=>{:epitheton=>"Kitasatospora"}, :species=>{:epitheton=>"griseola", :authorship=>"Takahashi et al. 1985.", :basionymAuthorTeam=>{:authorTeam=>"Takahashi et al.", :author=>["Takahashi et al."], :year=>"1985"}}}
+    sn = 'Beijerinckia derxii venezuelae corrig. Thompson and Skerman, 1981'
+    details(sn).should == {:genus=>{:epitheton=>"Beijerinckia"}, :species=>{:epitheton=>"derxii"}, :infraspecies=>{:epitheton=>"venezuelae", :rank=>"n/a", :authorship=>"Thompson and Skerman, 1981", :basionymAuthorTeam=>{:authorTeam=>"Thompson and Skerman", :author=>["Thompson", "Skerman"], :year=>"1981"}}}
   end
   
 end

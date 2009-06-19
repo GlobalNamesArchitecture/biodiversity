@@ -23,6 +23,176 @@ module ScientificNameDirty
     return r0
   end
 
+  module ScientificName50
+    def a
+      elements[0]
+    end
+
+    def space_hard
+      elements[1]
+    end
+
+    def garbage
+      elements[2]
+    end
+  end
+
+  module ScientificName51
+    def value
+      a.value
+    end
+    
+    def canonical
+      a.canonical
+    end
+    
+    def pos
+      a.pos
+    end
+    
+    def details
+      a.details
+    end
+  end
+
+  def _nt_scientific_name_5
+    start_index = index
+    if node_cache[:scientific_name_5].has_key?(index)
+      cached = node_cache[:scientific_name_5][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    r2 = _nt_scientific_name_4
+    s1 << r2
+    if r2
+      r3 = _nt_space_hard
+      s1 << r3
+      if r3
+        r4 = _nt_garbage
+        s1 << r4
+      end
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(ScientificName50)
+      r1.extend(ScientificName51)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      r5 = super
+      if r5
+        r0 = r5
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:scientific_name_5][start_index] = r0
+
+    return r0
+  end
+
+  module Infraspecies0
+    def a
+      elements[0]
+    end
+
+    def space
+      elements[1]
+    end
+
+    def epitheton_authorship_inconsistencies
+      elements[2]
+    end
+
+    def space
+      elements[3]
+    end
+
+    def b
+      elements[4]
+    end
+  end
+
+  module Infraspecies1
+    def value
+      a.value + " " + b.value
+    end
+
+    def canonical
+      a.canonical
+    end
+
+    def pos
+      a.pos.merge(b.pos)
+    end
+
+    def details
+      {:infraspecies => a.details[:infraspecies].merge(b.details)}
+    end
+  end
+
+  def _nt_infraspecies
+    start_index = index
+    if node_cache[:infraspecies].has_key?(index)
+      cached = node_cache[:infraspecies][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0 = index
+    i1, s1 = index, []
+    r2 = _nt_infraspecies_epitheton
+    s1 << r2
+    if r2
+      r3 = _nt_space
+      s1 << r3
+      if r3
+        r4 = _nt_epitheton_authorship_inconsistencies
+        s1 << r4
+        if r4
+          r5 = _nt_space
+          s1 << r5
+          if r5
+            r6 = _nt_authorship
+            s1 << r6
+          end
+        end
+      end
+    end
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(Infraspecies0)
+      r1.extend(Infraspecies1)
+    else
+      self.index = i1
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+    else
+      r7 = super
+      if r7
+        r0 = r7
+      else
+        self.index = i0
+        r0 = nil
+      end
+    end
+
+    node_cache[:infraspecies][start_index] = r0
+
+    return r0
+  end
+
   module Species0
     def a
       elements[0]
@@ -335,20 +505,25 @@ module ScientificNameDirty
       if r5
         r0 = r5
       else
-        r9 = _nt_approximate_year
+        r9 = _nt_year_number_with_dot
         if r9
           r0 = r9
         else
-          r10 = _nt_double_year
+          r10 = _nt_approximate_year
           if r10
             r0 = r10
           else
-            r11 = super
+            r11 = _nt_double_year
             if r11
               r0 = r11
             else
-              self.index = i0
-              r0 = nil
+              r12 = super
+              if r12
+                r0 = r12
+              else
+                self.index = i0
+                r0 = nil
+              end
             end
           end
         end
@@ -563,6 +738,62 @@ module ScientificNameDirty
     return r0
   end
 
+  module YearNumberWithDot0
+    def a
+      elements[0]
+    end
+
+  end
+
+  module YearNumberWithDot1
+    def value
+      a.text_value
+    end
+
+    def pos
+      {interval.begin => ['year', interval.end]}
+    end
+
+    def details
+      {:year => value}
+    end
+  end
+
+  def _nt_year_number_with_dot
+    start_index = index
+    if node_cache[:year_number_with_dot].has_key?(index)
+      cached = node_cache[:year_number_with_dot][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_year_number
+    s0 << r1
+    if r1
+      if input.index(".", index) == index
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure(".")
+        r2 = nil
+      end
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(YearNumberWithDot0)
+      r0.extend(YearNumberWithDot1)
+    else
+      self.index = i0
+      r0 = nil
+    end
+
+    node_cache[:year_number_with_dot][start_index] = r0
+
+    return r0
+  end
+
   module PageNumber0
     def space
       elements[1]
@@ -629,6 +860,61 @@ module ScientificNameDirty
     end
 
     node_cache[:page_number][start_index] = r0
+
+    return r0
+  end
+
+  def _nt_epitheton_authorship_inconsistencies
+    start_index = index
+    if node_cache[:epitheton_authorship_inconsistencies].has_key?(index)
+      cached = node_cache[:epitheton_authorship_inconsistencies][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    if input.index("corrig.", index) == index
+      r0 = instantiate_node(SyntaxNode,input, index...(index + 7))
+      @index += 7
+    else
+      terminal_parse_failure("corrig.")
+      r0 = nil
+    end
+
+    node_cache[:epitheton_authorship_inconsistencies][start_index] = r0
+
+    return r0
+  end
+
+  def _nt_garbage
+    start_index = index
+    if node_cache[:garbage].has_key?(index)
+      cached = node_cache[:garbage][index]
+      @index = cached.interval.end if cached
+      return cached
+    end
+
+    s0, i0 = [], index
+    loop do
+      if input.index(Regexp.new('[^ш]'), index) == index
+        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      self.index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+    end
+
+    node_cache[:garbage][start_index] = r0
 
     return r0
   end

@@ -288,7 +288,7 @@ describe ScientificNameClean do
     sn = "Gastrosericus eremorum von Beaumont 1955"
     canonical(sn).should == 'Gastrosericus eremorum'
     sn = "Cypraeovula (Luponia) amphithales perdentata"
-    canonical(sn).should == 'Cypraeovula amphithales perdentata'
+    canonical(sn).should == 'Cypraeovula Luponia amphithales perdentata'
     details(sn).should == {:genus=>{:epitheton=>"Cypraeovula"}, :subgenus=>{:epitheton=>"Luponia"}, :species=>{:epitheton=>"amphithales"}, :infraspecies=>{:epitheton=>"perdentata", :rank=>"n/a"}}
     sn = "Polyrhachis orsyllus nat musculus Forel 1901"
     canonical(sn).should == "Polyrhachis orsyllus musculus"
@@ -466,5 +466,23 @@ describe ScientificNameClean do
     parse("Trematоsphaeria phaeáapora").should be_nil #cyrillic o
   end
 
+  it "should parse new stuff" do
+    sn = 'Nesticus quelpartensis Paik & Namkung, in Paik, Yaginuma & Namkung, 1969'
+    details(sn).should == {:genus=>{:epitheton=>"Nesticus"}, :species=>{:epitheton=>"quelpartensis", :authorship=>"Paik & Namkung, in Paik, Yaginuma & Namkung, 1969", :basionymAuthorTeam=>{:authorTeam=>"Paik & Namkung", :author=>["Paik", "Namkung"], :exAuthorTeam=>{:authorTeam=>"Paik, Yaginuma & Namkung", :author=>["Paik", "Yaginuma", "Namkung"], :year=>"1969"}}}}
+    parse('Dipoena yoshidai Ono, in Ono et al., 1991').should_not be_nil
+    sn = 'Choriozopella trägårdhi Lawrence, 1947'
+    details(sn).should == {:genus=>{:epitheton=>"Choriozopella"}, :species=>{:epitheton=>"trägårdhi", :authorship=>"Lawrence, 1947", :basionymAuthorTeam=>{:authorTeam=>"Lawrence", :author=>["Lawrence"], :year=>"1947"}}}
+    sn = 'Latrodectus mactans bishopi Kaston, 1938'
+    details(sn).should == {:genus=>{:epitheton=>"Latrodectus"}, :species=>{:epitheton=>"mactans"}, :infraspecies=>{:epitheton=>"bishopi", :rank=>"n/a", :authorship=>"Kaston, 1938", :basionymAuthorTeam=>{:authorTeam=>"Kaston", :author=>["Kaston"], :year=>"1938"}}}
+    sn = 'Diplocephalus aff. procerus Thaler, 1972'
+    details(sn).should == {:genus=>{:epitheton=>"Diplocephalus"}, :species=>{:epitheton=>"procerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}
+    sn = 'Dyarcyops birói Kulczynski, 1908'
+    details(sn).should == {:genus=>{:epitheton=>"Dyarcyops"}, :species=>{:epitheton=>"birói", :authorship=>"Kulczynski, 1908", :basionymAuthorTeam=>{:authorTeam=>"Kulczynski", :author=>["Kulczynski"], :year=>"1908"}}}
+    sn = 'Sparassus françoisi Simon, 1898'
+    details(sn).should == {:genus=>{:epitheton=>"Sparassus"}, :species=>{:epitheton=>"françoisi", :authorship=>"Simon, 1898", :basionymAuthorTeam=>{:authorTeam=>"Simon", :author=>["Simon"], :year=>"1898"}}}
+    sn = 'Thiobacillus x Parker and Prisk 1953' #have to figure out black lists for this one
+    sn = 'Bacille de Plaut, Kritchevsky and Séguin 1921'
+    details(sn).should == {:uninomial=>{:epitheton=>"Bacille", :authorship=>"de Plaut, Kritchevsky and Séguin 1921", :basionymAuthorTeam=>{:authorTeam=>"de Plaut, Kritchevsky and Séguin", :author=>["de Plaut", "Kritchevsky", "Séguin"], :year=>"1921"}}}
+  end
   
 end

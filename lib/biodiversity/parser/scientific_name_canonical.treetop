@@ -85,9 +85,4 @@ grammar ScientificNameCanonical
     }
   end
 
-  
-  rule garbage
-    [^ш]+
-  end
-
 end
