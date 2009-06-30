@@ -10,6 +10,26 @@ module ScientificNameCanonical
 
   include ScientificNameDirty
 
+  module Root0
+    def hybrid
+      false
+    end
+
+    def details
+      [super]
+    end
+  end
+
+  module Root1
+    def hybrid
+      false
+    end
+    
+    def details
+      [super]
+    end
+  end
+
   def _nt_root
     start_index = index
     if node_cache[:root].has_key?(index)
@@ -20,10 +40,12 @@ module ScientificNameCanonical
 
     i0 = index
     r1 = _nt_multinomial_with_garbage
+    r1.extend(Root0)
     if r1
       r0 = r1
     else
       r2 = _nt_uninomial_with_garbage
+      r2.extend(Root1)
       if r2
         r0 = r2
       else

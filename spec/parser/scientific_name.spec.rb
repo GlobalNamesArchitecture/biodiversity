@@ -9,13 +9,23 @@ describe ScientificNameClean do
   end
   
   it 'should generate standardized json' do
-    f = open(File.expand_path(dir + "../../spec/parser/test_data.txt"))
-    f.each do |line|
-      name, jsn, notes = line.split("|")
-      next unless line.match(/^\s*#/) == nil && name && jsn 
-      JSON.load(json(name)).should == JSON.load(jsn)
+    read_test_file do |y|
+      JSON.load(json(y[:name])).should == JSON.load(y[:jsn]) unless y[:comment]
     end
   end
+  
+  # it 'should generate new test_file' do
+  #   new_test = open(File.expand_path(dir + "../../spec/parser/test_data_new.txt"),'w')
+  #   read_test_file do |y|
+  #     if y[:comment]
+  #       new_test.write y[:comment]
+  #     else
+  #       name = y[:name]
+  #       jsn = json(y[:name])# rescue puts(y[:name])
+  #       new_test.write("#{name}|#{jsn}\n")
+  #     end
+  #   end
+  # end
   
   it 'should generate reasonable output if parser failed' do
     sn = 'ddd sljlkj 3223452432'

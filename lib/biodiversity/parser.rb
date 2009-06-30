@@ -23,17 +23,14 @@ class ScientificNameParser
       parsed = self.class != Hash
       res = {:parsed => parsed}
       if parsed
+        hybrid = self.hybrid rescue false
         res.merge!({
           :verbatim => self.text_value,
           :normalized => self.value,
-          :canonical => self.canonical
+          :canonical => self.canonical,
+          :hybrid => hybrid,
+          :details => self.details
           })
-        data = self.details
-        if data[:species] && data[:species][:namedHybrid]
-          data[:species].delete(:namedHybrid)
-          data = {:namedHybrid => data}
-        end
-        res.merge!(data)
       else
         res.merge!(self)
       end

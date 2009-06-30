@@ -15,8 +15,12 @@ grammar ScientificNameClean
         a.pos
       end
       
+      def hybrid
+        a.hybrid
+      end
+      
       def details
-        a.details
+        a.details.class == Array ? a.details : [a.details]
       end
     }
   end
@@ -34,7 +38,11 @@ grammar ScientificNameClean
       def pos
         a.pos.merge(c.pos)
       end
-    
+      
+      def hybrid
+        a.hybrid
+      end
+      
       def details
         a.details.merge(b.details(c))
       end
@@ -57,8 +65,12 @@ grammar ScientificNameClean
         a.pos.merge(b.pos)
       end
       
+      def hybrid
+        true
+      end
+      
       def details
-        {:hybridFormula => [a.details, b.details]}
+        [a.details, b.details]
       end
     }
     /
@@ -75,8 +87,12 @@ grammar ScientificNameClean
         a.pos
       end
       
+      def hybrid
+        true
+      end
+      
       def details
-        {:hybridFormula => [a.details, "?"]}
+        [a.details, "?"]
       end
     }
     /
@@ -97,8 +113,12 @@ grammar ScientificNameClean
         b.pos
       end
       
+      def hybrid
+        true
+      end
+      
       def details
-        {:namedHybrid => b.details}
+        b.details
       end
     }
     /
@@ -117,6 +137,10 @@ grammar ScientificNameClean
       
       def pos
         a.pos
+      end
+      
+      def hybrid
+        a.hybrid rescue false
       end
       
       def details
@@ -174,6 +198,10 @@ grammar ScientificNameClean
       def pos
         a.pos.merge(b.pos).merge(c.pos).merge(d.pos)
       end
+      
+      def hybrid
+        c.hybrid rescue false
+      end
     
       def details
         a.details.merge(b.details).merge(c.details).merge(d.details)
@@ -193,6 +221,10 @@ grammar ScientificNameClean
         a.pos.merge(b.pos).merge(c.pos)
       end
       
+      def hybrid
+        c.hybrid rescue false
+      end
+      
       def details
         a.details.merge(b.details).merge(c.details)
       end
@@ -209,6 +241,10 @@ grammar ScientificNameClean
     
       def pos
         a.pos.merge(b.pos).merge(c.pos)
+      end
+      
+      def hybrid
+        b.hybrid rescue false
       end
     
       def details
@@ -227,6 +263,10 @@ grammar ScientificNameClean
       
       def pos
         a.pos.merge(b.pos)
+      end
+      
+      def hybrid
+        b.hybrid rescue false
       end
       
       def details
@@ -256,7 +296,11 @@ grammar ScientificNameClean
       end
     }
     /
-    infraspecies
+    infraspecies {
+      def details
+        {:infraspecies => [super[:infraspecies]]}
+      end
+    }
   end
   
   rule infraspecies
@@ -384,6 +428,10 @@ grammar ScientificNameClean
         a.canonical
       end
       
+      def hybrid
+        a.hybrid rescue false
+      end
+      
       def pos
         a.pos.merge(b.pos)
       end
@@ -405,6 +453,10 @@ grammar ScientificNameClean
       def canonical
         a.value
       end
+      
+      def hybrid
+        a.hybrid rescue false
+      end
     
       def pos
         {a.interval.begin => ['species', a.interval.end]}
@@ -422,6 +474,10 @@ grammar ScientificNameClean
       
       def pos
         {interval.begin => ['species', interval.end]}
+      end
+      
+      def hybrid
+        false
       end
       
       def details
@@ -486,6 +542,10 @@ grammar ScientificNameClean
         a.pos.merge(b.pos)
       end
       
+      def hybrid
+        false
+      end
+      
       def details
         {:uninomial => a.details[:uninomial].merge(b.details)}
       end
@@ -502,6 +562,10 @@ grammar ScientificNameClean
       
       def pos
         {interval.begin => ['uninomial', interval.end]}
+      end
+      
+      def hybrid
+        false
       end
       
       def details 
@@ -904,12 +968,16 @@ grammar ScientificNameClean
         b.value
       end
       
+      def hybrid
+        true
+      end
+      
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
       
       def details
-        {:species => {:epitheton => b.value, :namedHybrid => true}}
+        {:species => {:epitheton => b.value}}
       end
     }
     /
@@ -922,12 +990,16 @@ grammar ScientificNameClean
         b.value
       end
       
+      def hybrid
+        true
+      end
+      
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
       
       def details
-        {:species => {:epitheton => b.value, :namedHybrid => true}}
+        {:species => {:epitheton => b.value}}
       end
     }
     /
@@ -940,12 +1012,16 @@ grammar ScientificNameClean
         b.value
       end
       
+      def hybrid
+        true
+      end
+      
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
       
       def details
-        {:species => {:epitheton => b.value, :namedHybrid => true}}
+        {:species => {:epitheton => b.value}}
       end
     }
   end

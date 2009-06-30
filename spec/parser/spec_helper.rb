@@ -54,3 +54,16 @@ def debug(input)
     end
   puts "</pre>"
 end
+
+def read_test_file
+  f = open(File.expand_path(File.dirname("__FILE__") + "../../spec/parser/test_data.txt"))
+  f.each do |line|
+    name, jsn = line.split("|")
+    if line.match(/^\s*#/) == nil && name && jsn
+      yield({:name => name, :jsn => jsn})
+    else
+      yield({:comment => line})
+    end
+  end
+end
+

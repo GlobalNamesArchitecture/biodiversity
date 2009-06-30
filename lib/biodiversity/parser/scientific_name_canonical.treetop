@@ -4,9 +4,25 @@ grammar ScientificNameCanonical
   include ScientificNameDirty
 
   rule root
-    multinomial_with_garbage
+    multinomial_with_garbage {
+      def hybrid
+        false
+      end
+
+      def details
+        [super]
+      end
+    }
     /
-    uninomial_with_garbage
+    uninomial_with_garbage {
+      def hybrid
+        false
+      end
+      
+      def details
+        [super]
+      end
+    }
   end
   
   rule multinomial_with_garbage
