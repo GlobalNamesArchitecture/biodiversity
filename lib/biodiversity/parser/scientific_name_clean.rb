@@ -1591,8 +1591,8 @@ module ScientificNameClean
                                     r1.extend(Rank0)
                                   else
                                     if input.index("α", index) == index
-                                      r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                      @index += 2
+                                      r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                      @index += 1
                                     else
                                       terminal_parse_failure("α")
                                       r18 = nil
@@ -1602,8 +1602,8 @@ module ScientificNameClean
                                       r1.extend(Rank0)
                                     else
                                       if input.index("ββ", index) == index
-                                        r19 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                        @index += 4
+                                        r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                        @index += 2
                                       else
                                         terminal_parse_failure("ββ")
                                         r19 = nil
@@ -1613,8 +1613,8 @@ module ScientificNameClean
                                         r1.extend(Rank0)
                                       else
                                         if input.index("β", index) == index
-                                          r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                          @index += 2
+                                          r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                          @index += 1
                                         else
                                           terminal_parse_failure("β")
                                           r20 = nil
@@ -1624,8 +1624,8 @@ module ScientificNameClean
                                           r1.extend(Rank0)
                                         else
                                           if input.index("γ", index) == index
-                                            r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                            @index += 2
+                                            r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                            @index += 1
                                           else
                                             terminal_parse_failure("γ")
                                             r21 = nil
@@ -1635,8 +1635,8 @@ module ScientificNameClean
                                             r1.extend(Rank0)
                                           else
                                             if input.index("δ", index) == index
-                                              r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                              @index += 2
+                                              r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                              @index += 1
                                             else
                                               terminal_parse_failure("δ")
                                               r22 = nil
@@ -1646,8 +1646,8 @@ module ScientificNameClean
                                               r1.extend(Rank0)
                                             else
                                               if input.index("ε", index) == index
-                                                r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                @index += 2
+                                                r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                @index += 1
                                               else
                                                 terminal_parse_failure("ε")
                                                 r23 = nil
@@ -1657,8 +1657,8 @@ module ScientificNameClean
                                                 r1.extend(Rank0)
                                               else
                                                 if input.index("φ", index) == index
-                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                  @index += 2
+                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                  @index += 1
                                                 else
                                                   terminal_parse_failure("φ")
                                                   r24 = nil
@@ -1668,8 +1668,8 @@ module ScientificNameClean
                                                   r1.extend(Rank0)
                                                 else
                                                   if input.index("θ", index) == index
-                                                    r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                    @index += 2
+                                                    r25 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                    @index += 1
                                                   else
                                                     terminal_parse_failure("θ")
                                                     r25 = nil
@@ -1679,8 +1679,8 @@ module ScientificNameClean
                                                     r1.extend(Rank0)
                                                   else
                                                     if input.index("μ", index) == index
-                                                      r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                      @index += 2
+                                                      r26 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                      @index += 1
                                                     else
                                                       terminal_parse_failure("μ")
                                                       r26 = nil
@@ -3999,8 +3999,8 @@ module ScientificNameClean
         i6, s6 = index, []
         i7 = index
         if input.index("Å", index) == index
-          r8 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+          r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
         else
           terminal_parse_failure("Å")
           r8 = nil
@@ -4009,8 +4009,8 @@ module ScientificNameClean
           r7 = r8
         else
           if input.index("Ö", index) == index
-            r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
+            r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
           else
             terminal_parse_failure("Ö")
             r9 = nil
@@ -4019,8 +4019,8 @@ module ScientificNameClean
             r7 = r9
           else
             if input.index("Á", index) == index
-              r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+              r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
             else
               terminal_parse_failure("Á")
               r10 = nil
@@ -4029,8 +4029,8 @@ module ScientificNameClean
               r7 = r10
             else
               if input.index("Ø", index) == index
-                r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                @index += 2
+                r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
               else
                 terminal_parse_failure("Ø")
                 r11 = nil
@@ -4039,8 +4039,8 @@ module ScientificNameClean
                 r7 = r11
               else
                 if input.index("Ô", index) == index
-                  r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                  @index += 2
+                  r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
                 else
                   terminal_parse_failure("Ô")
                   r12 = nil
@@ -4049,8 +4049,8 @@ module ScientificNameClean
                   r7 = r12
                 else
                   if input.index("Š", index) == index
-                    r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
+                    r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                    @index += 1
                   else
                     terminal_parse_failure("Š")
                     r13 = nil
@@ -4059,8 +4059,8 @@ module ScientificNameClean
                     r7 = r13
                   else
                     if input.index("Ś", index) == index
-                      r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                      @index += 2
+                      r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                      @index += 1
                     else
                       terminal_parse_failure("Ś")
                       r14 = nil
@@ -4069,8 +4069,8 @@ module ScientificNameClean
                       r7 = r14
                     else
                       if input.index("Č", index) == index
-                        r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                        @index += 2
+                        r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                        @index += 1
                       else
                         terminal_parse_failure("Č")
                         r15 = nil
@@ -4079,8 +4079,8 @@ module ScientificNameClean
                         r7 = r15
                       else
                         if input.index("Ķ", index) == index
-                          r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                          @index += 2
+                          r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                          @index += 1
                         else
                           terminal_parse_failure("Ķ")
                           r16 = nil
@@ -4089,8 +4089,8 @@ module ScientificNameClean
                           r7 = r16
                         else
                           if input.index("Ł", index) == index
-                            r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                            @index += 2
+                            r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                            @index += 1
                           else
                             terminal_parse_failure("Ł")
                             r17 = nil
@@ -4099,8 +4099,8 @@ module ScientificNameClean
                             r7 = r17
                           else
                             if input.index("É", index) == index
-                              r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                              @index += 2
+                              r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                              @index += 1
                             else
                               terminal_parse_failure("É")
                               r18 = nil
@@ -4109,8 +4109,8 @@ module ScientificNameClean
                               r7 = r18
                             else
                               if input.index("Ž", index) == index
-                                r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                @index += 2
+                                r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                @index += 1
                               else
                                 terminal_parse_failure("Ž")
                                 r19 = nil
@@ -5454,9 +5454,9 @@ module ScientificNameClean
 
     i0 = index
     if input.index("Æ", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r1.extend(CapDigraph0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("Æ")
       r1 = nil
@@ -5465,9 +5465,9 @@ module ScientificNameClean
       r0 = r1
     else
       if input.index("Œ", index) == index
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         r2.extend(CapDigraph1)
-        @index += 2
+        @index += 1
       else
         terminal_parse_failure("Œ")
         r2 = nil
@@ -5507,9 +5507,9 @@ module ScientificNameClean
 
     i0 = index
     if input.index("æ", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r1.extend(Digraph0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("æ")
       r1 = nil
@@ -5518,9 +5518,9 @@ module ScientificNameClean
       r0 = r1
     else
       if input.index("œ", index) == index
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         r2.extend(Digraph1)
-        @index += 2
+        @index += 1
       else
         terminal_parse_failure("œ")
         r2 = nil
@@ -5908,9 +5908,9 @@ module ScientificNameClean
     end
 
     if input.index("×", index) == index
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r0.extend(MultiplicationSign0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("×")
       r0 = nil

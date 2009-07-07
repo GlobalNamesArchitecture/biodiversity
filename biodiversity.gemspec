@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'biodiversity'
-  s.version = '0.5.3'
+  s.version = '0.5.4'
   s.date = '2009-04-11'
   
   s.summary = "scientific species name parser\n\nExecutable is nnparse"

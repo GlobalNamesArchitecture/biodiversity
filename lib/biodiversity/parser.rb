@@ -29,7 +29,8 @@ class ScientificNameParser
           :normalized => self.value,
           :canonical => self.canonical,
           :hybrid => hybrid,
-          :details => self.details
+          :details => self.details,
+          :positions => self.pos
           })
       else
         res.merge!(self)
