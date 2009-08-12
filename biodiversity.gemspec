@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/nnparse",
-     "biodiversity.gemspec",
      "conf/environment.rb",
      "lib/biodiversity.rb",
      "lib/biodiversity/guid.rb",

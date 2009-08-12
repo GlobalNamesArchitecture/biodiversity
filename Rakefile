@@ -1,5 +1,18 @@
+dir = File.dirname(__FILE__)
 require 'rubygems'
 require 'rake'
+#$LOAD_PATH.unshift(File.join(dir, 'vendor', 'rspec', 'lib'))
+require 'spec/rake/spectask'
+
+#Gem::manage_gems
+#require 'rake/gempackagetask'
+
+task :default => :spec
+
+Spec::Rake::SpecTask.new do |t|
+  t.pattern = 'spec/**/*spec.rb'
+end
+
 
 begin
   require 'jeweler'
@@ -22,30 +35,7 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-end
-
-
-task :default => :spec
-
-#require 'rake/rdoctask'
-#Rake::RDocTask.new do |rdoc|
-#  if File.exist?('VERSION')
-#    version = File.read('VERSION')
-#  else
-#    version = ""
-#  end
-#
-#  rdoc.rdoc_dir = 'rdoc'
-#  rdoc.title = "biodiversity #{version}"
-#  rdoc.rdoc_files.include('README*')
-#  #rdoc.rdoc_files.include('lib/**/*.rb')
-#end
-
 task :tt do
-  dir = File.dirname(__FILE__)
   system("tt #{dir}/lib/biodiversity/parser/scientific_name_clean.treetop")
   system("tt #{dir}/lib/biodiversity/parser/scientific_name_dirty.treetop")
   system("tt #{dir}/lib/biodiversity/parser/scientific_name_canonical.treetop")
