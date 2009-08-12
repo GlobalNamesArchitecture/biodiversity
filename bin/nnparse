@@ -14,12 +14,11 @@ end
 input = ARGV[0]
 output = ARGV[1] || 'parsed.json'
 
-p=ScientificNameParser.new
+p = ScientificNameParser.new
 o = open(output, 'w')
 
 count = 0
 IO.foreach(input) do |line|
-  puts line
   count += 1
   puts("%s lines parsed" % count) if count % 10000 == 0
   name = line.gsub(/^[\d]*\s*/, '').strip 
