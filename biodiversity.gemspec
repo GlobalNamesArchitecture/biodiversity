@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{biodiversity}
-  s.version = "0.5.6"
+  s.version = "0.5.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dmitry Mozzherin"]
@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.default_executable = %q{nnparse}
   s.description = %q{TODO: longer description of your gem}
   s.email = %q{dmozzherin@gmail.com}
+  s.has_rdoc = false
   s.executables = ["nnparse"]
   s.extra_rdoc_files = [
     "LICENSE",
@@ -38,13 +39,16 @@ Gem::Specification.new do |s|
      "lib/biodiversity/parser/scientific_name_clean.treetop",
      "lib/biodiversity/parser/scientific_name_dirty.rb",
      "lib/biodiversity/parser/scientific_name_dirty.treetop",
+     "pkg/.gitignore",
+     "spec/biodiversity_spec.rb",
      "spec/guid/lsid.spec.rb",
      "spec/parser/scientific_name.spec.rb",
      "spec/parser/scientific_name_canonical.spec.rb",
      "spec/parser/scientific_name_clean.spec.rb",
      "spec/parser/scientific_name_dirty.spec.rb",
      "spec/parser/spec_helper.rb",
-     "spec/parser/test_data.txt"
+     "spec/parser/test_data.txt",
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/dimus/biodiversity}
   s.rdoc_options = ["--charset=UTF-8"]
