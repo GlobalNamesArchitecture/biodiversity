@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{biodiversity}
-  s.version = "0.5.9"
+  s.version = "0.5.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dmitry Mozzherin"]
   s.date = %q{2009-08-12}
   s.default_executable = %q{nnparse}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{Tools for biodiversity informatics}
   s.email = %q{dmozzherin@gmail.com}
   s.executables = ["nnparse"]
   s.extra_rdoc_files = [
@@ -53,7 +53,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Parser of scientific names}
   s.test_files = [
     "spec/biodiversity_spec.rb",
      "spec/guid/lsid.spec.rb",
