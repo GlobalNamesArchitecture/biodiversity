@@ -20,7 +20,7 @@ module ScientificNameDirty
 
     node_cache[:root][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ScientificName50
@@ -72,7 +72,7 @@ module ScientificNameDirty
       r1.extend(ScientificName50)
       r1.extend(ScientificName51)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -82,14 +82,14 @@ module ScientificNameDirty
       if r4
         r0 = r4
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:scientific_name_5][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Infraspecies0
@@ -189,7 +189,7 @@ module ScientificNameDirty
       r1.extend(Infraspecies0)
       r1.extend(Infraspecies1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -219,7 +219,7 @@ module ScientificNameDirty
         r5.extend(Infraspecies2)
         r5.extend(Infraspecies3)
       else
-        self.index = i5
+        @index = i5
         r5 = nil
       end
       if r5
@@ -229,7 +229,7 @@ module ScientificNameDirty
         if r11
           r0 = r11
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -237,7 +237,7 @@ module ScientificNameDirty
 
     node_cache[:infraspecies][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Species0
@@ -297,7 +297,7 @@ module ScientificNameDirty
       r1.extend(Species0)
       r1.extend(Species1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -307,14 +307,14 @@ module ScientificNameDirty
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:species][start_index] = r0
 
-    return r0
+    r0
   end
 
   module RightParen0
@@ -334,7 +334,7 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    if input.index(")", index) == index
+    if has_terminal?(")", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -346,7 +346,7 @@ module ScientificNameDirty
       r3 = _nt_space
       s1 << r3
       if r3
-        if input.index(")", index) == index
+        if has_terminal?(")", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -360,7 +360,7 @@ module ScientificNameDirty
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
       r1.extend(RightParen0)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -370,14 +370,14 @@ module ScientificNameDirty
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:right_paren][start_index] = r0
 
-    return r0
+    r0
   end
 
   module LeftParen0
@@ -397,7 +397,7 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    if input.index("(", index) == index
+    if has_terminal?("(", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -409,7 +409,7 @@ module ScientificNameDirty
       r3 = _nt_space
       s1 << r3
       if r3
-        if input.index("(", index) == index
+        if has_terminal?("(", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -423,7 +423,7 @@ module ScientificNameDirty
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
       r1.extend(LeftParen0)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -433,14 +433,14 @@ module ScientificNameDirty
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:left_paren][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Year0
@@ -524,7 +524,7 @@ module ScientificNameDirty
       r1.extend(Year0)
       r1.extend(Year1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -546,7 +546,7 @@ module ScientificNameDirty
         r5.extend(Year2)
         r5.extend(Year3)
       else
-        self.index = i5
+        @index = i5
         r5 = nil
       end
       if r5
@@ -568,7 +568,7 @@ module ScientificNameDirty
               if r12
                 r0 = r12
               else
-                self.index = i0
+                @index = i0
                 r0 = nil
               end
             end
@@ -579,7 +579,7 @@ module ScientificNameDirty
 
     node_cache[:year][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ApproximateYear0
@@ -620,7 +620,7 @@ module ScientificNameDirty
     end
 
     i0, s0 = index, []
-    if input.index("[", index) == index
+    if has_terminal?("[", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -640,7 +640,7 @@ module ScientificNameDirty
           if r4
             s5, i5 = [], index
             loop do
-              if input.index("]", index) == index
+              if has_terminal?("]", false, index)
                 r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
@@ -654,7 +654,7 @@ module ScientificNameDirty
               end
             end
             if s5.empty?
-              self.index = i5
+              @index = i5
               r5 = nil
             else
               r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
@@ -669,13 +669,13 @@ module ScientificNameDirty
       r0.extend(ApproximateYear0)
       r0.extend(ApproximateYear1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:approximate_year][start_index] = r0
 
-    return r0
+    r0
   end
 
   module DoubleYear0
@@ -711,7 +711,7 @@ module ScientificNameDirty
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if input.index("-", index) == index
+      if has_terminal?("-", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -722,7 +722,7 @@ module ScientificNameDirty
       if r2
         s3, i3 = [], index
         loop do
-          if input.index(Regexp.new('[0-9]'), index) == index
+          if has_terminal?('\G[0-9]', true, index)
             r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -735,14 +735,14 @@ module ScientificNameDirty
           end
         end
         if s3.empty?
-          self.index = i3
+          @index = i3
           r3 = nil
         else
           r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
         end
         s0 << r3
         if r3
-          if input.index(Regexp.new('[A-Za-z]'), index) == index
+          if has_terminal?('\G[A-Za-z]', true, index)
             r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -755,7 +755,7 @@ module ScientificNameDirty
           end
           s0 << r5
           if r5
-            if input.index(Regexp.new('[\\?]'), index) == index
+            if has_terminal?('\G[\\?]', true, index)
               r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -776,13 +776,13 @@ module ScientificNameDirty
       r0.extend(DoubleYear0)
       r0.extend(DoubleYear1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:double_year][start_index] = r0
 
-    return r0
+    r0
   end
 
   module YearNumberWithPunctuation0
@@ -818,7 +818,7 @@ module ScientificNameDirty
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if input.index(".", index) == index
+      if has_terminal?(".", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -832,13 +832,13 @@ module ScientificNameDirty
       r0.extend(YearNumberWithPunctuation0)
       r0.extend(YearNumberWithPunctuation1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:year_number_with_punctuation][start_index] = r0
 
-    return r0
+    r0
   end
 
   module PageNumber0
@@ -862,7 +862,7 @@ module ScientificNameDirty
     end
 
     i0, s0 = index, []
-    if input.index(":", index) == index
+    if has_terminal?(":", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -876,7 +876,7 @@ module ScientificNameDirty
       if r2
         s3, i3 = [], index
         loop do
-          if input.index(Regexp.new('[\\d]'), index) == index
+          if has_terminal?('\G[\\d]', true, index)
             r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -889,7 +889,7 @@ module ScientificNameDirty
           end
         end
         if s3.empty?
-          self.index = i3
+          @index = i3
           r3 = nil
         else
           r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
@@ -902,13 +902,13 @@ module ScientificNameDirty
       r0.extend(PageNumber0)
       r0.extend(PageNumber1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:page_number][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_epitheton_authorship_inconsistencies
@@ -919,7 +919,7 @@ module ScientificNameDirty
       return cached
     end
 
-    if input.index("corrig.", index) == index
+    if has_terminal?("corrig.", false, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 7))
       @index += 7
     else
@@ -929,7 +929,7 @@ module ScientificNameDirty
 
     node_cache[:epitheton_authorship_inconsistencies][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Garbage0
@@ -963,7 +963,7 @@ module ScientificNameDirty
     r2 = _nt_space
     s1 << r2
     if r2
-      if input.index(Regexp.new('["\',.]'), index) == index
+      if has_terminal?('\G["\',.]', true, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -976,7 +976,7 @@ module ScientificNameDirty
         if r4
           s5, i5 = [], index
           loop do
-            if input.index(Regexp.new('[^щ]'), index) == index
+            if has_terminal?('\G[^щ]', true, index)
               r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -997,7 +997,7 @@ module ScientificNameDirty
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
       r1.extend(Garbage0)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -1009,7 +1009,7 @@ module ScientificNameDirty
       if r8
         s9, i9 = [], index
         loop do
-          if input.index(Regexp.new('[^ш]'), index) == index
+          if has_terminal?('\G[^ш]', true, index)
             r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -1022,7 +1022,7 @@ module ScientificNameDirty
           end
         end
         if s9.empty?
-          self.index = i9
+          @index = i9
           r9 = nil
         else
           r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
@@ -1033,20 +1033,20 @@ module ScientificNameDirty
         r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
         r7.extend(Garbage1)
       else
-        self.index = i7
+        @index = i7
         r7 = nil
       end
       if r7
         r0 = r7
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:garbage][start_index] = r0
 
-    return r0
+    r0
   end
 
 end

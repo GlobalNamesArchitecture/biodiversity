@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'socket'
+require 'biodiversity'          # Get sockets from stdlib
+parser = ScientificNameParser.new
+server = TCPServer.open(4334)  # Socket to listen on port 4334
+loop do                         # Servers run forever
+  client = server.accept       # Wait for a client to connect
+  while a = client.readline
+    client.close if ['end','exit','q', '.'].include? a.strip
+    client.puts parser.parse(a).to_json
+  end
+end
+

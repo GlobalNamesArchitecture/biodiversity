@@ -49,14 +49,14 @@ module ScientificNameCanonical
       if r2
         r0 = r2
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:root][start_index] = r0
 
-    return r0
+    r0
   end
 
   module MultinomialWithGarbage0
@@ -212,7 +212,7 @@ module ScientificNameCanonical
       r1.extend(MultinomialWithGarbage0)
       r1.extend(MultinomialWithGarbage1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -238,7 +238,7 @@ module ScientificNameCanonical
         r8.extend(MultinomialWithGarbage2)
         r8.extend(MultinomialWithGarbage3)
       else
-        self.index = i8
+        @index = i8
         r8 = nil
       end
       if r8
@@ -264,13 +264,13 @@ module ScientificNameCanonical
           r13.extend(MultinomialWithGarbage4)
           r13.extend(MultinomialWithGarbage5)
         else
-          self.index = i13
+          @index = i13
           r13 = nil
         end
         if r13
           r0 = r13
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -278,7 +278,7 @@ module ScientificNameCanonical
 
     node_cache[:multinomial_with_garbage][start_index] = r0
 
-    return r0
+    r0
   end
 
   module UninomialWithGarbage0
@@ -329,13 +329,13 @@ module ScientificNameCanonical
       r0.extend(UninomialWithGarbage0)
       r0.extend(UninomialWithGarbage1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:uninomial_with_garbage][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Garbage0
@@ -369,7 +369,7 @@ module ScientificNameCanonical
     r2 = _nt_space
     s1 << r2
     if r2
-      if input.index(Regexp.new('["\',.]'), index) == index
+      if has_terminal?('\G["\',.]', true, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -382,7 +382,7 @@ module ScientificNameCanonical
         if r4
           s5, i5 = [], index
           loop do
-            if input.index(Regexp.new('[^щ]'), index) == index
+            if has_terminal?('\G[^щ]', true, index)
               r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -403,7 +403,7 @@ module ScientificNameCanonical
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
       r1.extend(Garbage0)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -415,7 +415,7 @@ module ScientificNameCanonical
       if r8
         s9, i9 = [], index
         loop do
-          if input.index(Regexp.new('[^ш]'), index) == index
+          if has_terminal?('\G[^ш]', true, index)
             r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -428,7 +428,7 @@ module ScientificNameCanonical
           end
         end
         if s9.empty?
-          self.index = i9
+          @index = i9
           r9 = nil
         else
           r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
@@ -439,20 +439,20 @@ module ScientificNameCanonical
         r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
         r7.extend(Garbage1)
       else
-        self.index = i7
+        @index = i7
         r7 = nil
       end
       if r7
         r0 = r7
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:garbage][start_index] = r0
 
-    return r0
+    r0
   end
 
 end

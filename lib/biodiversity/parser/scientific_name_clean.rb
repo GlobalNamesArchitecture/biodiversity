@@ -66,13 +66,13 @@ module ScientificNameClean
       r0.extend(Root0)
       r0.extend(Root1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:root][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ScientificName50
@@ -152,7 +152,7 @@ module ScientificNameClean
       r1.extend(ScientificName50)
       r1.extend(ScientificName51)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -162,14 +162,14 @@ module ScientificNameClean
       if r7
         r0 = r7
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:scientific_name_5][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ScientificName40
@@ -290,7 +290,7 @@ module ScientificNameClean
       r1.extend(ScientificName40)
       r1.extend(ScientificName41)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -309,7 +309,7 @@ module ScientificNameClean
             r11 = _nt_space
             s7 << r11
             if r11
-              if input.index(Regexp.new('[\\?]'), index) == index
+              if has_terminal?('\G[\\?]', true, index)
                 r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
@@ -330,7 +330,7 @@ module ScientificNameClean
         r7.extend(ScientificName42)
         r7.extend(ScientificName43)
       else
-        self.index = i7
+        @index = i7
         r7 = nil
       end
       if r7
@@ -340,7 +340,7 @@ module ScientificNameClean
         if r14
           r0 = r14
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -348,7 +348,7 @@ module ScientificNameClean
 
     node_cache[:scientific_name_4][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ScientificName30
@@ -412,7 +412,7 @@ module ScientificNameClean
       r1.extend(ScientificName30)
       r1.extend(ScientificName31)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -422,14 +422,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:scientific_name_3][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ScientificName20
@@ -493,7 +493,7 @@ module ScientificNameClean
       r1.extend(ScientificName20)
       r1.extend(ScientificName21)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -503,14 +503,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:scientific_name_2][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_scientific_name_1
@@ -530,14 +530,14 @@ module ScientificNameClean
       if r2
         r0 = r2
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:scientific_name_1][start_index] = r0
 
-    return r0
+    r0
   end
 
   module StatusPart0
@@ -588,7 +588,7 @@ module ScientificNameClean
       r1.extend(StatusPart0)
       r1.extend(StatusPart1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -598,14 +598,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:status_part][start_index] = r0
 
-    return r0
+    r0
   end
 
   module StatusWord0
@@ -636,7 +636,7 @@ module ScientificNameClean
     r1 = _nt_latin_word
     s0 << r1
     if r1
-      if input.index(Regexp.new('[\\.]'), index) == index
+      if has_terminal?('\G[\\.]', true, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -649,13 +649,13 @@ module ScientificNameClean
       r0.extend(StatusWord0)
       r0.extend(StatusWord1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:status_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module MultinomialName0
@@ -904,7 +904,7 @@ module ScientificNameClean
       r1.extend(MultinomialName0)
       r1.extend(MultinomialName1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -947,7 +947,7 @@ module ScientificNameClean
         r12.extend(MultinomialName2)
         r12.extend(MultinomialName3)
       else
-        self.index = i12
+        @index = i12
         r12 = nil
       end
       if r12
@@ -990,7 +990,7 @@ module ScientificNameClean
           r21.extend(MultinomialName4)
           r21.extend(MultinomialName5)
         else
-          self.index = i21
+          @index = i21
           r21 = nil
         end
         if r21
@@ -1025,13 +1025,13 @@ module ScientificNameClean
             r30.extend(MultinomialName6)
             r30.extend(MultinomialName7)
           else
-            self.index = i30
+            @index = i30
             r30 = nil
           end
           if r30
             r0 = r30
           else
-            self.index = i0
+            @index = i0
             r0 = nil
           end
         end
@@ -1040,7 +1040,7 @@ module ScientificNameClean
 
     node_cache[:multinomial_name][start_index] = r0
 
-    return r0
+    r0
   end
 
   module InfraspeciesMult0
@@ -1108,7 +1108,7 @@ module ScientificNameClean
       r1.extend(InfraspeciesMult0)
       r1.extend(InfraspeciesMult1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -1119,14 +1119,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:infraspecies_mult][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Infraspecies0
@@ -1186,7 +1186,7 @@ module ScientificNameClean
       r1.extend(Infraspecies0)
       r1.extend(Infraspecies1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -1196,14 +1196,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:infraspecies][start_index] = r0
 
-    return r0
+    r0
   end
 
   module InfraspeciesEpitheton0
@@ -1287,7 +1287,7 @@ module ScientificNameClean
       r1.extend(InfraspeciesEpitheton0)
       r1.extend(InfraspeciesEpitheton1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -1298,7 +1298,7 @@ module ScientificNameClean
       s5 << r6
       if r6
         i7 = index
-        if input.index(Regexp.new('[\\.]'), index) == index
+        if has_terminal?('\G[\\.]', true, index)
           r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -1307,7 +1307,7 @@ module ScientificNameClean
         if r8
           r7 = nil
         else
-          self.index = i7
+          @index = i7
           r7 = instantiate_node(SyntaxNode,input, index...index)
         end
         s5 << r7
@@ -1317,20 +1317,20 @@ module ScientificNameClean
         r5.extend(InfraspeciesEpitheton2)
         r5.extend(InfraspeciesEpitheton3)
       else
-        self.index = i5
+        @index = i5
         r5 = nil
       end
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:infraspecies_epitheton][start_index] = r0
 
-    return r0
+    r0
   end
 
   module TaxonConceptRank0
@@ -1354,7 +1354,7 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("sec.", index) == index
+    if has_terminal?("sec.", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 4))
       @index += 4
     else
@@ -1365,7 +1365,7 @@ module ScientificNameClean
       r0 = r1
       r0.extend(TaxonConceptRank0)
     else
-      if input.index("sensu.", index) == index
+      if has_terminal?("sensu.", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
         @index += 6
       else
@@ -1376,14 +1376,14 @@ module ScientificNameClean
         r0 = r2
         r0.extend(TaxonConceptRank0)
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:taxon_concept_rank][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Rank0
@@ -1414,7 +1414,7 @@ module ScientificNameClean
 
     i0 = index
     i1 = index
-    if input.index("morph.", index) == index
+    if has_terminal?("morph.", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
       @index += 6
     else
@@ -1425,7 +1425,7 @@ module ScientificNameClean
       r1 = r2
       r1.extend(Rank0)
     else
-      if input.index("f.sp.", index) == index
+      if has_terminal?("f.sp.", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 5))
         @index += 5
       else
@@ -1436,7 +1436,7 @@ module ScientificNameClean
         r1 = r3
         r1.extend(Rank0)
       else
-        if input.index("B", index) == index
+        if has_terminal?("B", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -1447,7 +1447,7 @@ module ScientificNameClean
           r1 = r4
           r1.extend(Rank0)
         else
-          if input.index("ssp.", index) == index
+          if has_terminal?("ssp.", false, index)
             r5 = instantiate_node(SyntaxNode,input, index...(index + 4))
             @index += 4
           else
@@ -1458,7 +1458,7 @@ module ScientificNameClean
             r1 = r5
             r1.extend(Rank0)
           else
-            if input.index("mut.", index) == index
+            if has_terminal?("mut.", false, index)
               r6 = instantiate_node(SyntaxNode,input, index...(index + 4))
               @index += 4
             else
@@ -1469,7 +1469,7 @@ module ScientificNameClean
               r1 = r6
               r1.extend(Rank0)
             else
-              if input.index("nat", index) == index
+              if has_terminal?("nat", false, index)
                 r7 = instantiate_node(SyntaxNode,input, index...(index + 3))
                 @index += 3
               else
@@ -1480,7 +1480,7 @@ module ScientificNameClean
                 r1 = r7
                 r1.extend(Rank0)
               else
-                if input.index("nothosubsp.", index) == index
+                if has_terminal?("nothosubsp.", false, index)
                   r8 = instantiate_node(SyntaxNode,input, index...(index + 11))
                   @index += 11
                 else
@@ -1491,7 +1491,7 @@ module ScientificNameClean
                   r1 = r8
                   r1.extend(Rank0)
                 else
-                  if input.index("pseudovar.", index) == index
+                  if has_terminal?("pseudovar.", false, index)
                     r9 = instantiate_node(SyntaxNode,input, index...(index + 10))
                     @index += 10
                   else
@@ -1502,7 +1502,7 @@ module ScientificNameClean
                     r1 = r9
                     r1.extend(Rank0)
                   else
-                    if input.index("sect.", index) == index
+                    if has_terminal?("sect.", false, index)
                       r10 = instantiate_node(SyntaxNode,input, index...(index + 5))
                       @index += 5
                     else
@@ -1513,7 +1513,7 @@ module ScientificNameClean
                       r1 = r10
                       r1.extend(Rank0)
                     else
-                      if input.index("ser.", index) == index
+                      if has_terminal?("ser.", false, index)
                         r11 = instantiate_node(SyntaxNode,input, index...(index + 4))
                         @index += 4
                       else
@@ -1524,7 +1524,7 @@ module ScientificNameClean
                         r1 = r11
                         r1.extend(Rank0)
                       else
-                        if input.index("var.", index) == index
+                        if has_terminal?("var.", false, index)
                           r12 = instantiate_node(SyntaxNode,input, index...(index + 4))
                           @index += 4
                         else
@@ -1535,7 +1535,7 @@ module ScientificNameClean
                           r1 = r12
                           r1.extend(Rank0)
                         else
-                          if input.index("subvar.", index) == index
+                          if has_terminal?("subvar.", false, index)
                             r13 = instantiate_node(SyntaxNode,input, index...(index + 7))
                             @index += 7
                           else
@@ -1546,7 +1546,7 @@ module ScientificNameClean
                             r1 = r13
                             r1.extend(Rank0)
                           else
-                            if input.index("[var.]", index) == index
+                            if has_terminal?("[var.]", false, index)
                               r14 = instantiate_node(SyntaxNode,input, index...(index + 6))
                               @index += 6
                             else
@@ -1557,7 +1557,7 @@ module ScientificNameClean
                               r1 = r14
                               r1.extend(Rank0)
                             else
-                              if input.index("subsp.", index) == index
+                              if has_terminal?("subsp.", false, index)
                                 r15 = instantiate_node(SyntaxNode,input, index...(index + 6))
                                 @index += 6
                               else
@@ -1568,7 +1568,7 @@ module ScientificNameClean
                                 r1 = r15
                                 r1.extend(Rank0)
                               else
-                                if input.index("subf.", index) == index
+                                if has_terminal?("subf.", false, index)
                                   r16 = instantiate_node(SyntaxNode,input, index...(index + 5))
                                   @index += 5
                                 else
@@ -1579,7 +1579,7 @@ module ScientificNameClean
                                   r1 = r16
                                   r1.extend(Rank0)
                                 else
-                                  if input.index("race", index) == index
+                                  if has_terminal?("race", false, index)
                                     r17 = instantiate_node(SyntaxNode,input, index...(index + 4))
                                     @index += 4
                                   else
@@ -1590,9 +1590,9 @@ module ScientificNameClean
                                     r1 = r17
                                     r1.extend(Rank0)
                                   else
-                                    if input.index("α", index) == index
-                                      r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                      @index += 2
+                                    if has_terminal?("α", false, index)
+                                      r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                      @index += 1
                                     else
                                       terminal_parse_failure("α")
                                       r18 = nil
@@ -1601,9 +1601,9 @@ module ScientificNameClean
                                       r1 = r18
                                       r1.extend(Rank0)
                                     else
-                                      if input.index("ββ", index) == index
-                                        r19 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                        @index += 4
+                                      if has_terminal?("ββ", false, index)
+                                        r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                        @index += 2
                                       else
                                         terminal_parse_failure("ββ")
                                         r19 = nil
@@ -1612,9 +1612,9 @@ module ScientificNameClean
                                         r1 = r19
                                         r1.extend(Rank0)
                                       else
-                                        if input.index("β", index) == index
-                                          r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                          @index += 2
+                                        if has_terminal?("β", false, index)
+                                          r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                          @index += 1
                                         else
                                           terminal_parse_failure("β")
                                           r20 = nil
@@ -1623,9 +1623,9 @@ module ScientificNameClean
                                           r1 = r20
                                           r1.extend(Rank0)
                                         else
-                                          if input.index("γ", index) == index
-                                            r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                            @index += 2
+                                          if has_terminal?("γ", false, index)
+                                            r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                            @index += 1
                                           else
                                             terminal_parse_failure("γ")
                                             r21 = nil
@@ -1634,9 +1634,9 @@ module ScientificNameClean
                                             r1 = r21
                                             r1.extend(Rank0)
                                           else
-                                            if input.index("δ", index) == index
-                                              r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                              @index += 2
+                                            if has_terminal?("δ", false, index)
+                                              r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                              @index += 1
                                             else
                                               terminal_parse_failure("δ")
                                               r22 = nil
@@ -1645,9 +1645,9 @@ module ScientificNameClean
                                               r1 = r22
                                               r1.extend(Rank0)
                                             else
-                                              if input.index("ε", index) == index
-                                                r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                @index += 2
+                                              if has_terminal?("ε", false, index)
+                                                r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                @index += 1
                                               else
                                                 terminal_parse_failure("ε")
                                                 r23 = nil
@@ -1656,9 +1656,9 @@ module ScientificNameClean
                                                 r1 = r23
                                                 r1.extend(Rank0)
                                               else
-                                                if input.index("φ", index) == index
-                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                  @index += 2
+                                                if has_terminal?("φ", false, index)
+                                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                  @index += 1
                                                 else
                                                   terminal_parse_failure("φ")
                                                   r24 = nil
@@ -1667,9 +1667,9 @@ module ScientificNameClean
                                                   r1 = r24
                                                   r1.extend(Rank0)
                                                 else
-                                                  if input.index("θ", index) == index
-                                                    r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                    @index += 2
+                                                  if has_terminal?("θ", false, index)
+                                                    r25 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                    @index += 1
                                                   else
                                                     terminal_parse_failure("θ")
                                                     r25 = nil
@@ -1678,9 +1678,9 @@ module ScientificNameClean
                                                     r1 = r25
                                                     r1.extend(Rank0)
                                                   else
-                                                    if input.index("μ", index) == index
-                                                      r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                      @index += 2
+                                                    if has_terminal?("μ", false, index)
+                                                      r26 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                                      @index += 1
                                                     else
                                                       terminal_parse_failure("μ")
                                                       r26 = nil
@@ -1689,7 +1689,7 @@ module ScientificNameClean
                                                       r1 = r26
                                                       r1.extend(Rank0)
                                                     else
-                                                      if input.index("a.", index) == index
+                                                      if has_terminal?("a.", false, index)
                                                         r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                         @index += 2
                                                       else
@@ -1700,7 +1700,7 @@ module ScientificNameClean
                                                         r1 = r27
                                                         r1.extend(Rank0)
                                                       else
-                                                        if input.index("b.", index) == index
+                                                        if has_terminal?("b.", false, index)
                                                           r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                           @index += 2
                                                         else
@@ -1711,7 +1711,7 @@ module ScientificNameClean
                                                           r1 = r28
                                                           r1.extend(Rank0)
                                                         else
-                                                          if input.index("c.", index) == index
+                                                          if has_terminal?("c.", false, index)
                                                             r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                             @index += 2
                                                           else
@@ -1722,7 +1722,7 @@ module ScientificNameClean
                                                             r1 = r29
                                                             r1.extend(Rank0)
                                                           else
-                                                            if input.index("d.", index) == index
+                                                            if has_terminal?("d.", false, index)
                                                               r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                               @index += 2
                                                             else
@@ -1733,7 +1733,7 @@ module ScientificNameClean
                                                               r1 = r30
                                                               r1.extend(Rank0)
                                                             else
-                                                              if input.index("e.", index) == index
+                                                              if has_terminal?("e.", false, index)
                                                                 r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                                 @index += 2
                                                               else
@@ -1744,7 +1744,7 @@ module ScientificNameClean
                                                                 r1 = r31
                                                                 r1.extend(Rank0)
                                                               else
-                                                                if input.index("g.", index) == index
+                                                                if has_terminal?("g.", false, index)
                                                                   r32 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                                   @index += 2
                                                                 else
@@ -1755,7 +1755,7 @@ module ScientificNameClean
                                                                   r1 = r32
                                                                   r1.extend(Rank0)
                                                                 else
-                                                                  if input.index("k.", index) == index
+                                                                  if has_terminal?("k.", false, index)
                                                                     r33 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                                     @index += 2
                                                                   else
@@ -1766,7 +1766,7 @@ module ScientificNameClean
                                                                     r1 = r33
                                                                     r1.extend(Rank0)
                                                                   else
-                                                                    if input.index("****", index) == index
+                                                                    if has_terminal?("****", false, index)
                                                                       r34 = instantiate_node(SyntaxNode,input, index...(index + 4))
                                                                       @index += 4
                                                                     else
@@ -1777,7 +1777,7 @@ module ScientificNameClean
                                                                       r1 = r34
                                                                       r1.extend(Rank0)
                                                                     else
-                                                                      if input.index("**", index) == index
+                                                                      if has_terminal?("**", false, index)
                                                                         r35 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                                                         @index += 2
                                                                       else
@@ -1788,7 +1788,7 @@ module ScientificNameClean
                                                                         r1 = r35
                                                                         r1.extend(Rank0)
                                                                       else
-                                                                        if input.index("*", index) == index
+                                                                        if has_terminal?("*", false, index)
                                                                           r36 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                                                           @index += 1
                                                                         else
@@ -1799,7 +1799,7 @@ module ScientificNameClean
                                                                           r1 = r36
                                                                           r1.extend(Rank0)
                                                                         else
-                                                                          self.index = i1
+                                                                          @index = i1
                                                                           r1 = nil
                                                                         end
                                                                       end
@@ -1843,14 +1843,14 @@ module ScientificNameClean
       if r37
         r0 = r37
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:rank][start_index] = r0
 
-    return r0
+    r0
   end
 
   module RankForma0
@@ -1877,7 +1877,7 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("forma", index) == index
+    if has_terminal?("forma", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 5))
       @index += 5
     else
@@ -1888,7 +1888,7 @@ module ScientificNameClean
       r0 = r1
       r0.extend(RankForma0)
     else
-      if input.index("form.", index) == index
+      if has_terminal?("form.", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
         @index += 5
       else
@@ -1899,7 +1899,7 @@ module ScientificNameClean
         r0 = r2
         r0.extend(RankForma0)
       else
-        if input.index("fo.", index) == index
+        if has_terminal?("fo.", false, index)
           r3 = instantiate_node(SyntaxNode,input, index...(index + 3))
           @index += 3
         else
@@ -1910,7 +1910,7 @@ module ScientificNameClean
           r0 = r3
           r0.extend(RankForma0)
         else
-          if input.index("f.", index) == index
+          if has_terminal?("f.", false, index)
             r4 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
@@ -1921,7 +1921,7 @@ module ScientificNameClean
             r0 = r4
             r0.extend(RankForma0)
           else
-            self.index = i0
+            @index = i0
             r0 = nil
           end
         end
@@ -1930,7 +1930,7 @@ module ScientificNameClean
 
     node_cache[:rank_forma][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Species0
@@ -1994,7 +1994,7 @@ module ScientificNameClean
       r1.extend(Species0)
       r1.extend(Species1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -2004,14 +2004,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:species][start_index] = r0
 
-    return r0
+    r0
   end
 
   module SpeciesEpitheton0
@@ -2104,11 +2104,11 @@ module ScientificNameClean
         r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
         r4.extend(SpeciesEpitheton0)
       else
-        self.index = i4
+        @index = i4
         r4 = nil
       end
       if r4
-        self.index = i3
+        @index = i3
         r3 = instantiate_node(SyntaxNode,input, index...index)
       else
         r3 = nil
@@ -2120,7 +2120,7 @@ module ScientificNameClean
       r1.extend(SpeciesEpitheton1)
       r1.extend(SpeciesEpitheton2)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -2135,7 +2135,7 @@ module ScientificNameClean
         if r9
           r0 = r9
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -2143,7 +2143,7 @@ module ScientificNameClean
 
     node_cache[:species_epitheton][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Subgenus0
@@ -2218,13 +2218,13 @@ module ScientificNameClean
       r0.extend(Subgenus0)
       r0.extend(Subgenus1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:subgenus][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Genus0
@@ -2302,13 +2302,13 @@ module ScientificNameClean
         r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
         r3.extend(Genus0)
       else
-        self.index = i3
+        @index = i3
         r3 = nil
       end
       if r3
         r2 = nil
       else
-        self.index = i2
+        @index = i2
         r2 = instantiate_node(SyntaxNode,input, index...index)
       end
       s0 << r2
@@ -2318,13 +2318,13 @@ module ScientificNameClean
       r0.extend(Genus1)
       r0.extend(Genus2)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:genus][start_index] = r0
 
-    return r0
+    r0
   end
 
   module UninomialName0
@@ -2388,7 +2388,7 @@ module ScientificNameClean
       r1.extend(UninomialName0)
       r1.extend(UninomialName1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -2398,14 +2398,14 @@ module ScientificNameClean
       if r5
         r0 = r5
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:uninomial_name][start_index] = r0
 
-    return r0
+    r0
   end
 
   module UninomialEpitheton0
@@ -2439,7 +2439,7 @@ module ScientificNameClean
 
     node_cache[:uninomial_epitheton][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Authorship0
@@ -2558,7 +2558,7 @@ module ScientificNameClean
         r4 = _nt_simple_authorship
         s1 << r4
         if r4
-          if input.index(",", index) == index
+          if has_terminal?(",", false, index)
             r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -2587,7 +2587,7 @@ module ScientificNameClean
       r1.extend(Authorship0)
       r1.extend(Authorship1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -2609,7 +2609,7 @@ module ScientificNameClean
         r9.extend(Authorship2)
         r9.extend(Authorship3)
       else
-        self.index = i9
+        @index = i9
         r9 = nil
       end
       if r9
@@ -2623,7 +2623,7 @@ module ScientificNameClean
           r15 = _nt_simple_authorship
           s14 << r15
           if r15
-            if input.index(",", index) == index
+            if has_terminal?(",", false, index)
               r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -2650,7 +2650,7 @@ module ScientificNameClean
             r14.extend(Authorship4)
             r14.extend(Authorship5)
           else
-            self.index = i14
+            @index = i14
             r14 = nil
           end
           if r14
@@ -2660,7 +2660,7 @@ module ScientificNameClean
             if r20
               r0 = r20
             else
-              self.index = i0
+              @index = i0
               r0 = nil
             end
           end
@@ -2670,7 +2670,7 @@ module ScientificNameClean
 
     node_cache[:authorship][start_index] = r0
 
-    return r0
+    r0
   end
 
   module BasionymAuthorshipWithParenthesis0
@@ -2872,7 +2872,7 @@ module ScientificNameClean
               r7 = _nt_space
               s1 << r7
               if r7
-                if input.index(Regexp.new('[,]'), index) == index
+                if has_terminal?('\G[,]', true, index)
                   r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
                   @index += 1
                 else
@@ -2903,7 +2903,7 @@ module ScientificNameClean
       r1.extend(BasionymAuthorshipWithParenthesis0)
       r1.extend(BasionymAuthorshipWithParenthesis1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -2919,7 +2919,7 @@ module ScientificNameClean
           r15 = _nt_simple_authorship
           s12 << r15
           if r15
-            if input.index(",", index) == index
+            if has_terminal?(",", false, index)
               r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -2956,7 +2956,7 @@ module ScientificNameClean
         r12.extend(BasionymAuthorshipWithParenthesis2)
         r12.extend(BasionymAuthorshipWithParenthesis3)
       else
-        self.index = i12
+        @index = i12
         r12 = nil
       end
       if r12
@@ -2986,7 +2986,7 @@ module ScientificNameClean
           r22.extend(BasionymAuthorshipWithParenthesis4)
           r22.extend(BasionymAuthorshipWithParenthesis5)
         else
-          self.index = i22
+          @index = i22
           r22 = nil
         end
         if r22
@@ -2999,7 +2999,7 @@ module ScientificNameClean
             r30 = _nt_space
             s28 << r30
             if r30
-              if input.index("?", index) == index
+              if has_terminal?("?", false, index)
                 r31 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
@@ -3022,13 +3022,13 @@ module ScientificNameClean
             r28.extend(BasionymAuthorshipWithParenthesis6)
             r28.extend(BasionymAuthorshipWithParenthesis7)
           else
-            self.index = i28
+            @index = i28
             r28 = nil
           end
           if r28
             r0 = r28
           else
-            self.index = i0
+            @index = i0
             r0 = nil
           end
         end
@@ -3037,7 +3037,7 @@ module ScientificNameClean
 
     node_cache[:basionym_authorship_with_parenthesis][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ExAuthorship0
@@ -3093,13 +3093,13 @@ module ScientificNameClean
       r0.extend(ExAuthorship0)
       r0.extend(ExAuthorship1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:ex_authorship][start_index] = r0
 
-    return r0
+    r0
   end
 
   module SimpleAuthorship0
@@ -3238,7 +3238,7 @@ module ScientificNameClean
       r3 = _nt_space
       s1 << r3
       if r3
-        if input.index(Regexp.new('[,]'), index) == index
+        if has_terminal?('\G[,]', true, index)
           r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -3262,7 +3262,7 @@ module ScientificNameClean
             end
             s1 << r7
             if r7
-              if input.index(Regexp.new('[,]'), index) == index
+              if has_terminal?('\G[,]', true, index)
                 r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
@@ -3278,7 +3278,7 @@ module ScientificNameClean
                 r11 = _nt_space
                 s1 << r11
                 if r11
-                  if input.index("non", index) == index
+                  if has_terminal?("non", false, index)
                     r12 = instantiate_node(SyntaxNode,input, index...(index + 3))
                     @index += 3
                   else
@@ -3296,7 +3296,7 @@ module ScientificNameClean
                         r15 = _nt_space
                         s1 << r15
                         if r15
-                          if input.index(Regexp.new('[,]'), index) == index
+                          if has_terminal?('\G[,]', true, index)
                             r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
                             @index += 1
                           else
@@ -3332,7 +3332,7 @@ module ScientificNameClean
       r1.extend(SimpleAuthorship0)
       r1.extend(SimpleAuthorship1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -3345,7 +3345,7 @@ module ScientificNameClean
         r22 = _nt_space
         s20 << r22
         if r22
-          if input.index(Regexp.new('[,]'), index) == index
+          if has_terminal?('\G[,]', true, index)
             r24 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -3372,7 +3372,7 @@ module ScientificNameClean
         r20.extend(SimpleAuthorship2)
         r20.extend(SimpleAuthorship3)
       else
-        self.index = i20
+        @index = i20
         r20 = nil
       end
       if r20
@@ -3383,7 +3383,7 @@ module ScientificNameClean
         if r27
           r0 = r27
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -3391,7 +3391,7 @@ module ScientificNameClean
 
     node_cache[:simple_authorship][start_index] = r0
 
-    return r0
+    r0
   end
 
   module AuthorsNames0
@@ -3463,7 +3463,7 @@ module ScientificNameClean
       r1.extend(AuthorsNames0)
       r1.extend(AuthorsNames1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -3477,7 +3477,7 @@ module ScientificNameClean
         if r8
           r0 = r8
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -3485,7 +3485,7 @@ module ScientificNameClean
 
     node_cache[:authors_names][start_index] = r0
 
-    return r0
+    r0
   end
 
   module UnknownAuth0
@@ -3511,7 +3511,7 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("auct.", index) == index
+    if has_terminal?("auct.", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 5))
       @index += 5
     else
@@ -3522,7 +3522,7 @@ module ScientificNameClean
       r0 = r1
       r0.extend(UnknownAuth0)
     else
-      if input.index("hort.", index) == index
+      if has_terminal?("hort.", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
         @index += 5
       else
@@ -3533,7 +3533,7 @@ module ScientificNameClean
         r0 = r2
         r0.extend(UnknownAuth0)
       else
-        if input.index("anon.", index) == index
+        if has_terminal?("anon.", false, index)
           r3 = instantiate_node(SyntaxNode,input, index...(index + 5))
           @index += 5
         else
@@ -3544,7 +3544,7 @@ module ScientificNameClean
           r0 = r3
           r0.extend(UnknownAuth0)
         else
-          if input.index("ht.", index) == index
+          if has_terminal?("ht.", false, index)
             r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
             @index += 3
           else
@@ -3555,7 +3555,7 @@ module ScientificNameClean
             r0 = r4
             r0.extend(UnknownAuth0)
           else
-            self.index = i0
+            @index = i0
             r0 = nil
           end
         end
@@ -3564,7 +3564,7 @@ module ScientificNameClean
 
     node_cache[:unknown_auth][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ExSep0
@@ -3580,7 +3580,7 @@ module ScientificNameClean
 
     i0, s0 = index, []
     i1 = index
-    if input.index("ex", index) == index
+    if has_terminal?("ex", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
       @index += 2
     else
@@ -3590,7 +3590,7 @@ module ScientificNameClean
     if r2
       r1 = r2
     else
-      if input.index("in", index) == index
+      if has_terminal?("in", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
         @index += 2
       else
@@ -3600,21 +3600,21 @@ module ScientificNameClean
       if r3
         r1 = r3
       else
-        self.index = i1
+        @index = i1
         r1 = nil
       end
     end
     s0 << r1
     if r1
       i4 = index
-      if input.index(Regexp.new('[\\s]'), index) == index
+      if has_terminal?('\G[\\s]', true, index)
         r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
         r5 = nil
       end
       if r5
-        self.index = i4
+        @index = i4
         r4 = instantiate_node(SyntaxNode,input, index...index)
       else
         r4 = nil
@@ -3625,13 +3625,13 @@ module ScientificNameClean
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
       r0.extend(ExSep0)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:ex_sep][start_index] = r0
 
-    return r0
+    r0
   end
 
   module AuthorSeparator0
@@ -3659,7 +3659,7 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("&", index) == index
+    if has_terminal?("&", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -3670,7 +3670,7 @@ module ScientificNameClean
       r0 = r1
       r0.extend(AuthorSeparator0)
     else
-      if input.index(",", index) == index
+      if has_terminal?(",", false, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -3681,7 +3681,7 @@ module ScientificNameClean
         r0 = r2
         r0.extend(AuthorSeparator0)
       else
-        if input.index("and", index) == index
+        if has_terminal?("and", false, index)
           r3 = instantiate_node(SyntaxNode,input, index...(index + 3))
           @index += 3
         else
@@ -3692,7 +3692,7 @@ module ScientificNameClean
           r0 = r3
           r0.extend(AuthorSeparator0)
         else
-          if input.index("et", index) == index
+          if has_terminal?("et", false, index)
             r4 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
@@ -3703,7 +3703,7 @@ module ScientificNameClean
             r0 = r4
             r0.extend(AuthorSeparator0)
           else
-            self.index = i0
+            @index = i0
             r0 = nil
           end
         end
@@ -3712,7 +3712,7 @@ module ScientificNameClean
 
     node_cache[:author_separator][start_index] = r0
 
-    return r0
+    r0
   end
 
   module AuthorName0
@@ -3820,7 +3820,7 @@ module ScientificNameClean
       r1.extend(AuthorName0)
       r1.extend(AuthorName1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -3850,7 +3850,7 @@ module ScientificNameClean
         r7.extend(AuthorName2)
         r7.extend(AuthorName3)
       else
-        self.index = i7
+        @index = i7
         r7 = nil
       end
       if r7
@@ -3860,7 +3860,7 @@ module ScientificNameClean
         if r13
           r0 = r13
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -3868,7 +3868,7 @@ module ScientificNameClean
 
     node_cache[:author_name][start_index] = r0
 
-    return r0
+    r0
   end
 
   module AuthorWord0
@@ -3943,7 +3943,7 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("A S. Xu", index) == index
+    if has_terminal?("A S. Xu", false, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 7))
       r1.extend(AuthorWord0)
       @index += 7
@@ -3955,7 +3955,7 @@ module ScientificNameClean
       r0 = r1
     else
       i2 = index
-      if input.index("arg.", index) == index
+      if has_terminal?("arg.", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 4))
         @index += 4
       else
@@ -3966,7 +3966,7 @@ module ScientificNameClean
         r2 = r3
         r2.extend(AuthorWord1)
       else
-        if input.index("et al.\{\?\}", index) == index
+        if has_terminal?("et al.\{\?\}", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 9))
           @index += 9
         else
@@ -3977,7 +3977,7 @@ module ScientificNameClean
           r2 = r4
           r2.extend(AuthorWord1)
         else
-          if input.index("et al.", index) == index
+          if has_terminal?("et al.", false, index)
             r5 = instantiate_node(SyntaxNode,input, index...(index + 6))
             @index += 6
           else
@@ -3988,7 +3988,7 @@ module ScientificNameClean
             r2 = r5
             r2.extend(AuthorWord1)
           else
-            self.index = i2
+            @index = i2
             r2 = nil
           end
         end
@@ -3998,9 +3998,9 @@ module ScientificNameClean
       else
         i6, s6 = index, []
         i7 = index
-        if input.index("Å", index) == index
-          r8 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        if has_terminal?("Å", false, index)
+          r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
         else
           terminal_parse_failure("Å")
           r8 = nil
@@ -4008,9 +4008,9 @@ module ScientificNameClean
         if r8
           r7 = r8
         else
-          if input.index("Ö", index) == index
-            r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
+          if has_terminal?("Ö", false, index)
+            r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
           else
             terminal_parse_failure("Ö")
             r9 = nil
@@ -4018,9 +4018,9 @@ module ScientificNameClean
           if r9
             r7 = r9
           else
-            if input.index("Á", index) == index
-              r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+            if has_terminal?("Á", false, index)
+              r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
             else
               terminal_parse_failure("Á")
               r10 = nil
@@ -4028,9 +4028,9 @@ module ScientificNameClean
             if r10
               r7 = r10
             else
-              if input.index("Ø", index) == index
-                r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                @index += 2
+              if has_terminal?("Ø", false, index)
+                r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
               else
                 terminal_parse_failure("Ø")
                 r11 = nil
@@ -4038,9 +4038,9 @@ module ScientificNameClean
               if r11
                 r7 = r11
               else
-                if input.index("Ô", index) == index
-                  r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                  @index += 2
+                if has_terminal?("Ô", false, index)
+                  r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
                 else
                   terminal_parse_failure("Ô")
                   r12 = nil
@@ -4048,9 +4048,9 @@ module ScientificNameClean
                 if r12
                   r7 = r12
                 else
-                  if input.index("Š", index) == index
-                    r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
+                  if has_terminal?("Š", false, index)
+                    r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                    @index += 1
                   else
                     terminal_parse_failure("Š")
                     r13 = nil
@@ -4058,9 +4058,9 @@ module ScientificNameClean
                   if r13
                     r7 = r13
                   else
-                    if input.index("Ś", index) == index
-                      r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                      @index += 2
+                    if has_terminal?("Ś", false, index)
+                      r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                      @index += 1
                     else
                       terminal_parse_failure("Ś")
                       r14 = nil
@@ -4068,9 +4068,9 @@ module ScientificNameClean
                     if r14
                       r7 = r14
                     else
-                      if input.index("Č", index) == index
-                        r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                        @index += 2
+                      if has_terminal?("Č", false, index)
+                        r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                        @index += 1
                       else
                         terminal_parse_failure("Č")
                         r15 = nil
@@ -4078,9 +4078,9 @@ module ScientificNameClean
                       if r15
                         r7 = r15
                       else
-                        if input.index("Ķ", index) == index
-                          r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                          @index += 2
+                        if has_terminal?("Ķ", false, index)
+                          r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                          @index += 1
                         else
                           terminal_parse_failure("Ķ")
                           r16 = nil
@@ -4088,9 +4088,9 @@ module ScientificNameClean
                         if r16
                           r7 = r16
                         else
-                          if input.index("Ł", index) == index
-                            r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                            @index += 2
+                          if has_terminal?("Ł", false, index)
+                            r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                            @index += 1
                           else
                             terminal_parse_failure("Ł")
                             r17 = nil
@@ -4098,9 +4098,9 @@ module ScientificNameClean
                           if r17
                             r7 = r17
                           else
-                            if input.index("É", index) == index
-                              r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                              @index += 2
+                            if has_terminal?("É", false, index)
+                              r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                              @index += 1
                             else
                               terminal_parse_failure("É")
                               r18 = nil
@@ -4108,9 +4108,9 @@ module ScientificNameClean
                             if r18
                               r7 = r18
                             else
-                              if input.index("Ž", index) == index
-                                r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                @index += 2
+                              if has_terminal?("Ž", false, index)
+                                r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                @index += 1
                               else
                                 terminal_parse_failure("Ž")
                                 r19 = nil
@@ -4118,7 +4118,7 @@ module ScientificNameClean
                               if r19
                                 r7 = r19
                               else
-                                if input.index(Regexp.new('[A-W]'), index) == index
+                                if has_terminal?('\G[A-W]', true, index)
                                   r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                   @index += 1
                                 else
@@ -4127,7 +4127,7 @@ module ScientificNameClean
                                 if r20
                                   r7 = r20
                                 else
-                                  if input.index(Regexp.new('[Y-Z]'), index) == index
+                                  if has_terminal?('\G[Y-Z]', true, index)
                                     r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                     @index += 1
                                   else
@@ -4136,7 +4136,7 @@ module ScientificNameClean
                                   if r21
                                     r7 = r21
                                   else
-                                    self.index = i7
+                                    @index = i7
                                     r7 = nil
                                   end
                                 end
@@ -4156,7 +4156,7 @@ module ScientificNameClean
         if r7
           s22, i22 = [], index
           loop do
-            if input.index(Regexp.new('[^0-9\\[\\]\\(\\)\\s&,]'), index) == index
+            if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
               r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -4176,14 +4176,14 @@ module ScientificNameClean
           r6.extend(AuthorWord2)
           r6.extend(AuthorWord3)
         else
-          self.index = i6
+          @index = i6
           r6 = nil
         end
         if r6
           r0 = r6
         else
           i24, s24 = index, []
-          if input.index("X", index) == index
+          if has_terminal?("X", false, index)
             r25 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -4194,7 +4194,7 @@ module ScientificNameClean
           if r25
             s26, i26 = [], index
             loop do
-              if input.index(Regexp.new('[^0-9\\[\\]\\(\\)\\s&,]'), index) == index
+              if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
                 r27 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
@@ -4207,7 +4207,7 @@ module ScientificNameClean
               end
             end
             if s26.empty?
-              self.index = i26
+              @index = i26
               r26 = nil
             else
               r26 = instantiate_node(SyntaxNode,input, i26...index, s26)
@@ -4219,7 +4219,7 @@ module ScientificNameClean
             r24.extend(AuthorWord4)
             r24.extend(AuthorWord5)
           else
-            self.index = i24
+            @index = i24
             r24 = nil
           end
           if r24
@@ -4229,7 +4229,7 @@ module ScientificNameClean
             if r28
               r0 = r28
             else
-              self.index = i0
+              @index = i0
               r0 = nil
             end
           end
@@ -4239,7 +4239,7 @@ module ScientificNameClean
 
     node_cache[:author_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module AuthorPrefixWord0
@@ -4273,7 +4273,7 @@ module ScientificNameClean
     s0 << r1
     if r1
       i2 = index
-      if input.index("ab", index) == index
+      if has_terminal?("ab", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
         @index += 2
       else
@@ -4283,7 +4283,7 @@ module ScientificNameClean
       if r3
         r2 = r3
       else
-        if input.index("bis", index) == index
+        if has_terminal?("bis", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
           @index += 3
         else
@@ -4293,7 +4293,7 @@ module ScientificNameClean
         if r4
           r2 = r4
         else
-          if input.index("da", index) == index
+          if has_terminal?("da", false, index)
             r5 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
@@ -4303,7 +4303,7 @@ module ScientificNameClean
           if r5
             r2 = r5
           else
-            if input.index("der", index) == index
+            if has_terminal?("der", false, index)
               r6 = instantiate_node(SyntaxNode,input, index...(index + 3))
               @index += 3
             else
@@ -4313,7 +4313,7 @@ module ScientificNameClean
             if r6
               r2 = r6
             else
-              if input.index("den", index) == index
+              if has_terminal?("den", false, index)
                 r7 = instantiate_node(SyntaxNode,input, index...(index + 3))
                 @index += 3
               else
@@ -4323,7 +4323,7 @@ module ScientificNameClean
               if r7
                 r2 = r7
               else
-                if input.index("della", index) == index
+                if has_terminal?("della", false, index)
                   r8 = instantiate_node(SyntaxNode,input, index...(index + 5))
                   @index += 5
                 else
@@ -4333,7 +4333,7 @@ module ScientificNameClean
                 if r8
                   r2 = r8
                 else
-                  if input.index("dela", index) == index
+                  if has_terminal?("dela", false, index)
                     r9 = instantiate_node(SyntaxNode,input, index...(index + 4))
                     @index += 4
                   else
@@ -4343,7 +4343,7 @@ module ScientificNameClean
                   if r9
                     r2 = r9
                   else
-                    if input.index("de", index) == index
+                    if has_terminal?("de", false, index)
                       r10 = instantiate_node(SyntaxNode,input, index...(index + 2))
                       @index += 2
                     else
@@ -4353,7 +4353,7 @@ module ScientificNameClean
                     if r10
                       r2 = r10
                     else
-                      if input.index("di", index) == index
+                      if has_terminal?("di", false, index)
                         r11 = instantiate_node(SyntaxNode,input, index...(index + 2))
                         @index += 2
                       else
@@ -4363,7 +4363,7 @@ module ScientificNameClean
                       if r11
                         r2 = r11
                       else
-                        if input.index("du", index) == index
+                        if has_terminal?("du", false, index)
                           r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
                           @index += 2
                         else
@@ -4373,7 +4373,7 @@ module ScientificNameClean
                         if r12
                           r2 = r12
                         else
-                          if input.index("la", index) == index
+                          if has_terminal?("la", false, index)
                             r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
                             @index += 2
                           else
@@ -4383,7 +4383,7 @@ module ScientificNameClean
                           if r13
                             r2 = r13
                           else
-                            if input.index("ter", index) == index
+                            if has_terminal?("ter", false, index)
                               r14 = instantiate_node(SyntaxNode,input, index...(index + 3))
                               @index += 3
                             else
@@ -4393,7 +4393,7 @@ module ScientificNameClean
                             if r14
                               r2 = r14
                             else
-                              if input.index("van", index) == index
+                              if has_terminal?("van", false, index)
                                 r15 = instantiate_node(SyntaxNode,input, index...(index + 3))
                                 @index += 3
                               else
@@ -4403,7 +4403,7 @@ module ScientificNameClean
                               if r15
                                 r2 = r15
                               else
-                                if input.index("von", index) == index
+                                if has_terminal?("von", false, index)
                                   r16 = instantiate_node(SyntaxNode,input, index...(index + 3))
                                   @index += 3
                                 else
@@ -4413,7 +4413,7 @@ module ScientificNameClean
                                 if r16
                                   r2 = r16
                                 else
-                                  self.index = i2
+                                  @index = i2
                                   r2 = nil
                                 end
                               end
@@ -4434,7 +4434,7 @@ module ScientificNameClean
         i17 = index
         r18 = _nt_space_hard
         if r18
-          self.index = i17
+          @index = i17
           r17 = instantiate_node(SyntaxNode,input, index...index)
         else
           r17 = nil
@@ -4447,13 +4447,13 @@ module ScientificNameClean
       r0.extend(AuthorPrefixWord0)
       r0.extend(AuthorPrefixWord1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:author_prefix_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module CapLatinWord0
@@ -4506,7 +4506,7 @@ module ScientificNameClean
     i0 = index
     i1, s1 = index, []
     i2 = index
-    if input.index(Regexp.new('[A-Z]'), index) == index
+    if has_terminal?('\G[A-Z]', true, index)
       r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -4519,7 +4519,7 @@ module ScientificNameClean
       if r4
         r2 = r4
       else
-        self.index = i2
+        @index = i2
         r2 = nil
       end
     end
@@ -4528,7 +4528,7 @@ module ScientificNameClean
       r5 = _nt_latin_word
       s1 << r5
       if r5
-        if input.index("?", index) == index
+        if has_terminal?("?", false, index)
           r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -4543,7 +4543,7 @@ module ScientificNameClean
       r1.extend(CapLatinWord0)
       r1.extend(CapLatinWord1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -4551,7 +4551,7 @@ module ScientificNameClean
     else
       i7, s7 = index, []
       i8 = index
-      if input.index(Regexp.new('[A-Z]'), index) == index
+      if has_terminal?('\G[A-Z]', true, index)
         r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -4564,7 +4564,7 @@ module ScientificNameClean
         if r10
           r8 = r10
         else
-          self.index = i8
+          @index = i8
           r8 = nil
         end
       end
@@ -4578,14 +4578,14 @@ module ScientificNameClean
         r7.extend(CapLatinWord2)
         r7.extend(CapLatinWord3)
       else
-        self.index = i7
+        @index = i7
         r7 = nil
       end
       if r7
         r0 = r7
       else
         i12 = index
-        if input.index("Ca", index) == index
+        if has_terminal?("Ca", false, index)
           r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
           @index += 2
         else
@@ -4596,7 +4596,7 @@ module ScientificNameClean
           r12 = r13
           r12.extend(CapLatinWord4)
         else
-          if input.index("Ea", index) == index
+          if has_terminal?("Ea", false, index)
             r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
@@ -4607,7 +4607,7 @@ module ScientificNameClean
             r12 = r14
             r12.extend(CapLatinWord4)
           else
-            if input.index("Ge", index) == index
+            if has_terminal?("Ge", false, index)
               r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
               @index += 2
             else
@@ -4618,7 +4618,7 @@ module ScientificNameClean
               r12 = r15
               r12.extend(CapLatinWord4)
             else
-              if input.index("Ia", index) == index
+              if has_terminal?("Ia", false, index)
                 r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
                 @index += 2
               else
@@ -4629,7 +4629,7 @@ module ScientificNameClean
                 r12 = r16
                 r12.extend(CapLatinWord4)
               else
-                if input.index("Io", index) == index
+                if has_terminal?("Io", false, index)
                   r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
                   @index += 2
                 else
@@ -4640,7 +4640,7 @@ module ScientificNameClean
                   r12 = r17
                   r12.extend(CapLatinWord4)
                 else
-                  if input.index("Io", index) == index
+                  if has_terminal?("Io", false, index)
                     r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
                     @index += 2
                   else
@@ -4651,7 +4651,7 @@ module ScientificNameClean
                     r12 = r18
                     r12.extend(CapLatinWord4)
                   else
-                    if input.index("Ix", index) == index
+                    if has_terminal?("Ix", false, index)
                       r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
                       @index += 2
                     else
@@ -4662,7 +4662,7 @@ module ScientificNameClean
                       r12 = r19
                       r12.extend(CapLatinWord4)
                     else
-                      if input.index("Lo", index) == index
+                      if has_terminal?("Lo", false, index)
                         r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
                         @index += 2
                       else
@@ -4673,7 +4673,7 @@ module ScientificNameClean
                         r12 = r20
                         r12.extend(CapLatinWord4)
                       else
-                        if input.index("Oa", index) == index
+                        if has_terminal?("Oa", false, index)
                           r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
                           @index += 2
                         else
@@ -4684,7 +4684,7 @@ module ScientificNameClean
                           r12 = r21
                           r12.extend(CapLatinWord4)
                         else
-                          if input.index("Ra", index) == index
+                          if has_terminal?("Ra", false, index)
                             r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
                             @index += 2
                           else
@@ -4695,7 +4695,7 @@ module ScientificNameClean
                             r12 = r22
                             r12.extend(CapLatinWord4)
                           else
-                            if input.index("Ty", index) == index
+                            if has_terminal?("Ty", false, index)
                               r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
                               @index += 2
                             else
@@ -4706,7 +4706,7 @@ module ScientificNameClean
                               r12 = r23
                               r12.extend(CapLatinWord4)
                             else
-                              if input.index("Ua", index) == index
+                              if has_terminal?("Ua", false, index)
                                 r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                 @index += 2
                               else
@@ -4717,7 +4717,7 @@ module ScientificNameClean
                                 r12 = r24
                                 r12.extend(CapLatinWord4)
                               else
-                                if input.index("Aa", index) == index
+                                if has_terminal?("Aa", false, index)
                                   r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                   @index += 2
                                 else
@@ -4728,7 +4728,7 @@ module ScientificNameClean
                                   r12 = r25
                                   r12.extend(CapLatinWord4)
                                 else
-                                  if input.index("Ja", index) == index
+                                  if has_terminal?("Ja", false, index)
                                     r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                     @index += 2
                                   else
@@ -4739,7 +4739,7 @@ module ScientificNameClean
                                     r12 = r26
                                     r12.extend(CapLatinWord4)
                                   else
-                                    if input.index("Zu", index) == index
+                                    if has_terminal?("Zu", false, index)
                                       r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                       @index += 2
                                     else
@@ -4750,7 +4750,7 @@ module ScientificNameClean
                                       r12 = r27
                                       r12.extend(CapLatinWord4)
                                     else
-                                      if input.index("La", index) == index
+                                      if has_terminal?("La", false, index)
                                         r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                         @index += 2
                                       else
@@ -4761,7 +4761,7 @@ module ScientificNameClean
                                         r12 = r28
                                         r12.extend(CapLatinWord4)
                                       else
-                                        if input.index("Qu", index) == index
+                                        if has_terminal?("Qu", false, index)
                                           r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                           @index += 2
                                         else
@@ -4772,7 +4772,7 @@ module ScientificNameClean
                                           r12 = r29
                                           r12.extend(CapLatinWord4)
                                         else
-                                          if input.index("As", index) == index
+                                          if has_terminal?("As", false, index)
                                             r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                             @index += 2
                                           else
@@ -4783,7 +4783,7 @@ module ScientificNameClean
                                             r12 = r30
                                             r12.extend(CapLatinWord4)
                                           else
-                                            if input.index("Ba", index) == index
+                                            if has_terminal?("Ba", false, index)
                                               r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
                                               @index += 2
                                             else
@@ -4794,7 +4794,7 @@ module ScientificNameClean
                                               r12 = r31
                                               r12.extend(CapLatinWord4)
                                             else
-                                              self.index = i12
+                                              @index = i12
                                               r12 = nil
                                             end
                                           end
@@ -4818,7 +4818,7 @@ module ScientificNameClean
         if r12
           r0 = r12
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -4826,7 +4826,7 @@ module ScientificNameClean
 
     node_cache[:cap_latin_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module SpeciesWordHybrid0
@@ -4962,14 +4962,14 @@ module ScientificNameClean
       r1.extend(SpeciesWordHybrid0)
       r1.extend(SpeciesWordHybrid1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
       r0 = r1
     else
       i5, s5 = index, []
-      if input.index("X", index) == index
+      if has_terminal?("X", false, index)
         r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -4990,14 +4990,14 @@ module ScientificNameClean
         r5.extend(SpeciesWordHybrid2)
         r5.extend(SpeciesWordHybrid3)
       else
-        self.index = i5
+        @index = i5
         r5 = nil
       end
       if r5
         r0 = r5
       else
         i9, s9 = index, []
-        if input.index("x", index) == index
+        if has_terminal?("x", false, index)
           r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -5018,13 +5018,13 @@ module ScientificNameClean
           r9.extend(SpeciesWordHybrid4)
           r9.extend(SpeciesWordHybrid5)
         else
-          self.index = i9
+          @index = i9
           r9 = nil
         end
         if r9
           r0 = r9
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -5032,7 +5032,7 @@ module ScientificNameClean
 
     node_cache[:species_word_hybrid][start_index] = r0
 
-    return r0
+    r0
   end
 
   module SpeciesPrefix0
@@ -5048,7 +5048,7 @@ module ScientificNameClean
 
     i0, s0 = index, []
     i1 = index
-    if input.index("aff.", index) == index
+    if has_terminal?("aff.", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 4))
       @index += 4
     else
@@ -5058,7 +5058,7 @@ module ScientificNameClean
     if r2
       r1 = r2
     else
-      if input.index("corrig.", index) == index
+      if has_terminal?("corrig.", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 7))
         @index += 7
       else
@@ -5068,7 +5068,7 @@ module ScientificNameClean
       if r3
         r1 = r3
       else
-        if input.index("?", index) == index
+        if has_terminal?("?", false, index)
           r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -5078,7 +5078,7 @@ module ScientificNameClean
         if r4
           r1 = r4
         else
-          self.index = i1
+          @index = i1
           r1 = nil
         end
       end
@@ -5088,7 +5088,7 @@ module ScientificNameClean
       i5 = index
       r6 = _nt_space_hard
       if r6
-        self.index = i5
+        @index = i5
         r5 = instantiate_node(SyntaxNode,input, index...index)
       else
         r5 = nil
@@ -5099,13 +5099,13 @@ module ScientificNameClean
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
       r0.extend(SpeciesPrefix0)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:species_prefix][start_index] = r0
 
-    return r0
+    r0
   end
 
   module SpeciesWord0
@@ -5136,7 +5136,7 @@ module ScientificNameClean
     i1, s1 = index, []
     s2, i2 = [], index
     loop do
-      if input.index(Regexp.new('[0-9]'), index) == index
+      if has_terminal?('\G[0-9]', true, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5149,14 +5149,14 @@ module ScientificNameClean
       end
     end
     if s2.empty?
-      self.index = i2
+      @index = i2
       r2 = nil
     else
       r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
     end
     s1 << r2
     if r2
-      if input.index("-", index) == index
+      if has_terminal?("-", false, index)
         r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5179,7 +5179,7 @@ module ScientificNameClean
       r1.extend(SpeciesWord0)
       r1.extend(SpeciesWord1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -5189,14 +5189,14 @@ module ScientificNameClean
       if r7
         r0 = r7
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:species_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module LatinWord0
@@ -5241,7 +5241,7 @@ module ScientificNameClean
 
     i0 = index
     i1, s1 = index, []
-    if input.index(Regexp.new('[a-zëüäöïéåóç]'), index) == index
+    if has_terminal?('\G[a-zëüäöïéåóç]', true, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -5257,7 +5257,7 @@ module ScientificNameClean
       r1.extend(LatinWord0)
       r1.extend(LatinWord1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -5275,20 +5275,20 @@ module ScientificNameClean
         r4.extend(LatinWord2)
         r4.extend(LatinWord3)
       else
-        self.index = i4
+        @index = i4
         r4 = nil
       end
       if r4
         r0 = r4
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:latin_word][start_index] = r0
 
-    return r0
+    r0
   end
 
   module FullNameLetters0
@@ -5348,7 +5348,7 @@ module ScientificNameClean
       r1.extend(FullNameLetters0)
       r1.extend(FullNameLetters1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -5370,7 +5370,7 @@ module ScientificNameClean
         r4.extend(FullNameLetters2)
         r4.extend(FullNameLetters3)
       else
-        self.index = i4
+        @index = i4
         r4 = nil
       end
       if r4
@@ -5380,7 +5380,7 @@ module ScientificNameClean
         if r8
           r0 = r8
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -5388,7 +5388,7 @@ module ScientificNameClean
 
     node_cache[:full_name_letters][start_index] = r0
 
-    return r0
+    r0
   end
 
   module ValidNameLetters0
@@ -5407,7 +5407,7 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[a-z\\-ëüäöïéåóç]'), index) == index
+      if has_terminal?('\G[a-z\\-ëüäöïéåóç]', true, index)
         r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5420,7 +5420,7 @@ module ScientificNameClean
       end
     end
     if s0.empty?
-      self.index = i0
+      @index = i0
       r0 = nil
     else
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
@@ -5429,7 +5429,7 @@ module ScientificNameClean
 
     node_cache[:valid_name_letters][start_index] = r0
 
-    return r0
+    r0
   end
 
   module CapDigraph0
@@ -5453,10 +5453,10 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("Æ", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+    if has_terminal?("Æ", false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r1.extend(CapDigraph0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("Æ")
       r1 = nil
@@ -5464,10 +5464,10 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      if input.index("Œ", index) == index
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      if has_terminal?("Œ", false, index)
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         r2.extend(CapDigraph1)
-        @index += 2
+        @index += 1
       else
         terminal_parse_failure("Œ")
         r2 = nil
@@ -5475,14 +5475,14 @@ module ScientificNameClean
       if r2
         r0 = r2
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:cap_digraph][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Digraph0
@@ -5506,10 +5506,10 @@ module ScientificNameClean
     end
 
     i0 = index
-    if input.index("æ", index) == index
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+    if has_terminal?("æ", false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r1.extend(Digraph0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("æ")
       r1 = nil
@@ -5517,10 +5517,10 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      if input.index("œ", index) == index
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      if has_terminal?("œ", false, index)
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         r2.extend(Digraph1)
-        @index += 2
+        @index += 1
       else
         terminal_parse_failure("œ")
         r2 = nil
@@ -5528,14 +5528,14 @@ module ScientificNameClean
       if r2
         r0 = r2
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:digraph][start_index] = r0
 
-    return r0
+    r0
   end
 
   module Year0
@@ -5599,7 +5599,7 @@ module ScientificNameClean
           if r6
             r4 = r6
           else
-            self.index = i4
+            @index = i4
             r4 = nil
           end
         end
@@ -5619,7 +5619,7 @@ module ScientificNameClean
       r1.extend(Year0)
       r1.extend(Year1)
     else
-      self.index = i1
+      @index = i1
       r1 = nil
     end
     if r1
@@ -5633,7 +5633,7 @@ module ScientificNameClean
         if r10
           r0 = r10
         else
-          self.index = i0
+          @index = i0
           r0 = nil
         end
       end
@@ -5641,7 +5641,7 @@ module ScientificNameClean
 
     node_cache[:year][start_index] = r0
 
-    return r0
+    r0
   end
 
   module YearNumberWithCharacter0
@@ -5677,7 +5677,7 @@ module ScientificNameClean
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if input.index(Regexp.new('[a-zA-Z]'), index) == index
+      if has_terminal?('\G[a-zA-Z]', true, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5690,13 +5690,13 @@ module ScientificNameClean
       r0.extend(YearNumberWithCharacter0)
       r0.extend(YearNumberWithCharacter1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:year_number_with_character][start_index] = r0
 
-    return r0
+    r0
   end
 
   module YearNumber0
@@ -5725,7 +5725,7 @@ module ScientificNameClean
     end
 
     i0, s0 = index, []
-    if input.index(Regexp.new('[12]'), index) == index
+    if has_terminal?('\G[12]', true, index)
       r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -5733,7 +5733,7 @@ module ScientificNameClean
     end
     s0 << r1
     if r1
-      if input.index(Regexp.new('[7890]'), index) == index
+      if has_terminal?('\G[7890]', true, index)
         r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5741,7 +5741,7 @@ module ScientificNameClean
       end
       s0 << r2
       if r2
-        if input.index(Regexp.new('[0-9]'), index) == index
+        if has_terminal?('\G[0-9]', true, index)
           r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
@@ -5749,7 +5749,7 @@ module ScientificNameClean
         end
         s0 << r3
         if r3
-          if input.index(Regexp.new('[0-9]'), index) == index
+          if has_terminal?('\G[0-9]', true, index)
             r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
@@ -5762,7 +5762,7 @@ module ScientificNameClean
           end
           s0 << r4
           if r4
-            if input.index(Regexp.new('[\\?]'), index) == index
+            if has_terminal?('\G[\\?]', true, index)
               r7 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
@@ -5783,13 +5783,13 @@ module ScientificNameClean
       r0.extend(YearNumber0)
       r0.extend(YearNumber1)
     else
-      self.index = i0
+      @index = i0
       r0 = nil
     end
 
     node_cache[:year_number][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_left_paren
@@ -5800,7 +5800,7 @@ module ScientificNameClean
       return cached
     end
 
-    if input.index("(", index) == index
+    if has_terminal?("(", false, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -5810,7 +5810,7 @@ module ScientificNameClean
 
     node_cache[:left_paren][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_right_paren
@@ -5821,7 +5821,7 @@ module ScientificNameClean
       return cached
     end
 
-    if input.index(")", index) == index
+    if has_terminal?(")", false, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -5831,7 +5831,7 @@ module ScientificNameClean
 
     node_cache[:right_paren][start_index] = r0
 
-    return r0
+    r0
   end
 
   module HybridCharacter0
@@ -5850,7 +5850,7 @@ module ScientificNameClean
 
     i0 = index
     i1 = index
-    if input.index("x", index) == index
+    if has_terminal?("x", false, index)
       r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
@@ -5861,7 +5861,7 @@ module ScientificNameClean
       r1 = r2
       r1.extend(HybridCharacter0)
     else
-      if input.index("X", index) == index
+      if has_terminal?("X", false, index)
         r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5872,7 +5872,7 @@ module ScientificNameClean
         r1 = r3
         r1.extend(HybridCharacter0)
       else
-        self.index = i1
+        @index = i1
         r1 = nil
       end
     end
@@ -5883,14 +5883,14 @@ module ScientificNameClean
       if r4
         r0 = r4
       else
-        self.index = i0
+        @index = i0
         r0 = nil
       end
     end
 
     node_cache[:hybrid_character][start_index] = r0
 
-    return r0
+    r0
   end
 
   module MultiplicationSign0
@@ -5907,10 +5907,10 @@ module ScientificNameClean
       return cached
     end
 
-    if input.index("×", index) == index
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 2))
+    if has_terminal?("×", false, index)
+      r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r0.extend(MultiplicationSign0)
-      @index += 2
+      @index += 1
     else
       terminal_parse_failure("×")
       r0 = nil
@@ -5918,7 +5918,7 @@ module ScientificNameClean
 
     node_cache[:multiplication_sign][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_space
@@ -5931,7 +5931,7 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[\\s]'), index) == index
+      if has_terminal?('\G[\\s]', true, index)
         r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5947,7 +5947,7 @@ module ScientificNameClean
 
     node_cache[:space][start_index] = r0
 
-    return r0
+    r0
   end
 
   def _nt_space_hard
@@ -5960,7 +5960,7 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if input.index(Regexp.new('[\\s]'), index) == index
+      if has_terminal?('\G[\\s]', true, index)
         r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
@@ -5973,7 +5973,7 @@ module ScientificNameClean
       end
     end
     if s0.empty?
-      self.index = i0
+      @index = i0
       r0 = nil
     else
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
@@ -5981,7 +5981,7 @@ module ScientificNameClean
 
     node_cache[:space_hard][start_index] = r0
 
-    return r0
+    r0
   end
 
 end
