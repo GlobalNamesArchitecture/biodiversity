@@ -13,13 +13,13 @@ class ScientificNameParser
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
-    @parser = nil
+    @parsed = nil
   end
   
   def parse(a_string)
     @verbatim = a_string
-    @parser = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || {:verbatim => a_string}
-    def @parser.to_json
+    @parsed = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || {:verbatim => a_string}
+    def @parsed.all
       parsed = self.class != Hash
       res = {:parsed => parsed}
       if parsed
@@ -36,13 +36,18 @@ class ScientificNameParser
         res.merge!(self)
       end
       res = {:scientificName => res}
-      JSON.generate res
+      res
     end
     
-    def @parser.pos_json
+    def @parsed.pos_json
       JSON.generate self.pos rescue ''
     end
-    @parser
+    
+    def @parsed.all_json
+      JSON.generate self.all
+    end
+    
+    @parsed.all
   end
 end
 

@@ -14,18 +14,18 @@ describe ScientificNameClean do
     end
   end
   
-  it 'should generate new test_file' do
-    new_test = open(File.expand_path(dir + "../../spec/parser/test_data_new.txt"),'w')
-    read_test_file do |y|
-      if y[:comment]
-        new_test.write y[:comment]
-      else
-        name = y[:name]
-        jsn = json(y[:name])# rescue puts(y[:name])
-        new_test.write("#{name}|#{jsn}\n")
-      end
-    end
-  end
+  # it 'should generate new test_file' do
+  #   new_test = open(File.expand_path(dir + "../../spec/parser/test_data_new.txt"),'w')
+  #   read_test_file do |y|
+  #     if y[:comment]
+  #       new_test.write y[:comment]
+  #     else
+  #       name = y[:name]
+  #       jsn = json(y[:name])# rescue puts(y[:name])
+  #       new_test.write("#{name}|#{jsn}\n")
+  #     end
+  #   end
+  # end
   
   it 'should generate reasonable output if parser failed' do
     sn = 'ddd sljlkj 3223452432'

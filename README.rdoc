@@ -21,17 +21,23 @@ You can use it as a library
   
   parser = ScientificNameParser.new
   
-  # to parse a scientific name 
+  # to parse a scientific name into a ruby hash
   parser.parse("Plantago major")
   
+  #to get json representation
+  parser.parse("Plantago").to_json
+  #or
+  parser.parse("Plantago")
+  parser.all_json
+  
   # to clean name up
-  parser.parse("             Plantago       major    ").value
+  parser.parse("             Plantago       major    ")[:normalized]
   
   # to get only cleaned up latin part of the name
-  parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").canonical
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:canonical]
   
   # to get detailed information about elements of the name
-  parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").details
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:details]
   
   # to resolve lsid and get back RDF file
   LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
