@@ -44,11 +44,11 @@ class ScientificNameParser
     end
     
     def @parsed.pos_json
-      JSON.generate self.pos rescue ''
+      self.pos.to_json rescue ''
     end
     
     def @parsed.all_json
-      JSON.generate self.all
+      self.all.to_json rescue ''
     end
     
     @parsed.all
