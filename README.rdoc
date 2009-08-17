@@ -31,13 +31,13 @@ You can use it as a library
   parser.all_json
   
   # to clean name up
-  parser.parse("             Plantago       major    ")[:normalized]
+  parser.parse("             Plantago       major    ")[:scientificName][:normalized] 
   
   # to get only cleaned up latin part of the name
-  parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:canonical]
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:canonical]
   
   # to get detailed information about elements of the name
-  parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:details]
+  parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:scientificName][:details]
   
   # to resolve lsid and get back RDF file
   LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
