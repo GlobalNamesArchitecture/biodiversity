@@ -6,6 +6,7 @@ $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
 require 'json'
 
+
 if ARGV.empty?
   puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.json\n\n"
   exit
@@ -14,16 +15,29 @@ end
 input = ARGV[0]
 output = ARGV[1] || 'parsed.json'
 
+ruby_min_version = RUBY_VERSION.split(".")[0..1].join('').to_i
+
 p = ScientificNameParser.new
 o = open(output, 'w')
-
 count = 0
+puts 'Parsing...'
 IO.foreach(input) do |line|
   count += 1
   puts("%s lines parsed" % count) if count % 10000 == 0
-  name = line.gsub(/^[\d]*\s*/, '').strip 
-  p.parse(name)
-  parsed_data = p.parsed.all_json rescue {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
+  name = line.gsub(/^[\d]*\s*/, '').strip
+  begin
+    if ruby_min_version < 19
+      old_kcode = $KCODE
+      $KCODE = 'NONE'
+    end
+    p.parse(name) 
+    parsed_data = p.parsed.all_json rescue {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
+    if ruby_min_version < 19
+      $KCODE = old_kcode
+    end
+  rescue 
+    parsed_data = {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
+  end
   o.write parsed_data + "\n"
 end
 
