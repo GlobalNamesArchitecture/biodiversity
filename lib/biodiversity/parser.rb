@@ -16,6 +16,10 @@ class ScientificNameParser
     @parsed = nil
   end
   
+  def parsed
+    @parsed
+  end
+  
   def parse(a_string)
     @verbatim = a_string
     @parsed = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || {:verbatim => a_string}

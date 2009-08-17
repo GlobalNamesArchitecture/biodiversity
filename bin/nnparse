@@ -23,7 +23,7 @@ IO.foreach(input) do |line|
   puts("%s lines parsed" % count) if count % 10000 == 0
   name = line.gsub(/^[\d]*\s*/, '').strip 
   p.parse(name)
-  parsed_data = p.parsed.all_json rescue {'parsed' => false, 'vernacular' => name,  'error' => 'Parser error'}.to_json
+  parsed_data = p.parsed.all_json rescue {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
   o.write parsed_data + "\n"
 end
 
