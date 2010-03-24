@@ -186,7 +186,7 @@ grammar ScientificNameClean
   
   
   rule multinomial_name
-    a:genus space b:subgenus space species_prefix? space c:species space_hard d:infraspecies_mult {
+    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
@@ -208,7 +208,7 @@ grammar ScientificNameClean
       end
     }
     /  
-    a:genus space b:subgenus space species_prefix? space c:species {
+    a:genus space b:infragenus space species_prefix? space c:species {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -488,7 +488,7 @@ grammar ScientificNameClean
     species_word_hybrid
   end
   
-  rule subgenus
+  rule infragenus
     left_paren space a:cap_latin_word space right_paren {
       def value
         "(" + a.value + ")"
@@ -499,11 +499,11 @@ grammar ScientificNameClean
       end
       
       def pos
-        {a.interval.begin => ['subgenus', a.interval.end]}
+        {a.interval.begin => ['infragenus', a.interval.end]}
       end
       
       def details
-        {:subgenus => {:string => a.value}}
+        {:infragenus => {:string => a.value}}
       end
     }
   end

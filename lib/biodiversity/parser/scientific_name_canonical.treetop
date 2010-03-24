@@ -27,7 +27,7 @@ grammar ScientificNameCanonical
   
   rule multinomial_with_garbage
   
-    a:genus space b:subgenus space c:species garbage {
+    a:genus space b:infragenus space c:species garbage {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -45,7 +45,7 @@ grammar ScientificNameCanonical
       end
     }
     /
-    a:genus space b:subgenus garbage {
+    a:genus space b:infragenus garbage {
       def value
         a.value + " " + b.value
       end

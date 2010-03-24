@@ -866,7 +866,7 @@ module ScientificNameClean
       r3 = _nt_space
       s1 << r3
       if r3
-        r4 = _nt_subgenus
+        r4 = _nt_infragenus
         s1 << r4
         if r4
           r5 = _nt_space
@@ -917,7 +917,7 @@ module ScientificNameClean
         r14 = _nt_space
         s12 << r14
         if r14
-          r15 = _nt_subgenus
+          r15 = _nt_infragenus
           s12 << r15
           if r15
             r16 = _nt_space
@@ -2146,7 +2146,7 @@ module ScientificNameClean
     r0
   end
 
-  module Subgenus0
+  module Infragenus0
     def left_paren
       elements[0]
     end
@@ -2168,7 +2168,7 @@ module ScientificNameClean
     end
   end
 
-  module Subgenus1
+  module Infragenus1
     def value
       "(" + a.value + ")"
     end
@@ -2178,18 +2178,18 @@ module ScientificNameClean
     end
     
     def pos
-      {a.interval.begin => ['subgenus', a.interval.end]}
+      {a.interval.begin => ['infragenus', a.interval.end]}
     end
     
     def details
-      {:subgenus => {:string => a.value}}
+      {:infragenus => {:string => a.value}}
     end
   end
 
-  def _nt_subgenus
+  def _nt_infragenus
     start_index = index
-    if node_cache[:subgenus].has_key?(index)
-      cached = node_cache[:subgenus][index]
+    if node_cache[:infragenus].has_key?(index)
+      cached = node_cache[:infragenus][index]
       @index = cached.interval.end if cached
       return cached
     end
@@ -2215,14 +2215,14 @@ module ScientificNameClean
     end
     if s0.last
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(Subgenus0)
-      r0.extend(Subgenus1)
+      r0.extend(Infragenus0)
+      r0.extend(Infragenus1)
     else
       @index = i0
       r0 = nil
     end
 
-    node_cache[:subgenus][start_index] = r0
+    node_cache[:infragenus][start_index] = r0
 
     r0
   end

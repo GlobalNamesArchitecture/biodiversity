@@ -118,13 +118,13 @@ describe ScientificNameClean do
     
   end
     
-  it 'should parse subgenus (ICZN code)' do
+  it 'should parse infragenus (ICZN code)' do
     sn = "Hegeter (Hegeter) intercedens Lindberg H 1950"
     parse(sn).should_not be_nil
     value(sn).should == "Hegeter (Hegeter) intercedens Lindberg H 1950"
     canonical(sn).should == "Hegeter intercedens"
-    details(sn).should == [{:genus=>{:string=>"Hegeter"}, :subgenus=>{:string=>"Hegeter"}, :species=>{:string=>"intercedens", :authorship=>"Lindberg H 1950", :basionymAuthorTeam=>{:authorTeam=>"Lindberg H", :author=>["Lindberg H"], :year=>"1950"}}}]
-    pos(sn).should == {0=>["genus", 7], 9=>["subgenus", 16], 18=>["species", 29], 30=>["author_word", 38], 39=>["author_word", 40], 41=>["year", 45]}
+    details(sn).should == [{:genus=>{:string=>"Hegeter"}, :infragenus=>{:string=>"Hegeter"}, :species=>{:string=>"intercedens", :authorship=>"Lindberg H 1950", :basionymAuthorTeam=>{:authorTeam=>"Lindberg H", :author=>["Lindberg H"], :year=>"1950"}}}]
+    pos(sn).should == {0=>["genus", 7], 9=>["infragenus", 16], 18=>["species", 29], 30=>["author_word", 38], 39=>["author_word", 40], 41=>["year", 45]}
   end
   
   it 'should parse several authors without a year' do
@@ -289,7 +289,7 @@ describe ScientificNameClean do
     canonical(sn).should == 'Gastrosericus eremorum'
     sn = "Cypraeovula (Luponia) amphithales perdentata"
     canonical(sn).should == 'Cypraeovula Luponia amphithales perdentata'
-    details(sn).should == [{:genus=>{:string=>"Cypraeovula"}, :subgenus=>{:string=>"Luponia"}, :species=>{:string=>"amphithales"}, :infraspecies=>[{:string=>"perdentata", :rank=>"n/a"}]}]
+    details(sn).should == [{:genus=>{:string=>"Cypraeovula"}, :infragenus=>{:string=>"Luponia"}, :species=>{:string=>"amphithales"}, :infraspecies=>[{:string=>"perdentata", :rank=>"n/a"}]}]
     sn = "Polyrhachis orsyllus nat musculus Forel 1901"
     canonical(sn).should == "Polyrhachis orsyllus musculus"
     sn = 'Latrodectus 13-guttatus Thorell, 1875'

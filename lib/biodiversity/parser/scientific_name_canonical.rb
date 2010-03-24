@@ -191,7 +191,7 @@ module ScientificNameCanonical
       r3 = _nt_space
       s1 << r3
       if r3
-        r4 = _nt_subgenus
+        r4 = _nt_infragenus
         s1 << r4
         if r4
           r5 = _nt_space
@@ -225,7 +225,7 @@ module ScientificNameCanonical
         r10 = _nt_space
         s8 << r10
         if r10
-          r11 = _nt_subgenus
+          r11 = _nt_infragenus
           s8 << r11
           if r11
             r12 = _nt_garbage
