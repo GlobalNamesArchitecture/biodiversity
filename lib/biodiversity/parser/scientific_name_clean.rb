@@ -1171,7 +1171,7 @@ module ScientificNameClean
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_infraspecies_epitheton
+    r2 = _nt_infraspecies_string
     s1 << r2
     if r2
       r3 = _nt_space
@@ -1192,7 +1192,7 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      r5 = _nt_infraspecies_epitheton
+      r5 = _nt_infraspecies_string
       if r5
         r0 = r5
       else
@@ -1206,7 +1206,7 @@ module ScientificNameClean
     r0
   end
 
-  module InfraspeciesEpitheton0
+  module Infraspeciesstring0
     def sel
       elements[0]
     end
@@ -1220,7 +1220,7 @@ module ScientificNameClean
     end
   end
 
-  module InfraspeciesEpitheton1
+  module Infraspeciesstring1
     def value 
       sel.apply(a)
     end
@@ -1237,14 +1237,14 @@ module ScientificNameClean
     end
   end
 
-  module InfraspeciesEpitheton2
+  module Infraspeciesstring2
     def species_word
       elements[0]
     end
 
   end
 
-  module InfraspeciesEpitheton3
+  module Infraspeciesstring3
     def value
       text_value
     end
@@ -1258,14 +1258,14 @@ module ScientificNameClean
     end
 
     def details
-      {:infraspecies => {:epitheton => value, :rank => 'n/a'}}
+      {:infraspecies => {:string => value, :rank => 'n/a'}}
     end
   end
 
-  def _nt_infraspecies_epitheton
+  def _nt_infraspecies_string
     start_index = index
-    if node_cache[:infraspecies_epitheton].has_key?(index)
-      cached = node_cache[:infraspecies_epitheton][index]
+    if node_cache[:infraspecies_string].has_key?(index)
+      cached = node_cache[:infraspecies_string][index]
       @index = cached.interval.end if cached
       return cached
     end
@@ -1284,8 +1284,8 @@ module ScientificNameClean
     end
     if s1.last
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-      r1.extend(InfraspeciesEpitheton0)
-      r1.extend(InfraspeciesEpitheton1)
+      r1.extend(Infraspeciesstring0)
+      r1.extend(Infraspeciesstring1)
     else
       @index = i1
       r1 = nil
@@ -1314,8 +1314,8 @@ module ScientificNameClean
       end
       if s5.last
         r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
-        r5.extend(InfraspeciesEpitheton2)
-        r5.extend(InfraspeciesEpitheton3)
+        r5.extend(Infraspeciesstring2)
+        r5.extend(Infraspeciesstring3)
       else
         @index = i5
         r5 = nil
@@ -1328,7 +1328,7 @@ module ScientificNameClean
       end
     end
 
-    node_cache[:infraspecies_epitheton][start_index] = r0
+    node_cache[:infraspecies_string][start_index] = r0
 
     r0
   end
@@ -1400,7 +1400,7 @@ module ScientificNameClean
     end
     
     def details(a = nil)
-      {:infraspecies => {:epitheton => (a.value rescue nil), :rank => text_value}}
+      {:infraspecies => {:string => (a.value rescue nil), :rank => text_value}}
     end
   end
 
@@ -1864,7 +1864,7 @@ module ScientificNameClean
       " " + a.value
     end
     def details(a = nil)
-      {:infraspecies => {:epitheton => (a.value rescue nil), :rank => value}}
+      {:infraspecies => {:string => (a.value rescue nil), :rank => value}}
     end
   end
 
@@ -1979,7 +1979,7 @@ module ScientificNameClean
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_species_epitheton
+    r2 = _nt_species_string
     s1 << r2
     if r2
       r3 = _nt_space
@@ -2000,7 +2000,7 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      r5 = _nt_species_epitheton
+      r5 = _nt_species_string
       if r5
         r0 = r5
       else
@@ -2014,7 +2014,7 @@ module ScientificNameClean
     r0
   end
 
-  module SpeciesEpitheton0
+  module Speciesstring0
     def space_hard
       elements[0]
     end
@@ -2028,14 +2028,14 @@ module ScientificNameClean
     end
   end
 
-  module SpeciesEpitheton1
+  module Speciesstring1
     def a
       elements[0]
     end
 
   end
 
-  module SpeciesEpitheton2
+  module Speciesstring2
     def value 
       a.value
     end
@@ -2053,11 +2053,11 @@ module ScientificNameClean
     end
   
     def details
-      {:species => {:epitheton => a.value}}
+      {:species => {:string => a.value}}
     end
   end
 
-  module SpeciesEpitheton3
+  module Speciesstring3
     def canonical
       value
     end
@@ -2071,14 +2071,14 @@ module ScientificNameClean
     end
     
     def details
-      {:species => {:epitheton => value}}
+      {:species => {:string => value}}
     end
   end
 
-  def _nt_species_epitheton
+  def _nt_species_string
     start_index = index
-    if node_cache[:species_epitheton].has_key?(index)
-      cached = node_cache[:species_epitheton][index]
+    if node_cache[:species_string].has_key?(index)
+      cached = node_cache[:species_string][index]
       @index = cached.interval.end if cached
       return cached
     end
@@ -2102,7 +2102,7 @@ module ScientificNameClean
       end
       if s4.last
         r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
-        r4.extend(SpeciesEpitheton0)
+        r4.extend(Speciesstring0)
       else
         @index = i4
         r4 = nil
@@ -2117,8 +2117,8 @@ module ScientificNameClean
     end
     if s1.last
       r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-      r1.extend(SpeciesEpitheton1)
-      r1.extend(SpeciesEpitheton2)
+      r1.extend(Speciesstring1)
+      r1.extend(Speciesstring2)
     else
       @index = i1
       r1 = nil
@@ -2127,7 +2127,7 @@ module ScientificNameClean
       r0 = r1
     else
       r8 = _nt_species_word
-      r8.extend(SpeciesEpitheton3)
+      r8.extend(Speciesstring3)
       if r8
         r0 = r8
       else
@@ -2141,7 +2141,7 @@ module ScientificNameClean
       end
     end
 
-    node_cache[:species_epitheton][start_index] = r0
+    node_cache[:species_string][start_index] = r0
 
     r0
   end
@@ -2182,7 +2182,7 @@ module ScientificNameClean
     end
     
     def details
-      {:subgenus => {:epitheton => a.value}}
+      {:subgenus => {:string => a.value}}
     end
   end
 
@@ -2266,7 +2266,7 @@ module ScientificNameClean
     end
         
     def details
-      {:genus => {:epitheton => a.value}}
+      {:genus => {:string => a.value}}
     end
   end
 
@@ -2373,7 +2373,7 @@ module ScientificNameClean
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_uninomial_epitheton
+    r2 = _nt_uninomial_string
     s1 << r2
     if r2
       r3 = _nt_space_hard
@@ -2394,7 +2394,7 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      r5 = _nt_uninomial_epitheton
+      r5 = _nt_uninomial_string
       if r5
         r0 = r5
       else
@@ -2408,7 +2408,7 @@ module ScientificNameClean
     r0
   end
 
-  module UninomialEpitheton0
+  module Uninomialstring0
     def canonical
       value
     end
@@ -2422,22 +2422,22 @@ module ScientificNameClean
     end
     
     def details 
-      {:uninomial => {:epitheton => value}}
+      {:uninomial => {:string => value}}
     end
   end
 
-  def _nt_uninomial_epitheton
+  def _nt_uninomial_string
     start_index = index
-    if node_cache[:uninomial_epitheton].has_key?(index)
-      cached = node_cache[:uninomial_epitheton][index]
+    if node_cache[:uninomial_string].has_key?(index)
+      cached = node_cache[:uninomial_string][index]
       @index = cached.interval.end if cached
       return cached
     end
 
     r0 = _nt_cap_latin_word
-    r0.extend(UninomialEpitheton0)
+    r0.extend(Uninomialstring0)
 
-    node_cache[:uninomial_epitheton][start_index] = r0
+    node_cache[:uninomial_string][start_index] = r0
 
     r0
   end
@@ -4861,7 +4861,7 @@ module ScientificNameClean
     end
     
     def details
-      {:species => {:epitheton => b.value}}
+      {:species => {:string => b.value}}
     end
   end
 
@@ -4897,7 +4897,7 @@ module ScientificNameClean
     end
     
     def details
-      {:species => {:epitheton => b.value}}
+      {:species => {:string => b.value}}
     end
   end
 
@@ -4933,7 +4933,7 @@ module ScientificNameClean
     end
     
     def details
-      {:species => {:epitheton => b.value}}
+      {:species => {:string => b.value}}
     end
   end
 

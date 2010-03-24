@@ -318,7 +318,7 @@ module ScientificNameCanonical
     end
 
     i0, s0 = index, []
-    r1 = _nt_uninomial_epitheton
+    r1 = _nt_uninomial_string
     s0 << r1
     if r1
       r2 = _nt_garbage

@@ -133,7 +133,7 @@ module ScientificNameDirty
       elements[1]
     end
 
-    def epitheton_authorship_inconsistencies
+    def string_authorship_inconsistencies
       elements[2]
     end
 
@@ -174,7 +174,7 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_infraspecies_epitheton
+    r2 = _nt_infraspecies_string
     s1 << r2
     if r2
       r3 = _nt_space
@@ -196,13 +196,13 @@ module ScientificNameDirty
       r0 = r1
     else
       i5, s5 = index, []
-      r6 = _nt_infraspecies_epitheton
+      r6 = _nt_infraspecies_string
       s5 << r6
       if r6
         r7 = _nt_space
         s5 << r7
         if r7
-          r8 = _nt_epitheton_authorship_inconsistencies
+          r8 = _nt_string_authorship_inconsistencies
           s5 << r8
           if r8
             r9 = _nt_space
@@ -282,7 +282,7 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    r2 = _nt_species_epitheton
+    r2 = _nt_species_string
     s1 << r2
     if r2
       r3 = _nt_space
@@ -911,10 +911,10 @@ module ScientificNameDirty
     r0
   end
 
-  def _nt_epitheton_authorship_inconsistencies
+  def _nt_string_authorship_inconsistencies
     start_index = index
-    if node_cache[:epitheton_authorship_inconsistencies].has_key?(index)
-      cached = node_cache[:epitheton_authorship_inconsistencies][index]
+    if node_cache[:string_authorship_inconsistencies].has_key?(index)
+      cached = node_cache[:string_authorship_inconsistencies][index]
       @index = cached.interval.end if cached
       return cached
     end
@@ -927,7 +927,7 @@ module ScientificNameDirty
       r0 = nil
     end
 
-    node_cache[:epitheton_authorship_inconsistencies][start_index] = r0
+    node_cache[:string_authorship_inconsistencies][start_index] = r0
 
     r0
   end

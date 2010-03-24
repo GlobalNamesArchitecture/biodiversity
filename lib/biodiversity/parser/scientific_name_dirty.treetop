@@ -29,7 +29,7 @@ grammar ScientificNameDirty
   end
   
   rule infraspecies
-    a:infraspecies_epitheton space b:year {
+    a:infraspecies_string space b:year {
       def value
         a.value + " " + b.value
       end
@@ -47,7 +47,7 @@ grammar ScientificNameDirty
       end
     }
     /
-    a:infraspecies_epitheton space epitheton_authorship_inconsistencies space b:authorship {
+    a:infraspecies_string space string_authorship_inconsistencies space b:authorship {
       def value
         a.value + " " + b.value
       end
@@ -69,7 +69,7 @@ grammar ScientificNameDirty
   end
   
   rule species
-    a:species_epitheton space b:year {
+    a:species_string space b:year {
        def value
          a.value + " " + b.value
        end
@@ -198,7 +198,7 @@ grammar ScientificNameDirty
     }
   end
   
-  rule epitheton_authorship_inconsistencies
+  rule string_authorship_inconsistencies
     ("corrig.")
   end
   

@@ -83,7 +83,7 @@ grammar ScientificNameCanonical
   end
   
   rule uninomial_with_garbage
-    a:uninomial_epitheton b:garbage {
+    a:uninomial_string b:garbage {
       def value
         a.value
       end
