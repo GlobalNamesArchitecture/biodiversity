@@ -6,8 +6,7 @@ describe ScientificNameCanonical do
   before(:all) do
     set_parser(ScientificNameCanonicalParser.new)
   end
-  
-    
+
   it 'should parse names with valid name part and unparseable rest' do
     [
       ['Morea ssjjlajajaj324$33 234243242','Morea', [{:uninomial=>{:string=>"Morea"}}], {0=>["uninomial", 5]}],

@@ -106,4 +106,17 @@ describe ScientificNameDirty do
     
   end
   
+  # it 'should parse hybrid names with capitalized second name in genus (botanical code error)' do
+  #   sn = 'Anacampti-Platanthera P. Fourn.'
+  #   canonical(sn).should == 'Anacamptiplatanthera'
+  # end
+  #   
+  # it 'should parse genus names starting with uppercase letters AE OE' do
+  #   sn = 'AEmona separata Broun 1921'
+  #   canonical(sn).should == 'Aemona separata'
+  #   sn = 'OEmona simplex White, 1855'
+  #   canonical(sn).should == 'Oemona simplex'
+  # end
+
+
 end
