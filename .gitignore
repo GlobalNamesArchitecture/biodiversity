@@ -11,3 +11,4 @@ biodiversity*.gem
 tmp
 .DS_Store
 spec/parser/test_data_new.txt
+t
