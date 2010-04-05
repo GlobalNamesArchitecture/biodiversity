@@ -34,6 +34,7 @@ class ScientificNameParser
           :canonical => self.canonical,
           :hybrid => hybrid,
           :details => self.details,
+          :parser_run => self.parser_run,
           :positions => self.pos
           })
       else

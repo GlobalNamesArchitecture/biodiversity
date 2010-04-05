@@ -105,17 +105,11 @@ describe ScientificNameClean do
     end
   end
   
-  it 'should parse names with "common" utf-8 charactes' do
-    names = ["Rühlella","Sténométope laevissimus Bibron 1855"].each do |name|
-      parse(name).should_not be_nil
-    end
-    sn = "Trematosphaeria phaeospora (E. Müll.)         L.             Holm 1957"
-    parse(sn).should_not be_nil
-    value(sn).should == "Trematosphaeria phaeospora (E. Müll.) L. Holm 1957"
-    canonical(sn).should == "Trematosphaeria phaeospora"
-    details(sn).should == [{:genus=>{:string=>"Trematosphaeria"}, :species=>{:string=>"phaeospora", :authorship=>"(E. Müll.)         L.             Holm 1957", :combinationAuthorTeam=>{:authorTeam=>"L.             Holm", :author=>["L. Holm"], :year=>"1957"}, :basionymAuthorTeam=>{:authorTeam=>"E. Müll.", :author=>["E. Müll."]}}}]
-    pos(sn).should == {0=>["genus", 15], 16=>["species", 26], 28=>["author_word", 30], 31=>["author_word", 36], 46=>["author_word", 48], 61=>["author_word", 65], 66=>["year", 70]}
-    
+  it 'should parse names with e-umlaut' do
+   sn = 'Kalanchoë tuberosa'
+   canonical(sn).should == 'Kalanchoë tuberosa'
+   sn = 'Isoëtes asplundii H. P. Fuchs'
+   canonical(sn).should == 'Isoëtes asplundii'
   end
     
   it 'should parse infragenus (ICZN code)' do
@@ -298,6 +292,8 @@ describe ScientificNameClean do
     sn = 'Latrodectus 3guttatus Thorell, 1875'
     canonical(sn).should == 'Latrodectus 3-guttatus'
     value(sn).should == 'Latrodectus 3-guttatus Thorell 1875'
+    sn = 'Balaninus c-album Schönherr, CJ., 1836'
+    canonical(sn).should == 'Balaninus c-album'
   end
 
   it "should parse name with morph." do
@@ -448,13 +444,13 @@ describe ScientificNameClean do
   end
   
   it 'should parse names with taxon concept' do
-    sn = "Sténométope laevissimus sec. Eschmeyer 2004"
+    sn = "Stenometope laevissimus sec. Eschmeyer 2004"
     val = @parser.failure_reason.to_s.match(/column [0-9]*/).to_s().gsub(/column /,'')
-    details(sn).should == [{:genus=>{:string=>"Sténométope"}, :species=>{:string=>"laevissimus"}, :taxon_concept=>{:authorship=>"Eschmeyer 2004", :basionymAuthorTeam=>{:authorTeam=>"Eschmeyer", :author=>["Eschmeyer"], :year=>"2004"}}}]
+    details(sn).should == [{:genus=>{:string=>"Stenometope"}, :species=>{:string=>"laevissimus"}, :taxon_concept=>{:authorship=>"Eschmeyer 2004", :basionymAuthorTeam=>{:authorTeam=>"Eschmeyer", :author=>["Eschmeyer"], :year=>"2004"}}}]
     pos(sn).should == {0=>["genus", 11], 12=>["species", 23], 29=>["author_word", 38], 39=>["year", 43]}
-    sn = "Sténométope laevissimus Bibron 1855 sec. Eschmeyer 2004"
+    sn = "Stenometope laevissimus Bibron 1855 sec. Eschmeyer 2004"
     parse(sn).should_not be_nil
-    details(sn).should == [{:genus=>{:string=>"Sténométope"}, :species=>{:string=>"laevissimus", :authorship=>"Bibron 1855", :basionymAuthorTeam=>{:authorTeam=>"Bibron", :author=>["Bibron"], :year=>"1855"}}, :taxon_concept=>{:authorship=>"Eschmeyer 2004", :basionymAuthorTeam=>{:authorTeam=>"Eschmeyer", :author=>["Eschmeyer"], :year=>"2004"}}}]
+    details(sn).should == [{:genus=>{:string=>"Stenometope"}, :species=>{:string=>"laevissimus", :authorship=>"Bibron 1855", :basionymAuthorTeam=>{:authorTeam=>"Bibron", :author=>["Bibron"], :year=>"1855"}}, :taxon_concept=>{:authorship=>"Eschmeyer 2004", :basionymAuthorTeam=>{:authorTeam=>"Eschmeyer", :author=>["Eschmeyer"], :year=>"2004"}}}]
     pos(sn).should == {0=>["genus", 11], 12=>["species", 23], 24=>["author_word", 30], 31=>["year", 35], 41=>["author_word", 50], 51=>["year", 55]}
   end
   
@@ -476,16 +472,10 @@ describe ScientificNameClean do
     sn = 'Nesticus quelpartensis Paik & Namkung, in Paik, Yaginuma & Namkung, 1969'
     details(sn).should == [{:genus=>{:string=>"Nesticus"}, :species=>{:string=>"quelpartensis", :authorship=>"Paik & Namkung, in Paik, Yaginuma & Namkung, 1969", :basionymAuthorTeam=>{:authorTeam=>"Paik & Namkung", :author=>["Paik", "Namkung"], :exAuthorTeam=>{:authorTeam=>"Paik, Yaginuma & Namkung", :author=>["Paik", "Yaginuma", "Namkung"], :year=>"1969"}}}}]
     parse('Dipoena yoshidai Ono, in Ono et al., 1991').should_not be_nil
-    sn = 'Choriozopella trägårdhi Lawrence, 1947'
-    details(sn).should == [{:genus=>{:string=>"Choriozopella"}, :species=>{:string=>"trägårdhi", :authorship=>"Lawrence, 1947", :basionymAuthorTeam=>{:authorTeam=>"Lawrence", :author=>["Lawrence"], :year=>"1947"}}}]
     sn = 'Latrodectus mactans bishopi Kaston, 1938'
     details(sn).should == [{:genus=>{:string=>"Latrodectus"}, :species=>{:string=>"mactans"}, :infraspecies=>[{:string=>"bishopi", :rank=>"n/a", :authorship=>"Kaston, 1938", :basionymAuthorTeam=>{:authorTeam=>"Kaston", :author=>["Kaston"], :year=>"1938"}}]}]
     sn = 'Diplocephalus aff. procerus Thaler, 1972'
     details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species=>{:string=>"procerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}]
-    sn = 'Dyarcyops birói Kulczynski, 1908'
-    details(sn).should == [{:genus=>{:string=>"Dyarcyops"}, :species=>{:string=>"birói", :authorship=>"Kulczynski, 1908", :basionymAuthorTeam=>{:authorTeam=>"Kulczynski", :author=>["Kulczynski"], :year=>"1908"}}}]
-    sn = 'Sparassus françoisi Simon, 1898'
-    details(sn).should == [{:genus=>{:string=>"Sparassus"}, :species=>{:string=>"françoisi", :authorship=>"Simon, 1898", :basionymAuthorTeam=>{:authorTeam=>"Simon", :author=>["Simon"], :year=>"1898"}}}]
     sn = 'Thiobacillus x Parker and Prisk 1953' #have to figure out black lists for this one
     sn = 'Bacille de Plaut, Kritchevsky and Séguin 1921'
     details(sn).should == [{:uninomial=>{:string=>"Bacille", :authorship=>"de Plaut, Kritchevsky and Séguin 1921", :basionymAuthorTeam=>{:authorTeam=>"de Plaut, Kritchevsky and Séguin", :author=>["de Plaut", "Kritchevsky", "Séguin"], :year=>"1921"}}}]

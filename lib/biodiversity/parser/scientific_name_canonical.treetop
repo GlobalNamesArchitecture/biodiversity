@@ -1,6 +1,5 @@
 # encoding: UTF-8
 grammar ScientificNameCanonical
-  include ScientificNameClean
   include ScientificNameDirty
 
   rule root
@@ -12,6 +11,10 @@ grammar ScientificNameCanonical
       def details
         [super]
       end
+
+      def parser_run
+        3
+      end
     }
     /
     uninomial_with_garbage {
@@ -21,6 +24,10 @@ grammar ScientificNameCanonical
       
       def details
         [super]
+      end
+
+      def parser_run
+        3
       end
     }
   end

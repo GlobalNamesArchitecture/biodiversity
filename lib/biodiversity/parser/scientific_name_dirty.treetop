@@ -3,7 +3,31 @@ grammar ScientificNameDirty
   include ScientificNameClean
 
   rule root
-    super
+    space a:scientific_name_5 space {
+      def value
+        a.value.gsub(/\s{2,}/, ' ').strip
+      end
+      
+      def canonical
+        a.canonical.gsub(/\s{2,}/, ' ').strip
+      end
+      
+      def pos
+        a.pos
+      end
+      
+      def hybrid
+        a.hybrid
+      end
+      
+      def details
+        a.details.class == Array ? a.details : [a.details]
+      end
+
+      def parser_run
+        2
+      end
+    }
   end
 
   rule scientific_name_5
@@ -88,6 +112,24 @@ grammar ScientificNameDirty
      }
      /
      super
+  end
+
+  rule latin_word
+    a:[a-zëüäöïéåóç] b:full_name_letters {
+      def value
+        a.text_value + b.value
+      end
+     }
+     /
+     super
+  end
+
+  rule valid_name_letters
+    [a-z\-ëüäöïéåóç]+ {
+      def value
+        text_value
+      end
+    }
   end
 
   rule right_paren

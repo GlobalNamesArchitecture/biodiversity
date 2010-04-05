@@ -22,6 +22,10 @@ grammar ScientificNameClean
       def details
         a.details.class == Array ? a.details : [a.details]
       end
+
+      def parser_run
+        1
+      end
     }
   end
   
@@ -1041,7 +1045,7 @@ grammar ScientificNameClean
   end
 
   rule latin_word
-    a:[a-zëüäöïéåóç] b:full_name_letters {
+    a:[a-zë] b:full_name_letters {
       def value
         a.text_value + b.value
       end
@@ -1071,7 +1075,7 @@ grammar ScientificNameClean
   end
 
   rule valid_name_letters
-    [a-z\-ëüäöïéåóç]+ {
+    [a-z\-ë]+ {
       def value
         text_value
       end

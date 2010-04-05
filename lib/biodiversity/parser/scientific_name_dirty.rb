@@ -3,7 +3,7 @@ module ScientificNameDirty
   include Treetop::Runtime
 
   def root
-    @root || :root
+    @root ||= :root
   end
 
   include ScientificNameClean
@@ -12,7 +12,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -55,7 +58,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:scientific_name_5].has_key?(index)
       cached = node_cache[:scientific_name_5][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -129,7 +135,7 @@ module ScientificNameDirty
       elements[0]
     end
 
-    def space
+    def space1
       elements[1]
     end
 
@@ -137,7 +143,7 @@ module ScientificNameDirty
       elements[2]
     end
 
-    def space
+    def space2
       elements[3]
     end
 
@@ -168,7 +174,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:infraspecies].has_key?(index)
       cached = node_cache[:infraspecies][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -276,7 +285,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:species].has_key?(index)
       cached = node_cache[:species][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -328,7 +340,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:right_paren].has_key?(index)
       cached = node_cache[:right_paren][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -391,7 +406,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:left_paren].has_key?(index)
       cached = node_cache[:left_paren][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -503,7 +521,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:year].has_key?(index)
       cached = node_cache[:year][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -583,7 +604,7 @@ module ScientificNameDirty
   end
 
   module ApproximateYear0
-    def space
+    def space1
       elements[1]
     end
 
@@ -591,7 +612,7 @@ module ScientificNameDirty
       elements[2]
     end
 
-    def space
+    def space2
       elements[3]
     end
 
@@ -615,7 +636,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:approximate_year].has_key?(index)
       cached = node_cache[:approximate_year][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -703,7 +727,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:double_year].has_key?(index)
       cached = node_cache[:double_year][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -723,7 +750,7 @@ module ScientificNameDirty
         s3, i3 = [], index
         loop do
           if has_terminal?('\G[0-9]', true, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r4 = true
             @index += 1
           else
             r4 = nil
@@ -743,7 +770,7 @@ module ScientificNameDirty
         s0 << r3
         if r3
           if has_terminal?('\G[A-Za-z]', true, index)
-            r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r6 = true
             @index += 1
           else
             r6 = nil
@@ -756,7 +783,7 @@ module ScientificNameDirty
           s0 << r5
           if r5
             if has_terminal?('\G[\\?]', true, index)
-              r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              r8 = true
               @index += 1
             else
               r8 = nil
@@ -810,7 +837,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:year_number_with_punctuation].has_key?(index)
       cached = node_cache[:year_number_with_punctuation][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -857,7 +887,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:page_number].has_key?(index)
       cached = node_cache[:page_number][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -877,7 +910,7 @@ module ScientificNameDirty
         s3, i3 = [], index
         loop do
           if has_terminal?('\G[\\d]', true, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r4 = true
             @index += 1
           else
             r4 = nil
@@ -915,7 +948,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:string_authorship_inconsistencies].has_key?(index)
       cached = node_cache[:string_authorship_inconsistencies][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -933,11 +969,11 @@ module ScientificNameDirty
   end
 
   module Garbage0
-    def space
+    def space1
       elements[0]
     end
 
-    def space
+    def space2
       elements[2]
     end
 
@@ -954,7 +990,10 @@ module ScientificNameDirty
     start_index = index
     if node_cache[:garbage].has_key?(index)
       cached = node_cache[:garbage][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -964,7 +1003,7 @@ module ScientificNameDirty
     s1 << r2
     if r2
       if has_terminal?('\G["\',.]', true, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r3 = true
         @index += 1
       else
         r3 = nil
@@ -977,7 +1016,7 @@ module ScientificNameDirty
           s5, i5 = [], index
           loop do
             if has_terminal?('\G[^щ]', true, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              r6 = true
               @index += 1
             else
               r6 = nil
@@ -1010,7 +1049,7 @@ module ScientificNameDirty
         s9, i9 = [], index
         loop do
           if has_terminal?('\G[^ш]', true, index)
-            r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r10 = true
             @index += 1
           else
             r10 = nil
@@ -1054,3 +1093,4 @@ end
 class ScientificNameDirtyParser < Treetop::Runtime::CompiledParser
   include ScientificNameDirty
 end
+

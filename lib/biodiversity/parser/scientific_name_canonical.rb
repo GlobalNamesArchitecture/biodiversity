@@ -3,7 +3,7 @@ module ScientificNameCanonical
   include Treetop::Runtime
 
   def root
-    @root || :root
+    @root ||= :root
   end
 
   include ScientificNameClean
@@ -34,7 +34,10 @@ module ScientificNameCanonical
     start_index = index
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -64,7 +67,7 @@ module ScientificNameCanonical
       elements[0]
     end
 
-    def space
+    def space1
       elements[1]
     end
 
@@ -72,7 +75,7 @@ module ScientificNameCanonical
       elements[2]
     end
 
-    def space
+    def space2
       elements[3]
     end
 
@@ -179,7 +182,10 @@ module ScientificNameCanonical
     start_index = index
     if node_cache[:multinomial_with_garbage].has_key?(index)
       cached = node_cache[:multinomial_with_garbage][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -313,7 +319,10 @@ module ScientificNameCanonical
     start_index = index
     if node_cache[:uninomial_with_garbage].has_key?(index)
       cached = node_cache[:uninomial_with_garbage][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -339,11 +348,11 @@ module ScientificNameCanonical
   end
 
   module Garbage0
-    def space
+    def space1
       elements[0]
     end
 
-    def space
+    def space2
       elements[2]
     end
 
@@ -360,7 +369,10 @@ module ScientificNameCanonical
     start_index = index
     if node_cache[:garbage].has_key?(index)
       cached = node_cache[:garbage][index]
-      @index = cached.interval.end if cached
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
       return cached
     end
 
@@ -370,7 +382,7 @@ module ScientificNameCanonical
     s1 << r2
     if r2
       if has_terminal?('\G["\',.]', true, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r3 = true
         @index += 1
       else
         r3 = nil
@@ -383,7 +395,7 @@ module ScientificNameCanonical
           s5, i5 = [], index
           loop do
             if has_terminal?('\G[^щ]', true, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              r6 = true
               @index += 1
             else
               r6 = nil
@@ -416,7 +428,7 @@ module ScientificNameCanonical
         s9, i9 = [], index
         loop do
           if has_terminal?('\G[^ш]', true, index)
-            r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r10 = true
             @index += 1
           else
             r10 = nil
@@ -460,3 +472,4 @@ end
 class ScientificNameCanonicalParser < Treetop::Runtime::CompiledParser
   include ScientificNameCanonical
 end
+
