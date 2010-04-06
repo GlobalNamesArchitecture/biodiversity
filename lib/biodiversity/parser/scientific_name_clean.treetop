@@ -1071,6 +1071,12 @@ grammar ScientificNameClean
       end
     }
     /
+    a:full_name_letters b:digraph {
+      def value
+        a.value + b.value
+      end
+    }
+    /
     valid_name_letters
   end
 

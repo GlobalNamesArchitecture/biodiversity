@@ -117,6 +117,10 @@ describe ScientificNameDirty do
   #   sn = 'OEmona simplex White, 1855'
   #   canonical(sn).should == 'Oemona simplex'
   # end
+# AsterophUa japonica
+# AsyTuktus ridiculw Parent 1931
+# AtremOEa Staud 1870
+# Carduus acanthoides * crispus
 
 
 end
