@@ -97,6 +97,7 @@ describe ScientificNameClean do
       ["Leœptura laetifica Dow, 1913", "Leoeptura laetifica Dow 1913"],
       ['Ærenea cognata Lacordaire, 1872', 'Aerenea cognata Lacordaire 1872'],
       ['Œdicnemus capensis', 'Oedicnemus capensis'],
+      ['Œnanthæ œnanthe','Oenanthae oenanthe'],
       ['Œnanthe œnanthe','Oenanthe oenanthe']
     ]
     names.each do |name_pair|
@@ -111,7 +112,7 @@ describe ScientificNameClean do
    sn = 'Isoëtes asplundii H. P. Fuchs'
    canonical(sn).should == 'Isoëtes asplundii'
   end
-    
+
   it 'should parse infragenus (ICZN code)' do
     sn = "Hegeter (Hegeter) intercedens Lindberg H 1950"
     parse(sn).should_not be_nil
@@ -458,6 +459,15 @@ describe ScientificNameClean do
     parse("   Asplenium X inexpectatum (E.L. Braun 1940) Morton (1956)   ").should_not be_nil
   end
   
+  it 'should parse names with any number of spaces' do 
+    sn = "Trematosphaeria phaeospora (E. Müll.)         L.             Holm 1957"
+    parse(sn).should_not be_nil
+    value(sn).should == "Trematosphaeria phaeospora (E. Müll.) L. Holm 1957"
+    canonical(sn).should == "Trematosphaeria phaeospora"
+    details(sn).should == [{:genus=>{:string=>"Trematosphaeria"}, :species=>{:string=>"phaeospora", :authorship=>"(E. Müll.)         L.             Holm 1957", :combinationAuthorTeam=>{:authorTeam=>"L.             Holm", :author=>["L. Holm"], :year=>"1957"}, :basionymAuthorTeam=>{:authorTeam=>"E. Müll.", :author=>["E. Müll."]}}}]
+    pos(sn).should == {0=>["genus", 15], 16=>["species", 26], 28=>["author_word", 30], 31=>["author_word", 36], 46=>["author_word", 48], 61=>["author_word", 65], 66=>["year", 70]}
+  end
+  
   it 'should not parse serveral authors groups with several years NOT CORRECT' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003").should be_nil
   end
@@ -465,7 +475,7 @@ describe ScientificNameClean do
   it "should not parse unallowed utf-8 chars in name part" do
     parse("Érematosphaeria phaespora").should be_nil
     parse("Trematosphaeria phaeáapora").should be_nil
-    parse("Trematоsphaeria phaeáapora").should be_nil #cyrillic o
+    parse("Trematоsphaeria phaeaapora").should be_nil #cyrillic o
   end
 
   it "should parse new stuff" do
@@ -491,4 +501,26 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}]
   end
   
+  # it 'should parse hybrid names with capitalized second name in genus (botanical code error)' do
+  #   sn = 'Anacampti-Platanthera P. Fourn.'
+  #   @parser.parse(sn)
+  #   puts @parser.failure_reason
+  #   parse(sn).should_not be_nil
+  #   canonical(sn).should == 'Anacamptiplatanthera'
+  #   sn = 'Anacampti-Platanthera vulgaris P. Fourn.'
+  #   parse(sn).should_not be_nil
+  #   canonical(sn).should == 'Anacamptiplatanthera'
+  # end
+
+  # it 'shoud parse hybrid names with * character' do 
+  #   sn = "Carduus acanthoides * crispus"
+  #   details(sn).should == ''
+  # end
+    
+  it 'should parse genus names starting with uppercase letters AE OE' do
+    sn = 'AEmona separata Broun 1921'
+    canonical(sn).should == 'Aemona separata'
+    sn = 'OEmona simplex White, 1855'
+    canonical(sn).should == 'Oemona simplex'
+  end
 end

@@ -115,15 +115,34 @@ grammar ScientificNameDirty
   end
 
   rule latin_word
-    a:[a-zëüäöïéåóç] b:full_name_letters {
+    a:[a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž] b:valid_name_letters {
       def value
-        a.text_value + b.value
+        res = ''
+        text_value.split('').each do |l|
+          l = 'ae' if l == 'æ'
+          l = 'oe' if l == 'œ'
+          res << l
+        end
+        res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
+               'aaaaaacceeiiinnnoooooouuurrrrsssz')
       end
      }
-     /
-     super
   end
 
+  rule valid_name_letters
+    [a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž]+ {
+      def value
+        res = ''
+        text_value.split('').each do |l|
+          l = 'ae' if l == 'æ'
+          l = 'oe' if l == 'œ'
+          res << l
+        end
+        res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
+               'aaaaaacceeiiinnnoooooouuurrrrsssz')
+      end
+    }
+  end
   rule valid_name_letters
     [a-z\-ëüäöïéåóç]+ {
       def value

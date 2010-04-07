@@ -513,7 +513,7 @@ grammar ScientificNameClean
   end
   
   rule genus
-    a:cap_latin_word !(space_hard author_prefix_word space_hard author_word) {
+    a:(cap_latin_word_pair/cap_latin_word) !(space_hard author_prefix_word space_hard author_word) {
       def value
         a.value
       end
@@ -559,7 +559,7 @@ grammar ScientificNameClean
   end
 
   rule uninomial_string
-    cap_latin_word {
+    (cap_latin_word_pair/cap_latin_word) {
       def canonical
         value
       end
@@ -942,6 +942,14 @@ grammar ScientificNameClean
     }
   end
   
+  rule cap_latin_word_pair
+    a:cap_latin_word "-" b:cap_latin_word {
+      def value
+        a.value + b.value.downcase
+      end
+    }
+  end
+  
   rule cap_latin_word
     a:([A-Z]/cap_digraph) b:latin_word "?" {
       def value
@@ -952,6 +960,12 @@ grammar ScientificNameClean
     a:([A-Z]/cap_digraph) b:latin_word {
       def value
         (a.value rescue a.text_value) + b.value
+      end
+    }
+    /
+    a:("AE"/"OE") b:latin_word {
+      def value
+        a.text_value[0..0] + 'e' + b.value
       end
     }
     /
@@ -1045,48 +1059,32 @@ grammar ScientificNameClean
   end
 
   rule latin_word
-    a:[a-zë] b:full_name_letters {
+    a:[a-zëæœ] b:valid_name_letters {
       def value
-        a.text_value + b.value
+        l = a.text_value
+        l = 'ae' if l == 'æ'
+        l = 'oe' if l == 'œ'
+        l + b.value
       end
      }
-     /
-     a:digraph b:full_name_letters {
-      def value
-        a.value + b.value
-      end
-     }
-  end
-
-  rule full_name_letters
-    a:digraph b:full_name_letters {
-      def value
-        a.value + b.value
-      end
-    }
-    /
-    a:valid_name_letters b:digraph c:full_name_letters {
-      def value
-        a.value + b.value + c.value
-      end
-    }
-    /
-    a:full_name_letters b:digraph {
-      def value
-        a.value + b.value
-      end
-    }
-    /
-    valid_name_letters
   end
 
   rule valid_name_letters
-    [a-z\-ë]+ {
+    [a-z\-ëæœ]+ {
       def value
-        text_value
+        res = ''
+        text_value.split('').each do |l|
+          l = 'ae' if l == 'æ'
+          l = 'oe' if l == 'œ'
+          # not sure if we should normalize ë as well. It is legal in botanical code, but it 
+          # might be beneficial to normalize it for the reconsiliation purposes
+          # l = 'e' if l == 'ë' 
+          res << l
+        end
+        res
       end
     }
-  end 
+  end
 
   rule cap_digraph
     "Æ" {
@@ -1100,20 +1098,6 @@ grammar ScientificNameClean
       'Oe'
       end
     }  
-  end
-
-  rule digraph
-    "æ" {
-      def value
-      'ae'
-      end
-    }   
-    /
-    "œ" {
-      def value
-      'oe'
-      end
-    }
   end
 
   rule year
@@ -1187,9 +1171,9 @@ grammar ScientificNameClean
   end
   
   rule multiplication_sign
-    "×" {
+    ("×"/"*") {
       def value
-        text_value
+        "×"
       end
     }
   end

@@ -7,7 +7,6 @@ describe ScientificNameDirty do
    set_parser(ScientificNameDirtyParser.new)
   end
   
-
   it 'should parse clean names' do
     parse("Betula verucosa (L.) Bar. 1899").should_not be_nil
   end
@@ -86,41 +85,22 @@ describe ScientificNameDirty do
     sn = 'Bacterium monocytogenes hominis"" Nyfeldt 1932'
     details(sn).should == [{:genus=>{:string=>"Bacterium"}, :species=>{:string=>"monocytogenes"}, :infraspecies=>[{:string=>"hominis", :rank=>"n/a"}]}]
     sn = 'Choriozopella trägårdhi Lawrence, 1947'
-    details(sn).should == [{:genus=>{:string=>"Choriozopella"}, :species=>{:string=>"trägårdhi", :authorship=>"Lawrence, 1947", :basionymAuthorTeam=>{:authorTeam=>"Lawrence", :author=>["Lawrence"], :year=>"1947"}}}]
+    details(sn).should == [{:genus=>{:string=>"Choriozopella"}, :species=>{:string=>"tragardhi", :authorship=>"Lawrence, 1947", :basionymAuthorTeam=>{:authorTeam=>"Lawrence", :author=>["Lawrence"], :year=>"1947"}}}]
     sn = 'Sparassus françoisi Simon, 1898'
-    details(sn).should == [{:genus=>{:string=>"Sparassus"}, :species=>{:string=>"françoisi", :authorship=>"Simon, 1898", :basionymAuthorTeam=>{:authorTeam=>"Simon", :author=>["Simon"], :year=>"1898"}}}]
+    details(sn).should == [{:genus=>{:string=>"Sparassus"}, :species=>{:string=>"francoisi", :authorship=>"Simon, 1898", :basionymAuthorTeam=>{:authorTeam=>"Simon", :author=>["Simon"], :year=>"1898"}}}]
     sn = 'Dyarcyops birói Kulczynski, 1908'
-    details(sn).should == [{:genus=>{:string=>"Dyarcyops"}, :species=>{:string=>"birói", :authorship=>"Kulczynski, 1908", :basionymAuthorTeam=>{:authorTeam=>"Kulczynski", :author=>["Kulczynski"], :year=>"1908"}}}]
+    details(sn).should == [{:genus=>{:string=>"Dyarcyops"}, :species=>{:string=>"biroi", :authorship=>"Kulczynski, 1908", :basionymAuthorTeam=>{:authorTeam=>"Kulczynski", :author=>["Kulczynski"], :year=>"1908"}}}]
   end
   
   it 'should parse names with "common" utf-8 charactes' do
     names = ["Rühlella","Sténométope laevissimus Bibron 1855"].each do |name|
       parse(name).should_not be_nil
     end
-    sn = "Trematosphaeria phaeospora (E. Müll.)         L.             Holm 1957"
-    parse(sn).should_not be_nil
-    value(sn).should == "Trematosphaeria phaeospora (E. Müll.) L. Holm 1957"
-    canonical(sn).should == "Trematosphaeria phaeospora"
-    details(sn).should == [{:genus=>{:string=>"Trematosphaeria"}, :species=>{:string=>"phaeospora", :authorship=>"(E. Müll.)         L.             Holm 1957", :combinationAuthorTeam=>{:authorTeam=>"L.             Holm", :author=>["L. Holm"], :year=>"1957"}, :basionymAuthorTeam=>{:authorTeam=>"E. Müll.", :author=>["E. Müll."]}}}]
-    pos(sn).should == {0=>["genus", 15], 16=>["species", 26], 28=>["author_word", 30], 31=>["author_word", 36], 46=>["author_word", 48], 61=>["author_word", 65], 66=>["year", 70]}
-    
   end
   
-  # it 'should parse hybrid names with capitalized second name in genus (botanical code error)' do
-  #   sn = 'Anacampti-Platanthera P. Fourn.'
-  #   canonical(sn).should == 'Anacamptiplatanthera'
-  # end
-  #   
-  # it 'should parse genus names starting with uppercase letters AE OE' do
-  #   sn = 'AEmona separata Broun 1921'
-  #   canonical(sn).should == 'Aemona separata'
-  #   sn = 'OEmona simplex White, 1855'
-  #   canonical(sn).should == 'Oemona simplex'
-  # end
 # AsterophUa japonica
 # AsyTuktus ridiculw Parent 1931
 # AtremOEa Staud 1870
-# Carduus acanthoides * crispus
 
 
 end
