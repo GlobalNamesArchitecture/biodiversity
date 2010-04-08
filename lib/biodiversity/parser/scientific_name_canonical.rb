@@ -6,8 +6,6 @@ module ScientificNameCanonical
     @root ||= :root
   end
 
-  include ScientificNameClean
-
   include ScientificNameDirty
 
   module Root0
@@ -18,6 +16,10 @@ module ScientificNameCanonical
     def details
       [super]
     end
+
+    def parser_run
+      3
+    end
   end
 
   module Root1
@@ -27,6 +29,10 @@ module ScientificNameCanonical
     
     def details
       [super]
+    end
+
+    def parser_run
+      3
     end
   end
 

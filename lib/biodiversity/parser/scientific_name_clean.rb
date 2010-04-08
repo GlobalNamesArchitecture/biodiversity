@@ -40,6 +40,10 @@ module ScientificNameClean
     def details
       a.details.class == Array ? a.details : [a.details]
     end
+
+    def parser_run
+      1
+    end
   end
 
   def _nt_root
@@ -2336,39 +2340,51 @@ module ScientificNameClean
     end
 
     i0, s0 = index, []
-    r1 = _nt_cap_latin_word
+    i1 = index
+    r2 = _nt_cap_latin_word_pair
+    if r2
+      r1 = r2
+    else
+      r3 = _nt_cap_latin_word
+      if r3
+        r1 = r3
+      else
+        @index = i1
+        r1 = nil
+      end
+    end
     s0 << r1
     if r1
-      i2 = index
-      i3, s3 = index, []
-      r4 = _nt_space_hard
-      s3 << r4
-      if r4
-        r5 = _nt_author_prefix_word
-        s3 << r5
-        if r5
-          r6 = _nt_space_hard
-          s3 << r6
-          if r6
-            r7 = _nt_author_word
-            s3 << r7
+      i4 = index
+      i5, s5 = index, []
+      r6 = _nt_space_hard
+      s5 << r6
+      if r6
+        r7 = _nt_author_prefix_word
+        s5 << r7
+        if r7
+          r8 = _nt_space_hard
+          s5 << r8
+          if r8
+            r9 = _nt_author_word
+            s5 << r9
           end
         end
       end
-      if s3.last
-        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
-        r3.extend(Genus0)
+      if s5.last
+        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+        r5.extend(Genus0)
       else
-        @index = i3
-        r3 = nil
+        @index = i5
+        r5 = nil
       end
-      if r3
-        r2 = nil
+      if r5
+        r4 = nil
       else
-        @index = i2
-        r2 = instantiate_node(SyntaxNode,input, index...index)
+        @index = i4
+        r4 = instantiate_node(SyntaxNode,input, index...index)
       end
-      s0 << r2
+      s0 << r4
     end
     if s0.last
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
@@ -2497,8 +2513,21 @@ module ScientificNameClean
       return cached
     end
 
-    r0 = _nt_cap_latin_word
-    r0.extend(UninomialString0)
+    i0 = index
+    r1 = _nt_cap_latin_word_pair
+    if r1
+      r0 = r1
+      r0.extend(UninomialString0)
+    else
+      r2 = _nt_cap_latin_word
+      if r2
+        r0 = r2
+        r0.extend(UninomialString0)
+      else
+        @index = i0
+        r0 = nil
+      end
+    end
 
     node_cache[:uninomial_string][start_index] = r0
 
@@ -4552,6 +4581,64 @@ module ScientificNameClean
     r0
   end
 
+  module CapLatinWordPair0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[2]
+    end
+  end
+
+  module CapLatinWordPair1
+    def value
+      a.value + b.value.downcase
+    end
+  end
+
+  def _nt_cap_latin_word_pair
+    start_index = index
+    if node_cache[:cap_latin_word_pair].has_key?(index)
+      cached = node_cache[:cap_latin_word_pair][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_cap_latin_word
+    s0 << r1
+    if r1
+      if has_terminal?("-", false, index)
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure("-")
+        r2 = nil
+      end
+      s0 << r2
+      if r2
+        r3 = _nt_cap_latin_word
+        s0 << r3
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(CapLatinWordPair0)
+      r0.extend(CapLatinWordPair1)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:cap_latin_word_pair][start_index] = r0
+
+    r0
+  end
+
   module CapLatinWord0
     def a
       elements[0]
@@ -4586,6 +4673,22 @@ module ScientificNameClean
   end
 
   module CapLatinWord4
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module CapLatinWord5
+    def value
+      a.text_value[0..0] + 'e' + b.value
+    end
+  end
+
+  module CapLatinWord6
     def value
       text_value
     end
@@ -4683,242 +4786,285 @@ module ScientificNameClean
       if r7
         r0 = r7
       else
-        i12 = index
-        if has_terminal?("Ca", false, index)
-          r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
+        i12, s12 = index, []
+        i13 = index
+        if has_terminal?("AE", false, index)
+          r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
           @index += 2
         else
-          terminal_parse_failure("Ca")
-          r13 = nil
+          terminal_parse_failure("AE")
+          r14 = nil
         end
-        if r13
-          r12 = r13
-          r12.extend(CapLatinWord4)
+        if r14
+          r13 = r14
         else
-          if has_terminal?("Ea", false, index)
-            r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
+          if has_terminal?("OE", false, index)
+            r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
             @index += 2
           else
-            terminal_parse_failure("Ea")
-            r14 = nil
+            terminal_parse_failure("OE")
+            r15 = nil
           end
-          if r14
-            r12 = r14
-            r12.extend(CapLatinWord4)
+          if r15
+            r13 = r15
           else
-            if has_terminal?("Ge", false, index)
-              r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
-            else
-              terminal_parse_failure("Ge")
-              r15 = nil
-            end
-            if r15
-              r12 = r15
-              r12.extend(CapLatinWord4)
-            else
-              if has_terminal?("Ia", false, index)
-                r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                @index += 2
-              else
-                terminal_parse_failure("Ia")
-                r16 = nil
-              end
-              if r16
-                r12 = r16
-                r12.extend(CapLatinWord4)
-              else
-                if has_terminal?("Io", false, index)
-                  r17 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                  @index += 2
-                else
-                  terminal_parse_failure("Io")
-                  r17 = nil
-                end
-                if r17
-                  r12 = r17
-                  r12.extend(CapLatinWord4)
-                else
-                  if has_terminal?("Io", false, index)
-                    r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
-                  else
-                    terminal_parse_failure("Io")
-                    r18 = nil
-                  end
-                  if r18
-                    r12 = r18
-                    r12.extend(CapLatinWord4)
-                  else
-                    if has_terminal?("Ix", false, index)
-                      r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                      @index += 2
-                    else
-                      terminal_parse_failure("Ix")
-                      r19 = nil
-                    end
-                    if r19
-                      r12 = r19
-                      r12.extend(CapLatinWord4)
-                    else
-                      if has_terminal?("Lo", false, index)
-                        r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                        @index += 2
-                      else
-                        terminal_parse_failure("Lo")
-                        r20 = nil
-                      end
-                      if r20
-                        r12 = r20
-                        r12.extend(CapLatinWord4)
-                      else
-                        if has_terminal?("Oa", false, index)
-                          r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                          @index += 2
-                        else
-                          terminal_parse_failure("Oa")
-                          r21 = nil
-                        end
-                        if r21
-                          r12 = r21
-                          r12.extend(CapLatinWord4)
-                        else
-                          if has_terminal?("Ra", false, index)
-                            r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                            @index += 2
-                          else
-                            terminal_parse_failure("Ra")
-                            r22 = nil
-                          end
-                          if r22
-                            r12 = r22
-                            r12.extend(CapLatinWord4)
-                          else
-                            if has_terminal?("Ty", false, index)
-                              r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                              @index += 2
-                            else
-                              terminal_parse_failure("Ty")
-                              r23 = nil
-                            end
-                            if r23
-                              r12 = r23
-                              r12.extend(CapLatinWord4)
-                            else
-                              if has_terminal?("Ua", false, index)
-                                r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                @index += 2
-                              else
-                                terminal_parse_failure("Ua")
-                                r24 = nil
-                              end
-                              if r24
-                                r12 = r24
-                                r12.extend(CapLatinWord4)
-                              else
-                                if has_terminal?("Aa", false, index)
-                                  r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                  @index += 2
-                                else
-                                  terminal_parse_failure("Aa")
-                                  r25 = nil
-                                end
-                                if r25
-                                  r12 = r25
-                                  r12.extend(CapLatinWord4)
-                                else
-                                  if has_terminal?("Ja", false, index)
-                                    r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                    @index += 2
-                                  else
-                                    terminal_parse_failure("Ja")
-                                    r26 = nil
-                                  end
-                                  if r26
-                                    r12 = r26
-                                    r12.extend(CapLatinWord4)
-                                  else
-                                    if has_terminal?("Zu", false, index)
-                                      r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                      @index += 2
-                                    else
-                                      terminal_parse_failure("Zu")
-                                      r27 = nil
-                                    end
-                                    if r27
-                                      r12 = r27
-                                      r12.extend(CapLatinWord4)
-                                    else
-                                      if has_terminal?("La", false, index)
-                                        r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                        @index += 2
-                                      else
-                                        terminal_parse_failure("La")
-                                        r28 = nil
-                                      end
-                                      if r28
-                                        r12 = r28
-                                        r12.extend(CapLatinWord4)
-                                      else
-                                        if has_terminal?("Qu", false, index)
-                                          r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                          @index += 2
-                                        else
-                                          terminal_parse_failure("Qu")
-                                          r29 = nil
-                                        end
-                                        if r29
-                                          r12 = r29
-                                          r12.extend(CapLatinWord4)
-                                        else
-                                          if has_terminal?("As", false, index)
-                                            r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                            @index += 2
-                                          else
-                                            terminal_parse_failure("As")
-                                            r30 = nil
-                                          end
-                                          if r30
-                                            r12 = r30
-                                            r12.extend(CapLatinWord4)
-                                          else
-                                            if has_terminal?("Ba", false, index)
-                                              r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                              @index += 2
-                                            else
-                                              terminal_parse_failure("Ba")
-                                              r31 = nil
-                                            end
-                                            if r31
-                                              r12 = r31
-                                              r12.extend(CapLatinWord4)
-                                            else
-                                              @index = i12
-                                              r12 = nil
-                                            end
-                                          end
-                                        end
-                                      end
-                                    end
-                                  end
-                                end
-                              end
-                            end
-                          end
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
+            @index = i13
+            r13 = nil
           end
+        end
+        s12 << r13
+        if r13
+          r16 = _nt_latin_word
+          s12 << r16
+        end
+        if s12.last
+          r12 = instantiate_node(SyntaxNode,input, i12...index, s12)
+          r12.extend(CapLatinWord4)
+          r12.extend(CapLatinWord5)
+        else
+          @index = i12
+          r12 = nil
         end
         if r12
           r0 = r12
         else
-          @index = i0
-          r0 = nil
+          i17 = index
+          if has_terminal?("Ca", false, index)
+            r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
+            @index += 2
+          else
+            terminal_parse_failure("Ca")
+            r18 = nil
+          end
+          if r18
+            r17 = r18
+            r17.extend(CapLatinWord6)
+          else
+            if has_terminal?("Ea", false, index)
+              r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
+              @index += 2
+            else
+              terminal_parse_failure("Ea")
+              r19 = nil
+            end
+            if r19
+              r17 = r19
+              r17.extend(CapLatinWord6)
+            else
+              if has_terminal?("Ge", false, index)
+                r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                @index += 2
+              else
+                terminal_parse_failure("Ge")
+                r20 = nil
+              end
+              if r20
+                r17 = r20
+                r17.extend(CapLatinWord6)
+              else
+                if has_terminal?("Ia", false, index)
+                  r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                  @index += 2
+                else
+                  terminal_parse_failure("Ia")
+                  r21 = nil
+                end
+                if r21
+                  r17 = r21
+                  r17.extend(CapLatinWord6)
+                else
+                  if has_terminal?("Io", false, index)
+                    r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                    @index += 2
+                  else
+                    terminal_parse_failure("Io")
+                    r22 = nil
+                  end
+                  if r22
+                    r17 = r22
+                    r17.extend(CapLatinWord6)
+                  else
+                    if has_terminal?("Io", false, index)
+                      r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                      @index += 2
+                    else
+                      terminal_parse_failure("Io")
+                      r23 = nil
+                    end
+                    if r23
+                      r17 = r23
+                      r17.extend(CapLatinWord6)
+                    else
+                      if has_terminal?("Ix", false, index)
+                        r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                        @index += 2
+                      else
+                        terminal_parse_failure("Ix")
+                        r24 = nil
+                      end
+                      if r24
+                        r17 = r24
+                        r17.extend(CapLatinWord6)
+                      else
+                        if has_terminal?("Lo", false, index)
+                          r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                          @index += 2
+                        else
+                          terminal_parse_failure("Lo")
+                          r25 = nil
+                        end
+                        if r25
+                          r17 = r25
+                          r17.extend(CapLatinWord6)
+                        else
+                          if has_terminal?("Oa", false, index)
+                            r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                            @index += 2
+                          else
+                            terminal_parse_failure("Oa")
+                            r26 = nil
+                          end
+                          if r26
+                            r17 = r26
+                            r17.extend(CapLatinWord6)
+                          else
+                            if has_terminal?("Ra", false, index)
+                              r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                              @index += 2
+                            else
+                              terminal_parse_failure("Ra")
+                              r27 = nil
+                            end
+                            if r27
+                              r17 = r27
+                              r17.extend(CapLatinWord6)
+                            else
+                              if has_terminal?("Ty", false, index)
+                                r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                @index += 2
+                              else
+                                terminal_parse_failure("Ty")
+                                r28 = nil
+                              end
+                              if r28
+                                r17 = r28
+                                r17.extend(CapLatinWord6)
+                              else
+                                if has_terminal?("Ua", false, index)
+                                  r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                  @index += 2
+                                else
+                                  terminal_parse_failure("Ua")
+                                  r29 = nil
+                                end
+                                if r29
+                                  r17 = r29
+                                  r17.extend(CapLatinWord6)
+                                else
+                                  if has_terminal?("Aa", false, index)
+                                    r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                    @index += 2
+                                  else
+                                    terminal_parse_failure("Aa")
+                                    r30 = nil
+                                  end
+                                  if r30
+                                    r17 = r30
+                                    r17.extend(CapLatinWord6)
+                                  else
+                                    if has_terminal?("Ja", false, index)
+                                      r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                      @index += 2
+                                    else
+                                      terminal_parse_failure("Ja")
+                                      r31 = nil
+                                    end
+                                    if r31
+                                      r17 = r31
+                                      r17.extend(CapLatinWord6)
+                                    else
+                                      if has_terminal?("Zu", false, index)
+                                        r32 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                        @index += 2
+                                      else
+                                        terminal_parse_failure("Zu")
+                                        r32 = nil
+                                      end
+                                      if r32
+                                        r17 = r32
+                                        r17.extend(CapLatinWord6)
+                                      else
+                                        if has_terminal?("La", false, index)
+                                          r33 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                          @index += 2
+                                        else
+                                          terminal_parse_failure("La")
+                                          r33 = nil
+                                        end
+                                        if r33
+                                          r17 = r33
+                                          r17.extend(CapLatinWord6)
+                                        else
+                                          if has_terminal?("Qu", false, index)
+                                            r34 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                            @index += 2
+                                          else
+                                            terminal_parse_failure("Qu")
+                                            r34 = nil
+                                          end
+                                          if r34
+                                            r17 = r34
+                                            r17.extend(CapLatinWord6)
+                                          else
+                                            if has_terminal?("As", false, index)
+                                              r35 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                              @index += 2
+                                            else
+                                              terminal_parse_failure("As")
+                                              r35 = nil
+                                            end
+                                            if r35
+                                              r17 = r35
+                                              r17.extend(CapLatinWord6)
+                                            else
+                                              if has_terminal?("Ba", false, index)
+                                                r36 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                                                @index += 2
+                                              else
+                                                terminal_parse_failure("Ba")
+                                                r36 = nil
+                                              end
+                                              if r36
+                                                r17 = r36
+                                                r17.extend(CapLatinWord6)
+                                              else
+                                                @index = i17
+                                                r17 = nil
+                                              end
+                                            end
+                                          end
+                                        end
+                                      end
+                                    end
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+          if r17
+            r0 = r17
+          else
+            @index = i0
+            r0 = nil
+          end
         end
       end
     end
@@ -5319,23 +5465,10 @@ module ScientificNameClean
 
   module LatinWord1
     def value
-      a.text_value + b.value
-    end
-  end
-
-  module LatinWord2
-    def a
-      elements[0]
-    end
-
-    def b
-      elements[1]
-    end
-  end
-
-  module LatinWord3
-    def value
-      a.value + b.value
+      l = a.text_value
+      l = 'ae' if l == 'æ'
+      l = 'oe' if l == 'œ'
+      l + b.value
     end
   end
 
@@ -5350,51 +5483,25 @@ module ScientificNameClean
       return cached
     end
 
-    i0 = index
-    i1, s1 = index, []
-    if has_terminal?('\G[a-zëüäöïéåóç]', true, index)
-      r2 = true
+    i0, s0 = index, []
+    if has_terminal?('\G[a-zëæœ]', true, index)
+      r1 = true
       @index += 1
     else
-      r2 = nil
-    end
-    s1 << r2
-    if r2
-      r3 = _nt_full_name_letters
-      s1 << r3
-    end
-    if s1.last
-      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-      r1.extend(LatinWord0)
-      r1.extend(LatinWord1)
-    else
-      @index = i1
       r1 = nil
     end
+    s0 << r1
     if r1
-      r0 = r1
+      r2 = _nt_valid_name_letters
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(LatinWord0)
+      r0.extend(LatinWord1)
     else
-      i4, s4 = index, []
-      r5 = _nt_digraph
-      s4 << r5
-      if r5
-        r6 = _nt_full_name_letters
-        s4 << r6
-      end
-      if s4.last
-        r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
-        r4.extend(LatinWord2)
-        r4.extend(LatinWord3)
-      else
-        @index = i4
-        r4 = nil
-      end
-      if r4
-        r0 = r4
-      else
-        @index = i0
-        r0 = nil
-      end
+      @index = i0
+      r0 = nil
     end
 
     node_cache[:latin_word][start_index] = r0
@@ -5402,112 +5509,18 @@ module ScientificNameClean
     r0
   end
 
-  module FullNameLetters0
-    def a
-      elements[0]
-    end
-
-    def b
-      elements[1]
-    end
-  end
-
-  module FullNameLetters1
-    def value
-      a.value + b.value
-    end
-  end
-
-  module FullNameLetters2
-    def a
-      elements[0]
-    end
-
-    def b
-      elements[1]
-    end
-
-    def c
-      elements[2]
-    end
-  end
-
-  module FullNameLetters3
-    def value
-      a.value + b.value + c.value
-    end
-  end
-
-  def _nt_full_name_letters
-    start_index = index
-    if node_cache[:full_name_letters].has_key?(index)
-      cached = node_cache[:full_name_letters][index]
-      if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-        @index = cached.interval.end
-      end
-      return cached
-    end
-
-    i0 = index
-    i1, s1 = index, []
-    r2 = _nt_digraph
-    s1 << r2
-    if r2
-      r3 = _nt_full_name_letters
-      s1 << r3
-    end
-    if s1.last
-      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-      r1.extend(FullNameLetters0)
-      r1.extend(FullNameLetters1)
-    else
-      @index = i1
-      r1 = nil
-    end
-    if r1
-      r0 = r1
-    else
-      i4, s4 = index, []
-      r5 = _nt_valid_name_letters
-      s4 << r5
-      if r5
-        r6 = _nt_digraph
-        s4 << r6
-        if r6
-          r7 = _nt_full_name_letters
-          s4 << r7
-        end
-      end
-      if s4.last
-        r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
-        r4.extend(FullNameLetters2)
-        r4.extend(FullNameLetters3)
-      else
-        @index = i4
-        r4 = nil
-      end
-      if r4
-        r0 = r4
-      else
-        r8 = _nt_valid_name_letters
-        if r8
-          r0 = r8
-        else
-          @index = i0
-          r0 = nil
-        end
-      end
-    end
-
-    node_cache[:full_name_letters][start_index] = r0
-
-    r0
-  end
-
   module ValidNameLetters0
     def value
-      text_value
+      res = ''
+      text_value.split('').each do |l|
+        l = 'ae' if l == 'æ'
+        l = 'oe' if l == 'œ'
+        # not sure if we should normalize ë as well. It is legal in botanical code, but it 
+        # might be beneficial to normalize it for the reconsiliation purposes
+        # l = 'e' if l == 'ë' 
+        res << l
+      end
+      res
     end
   end
 
@@ -5524,7 +5537,7 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[a-z\\-ëüäöïéåóç]', true, index)
+      if has_terminal?('\G[a-z\\-ëæœ]', true, index)
         r1 = true
         @index += 1
       else
@@ -5601,62 +5614,6 @@ module ScientificNameClean
     end
 
     node_cache[:cap_digraph][start_index] = r0
-
-    r0
-  end
-
-  module Digraph0
-    def value
-    'ae'
-    end
-  end
-
-  module Digraph1
-    def value
-    'oe'
-    end
-  end
-
-  def _nt_digraph
-    start_index = index
-    if node_cache[:digraph].has_key?(index)
-      cached = node_cache[:digraph][index]
-      if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-        @index = cached.interval.end
-      end
-      return cached
-    end
-
-    i0 = index
-    if has_terminal?("æ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      r1.extend(Digraph0)
-      @index += 1
-    else
-      terminal_parse_failure("æ")
-      r1 = nil
-    end
-    if r1
-      r0 = r1
-    else
-      if has_terminal?("œ", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        r2.extend(Digraph1)
-        @index += 1
-      else
-        terminal_parse_failure("œ")
-        r2 = nil
-      end
-      if r2
-        r0 = r2
-      else
-        @index = i0
-        r0 = nil
-      end
-    end
-
-    node_cache[:digraph][start_index] = r0
 
     r0
   end
@@ -6036,7 +5993,7 @@ module ScientificNameClean
 
   module MultiplicationSign0
     def value
-      text_value
+      "×"
     end
   end
 
@@ -6051,13 +6008,32 @@ module ScientificNameClean
       return cached
     end
 
+    i0 = index
     if has_terminal?("×", false, index)
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      r0.extend(MultiplicationSign0)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
       @index += 1
     else
       terminal_parse_failure("×")
-      r0 = nil
+      r1 = nil
+    end
+    if r1
+      r0 = r1
+      r0.extend(MultiplicationSign0)
+    else
+      if has_terminal?("*", false, index)
+        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure("*")
+        r2 = nil
+      end
+      if r2
+        r0 = r2
+        r0.extend(MultiplicationSign0)
+      else
+        @index = i0
+        r0 = nil
+      end
     end
 
     node_cache[:multiplication_sign][start_index] = r0
