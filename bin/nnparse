@@ -31,7 +31,7 @@ IO.foreach(input) do |line|
       $KCODE = 'NONE'
     end
     p.parse(name) 
-    parsed_data = p.parsed.all_json rescue {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
+    parsed_data = p.parsed.all_json rescue {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
     if ruby_min_version < 19
       $KCODE = old_kcode
     end
