@@ -3,10 +3,50 @@ module ScientificNameDirty
   include Treetop::Runtime
 
   def root
-    @root ||= :root
+    @root || :root
   end
 
   include ScientificNameClean
+
+  module Root0
+    def space1
+      elements[0]
+    end
+
+    def a
+      elements[1]
+    end
+
+    def space2
+      elements[2]
+    end
+  end
+
+  module Root1
+    def value
+      a.value.gsub(/\s{2,}/, ' ').strip
+    end
+    
+    def canonical
+      a.canonical.gsub(/\s{2,}/, ' ').strip
+    end
+    
+    def pos
+      a.pos
+    end
+    
+    def hybrid
+      a.hybrid
+    end
+    
+    def details
+      a.details.class == Array ? a.details : [a.details]
+    end
+
+    def parser_run
+      2
+    end
+  end
 
   def _nt_root
     start_index = index
@@ -19,7 +59,25 @@ module ScientificNameDirty
       return cached
     end
 
-    r0 = super
+    i0, s0 = index, []
+    r1 = _nt_space
+    s0 << r1
+    if r1
+      r2 = _nt_scientific_name_5
+      s0 << r2
+      if r2
+        r3 = _nt_space
+        s0 << r3
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(Root0)
+      r0.extend(Root1)
+    else
+      @index = i0
+      r0 = nil
+    end
 
     node_cache[:root][start_index] = r0
 
@@ -325,6 +383,161 @@ module ScientificNameDirty
     end
 
     node_cache[:species][start_index] = r0
+
+    r0
+  end
+
+  module LatinWord0
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[1]
+    end
+  end
+
+  module LatinWord1
+    def value
+      res = ''
+      text_value.split('').each do |l|
+        l = 'ae' if l == 'æ'
+        l = 'oe' if l == 'œ'
+        res << l
+      end
+      res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
+             'aaaaaacceeiiinnnoooooouuurrrrsssz')
+    end
+  end
+
+  def _nt_latin_word
+    start_index = index
+    if node_cache[:latin_word].has_key?(index)
+      cached = node_cache[:latin_word][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    if has_terminal?('\G[a-z\\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž]', true, index)
+      r1 = true
+      @index += 1
+    else
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      r2 = _nt_valid_name_letters
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(LatinWord0)
+      r0.extend(LatinWord1)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:latin_word][start_index] = r0
+
+    r0
+  end
+
+  module ValidNameLetters0
+    def value
+      res = ''
+      text_value.split('').each do |l|
+        l = 'ae' if l == 'æ'
+        l = 'oe' if l == 'œ'
+        res << l
+      end
+      res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
+             'aaaaaacceeiiinnnoooooouuurrrrsssz')
+    end
+  end
+
+  def _nt_valid_name_letters
+    start_index = index
+    if node_cache[:valid_name_letters].has_key?(index)
+      cached = node_cache[:valid_name_letters][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    s0, i0 = [], index
+    loop do
+      if has_terminal?('\G[a-z\\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž]', true, index)
+        r1 = true
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      @index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(ValidNameLetters0)
+    end
+
+    node_cache[:valid_name_letters][start_index] = r0
+
+    r0
+  end
+
+  module ValidNameLetters0
+    def value
+      text_value
+    end
+  end
+
+  def _nt_valid_name_letters
+    start_index = index
+    if node_cache[:valid_name_letters].has_key?(index)
+      cached = node_cache[:valid_name_letters][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    s0, i0 = [], index
+    loop do
+      if has_terminal?('\G[a-z\\-ëüäöïéåóç]', true, index)
+        r1 = true
+        @index += 1
+      else
+        r1 = nil
+      end
+      if r1
+        s0 << r1
+      else
+        break
+      end
+    end
+    if s0.empty?
+      @index = i0
+      r0 = nil
+    else
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(ValidNameLetters0)
+    end
+
+    node_cache[:valid_name_letters][start_index] = r0
 
     r0
   end
