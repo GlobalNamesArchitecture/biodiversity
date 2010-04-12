@@ -120,6 +120,8 @@ describe ScientificNameClean do
     canonical(sn).should == "Hegeter intercedens"
     details(sn).should == [{:genus=>{:string=>"Hegeter"}, :infragenus=>{:string=>"Hegeter"}, :species=>{:string=>"intercedens", :authorship=>"Lindberg H 1950", :basionymAuthorTeam=>{:authorTeam=>"Lindberg H", :author=>["Lindberg H"], :year=>"1950"}}}]
     pos(sn).should == {0=>["genus", 7], 9=>["infragenus", 16], 18=>["species", 29], 30=>["author_word", 38], 39=>["author_word", 40], 41=>["year", 45]}
+    sn = "Ixodes (Ixodes) hexagonus hexagonus Neumann, 1911"
+    canonical(sn).should == "Ixodes hexagonus hexagonus"
   end
   
   it 'should parse several authors without a year' do
@@ -283,7 +285,7 @@ describe ScientificNameClean do
     sn = "Gastrosericus eremorum von Beaumont 1955"
     canonical(sn).should == 'Gastrosericus eremorum'
     sn = "Cypraeovula (Luponia) amphithales perdentata"
-    canonical(sn).should == 'Cypraeovula Luponia amphithales perdentata'
+    canonical(sn).should == 'Cypraeovula amphithales perdentata'
     details(sn).should == [{:genus=>{:string=>"Cypraeovula"}, :infragenus=>{:string=>"Luponia"}, :species=>{:string=>"amphithales"}, :infraspecies=>[{:string=>"perdentata", :rank=>"n/a"}]}]
     sn = "Polyrhachis orsyllus nat musculus Forel 1901"
     canonical(sn).should == "Polyrhachis orsyllus musculus"
@@ -523,4 +525,5 @@ describe ScientificNameClean do
     sn = 'OEmona simplex White, 1855'
     canonical(sn).should == 'Oemona simplex'
   end
+  #"Arthrosamanea eriorhachis (Harms & sine ref. ) Aubrév." -- ignore & sine ref. (means without reference)
 end
