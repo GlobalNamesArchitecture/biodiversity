@@ -1,4 +1,5 @@
 lib/biodiversity/parser/*rb
+*.gemspec
 *.sw?
 .DS_Store
 coverage
