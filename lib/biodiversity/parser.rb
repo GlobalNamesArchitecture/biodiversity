@@ -17,6 +17,7 @@ module PreProcessor
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS].each do |i|
       a_string = a_string.gsub(i, '')
     end
+    a_string = a_string.tr('ſ','s') #old 's'
     a_string
   end   
 end
@@ -53,10 +54,10 @@ class ScientificNameParser
   
   def parse(a_string)
     @verbatim = a_string
-
     a_string = PreProcessor::clean(a_string)
+    
     if virus?(a_string)
-      @parsed = { :verbatim => a_string }
+      @parsed = { :verbatim => a_string, :virus => true }
     else
       @parsed = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || { :verbatim => a_string }
     end

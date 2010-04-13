@@ -190,7 +190,7 @@ grammar ScientificNameClean
   
   
   rule multinomial_name
-    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies_mult {
+    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
@@ -234,7 +234,7 @@ grammar ScientificNameClean
       end
     }
     /
-    a:genus space species_prefix? space b:species space_hard c:infraspecies_mult {
+    a:genus space species_prefix? space b:species space_hard c:infraspecies {
       def value
         a.value + " " + b.value + " " + c.value 
       end
@@ -279,33 +279,33 @@ grammar ScientificNameClean
     }
   end
   
-  rule infraspecies_mult
-    a:infraspecies space b:infraspecies_mult {
-      def value
-        a.value + " " + b.value
-      end
-      
-      def canonical
-        a.canonical + " " + b.canonical
-      end
-      
-      def pos
-        a.pos.merge(b.pos)
-      end
-      
-      def details
-        a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
-        b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
-        a.details.merge({:infraspecies => a_array + b_array})
-      end
-    }
-    /
-    infraspecies {
-      def details
-        {:infraspecies => [super[:infraspecies]]}
-      end
-    }
-  end
+  # rule infraspecies_mult
+  #   a:infraspecies space b:infraspecies_mult {
+  #     def value
+  #       a.value + " " + b.value
+  #     end
+  #     
+  #     def canonical
+  #       a.canonical + " " + b.canonical
+  #     end
+  #     
+  #     def pos
+  #       a.pos.merge(b.pos)
+  #     end
+  #     
+  #     def details
+  #       a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
+  #       b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
+  #       a.details.merge({:infraspecies => a_array + b_array})
+  #     end
+  #   }
+  #   /
+  #   infraspecies {
+  #     def details
+  #       {:infraspecies => [super[:infraspecies]]}
+  #     end
+  #   }
+  # end
   
   rule infraspecies
     a:infraspecies_string space b:authorship {
@@ -493,7 +493,7 @@ grammar ScientificNameClean
   end
   
   rule infragenus
-    left_paren space a:cap_latin_word space right_paren {
+    left_paren space a:(cap_latin_word/capped_dotted_char) space right_paren {
       def value
         "(" + a.value + ")"
       end
@@ -976,6 +976,14 @@ grammar ScientificNameClean
     }
   end
 
+  rule capped_dotted_char
+    [A-Z] "." {
+      def value
+        text_value
+      end
+    }
+  end
+
   rule species_word_hybrid
     a:multiplication_sign space b:species_word {
       def value
@@ -1051,7 +1059,9 @@ grammar ScientificNameClean
   rule species_word
     a:[0-9]+ "-"? b:latin_word {
       def value
-        a.text_value + "-" + b.value
+        num = {"1" => "uni", "2" => "du", "3" => "tri", "4" => "quadri", "5" => "quinque", "6" => "hexa", "7" => "septem", "8" => "octo", "9" => "novem", "10" => "decem", "11" => "undecim", "12" => "duodec", "13" => "tredec", "14" => "quattuordec", "15" => "quinquadec", "16" => "hexadec", "17" => "septendec", "18" => "octodec", "19" => "novemdec", "20" => "viginti", "21" => "unviginti", "22" => "duodeviginti", "23" => "triviginti", "24" => "quattuorviginti", "25" => "quinquatviginti", "26" => "hexaviginti", "27" => "septenviginti", "28" => "octoviginti", "29" => "novemviginti", "30" => "triginta", "38" => "trigintaocto", "100" => "centi"}
+        a_value = num[a.text_value] ? num[a.text_value] : a.text_value + "-"
+        a_value + b.value
       end
     }
     /
