@@ -17,7 +17,7 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "biodiversity"
+    gem.name = "biodiversity19"
     gem.summary = 'Parser of scientific names'
     gem.description = 'Tools for biodiversity informatics'
     gem.email = "dmozzherin@gmail.com"

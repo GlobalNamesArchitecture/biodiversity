@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'socket'
 require 'biodiversity'          # Get sockets from stdlib
+puts "Running parser service on port 4334"
 parser = ScientificNameParser.new
 server = TCPServer.open(4334)  # Socket to listen on port 4334
 loop do                         # Servers run forever

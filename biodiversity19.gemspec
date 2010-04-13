@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{biodiversity}
+  s.name = %q{biodiversity19}
   s.version = "0.5.16"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
      "VERSION",
      "bin/nnparse",
      "bin/parserver",
-     "biodiversity.gemspec",
      "conf/environment.rb",
      "lib/biodiversity.rb",
      "lib/biodiversity/guid.rb",
@@ -53,38 +52,35 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/dimus/biodiversity}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.1}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Parser of scientific names}
   s.test_files = [
-    "spec/spec_helper.rb",
+    "spec/biodiversity_spec.rb",
      "spec/guid/lsid.spec.rb",
-     "spec/biodiversity_spec.rb",
-     "spec/parser/spec_helper.rb",
      "spec/parser/scientific_name.spec.rb",
-     "spec/parser/scientific_name_clean.spec.rb",
      "spec/parser/scientific_name_canonical.spec.rb",
-     "spec/parser/scientific_name_dirty.spec.rb"
+     "spec/parser/scientific_name_clean.spec.rb",
+     "spec/parser/scientific_name_dirty.spec.rb",
+     "spec/parser/spec_helper.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
+    s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<treetop>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_runtime_dependency(%q<treetop>, [">= 0"])
+      s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
       s.add_dependency(%q<treetop>, [">= 0"])
-      s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<treetop>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
     s.add_dependency(%q<treetop>, [">= 0"])
-    s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<treetop>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
   end
 end

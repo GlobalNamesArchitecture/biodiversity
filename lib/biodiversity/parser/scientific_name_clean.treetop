@@ -196,7 +196,7 @@ grammar ScientificNameClean
       end
     
       def canonical
-        a.canonical + " " + b.canonical + " " + c.canonical + " " + d.canonical
+        a.canonical + " " + c.canonical + " " + d.canonical
       end
     
       def pos
