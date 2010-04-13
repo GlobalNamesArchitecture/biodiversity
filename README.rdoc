@@ -1,17 +1,17 @@
 = Biodiversity
 
-Parses species scientific name and breaks it into elements.
+Parses taxonomic scientific name and breaks it into semantic elements.
 
 == Installation
 
-To install gem you need RubyGems >= 1.2.0
+To install gem you need RubyGems >= 1.3.6
 
-  $ gem sources -a http://gems.github.com (you only have to do this once)
-  $ sudo gem install dimus-biodiversity
+  $ sudo gem install biodiversity #for ruby 1.8.x
+  $ sudo gem install biodiversity19 #for ruby 1.9.x
 
 == Example usage
 
-You can parse file with species names from command line. File should contain one scientific name per line
+You can parse file with taxonomic names from command line. File should contain one scientific name per line
 
   nnparser file_with_names
   
