@@ -13,11 +13,13 @@ Spec::Rake::SpecTask.new do |t|
   t.pattern = 'spec/**/*spec.rb'
 end
 
+ruby_version = RUBY_VERSION.split('.')[0..1].join('').to_i
+
 
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "biodiversity"
+    gem.name = ruby_version < 19 ? "biodiversity" : "biodiversity19"
     gem.summary = 'Parser of scientific names'
     gem.description = 'Tools for biodiversity informatics'
     gem.email = "dmozzherin@gmail.com"
@@ -37,8 +39,10 @@ end
 
 task :tt do
   ['scientific_name_clean', 'scientific_name_dirty', 'scientific_name_canonical'].each do |f|
-    system("tt #{dir}/lib/biodiversity/parser/#{f}.treetop")
-    rf = "#{dir}/lib/biodiversity/parser/#{f}.rb"
+    file = "#{dir}/lib/biodiversity/parser/#{f}"
+    FileUtils.rm("#{file}.rb") if FileTest.exist?("#{file}.rb")
+    system("tt #{file}.treetop")
+    rf = "#{file}.rb"
     rfn = open(rf + ".tmp", 'w')
     skip_head = false
     f = open(rf)
