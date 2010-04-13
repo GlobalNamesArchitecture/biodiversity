@@ -190,7 +190,7 @@ grammar ScientificNameClean
   
   
   rule multinomial_name
-    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies {
+    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
@@ -234,7 +234,7 @@ grammar ScientificNameClean
       end
     }
     /
-    a:genus space species_prefix? space b:species space_hard c:infraspecies {
+    a:genus space species_prefix? space b:species space_hard c:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value 
       end
@@ -279,33 +279,33 @@ grammar ScientificNameClean
     }
   end
   
-  # rule infraspecies_mult
-  #   a:infraspecies space b:infraspecies_mult {
-  #     def value
-  #       a.value + " " + b.value
-  #     end
-  #     
-  #     def canonical
-  #       a.canonical + " " + b.canonical
-  #     end
-  #     
-  #     def pos
-  #       a.pos.merge(b.pos)
-  #     end
-  #     
-  #     def details
-  #       a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
-  #       b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
-  #       a.details.merge({:infraspecies => a_array + b_array})
-  #     end
-  #   }
-  #   /
-  #   infraspecies {
-  #     def details
-  #       {:infraspecies => [super[:infraspecies]]}
-  #     end
-  #   }
-  # end
+  rule infraspecies_mult
+    a:infraspecies space b:infraspecies_mult {
+      def value
+        a.value + " " + b.value
+      end
+      
+      def canonical
+        a.canonical + " " + b.canonical
+      end
+      
+      def pos
+        a.pos.merge(b.pos)
+      end
+      
+      def details
+        a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
+        b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
+        a.details.merge({:infraspecies => a_array + b_array})
+      end
+    }
+    /
+    infraspecies {
+      def details
+        {:infraspecies => [super[:infraspecies]]}
+      end
+    }
+  end
   
   rule infraspecies
     a:infraspecies_string space b:authorship {
