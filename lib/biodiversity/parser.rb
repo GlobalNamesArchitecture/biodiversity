@@ -9,9 +9,9 @@ require 'json'
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group)\b.*$/i
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
-  TAXON_CONCEPTS2 = /(,\s*|\s+)pro parte\b.*$/i  
-  TAXON_CONCEPTS3 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|non|nec|sec|\(?p\.\s?p\.)\b.*$/
-  NOMEN_CONCEPTS = /\s+(\(?nomen|\(?nom\.|\(?comb\.).*$/i
+  TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec)\b.*$/
+  TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p.\s?p.)\s*$/i  
+  NOMEN_CONCEPTS = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
   
   def self.clean(a_string)
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS].each do |i|
@@ -21,6 +21,7 @@ module PreProcessor
   end   
 end
 
+# we can use these expressions when we are ready to parse virus names
 # class VirusParser
 #   def initialize
 #     @order     = /^\s*[A-Z][a-z]\+virales/i
