@@ -98,7 +98,8 @@ describe ScientificNameClean do
       ['Ærenea cognata Lacordaire, 1872', 'Aerenea cognata Lacordaire 1872'],
       ['Œdicnemus capensis', 'Oedicnemus capensis'],
       ['Œnanthæ œnanthe','Oenanthae oenanthe'],
-      ['Œnanthe œnanthe','Oenanthe oenanthe']
+      ['Œnanthe œnanthe','Oenanthe oenanthe'],
+      ['Cerambyx thomæ Gmelin J. F., 1790', 'Cerambyx thomae Gmelin J. F. 1790']
     ]
     names.each do |name_pair|
       parse(name_pair[0]).should_not be_nil
@@ -224,12 +225,8 @@ describe ScientificNameClean do
     value(sn).should == "Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861"
     canonical(sn).should == "Phaeographis inusta macularis"
     pos(sn).should == {0=>["genus", 12], 13=>["species", 19], 25=>["infraspecies", 34], 35=>["author_word", 42], 44=>["author_word", 48], 49=>["author_word", 52], 53=>["year", 57]}
-    # sn = "Cassytha peninsularis J. Z. Weber var. flindersii"
-    # @parser.parse(sn)
-    # require 'ruby-debug'
-    # debugger
-    # puts @parser.failure_reason
-    # canonical(sn).should == "Cassytha peninsularis flindersii"
+    sn = "Cassytha peninsularis J. Z. Weber var. flindersii"
+    canonical(sn).should == "Cassytha peninsularis flindersii"
   end
 
   it 'should parse unknown original authors (auct.)/(hort.)/(?)' do
@@ -364,7 +361,7 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     value(sn).should == "Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov."
     canonical(sn).should == "Arthopyrenia hyalospora"
-    details(sn).should ==  [{:genus=>{:string=>"Arthopyrenia"}, :species=>{:string=>"hyalospora", :authorship=>"(Nyl.) R.C. Harris", :combinationAuthorTeam=>{:authorTeam=>"R.C. Harris ", :author=>["R.C. Harris"]}, :basionymAuthorTeam=>{:authorTeam=>"Nyl.", :author=>["Nyl."]}}, :status=>"comb. nov."}]
+    details(sn).should ==  [{:genus=>{:string=>"Arthopyrenia"}, :species=>{:string=>"hyalospora", :authorship=>"(Nyl.) R.C. Harris", :combinationAuthorTeam=>{:authorTeam=>"R.C. Harris", :author=>["R.C. Harris"]}, :basionymAuthorTeam=>{:authorTeam=>"Nyl.", :author=>["Nyl."]}}, :status=>"comb. nov."}]
     pos(sn).should == {0=>["genus", 12], 13=>["species", 23], 25=>["author_word", 29], 31=>["author_word", 35], 36=>["author_word", 42]}
   end
   
@@ -425,6 +422,9 @@ describe ScientificNameClean do
       parse(res[0]).hybrid.should be_true
       details(res[0]).should == res[1]
    end
+   sn = "Rosa alpina x pomifera"
+   canonical(sn).should == "Rosa alpina × pomifera"
+   parse(sn).details.should == [{:genus=>{:string=>"Rosa"}, :species=>{:string=>"alpina"}}, {:species=>{:string=>"pomifera"}, :genus=>{:string=>"Rosa"}}]
   end
   
   it "should parse hybrid combination" do
@@ -432,14 +432,14 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     parse(sn).hybrid.should be_true
     value(sn).should == "Arthopyrenia hyalospora \303\227 Hydnellum scrobiculatum"
-    canonical(sn).should == "Arthopyrenia hyalospora Hydnellum scrobiculatum"
+    canonical(sn).should == "Arthopyrenia hyalospora × Hydnellum scrobiculatum"
     details(sn).should == [{:genus=>{:string=>"Arthopyrenia"}, :species=>{:string=>"hyalospora"}}, {:genus=>{:string=>"Hydnellum"}, :species=>{:string=>"scrobiculatum"}}]
     pos(sn).should == {0=>["genus", 12], 13=>["species", 23], 26=>["genus", 35], 36=>["species", 49]}
     sn = "Arthopyrenia hyalospora (Banker) D. Hall X Hydnellum scrobiculatum D.E. Stuntz"
     parse(sn).should_not be_nil
     parse(sn).hybrid.should be_true
     value(sn).should == "Arthopyrenia hyalospora (Banker) D. Hall \303\227 Hydnellum scrobiculatum D.E. Stuntz"
-    canonical(sn).should == "Arthopyrenia hyalospora Hydnellum scrobiculatum"
+    canonical(sn).should == "Arthopyrenia hyalospora × Hydnellum scrobiculatum"
     pos(sn).should == {0=>["genus", 12], 13=>["species", 23], 25=>["author_word", 31], 33=>["author_word", 35], 36=>["author_word", 40], 43=>["genus", 52], 53=>["species", 66], 67=>["author_word", 71], 72=>["author_word", 78]}
     value("Arthopyrenia hyalospora X").should == "Arthopyrenia hyalospora \303\227 ?"  
     sn = "Arthopyrenia hyalospora x"
@@ -457,7 +457,6 @@ describe ScientificNameClean do
   
   it 'should parse names with taxon concept' do
     sn = "Stenometope laevissimus sec. Eschmeyer 2004"
-    val = @parser.failure_reason.to_s.match(/column [0-9]*/).to_s().gsub(/column /,'')
     details(sn).should == [{:genus=>{:string=>"Stenometope"}, :species=>{:string=>"laevissimus"}, :taxon_concept=>{:authorship=>"Eschmeyer 2004", :basionymAuthorTeam=>{:authorTeam=>"Eschmeyer", :author=>["Eschmeyer"], :year=>"2004"}}}]
     pos(sn).should == {0=>["genus", 11], 12=>["species", 23], 29=>["author_word", 38], 39=>["year", 43]}
     sn = "Stenometope laevissimus Bibron 1855 sec. Eschmeyer 2004"

@@ -30,6 +30,28 @@ grammar ScientificNameClean
   end
   
   rule scientific_name_5
+    a:multinomial_name space_hard hybrid_character space_hard b:species {
+      def value
+        a.value + " × " + b.value
+      end
+      
+      def canonical
+        a.canonical + " × " + b.canonical
+      end
+      
+      def pos
+        a.pos.merge(b.pos)
+      end
+      
+      def hybrid
+        true
+      end
+      
+      def details
+        [a.details, b.details.merge({:genus => a.details[:genus]})]
+      end
+    }
+    /
     a:scientific_name_1 space b:taxon_concept_rank space c:authorship {
       def value
         a.value + " " + b.apply(c)
@@ -62,7 +84,7 @@ grammar ScientificNameClean
       end
       
       def canonical
-        a.canonical + " " + b.canonical
+        a.canonical + " × " + b.canonical
       end
       
       def pos
@@ -381,7 +403,7 @@ grammar ScientificNameClean
   end
   
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"subsp."/"subf."/"race"/"α" 
+    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
@@ -449,28 +471,28 @@ grammar ScientificNameClean
   end
   
   rule species_string
-    a:species_word &(space_hard author_prefix_word space_hard) {
-      def value 
-        a.value
-      end
-      
-      def canonical
-        a.value
-      end
-      
-      def hybrid
-        a.hybrid rescue false
-      end
-    
-      def pos
-        {a.interval.begin => ['species', a.interval.end]}
-      end
-    
-      def details
-        {:species => {:string => a.value}}
-      end
-    }
-    /
+    # a:species_word &(space_hard author_prefix_word space_hard) {
+    #   def value 
+    #     a.value
+    #   end
+    #   
+    #   def canonical
+    #     a.value
+    #   end
+    #   
+    #   def hybrid
+    #     a.hybrid rescue false
+    #   end
+    # 
+    #   def pos
+    #     {a.interval.begin => ['species', a.interval.end]}
+    #   end
+    # 
+    #   def details
+    #     {:species => {:string => a.value}}
+    #   end
+    # }
+    # /
     species_word {
       def canonical
         value
@@ -837,7 +859,7 @@ grammar ScientificNameClean
   end
   
   rule author_name
-    space a:author_prefix_word space b:author_name space {
+    space a:author_prefix_word space b:author_name {
       def value
         a.value + " " + b.value
       end
@@ -851,7 +873,7 @@ grammar ScientificNameClean
       end
     }
     /
-    space a:author_word space b:author_name space {
+    a:author_word space b:author_name {
       def value
         a.value + " " + b.value
       end
@@ -883,7 +905,7 @@ grammar ScientificNameClean
       end
     }
     /
-    ("arg."/"et al.\{\?\}"/"et al.") {
+    ("arg."/"et al.\{\?\}"/"et al."/"et al") {
       def value
         text_value.strip
       end
