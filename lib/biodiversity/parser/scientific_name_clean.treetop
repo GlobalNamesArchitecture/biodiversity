@@ -198,7 +198,7 @@ grammar ScientificNameClean
   end
   
   rule status_word
-    (latin_word [\.]/"von"/"van"/"sensu"/"new"/"non"/"cf"/"ssp" /"subsp"/"subgen"/"hybrid"/"group") {
+    latin_word [\.] {
       def value
         text_value.strip
       end
