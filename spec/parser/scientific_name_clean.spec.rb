@@ -511,22 +511,16 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}]
   end
   
-  # it 'should parse hybrid names with capitalized second name in genus (botanical code error)' do
-  #   sn = 'Anacampti-Platanthera P. Fourn.'
-  #   @parser.parse(sn)
-  #   puts @parser.failure_reason
-  #   parse(sn).should_not be_nil
-  #   canonical(sn).should == 'Anacamptiplatanthera'
-  #   sn = 'Anacampti-Platanthera vulgaris P. Fourn.'
-  #   parse(sn).should_not be_nil
-  #   canonical(sn).should == 'Anacamptiplatanthera'
-  # end
+  # Combination genus names should be merged without dash or capital letter
+  it 'should parse hybrid names with capitalized second name in genus (botanical code error)' do
+    sn = 'Anacampti-Platanthera P. Fourn.'
+    parse(sn).should_not be_nil
+    canonical(sn).should == 'Anacamptiplatanthera'
+    sn = 'Anacampti-Platanthera vulgaris P. Fourn.'
+    parse(sn).should_not be_nil
+    canonical(sn).should == 'Anacamptiplatanthera vulgaris'
+  end
 
-  # it 'shoud parse hybrid names with * character' do 
-  #   sn = "Carduus acanthoides * crispus"
-  #   details(sn).should == ''
-  # end
-    
   it 'should parse genus names starting with uppercase letters AE OE' do
     sn = 'AEmona separata Broun 1921'
     canonical(sn).should == 'Aemona separata'

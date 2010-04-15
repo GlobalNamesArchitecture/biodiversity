@@ -198,7 +198,7 @@ grammar ScientificNameClean
   end
   
   rule status_word
-    latin_word [\.] {
+    (latin_word [\.]/"von"/"van"/"sensu"/"new"/"non"/"cf"/"ssp" /"subsp"/"subgen"/"hybrid"/"group") {
       def value
         text_value.strip
       end
@@ -535,7 +535,7 @@ grammar ScientificNameClean
   end
   
   rule genus
-    a:(cap_latin_word_pair/cap_latin_word) !(space_hard author_prefix_word space_hard author_word) {
+    a:uninomial_string !(space_hard author_prefix_word space_hard author_word) {
       def value
         a.value
       end
@@ -1091,18 +1091,21 @@ grammar ScientificNameClean
   end
 
   rule latin_word
-    a:[a-zëæœ] b:valid_name_letters {
+    a:valid_name_letters "-" b:latin_word {
       def value
-        l = a.text_value
-        l = 'ae' if l == 'æ'
-        l = 'oe' if l == 'œ'
-        l + b.value
+        a.value + "-" + b.value
+      end
+    }
+    /
+    a:valid_name_letter b:valid_name_letters {
+      def value
+        a.value + b.value
       end
      }
   end
 
   rule valid_name_letters
-    [a-z\-ëæœ]+ {
+    [a-zëæœ]+ {
       def value
         res = ''
         text_value.split('').each do |l|
@@ -1117,6 +1120,18 @@ grammar ScientificNameClean
       end
     }
   end
+
+  rule valid_name_letter
+    [a-zëæœ] {
+      def value
+        res = text_value
+        res = 'ae' if res == 'æ'
+        res = 'oe' if res == 'œ'
+        res
+      end
+    }
+  end
+
 
   rule cap_digraph
     "Æ" {

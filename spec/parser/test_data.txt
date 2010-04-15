@@ -277,6 +277,7 @@ Deyeuxia coarctata Kunth, 1815 [1816]|{"scientificName":{"parsed":true,"parser_r
 
 #names with garbage at the end
 Morea (Morea) Burt 2342343242 23424322342 23424234|{"scientificName":{"parsed":true,"parser_run":2,"verbatim":"Morea (Morea) Burt 2342343242 23424322342 23424234","normalized":"Morea (Morea) Burt","canonical":"Morea","hybrid":false,"details":[{"uninomial":{"string":"Morea","authorship":"(Morea) Burt","combinationAuthorTeam":{"authorTeam":"Burt","author":["Burt"]},"basionymAuthorTeam":{"authorTeam":"Morea","author":["Morea"]}}}],"positions":{"0":["uninomial",5],"7":["author_word",12],"14":["author_word",18]}}}
+Nautilus asterizans von|{"scientificName":{"parsed":true, "verbatim":"Nautilus asterizans von", "normalized":"Nautilus asterizans", "canonical":"Nautilus asterizans", "hybrid":false, "details":[{"genus":{"string":"Nautilus"}, "species":{"string":"asterizans"}}], "parser_run":1, "positions":{"0":["genus", 8], "9":["species", 19]}}}
 
 #salvage canonical
 Morea ssjjlajajaj324$33 234243242|{"scientificName":{"parsed":true,"parser_run":3,"verbatim":"Morea ssjjlajajaj324$33 234243242","normalized":"Morea","canonical":"Morea","hybrid":false,"details":[{"uninomial":{"string":"Morea"}}],"positions":{"0":["uninomial",5]}}}

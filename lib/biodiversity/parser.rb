@@ -12,9 +12,10 @@ module PreProcessor
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p.\s?p.)\s*$/i  
   NOMEN_CONCEPTS = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
+  LAST_WORD_JUNK = /(,\s*|\s+)(von|van|sensu|new|non|cf|ssp|subsp|subgen|hybrid)\s*$/i
   
   def self.clean(a_string)
-    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS].each do |i|
+    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
       a_string = a_string.gsub(i, '')
     end
     a_string = a_string.tr('ſ','s') #old 's'
