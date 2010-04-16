@@ -403,7 +403,7 @@ grammar ScientificNameClean
   end
   
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subf."/"race"/"α" 
+    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
@@ -427,7 +427,7 @@ grammar ScientificNameClean
   end
   
   rule rank_forma
-    ("forma"/"form."/"fo."/"f.")
+    ("forma"/"form."/"form"/"fo."/"f.")
     {
       def value
         "f."
@@ -952,7 +952,7 @@ grammar ScientificNameClean
   end
   
   rule author_prefix_word
-    space ("ab"/"bis"/"da"/"der"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end

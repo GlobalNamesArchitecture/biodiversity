@@ -7,6 +7,7 @@ $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
 require 'json'
 
+parser_error = {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
 
 if ARGV.empty?
   puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.json\n\n"
@@ -32,12 +33,12 @@ IO.foreach(input) do |line|
       $KCODE = 'NONE'
     end
     p.parse(name) 
-    parsed_data = p.parsed.all_json rescue {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
+    parsed_data = p.parsed.all_json rescue parser_error
     if ruby_min_version < 19
       $KCODE = old_kcode
     end
   rescue 
-    parsed_data = {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}.to_json
+    parsed_data = parser_error
   end
   o.write parsed_data + "\n"
 end

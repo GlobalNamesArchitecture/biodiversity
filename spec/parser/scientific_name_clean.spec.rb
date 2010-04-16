@@ -528,4 +528,18 @@ describe ScientificNameClean do
     canonical(sn).should == 'Oemona simplex'
   end
   #"Arthrosamanea eriorhachis (Harms & sine ref. ) Aubrév." -- ignore & sine ref. (means without reference)
+  
+=begin
+  new stuff
+
+   sn = "Orchidaceae × Asconopsis hort."
+   canonical(sn).should == "Orchidaceae x Asconopsis"
+   sn 
+   Tamiops swinhoei near hainanus|Tamiops swinhoei near hainanus
+   Conus textile form archiepiscopus|Conus textile form archiepiscopus|
+   Crypticus pseudosericeus ssp. olivieri Desbrochers des Loges,1881|Crypticus pseudosericeus olivieri des
+   Solanum nigrum subsp nigrum|Solanum nigrum subsp nigrum
+   Protoglossus taeniatum author unknown|Protoglossus taeniatum author unknown
+   Dupontiella (S. ?) bicolor|Dupontiella|
+=end
 end
