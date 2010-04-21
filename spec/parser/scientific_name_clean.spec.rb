@@ -126,6 +126,13 @@ describe ScientificNameClean do
     sn = "Brachytrypus (B.) grandidieri" 
     canonical(sn).should == "Brachytrypus grandidieri"
     details(sn).should == [{:genus=>{:string=>"Brachytrypus"}, :infragenus=>{:string=>"B."}, :species=>{:string=>"grandidieri"}}]
+    sn = "Empis (Argyrandrus) Bezzi 1909"
+    details(sn).should == [{:uninomial=>{:string=>"Empis", :infragenus=>{:string=>"Argyrandrus"}, :authorship=>"Bezzi 1909", :basionymAuthorTeam=>{:authorTeam=>"Bezzi", :author=>["Bezzi"], :year=>"1909"}}}]
+    sn = "Platydoris (Bergh )"
+    details(sn).should == [{:uninomial=>{:string=>"Platydoris", :infragenus=>{:string=>"Bergh"}}}]
+    value(sn).should == "Platydoris (Bergh)"
+    sn = "Platydoris (B.)"
+    details(sn).should == ''
   end
   
   it 'should parse several authors without a year' do

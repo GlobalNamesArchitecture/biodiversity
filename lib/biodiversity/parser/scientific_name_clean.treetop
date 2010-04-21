@@ -555,6 +555,50 @@ grammar ScientificNameClean
   end
   
   rule uninomial_name
+    a:uninomial_string space b:infragenus space c:simple_authorship {
+      def value
+        a.value + " " + b.value + " " + c.value
+      end
+      
+      def canonical
+        a.canonical
+      end
+      
+      def pos
+        a.pos.merge(b.pos).merge(c.pos)
+      end
+      
+      def hybrid
+        false
+      end
+      
+      def details
+        {:uninomial => a.details[:uninomial].merge(b.details).merge(c.details)}
+      end
+    }
+    /
+    a:uninomial_string space b:infragenus {
+      def value
+        a.value + " " + b.value
+      end
+      
+      def canonical
+        a.canonical
+      end
+      
+      def pos
+        a.pos.merge(b.pos)
+      end
+      
+      def hybrid
+        false
+      end
+      
+      def details
+        {:uninomial => a.details[:uninomial].merge(b.details)}
+      end
+    }
+    /
     a:uninomial_string space_hard b:authorship {
       def value
         a.value + " " + b.value
