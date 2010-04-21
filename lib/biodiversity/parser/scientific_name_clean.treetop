@@ -865,7 +865,7 @@ grammar ScientificNameClean
   
   
   rule unknown_auth
-    ("auct."/"hort."/"anon."/"ht.") {
+    ("auct."/"auct"/"hort."/"hort"/"anon."/"anon"/"ht."/"ht") {
       def value
         text_value
       end

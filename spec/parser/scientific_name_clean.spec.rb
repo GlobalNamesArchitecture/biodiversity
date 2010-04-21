@@ -132,7 +132,7 @@ describe ScientificNameClean do
     details(sn).should == [{:uninomial=>{:string=>"Platydoris", :infragenus=>{:string=>"Bergh"}}}]
     value(sn).should == "Platydoris (Bergh)"
     sn = "Platydoris (B.)"
-    details(sn).should == ''
+    details(sn).should == [{:uninomial=>{:string=>"Platydoris", :infragenus=>{:string=>"B."}}}]
   end
   
   it 'should parse several authors without a year' do
