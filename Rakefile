@@ -27,7 +27,7 @@ begin
     gem.authors = ["Dmitry Mozzherin"]
     gem.has_rdoc = false
     gem.bindir = 'bin'
-    gem.executables = ['nnparse']
+    gem.executables = ['nnparse', 'parserver']
     gem.add_dependency('treetop')
     gem.add_dependency('json') if RUBY_VERSION.split(".")[0..1].join('').to_i < 19
     gem.add_development_dependency "rspec"

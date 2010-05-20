@@ -115,7 +115,7 @@ grammar ScientificNameDirty
   end
 
   rule latin_word
-    a:[a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž] b:valid_name_letters {
+    a:[a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùüŕřŗššşž] b:valid_name_letters {
       def value
         res = ''
         text_value.split('').each do |l|
@@ -123,14 +123,14 @@ grammar ScientificNameDirty
           l = 'oe' if l == 'œ'
           res << l
         end
-        res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
-               'aaaaaacceeiiinnnoooooouuurrrrsssz')
+        res.tr('àâåãäáçčéèíìïňññóòôøõöúùüŕřŗššşž',
+               'aaaaaacceeiiinnnoooooouuurrrsssz')
       end
      }
   end
 
   rule valid_name_letters
-    [a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž]+ {
+    [a-z\-ëæœàâåãäáçčéèíìïňññóòôøõöúùüŕřŗššşž]+ {
       def value
         res = ''
         text_value.split('').each do |l|
@@ -138,8 +138,8 @@ grammar ScientificNameDirty
           l = 'oe' if l == 'œ'
           res << l
         end
-        res.tr('àâåãäáçčéèíìïňññóòôøõöúùürŕřŗššşž',
-               'aaaaaacceeiiinnnoooooouuurrrrsssz')
+        res.tr('àâåãäáçčéèíìïňññóòôøõöúùüŕřŗššşž',
+               'aaaaaacceeiiinnnoooooouuurrrsssz')
       end
     }
   end
