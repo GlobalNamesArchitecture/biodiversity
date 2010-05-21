@@ -516,6 +516,8 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Lewin 1969 non Soriano 1945", :basionymAuthorTeam=>{:authorTeam=>"Lewin", :author=>["Lewin"], :year=>"1969"}}}]
     sn = 'Flexibacter elegans Soriano 1945, non Lewin 1969'
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}]
+    sn = 'Schottera nicaeënsis (J.V. Lamouroux ex Duby) Guiry & Hollenberg'
+    details(sn).should == [{:genus=>{:string=>"Schottera"}, :species=>{:string=>"nicaeënsis", :authorship=>"(J.V. Lamouroux ex Duby) Guiry & Hollenberg", :combinationAuthorTeam=>{:authorTeam=>"Guiry & Hollenberg", :author=>["Guiry", "Hollenberg"]}, :basionymAuthorTeam=>{:authorTeam=>"J.V. Lamouroux", :author=>["J.V. Lamouroux"], :exAuthorTeam=>{:authorTeam=>"Duby", :author=>["Duby"]}}}}]
   end
   
   # Combination genus names should be merged without dash or capital letter
