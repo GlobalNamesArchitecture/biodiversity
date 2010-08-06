@@ -27,7 +27,9 @@ Then you can access it via 4334 port using a socket client library of your progr
   
   telnet localhost 4334
   
-If you enter a line with a Scientific name server will send you back parsed information in json format. To stop telnet client type 'q' or '.' (without quotes)
+If you enter a line with a scientific name server will send you back parsed information in json format. 
+
+To stop telnet client type any of 'end','exit','q', '.' (without quotes) instead of scientific name
 
   $ telnet localhost 4334
   Trying ::1...
