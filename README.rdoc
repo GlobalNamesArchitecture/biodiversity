@@ -11,10 +11,33 @@ To install gem you need RubyGems >= 1.3.6
 
 == Example usage
 
+=== As a command line script
+
 You can parse file with taxonomic names from command line. File should contain one scientific name per line
 
   nnparser file_with_names
+
+=== As a socket server
+
+If you do not use ruby and need a fast access to the parser functionality  you can use a socket server
+
+  parserver
+
+Then you can access it via 4334 port using a socket client library of your programming language. If you want to check if socket server works for you try:
   
+  telnet localhost 4334
+  
+If you enter a line with a Scientific name server will send you back parsed information in json format. To stop telnet client type 'q' or '.' (without quotes)
+
+  $ telnet localhost 4334
+  Trying ::1...
+  Connected to localhost.
+  Escape character is '^]'.
+  Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan
+  {"scientificName":{"canonical":"Acacia abyssinica calophylla","parsed":true,"parser_run":1,"verbatim":"Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan\r\n","positions":{"0":["genus",6],"18":["author_word",25],"29":["author_word",35],"7":["species",17],"41":["infraspecies",51],"52":["author_word",58]},"hybrid":false,"normalized":"Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan","details":[{"species":{"basionymAuthorTeam":{"exAuthorTeam":{"author":["Benth."],"authorTeam":"Benth."},"author":["Hochst."],"authorTeam":"Hochst."},"string":"abyssinica","authorship":"Hochst. ex Benth."},"infraspecies":[{"basionymAuthorTeam":{"author":["Brenan"],"authorTeam":"Brenan"},"string":"calophylla","rank":"ssp.","authorship":"Brenan"}],"genus":{"string":"Acacia"}}]}}
+  
+=== As a library
+
 You can use it as a library
 
   require 'biodiversity'
