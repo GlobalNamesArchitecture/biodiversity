@@ -10,6 +10,8 @@ Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_na
 Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_dirty'))
 Treetop.load(File.expand_path(dir + '../../lib/biodiversity/parser/scientific_name_canonical'))
 
+PARSER_TEST_VERSION = "test_version"
+
 def set_parser(parser)
   @parser = parser
 end
@@ -35,7 +37,7 @@ def pos(input)
 end
 
 def json(input)
-  parse(input).to_json
+  parse(input).to_json.gsub(/"parser_version":"[^"]*"/, %Q["parser_version":"#{PARSER_TEST_VERSION}"])
 end
 
 def debug(input)

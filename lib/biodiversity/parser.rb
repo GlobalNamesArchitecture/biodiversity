@@ -36,6 +36,7 @@ end
 # end
 
 class ScientificNameParser
+  VERSION = open(File.join(File.dirname(__FILE__), '..', '..', 'VERSION')).readline.strip
   
   def initialize
     @verbatim = ''
@@ -69,7 +70,7 @@ class ScientificNameParser
 
     def @parsed.all(verbatim = @verbatim)
       parsed = self.class != Hash
-      res = {:parsed => parsed}
+      res = { :parsed => parsed, :parser_version => ScientificNameParser::VERSION}
       if parsed
         hybrid = self.hybrid rescue false
         res.merge!({

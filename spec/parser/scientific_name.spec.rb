@@ -3,7 +3,7 @@ dir = File.dirname("__FILE__")
 require File.expand_path(dir + '../../spec/parser/spec_helper')
 require File.expand_path(dir + '../../lib/biodiversity/parser')
 
-describe ScientificNameClean do
+describe ScientificNameParser do
   before(:all) do
     set_parser(ScientificNameParser.new)
   end
@@ -29,7 +29,17 @@ describe ScientificNameClean do
   
   it 'should generate reasonable output if parser failed' do
     sn = 'ddd sljlkj 3223452432'
-    json(sn).should == '{"scientificName":{"parsed":false,"verbatim":"ddd sljlkj 3223452432"}}'
+    json(sn).should == '{"scientificName":{"parsed":false,"parser_version":"test_version","verbatim":"ddd sljlkj 3223452432"}}'  end
+
+  it "should show version when the flag :show_version set to true" do
+    parse('Homo sapiens')[:scientificName][:parser_version].should_not be_nil
   end
 
+  it "should show version for not spelled names" do
+    parse('not_a_name')[:scientificName][:parser_version].should_not be_nil
+  end
+
+  it "should generate version for viruses" do
+    parse('Nile virus')[:scientificName][:parser_version].should_not be_nil
+  end
 end
