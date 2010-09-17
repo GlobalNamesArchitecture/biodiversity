@@ -50,6 +50,10 @@ class ScientificNameParser
     !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\s(virus|phage|viroid|satellite|prion)\b/i))
   end 
 
+  def unknown_placement?(a_string)
+    !!(a_string.match(/incertae\s+sedis/i) || a_string.match(/inc\.\s*sed\./i))
+  end
+
   def parsed
     @parsed
   end
@@ -60,6 +64,8 @@ class ScientificNameParser
     
     if virus?(a_string)
       @parsed = { :verbatim => a_string, :virus => true }
+    elsif unknown_placement?(a_string)
+      @parsed = { :verbatim => a_string }
     else
       @parsed = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || { :verbatim => a_string }
     end

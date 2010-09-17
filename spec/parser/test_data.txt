@@ -245,6 +245,15 @@ Achillea bonarota nom. in herb.|{"scientificName":{"parsed":true, "verbatim":"Ac
 Aconitum napellus var. formosum (Rchb.) W. D. J. Koch (nom. ambig.)|{"scientificName":{"parsed":true, "verbatim":"Aconitum napellus var. formosum (Rchb.) W. D. J. Koch (nom. ambig.)", "normalized":"Aconitum napellus var. formosum (Rchb.) W. D. J. Koch", "canonical":"Aconitum napellus formosum", "hybrid":false, "details":[{"genus":{"string":"Aconitum"}, "species":{"string":"napellus"}, "infraspecies":[{"string":"formosum", "rank":"var.", "authorship":"(Rchb.) W. D. J. Koch", "combinationAuthorTeam":{"authorTeam":"W. D. J. Koch", "author":["W. D. J. Koch"]}, "basionymAuthorTeam":{"authorTeam":"Rchb.", "author":["Rchb."]}}]}],  "parser_version":"test_version", "parser_run":1, "positions":{"0":["genus", 8], "9":["species", 17], "23":["infraspecies", 31], "33":["author_word", 38], "40":["author_word", 42], "43":["author_word", 45], "46":["author_word", 48], "49":["author_word", 53]}}}
 × Dialaeliopsis Hort.|{"scientificName":{"parsed":true, "verbatim":"× Dialaeliopsis Hort.", "normalized":"× Dialaeliopsis", "canonical":"Dialaeliopsis", "hybrid":true, "details":[{"uninomial":{"string":"Dialaeliopsis"}}],  "parser_version":"test_version", "parser_run":1, "positions":{"2":["uninomial", 15]}}}
 
+#should not parse incertae sedis
+
+Incertae sedis|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Incertae sedis"}}
+incertae sedis|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"incertae sedis"}}
+Inc.   sed.|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Inc.   sed."}}
+inc.sed.|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"inc.sed."}}
+inc.   sed.|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"inc.   sed."}}
+
+
 #should not parse viruses
 Abutilon mosaic virus [X15983] [X15984] Abutilon mosaic virus ICTV|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Abutilon mosaic virus [X15983] [X15984] Abutilon mosaic virus ICTV", "virus":true}}
 Acute bee paralysis virus [AF150629] Acute bee paralysis virus|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Acute bee paralysis virus [AF150629] Acute bee paralysis virus", "virus":true}}
