@@ -23,7 +23,7 @@ begin
     gem.summary = 'Parser of scientific names'
     gem.description = 'Tools for biodiversity informatics'
     gem.email = "dmozzherin@gmail.com"
-    gem.homepage = "http://github.com/dimus/biodiversity"
+    gem.homepage = "http://github.com/GlobalNamesArchitecture/biodiversity"
     gem.authors = ["Dmitry Mozzherin"]
     gem.has_rdoc = false
     gem.bindir = 'bin'
