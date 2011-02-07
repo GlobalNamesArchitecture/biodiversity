@@ -80,6 +80,28 @@ describe ScientificNameClean do
     parse("Platypus bicaudatulus Schedl 1935").should_not be_nil
   end
   
+  it "should parse species name with author's postfix f., filius (son of)" do
+    names = [ 
+      [ "Platypus bicaudatulus Schedl f. 1935", [{:genus=>{:string=>"Platypus"}, :species=>{:string=>"bicaudatulus", :authorship=>"Schedl f. 1935", :basionymAuthorTeam=>{:authorTeam=>"Schedl f.", :author=>["Schedl f."], :year=>"1935"}}}], 'Platypus bicaudatulus Schedl f. 1935'],
+      [ "Platypus bicaudatulus Schedl filius 1935", [{:genus=>{:string=>"Platypus"}, :species=>{:string=>"bicaudatulus", :authorship=>"Schedl filius 1935", :basionymAuthorTeam=>{:authorTeam=>"Schedl filius", :author=>["Schedl filius"], :year=>"1935"}}}], 'Platypus bicaudatulus Schedl filius 1935'],
+      [ "Fimbristylis ovata (Burm. f.) J. Kern", [{:genus=>{:string=>"Fimbristylis"}, :species=>{:string=>"ovata", :authorship=>"(Burm. f.) J. Kern", :combinationAuthorTeam=>{:authorTeam=>"J. Kern", :author=>["J. Kern"]}, :basionymAuthorTeam=>{:authorTeam=>"Burm. f.", :author=>["Burm. f."]}}}], 'Fimbristylis ovata (Burm. f.) J. Kern'],
+      [ "Carex chordorrhiza Ehrh. ex L. f.", [{:genus=>{:string=>"Carex"}, :species=>{:string=>"chordorrhiza", :authorship=>"Ehrh. ex L. f.", :basionymAuthorTeam=>{:authorTeam=>"Ehrh.", :author=>["Ehrh."], :exAuthorTeam=>{:authorTeam=>"L. f.", :author=>["L. f."]}}}}], 'Carex chordorrhiza Ehrh. ex L. f.'],
+      [ "Amelanchier arborea var. arborea (Michx. f.) Fernald", [{:genus=>{:string=>"Amelanchier"}, :species=>{:string=>"arborea"}, :infraspecies=>[{:string=>"arborea", :rank=>"var.", :authorship=>"(Michx. f.) Fernald", :combinationAuthorTeam=>{:authorTeam=>"Fernald", :author=>["Fernald"]}, :basionymAuthorTeam=>{:authorTeam=>"Michx. f.", :author=>["Michx. f."]}}]}], 'Amelanchier arborea var. arborea (Michx. f.) Fernald'],
+      [ "Cerastium arvense var. fuegianum Hook. f.", [{:genus=>{:string=>"Cerastium"}, :species=>{:string=>"arvense"}, :infraspecies=>[{:string=>"fuegianum", :rank=>"var.", :authorship=>"Hook. f.", :basionymAuthorTeam=>{:authorTeam=>"Hook. f.", :author=>["Hook. f."]}}]}], 'Cerastium arvense var. fuegianum Hook. f.'],
+      [ "Cerastium arvense var. fuegianum Hook.f.", [{:genus=>{:string=>"Cerastium"}, :species=>{:string=>"arvense"}, :infraspecies=>[{:string=>"fuegianum", :rank=>"var.", :authorship=>"Hook.f.", :basionymAuthorTeam=>{:authorTeam=>"Hook.f.", :author=>["Hook.f."]}}]}], 'Cerastium arvense var. fuegianum Hook.f.'],
+      [ "Cerastium arvense ssp. velutinum var. velutinum (Raf.) Britton f.", [{:genus=>{:string=>"Cerastium"}, :species=>{:string=>"arvense"}, :infraspecies=>[{:string=>"velutinum", :rank=>"ssp."}, {:string=>"velutinum", :rank=>"var.", :authorship=>"(Raf.) Britton f.", :combinationAuthorTeam=>{:authorTeam=>"Britton f.", :author=>["Britton f."]}, :basionymAuthorTeam=>{:authorTeam=>"Raf.", :author=>["Raf."]}}]}], "Cerastium arvense ssp. velutinum var. velutinum (Raf.) Britton f."],
+      ["Amelanchier arborea f. hirsuta (Michx. f.) Fernald", [{:infraspecies=>[{:basionymAuthorTeam=>{:author=>["Michx. f."], :authorTeam=>"Michx. f."}, :string=>"hirsuta", :rank=>"f.", :combinationAuthorTeam=>{:author=>["Fernald"], :authorTeam=>"Fernald"}, :authorship=>"(Michx. f.) Fernald"}], :genus=>{:string=>"Amelanchier"}, :species=>{:string=>"arborea"}}], "Amelanchier arborea f. hirsuta (Michx. f.) Fernald"],
+      ["Betula pendula fo. dalecarlica (L. f.) C.K. Schneid.", [{:infraspecies=>[{:basionymAuthorTeam=>{:author=>["L. f."], :authorTeam=>"L. f."}, :string=>"dalecarlica", :rank=>"f.", :combinationAuthorTeam=>{:author=>["C.K. Schneid."], :authorTeam=>"C.K. Schneid."}, :authorship=>"(L. f.) C.K. Schneid."}], :genus=>{:string=>"Betula"}, :species=>{:string=>"pendula"}}], "Betula pendula f. dalecarlica (L. f.) C.K. Schneid."],
+      ["Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk.", [{:genus=>{:string=>"Racomitrium"}, :species=>{:string=>"canescens"}, :infraspecies=>[{:string=>"ericoides", :rank=>"f.", :authorship=>"(F. Weber ex Brid.) Mönk.", :combinationAuthorTeam=>{:authorTeam=>"Mönk.", :author=>["Mönk."]}, :basionymAuthorTeam=>{:authorTeam=>"F. Weber", :author=>["F. Weber"], :exAuthorTeam=>{:authorTeam=>"Brid.", :author=>["Brid."]}}}]}], "Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk."],
+      ["Racomitrium canescens forma ericoides (F. Weber ex Brid.) Mönk.", [{:genus=>{:string=>"Racomitrium"}, :species=>{:string=>"canescens"}, :infraspecies=>[{:string=>"ericoides", :rank=>"f.", :authorship=>"(F. Weber ex Brid.) Mönk.", :combinationAuthorTeam=>{:authorTeam=>"Mönk.", :author=>["Mönk."]}, :basionymAuthorTeam=>{:authorTeam=>"F. Weber", :author=>["F. Weber"], :exAuthorTeam=>{:authorTeam=>"Brid.", :author=>["Brid."]}}}]}], "Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk."],
+    ]
+    names.each do |sn, sn_details, sn_value|  
+      parse(sn).should_not be_nil
+      details(sn).should == sn_details
+      value(sn).should == sn_value
+    end
+  end
+  
   it 'should parse genus with "?"' do
     sn = "Ferganoconcha? oblonga"
     parse(sn).should_not be_nil
@@ -156,8 +178,6 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Arthopyrenia"}, :species=>{:string=>"hyalospora", :authorship=>"(Nyl.)R.C.     Harris", :combinationAuthorTeam=>{:authorTeam=>"R.C.     Harris", :author=>["R.C. Harris"]}, :basionymAuthorTeam=>{:authorTeam=>"Nyl.", :author=>["Nyl."]}}}]
   end
   
-  
-
   it 'should parse several authors with a year' do
     sn = "Pseudocercospora dendrobii U. Braun & Crous 2003"
     parse(sn).should_not be_nil

@@ -779,7 +779,6 @@ grammar ScientificNameClean
       end
     } 
   end
-  
 
   rule simple_authorship
     a:authors_names space [,]? space b:year? [,]? space "non" space authors_names space [,]? space year {
@@ -901,8 +900,26 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule author_name
+    space a:author_name_without_postfix space b:author_postix_word {
+      def value
+        a.value + ' ' + b.value
+      end
+      
+      def pos 
+        a.pos.merge(b.pos)
+      end
+
+      def details
+        {:author => [value]}
+      end
+    }
+    /
+    author_name_without_postfix
+  end
+  
+  rule author_name_without_postfix
     space a:author_prefix_word space b:author_name {
       def value
         a.value + " " + b.value
@@ -1003,6 +1020,18 @@ grammar ScientificNameClean
       
       def pos
         #cheating because there are several words in some of them
+        {interval.begin => ['author_word', interval.end]}
+      end
+    }
+  end
+
+  rule author_postix_word
+    space ("f."/"filius") space {
+      def value 
+        text_value.strip
+      end
+
+      def pos
         {interval.begin => ['author_word', interval.end]}
       end
     }
