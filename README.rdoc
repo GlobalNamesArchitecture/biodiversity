@@ -67,3 +67,5 @@ You can use it as a library
   # to resolve lsid and get back RDF file
   LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
 
+Copyright (c) 2009-2011 Marine Biological Laboratory. See LICENSE.txt for
+further details.
