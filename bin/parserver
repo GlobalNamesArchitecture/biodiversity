@@ -1,18 +1,95 @@
 #!/usr/bin/env ruby
 require 'rubygems'
+require 'optparse'
 require 'socket'
 require 'biodiversity'          # Get sockets from stdlib
-puts "Running parser service on port 4334"
+
+DEFAULT_PORT = 4334
+RUBY_VERSION_INT = RUBY_VERSION.split(".")[0..1].join('').to_i
+OPTIONS = {
+  :output => "json",
+  :port => DEFAULT_PORT
+}
+
+ARGV.options do |opts|
+  script_name = File.basename($0)
+  opts.banner = "Usage: ruby #{script_name} [options]"
+
+  opts.separator ""
+
+  opts.on("-o", "--output=output", String,
+          "Specifies the type of the output:
+    json - parsed results in json
+    canonical - canonical version
+    canonical_with_rank - canonical with rank",
+          "Default: json") { |OPTIONS[:output]| }
+
+  opts.separator ""
+
+  opts.on("-p", "--port=port", String,
+          "Specifies the port number",
+          "Default: #{DEFAULT_PORT}") { |OPTIONS[:port]| }
+
+  opts.separator ""
+
+  opts.on("-h", "--help",
+          "Show this help message.") { puts opts; exit }
+
+  opts.parse!
+end
+
+OPTIONS[:output] = "json" unless ['canonical', 'canonical_with_rank'].include?(OPTIONS[:output])
+OPTIONS[:port] = (OPTIONS[:port].to_i > 0 ? OPTIONS[:port].to_i : DEFAULT_PORT)
+
+def parser_error(name_string)
+  {:scientificName => {:parsed => false, :verbatim => name_string,  :error => 'Parser error'}}
+end
+
+def get_output(name_string, parser)
+  begin
+    if RUBY_VERSION_INT < 19
+      old_kcode = $KCODE
+      $KCODE = 'NONE'
+    end
+    parsed = parser.parse(name_string)
+    if RUBY_VERSION_INT < 19
+      $KCODE = old_kcode
+    end
+  rescue
+    parsed = parser_error(name_string)
+  end
+  output =  OPTIONS[:output]
+  return parsed.to_json if output == 'json'
+  canonical = parsed[:scientificName][:canonical]
+  return canonical.to_s if output == 'canonical' || canonical == nil || parsed[:scientificName][:hybrid] || !parsed[:scientificName][:parsed]
+  parts = parsed[:scientificName][:canonical].split(" ")
+
+  if parts.size > 2 && parsed[:scientificName][:details][0][:infraspecies]
+    name_ary = parts[0..1]
+    parsed[:scientificName][:details][0][:infraspecies].each do |data|
+      name_ary << (data[:rank] && data[:rank] != 'n/a'? "#{data[:rank]} #{data[:string]}" : data[:string])
+    end
+    canonical = name_ary.join(" ")
+  end
+  canonical
+end
+
+puts "Running parser service on port #{OPTIONS[:port]}, output type is '#{OPTIONS[:output]}'"
 parser = ScientificNameParser.new
-server = TCPServer.open(4334)  # Socket to listen on port 4334
+server = TCPServer.open(OPTIONS[:port])  # Socket to listen on a port
 loop do                         # Servers run forever
   client = server.accept       # Wait for a client to connect
-  while a = client.readline
-    if ['end','exit','q', '.'].include? a.strip
+  while true
+    begin
+      a = client.readline
+      if ['end','exit','q', '.'].include? a.strip
+        client.close
+        break
+      end
+      client.puts get_output(a, parser)
+    rescue EOFError
       client.close
       break
     end
-    client.puts parser.parse(a).to_json
   end
 end
-

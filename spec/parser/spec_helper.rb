@@ -1,6 +1,5 @@
 dir = File.dirname("__FILE__")
 require 'rubygems'
-require 'spec'
 require 'yaml'
 require 'treetop'
 require 'json'
