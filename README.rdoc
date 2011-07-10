@@ -44,7 +44,7 @@ If you want to check if socket server works for you:
   #run server in one terminal
   parserver
 
-  #in another termina window type
+  #in another terminal window type
   telnet localhost 4334
 
 If you enter a line with a scientific name server will send you back parsed information in json format.
