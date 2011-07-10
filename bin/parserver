@@ -11,6 +11,7 @@ OPTIONS = {
   :port => DEFAULT_PORT
 }
 
+options = {}
 ARGV.options do |opts|
   script_name = File.basename($0)
   opts.banner = "Usage: ruby #{script_name} [options]"
@@ -22,13 +23,13 @@ ARGV.options do |opts|
     json - parsed results in json
     canonical - canonical version
     canonical_with_rank - canonical with rank",
-          "Default: json") { |OPTIONS[:output]| }
+          "Default: json") { |output| options[:output] = output }
 
   opts.separator ""
 
   opts.on("-p", "--port=port", String,
           "Specifies the port number",
-          "Default: #{DEFAULT_PORT}") { |OPTIONS[:port]| }
+          "Default: #{DEFAULT_PORT}") { |port| options[:port] = port }
 
   opts.separator ""
 
@@ -38,8 +39,8 @@ ARGV.options do |opts|
   opts.parse!
 end
 
-OPTIONS[:output] = "json" unless ['canonical', 'canonical_with_rank'].include?(OPTIONS[:output])
-OPTIONS[:port] = (OPTIONS[:port].to_i > 0 ? OPTIONS[:port].to_i : DEFAULT_PORT)
+OPTIONS[:output] = options[:output] if ['canonical', 'canonical_with_rank'].include?(options[:output])
+OPTIONS[:port] = options[:port].to_i if options[:port].to_i > 0
 
 def parser_error(name_string)
   {:scientificName => {:parsed => false, :verbatim => name_string,  :error => 'Parser error'}}
