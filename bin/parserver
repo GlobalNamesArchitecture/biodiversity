@@ -83,6 +83,7 @@ loop do                         # Servers run forever
   while true
     begin
       a = client.readline
+      a.force_encoding("utf-8") if a && RUBY_VERSION_INT >= 19
       if ['end','exit','q', '.'].include? a.strip
         client.close
         break
