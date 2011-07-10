@@ -39,8 +39,12 @@ run socket server on a different port
 
 Then you can access it via 4334 port using a socket client library of your programming language.  You can find socket client script example in the examples directory of the gem.
 
-If you want to check if socket server works for you try:
+If you want to check if socket server works for you:
 
+  #run server in one terminal
+  parserver
+
+  #in another termina window type
   telnet localhost 4334
 
 If you enter a line with a scientific name server will send you back parsed information in json format.
