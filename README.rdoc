@@ -37,7 +37,9 @@ the same as above, but infracpecies' rank is shown if available
 
 run socket server on a different port
 
-Then you can access it via 4334 port using a socket client library of your programming language. If you want to check if socket server works for you try:
+Then you can access it via 4334 port using a socket client library of your programming language.  You can find socket client script example in the examples directory of the gem.
+
+If you want to check if socket server works for you try:
 
   telnet localhost 4334
 
@@ -52,7 +54,6 @@ To stop telnet client type any of 'end','exit','q', '.' (without quotes) instead
   Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan
   {"scientificName":{"canonical":"Acacia abyssinica calophylla","parsed":true,"parser_run":1,"verbatim":"Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan\r\n","positions":{"0":["genus",6],"18":["author_word",25],"29":["author_word",35],"7":["species",17],"41":["infraspecies",51],"52":["author_word",58]},"hybrid":false,"normalized":"Acacia abyssinica Hochst. ex Benth. ssp. calophylla Brenan","details":[{"species":{"basionymAuthorTeam":{"exAuthorTeam":{"author":["Benth."],"authorTeam":"Benth."},"author":["Hochst."],"authorTeam":"Hochst."},"string":"abyssinica","authorship":"Hochst. ex Benth."},"infraspecies":[{"basionymAuthorTeam":{"author":["Brenan"],"authorTeam":"Brenan"},"string":"calophylla","rank":"ssp.","authorship":"Brenan"}],"genus":{"string":"Acacia"}}]}}
 
-You can find socket client script example in the examples directory of the gem.
 
 === As a library
 
