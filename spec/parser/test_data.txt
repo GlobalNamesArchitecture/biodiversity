@@ -265,6 +265,9 @@ Apple scar skin viroid|{"scientificName":{"parsed":false, "parser_version":"test
 Australian grapevine viroid [X17101] Australian grapevine viroid ICTV|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Australian grapevine viroid [X17101] Australian grapevine viroid ICTV", "virus":true}}
 Agents of Spongiform Encephalopathies CWD prion Chronic wasting disease|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Agents of Spongiform Encephalopathies CWD prion Chronic wasting disease", "virus":true}}
 Fakus prioni|{"scientificName":{"parsed":true, "verbatim":"Fakus prioni", "normalized":"Fakus prioni", "canonical":"Fakus prioni", "hybrid":false, "details":[{"genus":{"string":"Fakus"}, "species":{"string":"prioni"}}],  "parser_version":"test_version", "parser_run":1, "positions":{"0":["genus", 5], "6":["species", 12]}}}
+Phi h-like viruses|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Phi h-like viruses", "virus":true}}
+Viroids|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Viroids", "virus":true}}
+Fungal prions|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Fungal prions", "virus":true}}
 
 #double parenthesis
 Eichornia crassipes ( (Martius) ) Solms-Laub.|{"scientificName":{"parsed":true, "parser_version":"test_version", "parser_run":2,"verbatim":"Eichornia crassipes ( (Martius) ) Solms-Laub.","normalized":"Eichornia crassipes (Martius) Solms-Laub.","canonical":"Eichornia crassipes","hybrid":false,"details":[{"genus":{"string":"Eichornia"},"species":{"string":"crassipes","authorship":"( (Martius) ) Solms-Laub.","combinationAuthorTeam":{"authorTeam":"Solms-Laub.","author":["Solms-Laub."]},"basionymAuthorTeam":{"authorTeam":"Martius","author":["Martius"]}}}],"positions":{"0":["genus",9],"10":["species",19],"23":["author_word",30],"34":["author_word",45]}}}

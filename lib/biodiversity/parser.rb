@@ -47,7 +47,7 @@ class ScientificNameParser
   end
 
   def virus?(a_string)
-    !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\s(virus|phage|viroid|satellite|prion)\b/i))
+    !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i))
   end 
 
   def unknown_placement?(a_string)
