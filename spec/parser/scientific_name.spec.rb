@@ -43,3 +43,22 @@ describe ScientificNameParser do
     parse('Nile virus')[:scientificName][:parser_version].should_not be_nil
   end
 end
+
+
+describe ParallelParser do
+  it "should find number of cpus" do
+    pparser = ParallelParser.new
+    pparser.cpu_num.should > 0
+  end
+
+  it "should parse several names in parallel" do
+    names = []
+    read_test_file { |n| names << (n[:name]) if n[:name] }
+    names.uniq!
+    pparser = ParallelParser.new
+    res = pparser.parse(names)
+    names.size.should > 100
+    res.keys.size.should == names.size
+  end
+
+end

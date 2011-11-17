@@ -23,6 +23,31 @@ module PreProcessor
   end   
 end
 
+class ParallelParser
+
+  def initialize
+    require 'facter'
+    require 'parallel'
+    cpu_num
+    @processes_num = cpu_num > 1 ? cpu_num - 1 : 1
+  end
+
+  def parse(names_list)
+    parsed = Parallel.map(names_list.uniq, :in_processes => @processes_num) { |n| [n, parse_process(n)] }
+    parsed.inject({}) { |res, x| res[x[0]] = x[1]; res }
+  end
+
+  def cpu_num
+    @cpu_num ||= Facter.processorcount.to_i
+  end
+
+  private
+  def parse_process(name)
+    p = ScientificNameParser.new
+    p.parse(name).to_json rescue {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
+  end
+end
+
 # we can use these expressions when we are ready to parse virus names
 # class VirusParser
 #   def initialize
