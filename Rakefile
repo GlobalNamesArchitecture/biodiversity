@@ -30,6 +30,7 @@ begin
     gem.bindir = 'bin'
     gem.executables = ['nnparse', 'parserver']
     gem.add_dependency('treetop')
+    gem.add_dependency('parallel')
     gem.add_dependency('json') if ruby_version < 19
     gem.add_development_dependency "rspec"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings

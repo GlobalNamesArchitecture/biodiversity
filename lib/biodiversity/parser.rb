@@ -25,11 +25,14 @@ end
 
 class ParallelParser
 
-  def initialize
-    require 'facter'
+  def initialize(processes_num = nil)
     require 'parallel'
     cpu_num
-    @processes_num = cpu_num > 1 ? cpu_num - 1 : 1
+    if processes_num.to_i > 0
+      @processes_num = [processes_num, cpu_num - 1].min
+    else
+      @processes_num = cpu_num > 3 ? cpu_num - 2 : 1
+    end
   end
 
   def parse(names_list)
@@ -38,7 +41,7 @@ class ParallelParser
   end
 
   def cpu_num
-    @cpu_num ||= Facter.processorcount.to_i
+    @cpu_num ||= Parallel.processor_count
   end
 
   private

@@ -61,4 +61,13 @@ describe ParallelParser do
     res.keys.size.should == names.size
   end
 
+  it "should parse several names in parallel with given num of processes" do
+    names = []
+    read_test_file { |n| names << (n[:name]) if n[:name] }
+    names.uniq!
+    pparser = ParallelParser.new(4)
+    res = pparser.parse(names)
+    names.size.should > 100
+    res.keys.size.should == names.size
+  end
 end
