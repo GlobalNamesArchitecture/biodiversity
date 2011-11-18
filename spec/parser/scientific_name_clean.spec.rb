@@ -254,6 +254,8 @@ describe ScientificNameClean do
     pos(sn).should == {0=>["genus", 12], 13=>["species", 19], 25=>["infraspecies", 34], 35=>["author_word", 42], 44=>["author_word", 48], 49=>["author_word", 52], 53=>["year", 57]}
     sn = "Cassytha peninsularis J. Z. Weber var. flindersii"
     canonical(sn).should == "Cassytha peninsularis flindersii"
+    sn = "Prunus armeniaca convar. budae (Pénzes) Soó"
+    canonical(sn).should == "Prunus armeniaca budae"
   end
 
   it 'should parse unknown original authors (auct.)/(hort.)/(?)' do

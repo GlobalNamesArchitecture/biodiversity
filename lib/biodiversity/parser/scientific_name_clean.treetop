@@ -403,7 +403,7 @@ grammar ScientificNameClean
   end
   
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"α" 
+    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"α" 
     /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
