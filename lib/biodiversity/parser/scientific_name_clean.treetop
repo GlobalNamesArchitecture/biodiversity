@@ -361,7 +361,7 @@ grammar ScientificNameClean
       end
       
       def pos
-        {a.interval.begin => ['infraspecies', a.interval.end]}
+        sel.pos(a)
       end
     
       def details
@@ -418,6 +418,10 @@ grammar ScientificNameClean
         " " + a.value
       end
       
+      def pos(a)
+        {interval.begin => ['infraspecific_type', interval.end], a.interval.begin => ['infraspecies', a.interval.end]}
+      end
+      
       def details(a = nil)
         {:infraspecies => {:string => (a.value rescue nil), :rank => text_value}}
       end
@@ -437,6 +441,9 @@ grammar ScientificNameClean
       end
       def canonical(a)
         " " + a.value
+      end
+      def pos(a)
+        {interval.begin => ['infraspecific_type', interval.end], a.interval.begin => ['infraspecies', a.interval.end]}
       end
       def details(a = nil)
         {:infraspecies => {:string => (a.value rescue nil), :rank => value}}

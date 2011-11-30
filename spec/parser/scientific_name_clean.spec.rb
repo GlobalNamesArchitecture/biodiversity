@@ -246,12 +246,12 @@ describe ScientificNameClean do
     sn = "Agalinis purpurea (L.) Briton var. borealis (Berg.) Peterson 1987"
     parse(sn).should_not be_nil
     details(sn).should == [{:genus=>{:string=>"Agalinis"}, :species=>{:string=>"purpurea", :authorship=>"(L.) Briton", :combinationAuthorTeam=>{:authorTeam=>"Briton", :author=>["Briton"]}, :basionymAuthorTeam=>{:authorTeam=>"L.", :author=>["L."]}}, :infraspecies=>[{:string=>"borealis", :rank=>"var.", :authorship=>"(Berg.) Peterson 1987", :combinationAuthorTeam=>{:authorTeam=>"Peterson", :author=>["Peterson"], :year=>"1987"}, :basionymAuthorTeam=>{:authorTeam=>"Berg.", :author=>["Berg."]}}]}]
-    pos(sn).should == {0=>["genus", 8], 9=>["species", 17], 19=>["author_word", 21], 23=>["author_word", 29], 35=>["infraspecies", 43], 45=>["author_word", 50], 52=>["author_word", 60], 61=>["year", 65]}
+    pos(sn).should == {0=>["genus", 8], 9=>["species", 17], 19=>["author_word", 21], 23=>["author_word", 29], 30=>["infraspecific_type", 34], 35=>["infraspecies", 43], 45=>["author_word", 50], 52=>["author_word", 60], 61=>["year", 65]}
     sn = "Phaeographis inusta var. macularis(Leight.) A.L. Sm. 1861"
     parse(sn).should_not be_nil
     value(sn).should == "Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861"
     canonical(sn).should == "Phaeographis inusta macularis"
-    pos(sn).should == {0=>["genus", 12], 13=>["species", 19], 25=>["infraspecies", 34], 35=>["author_word", 42], 44=>["author_word", 48], 49=>["author_word", 52], 53=>["year", 57]}
+    pos(sn).should == {0=>["genus", 12], 13=>["species", 19], 20=>["infraspecific_type", 24], 25=>["infraspecies", 34], 35=>["author_word", 42], 44=>["author_word", 48], 49=>["author_word", 52], 53=>["year", 57]}
     sn = "Cassytha peninsularis J. Z. Weber var. flindersii"
     canonical(sn).should == "Cassytha peninsularis flindersii"
     sn = "Prunus armeniaca convar. budae (Pénzes) Soó"
@@ -267,7 +267,7 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     value(sn).should == "Lachenalia tricolor var. nelsonii (auct.) Baker"
     details(sn).should == [{:genus=>{:string=>"Lachenalia"}, :species=>{:string=>"tricolor"}, :infraspecies=>[{:string=>"nelsonii", :rank=>"var.", :authorship=>"(auct.) Baker", :combinationAuthorTeam=>{:authorTeam=>"Baker", :author=>["Baker"]}, :basionymAuthorTeam=>{:authorTeam=>"auct.", :author=>["unknown"]}}]}]
-    pos(sn).should == {0=>["genus", 10], 11=>["species", 19], 25=>["infraspecies", 33], 35=>["unknown_author", 40], 42=>["author_word", 47]}
+    pos(sn).should == {0=>["genus", 10], 11=>["species", 19], 20=>["infraspecific_type", 24], 25=>["infraspecies", 33], 35=>["unknown_author", 40], 42=>["author_word", 47]}
   end  
   
   it 'should parse unknown authors auct./anon./hort./ht.' do
@@ -286,7 +286,7 @@ describe ScientificNameClean do
     sn = "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981"
     parse(sn).should_not be_nil
     value(sn).should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman et E.A. Herrm.) Van der Walt et Arx 1981"
-    pos(sn).should == {0=>["genus", 8], 9=>["species", 19], 25=>["infraspecies", 35], 37=>["author_word", 42], 44=>["author_word", 52], 55=>["author_word", 59], 60=>["author_word", 66], 68=>["author_word", 71], 72=>["author_word", 75], 76=>["author_word", 80], 83=>["author_word", 86], 87=>["year", 91]}
+    pos(sn).should == {0=>["genus", 8], 9=>["species", 19], 20=>["infraspecific_type", 24], 25=>["infraspecies", 35], 37=>["author_word", 42], 44=>["author_word", 52], 55=>["author_word", 59], 60=>["author_word", 66], 68=>["author_word", 71], 72=>["author_word", 75], 76=>["author_word", 80], 83=>["author_word", 86], 87=>["year", 91]}
     parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
     parse("Pleurotus ëous (Berk.) Sacc. 1887").should_not be_nil
     parse("Lecanora wetmorei Śliwa 2004").should_not be_nil
@@ -340,7 +340,7 @@ describe ScientificNameClean do
     value(sn).should == "Callideriphus flavicollis morph. reductus Fuchs 1961"
     canonical(sn).should == "Callideriphus flavicollis reductus"
     details(sn).should == [{:genus=>{:string=>"Callideriphus"}, :species=>{:string=>"flavicollis"}, :infraspecies=>[{:string=>"reductus", :rank=>"morph.", :authorship=>"Fuchs 1961", :basionymAuthorTeam=>{:authorTeam=>"Fuchs", :author=>["Fuchs"], :year=>"1961"}}]}]
-    pos(sn).should == {0=>["genus", 13], 14=>["species", 25], 33=>["infraspecies", 41], 42=>["author_word", 47], 48=>["year", 52]}
+    pos(sn).should == {0=>["genus", 13], 14=>["species", 25], 26=>["infraspecific_type", 32], 33=>["infraspecies", 41], 42=>["author_word", 47], 48=>["year", 52]}
   end
 
   
@@ -350,26 +350,26 @@ describe ScientificNameClean do
     value(sn).should == "Caulerpa cupressoides f. nuda"
     canonical(sn).should == "Caulerpa cupressoides nuda"
     details(sn).should == [{:genus=>{:string=>"Caulerpa"}, :species=>{:string=>"cupressoides"}, :infraspecies=>[{:string=>"nuda", :rank=>"f."}]}]
-    pos(sn).should == {0=>["genus", 8], 9=>["species", 21], 28=>["infraspecies", 32]}
+    pos(sn).should == {0=>["genus", 8], 9=>["species", 21], 22=>["infraspecific_type", 27], 28=>["infraspecies", 32]}
     sn = "Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó"
     parse(sn).should_not be_nil
     value("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == "Chlorocyperus glaber f. fasciculariforme (Lojac.) Soó"
     canonical(sn).should == "Chlorocyperus glaber fasciculariforme"
     details(sn).should == [{:genus=>{:string=>"Chlorocyperus"}, :species=>{:string=>"glaber"}, :infraspecies=>[{:string=>"fasciculariforme", :rank=>"f.", :authorship=>"(Lojac.) Soó", :combinationAuthorTeam=>{:authorTeam=>"Soó", :author=>["Soó"]}, :basionymAuthorTeam=>{:authorTeam=>"Lojac.", :author=>["Lojac."]}}]}]
-    pos(sn).should == {0=>["genus", 13], 14=>["species", 20], 27=>["infraspecies", 43], 45=>["author_word", 51], 53=>["author_word", 56]}
+    pos(sn).should == {0=>["genus", 13], 14=>["species", 20], 21=>["infraspecific_type", 26], 27=>["infraspecies", 43], 45=>["author_word", 51], 53=>["author_word", 56]}
     sn = "Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
     parse(sn).should_not be_nil
     value(sn).should == "Bambusa nana Roxb. f. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
     canonical(sn).should == "Bambusa nana alphonse-karri"
     details(sn).should == [{:genus=>{:string=>"Bambusa"}, :species=>{:string=>"nana", :authorship=>"Roxb.", :basionymAuthorTeam=>{:authorTeam=>"Roxb.", :author=>["Roxb."]}}, :infraspecies=>[{:string=>"alphonse-karri", :rank=>"f.", :authorship=>"(Mitford ex Satow) Makino ex Shiros.", :combinationAuthorTeam=>{:authorTeam=>"Makino", :author=>["Makino"], :exAuthorTeam=>{:authorTeam=>"Shiros.", :author=>["Shiros."]}}, :basionymAuthorTeam=>{:authorTeam=>"Mitford", :author=>["Mitford"], :exAuthorTeam=>{:authorTeam=>"Satow", :author=>["Satow"]}}}]}]
-    pos(sn).should ==  {0=>["genus", 7], 8=>["species", 12], 13=>["author_word", 18], 23=>["infraspecies", 37], 39=>["author_word", 46], 50=>["author_word", 55], 57=>["author_word", 63], 67=>["author_word", 74]}
+    pos(sn).should == {0=>["genus", 7], 8=>["species", 12], 13=>["author_word", 18], 19=>["infraspecific_type", 22], 23=>["infraspecies", 37], 39=>["author_word", 46], 50=>["author_word", 55], 57=>["author_word", 63], 67=>["author_word", 74]}
     sn = "   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    "
     sn = "Sphaerotheca    fuliginea    f.     dahliae    Movss.     1967"
     parse(sn).should_not be_nil
     value(sn).should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
     canonical(sn).should == "Sphaerotheca fuliginea dahliae"
     details(sn).should ==  [{:genus=>{:string=>"Sphaerotheca"}, :species=>{:string=>"fuliginea"}, :infraspecies=>[{:string=>"dahliae", :rank=>"f.", :authorship=>"Movss.     1967", :basionymAuthorTeam=>{:authorTeam=>"Movss.", :author=>["Movss."], :year=>"1967"}}]}]
-    pos(sn).should == {0=>["genus", 12], 16=>["species", 25], 36=>["infraspecies", 43], 47=>["author_word", 53], 58=>["year", 62]}
+    pos(sn).should == {0=>["genus", 12], 16=>["species", 25], 29=>["infraspecific_type", 31], 36=>["infraspecies", 43], 47=>["author_word", 53], 58=>["year", 62]}
     parse('Polypodium vulgare nothosubsp. mantoniae (Rothm.) Schidlay').should_not be_nil
   end
   
@@ -378,7 +378,7 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     value(sn).should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall et D.E. Stuntz 1972"
     details(sn).should ==  [{:genus=>{:string=>"Hydnellum"}, :species=>{:string=>"scrobiculatum"}, :infraspecies=>[{:string=>"zonatum", :rank=>"var."}, {:string=>"parvum", :rank=>"f.", :authorship=>"(Banker) D. Hall & D.E. Stuntz 1972", :combinationAuthorTeam=>{:authorTeam=>"D. Hall & D.E. Stuntz", :author=>["D. Hall", "D.E. Stuntz"], :year=>"1972"}, :basionymAuthorTeam=>{:authorTeam=>"Banker", :author=>["Banker"]}}]}]
-    pos(sn).should ==  {0=>["genus", 9], 10=>["species", 23], 29=>["infraspecies", 36], 40=>["infraspecies", 46], 48=>["author_word", 54], 56=>["author_word", 58], 59=>["author_word", 63], 66=>["author_word", 70], 71=>["author_word", 77], 78=>["year", 82]}
+    pos(sn).should == {0=>["genus", 9], 10=>["species", 23], 24=>["infraspecific_type", 28], 29=>["infraspecies", 36], 37=>["infraspecific_type", 39], 40=>["infraspecies", 46], 48=>["author_word", 54], 56=>["author_word", 58], 59=>["author_word", 63], 66=>["author_word", 70], 71=>["author_word", 77], 78=>["year", 82]} 
     parse('Senecio fuchsii C.C.Gmel. subsp. fuchsii var. expansus (Boiss. & Heldr.) Hayek').should_not be_nil
     parse('Senecio fuchsii C.C.Gmel. subsp. fuchsii var. fuchsii').should_not be_nil
   end
