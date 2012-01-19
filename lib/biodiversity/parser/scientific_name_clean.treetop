@@ -909,7 +909,7 @@ grammar ScientificNameClean
   end
 
   rule author_name
-    space a:author_name_without_postfix space b:author_postix_word {
+    space a:author_name_without_postfix space b:author_postfix_word space !latin_word {
       def value
         a.value + ' ' + b.value
       end
@@ -1032,8 +1032,8 @@ grammar ScientificNameClean
     }
   end
 
-  rule author_postix_word
-    space ("f."/"filius") space {
+  rule author_postfix_word
+    ("f."/"filius") {
       def value 
         text_value.strip
       end

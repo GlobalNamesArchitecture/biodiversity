@@ -255,7 +255,23 @@ describe ScientificNameClean do
     sn = "Cassytha peninsularis J. Z. Weber var. flindersii"
     canonical(sn).should == "Cassytha peninsularis flindersii"
     sn = "Prunus armeniaca convar. budae (Pénzes) Soó"
+    
     canonical(sn).should == "Prunus armeniaca budae"
+    sn = "Polypodium pectinatum L. f. typica Rosenst."
+    canonical(sn).should == "Polypodium pectinatum typica"
+    # might get confused with forma vs filius
+    sn = "Polypodium pectinatum L.f. typica Rosenst."
+    canonical(sn).should == "Polypodium pectinatum typica"
+    sn = "Polypodium pectinatum (L.) f. typica Rosenst."
+    canonical(sn).should == "Polypodium pectinatum typica"
+    sn = "Polypodium pectinatum L. f., Rosenst."
+    canonical(sn).should == "Polypodium pectinatum"
+    sn = "Polypodium pectinatum L. f."
+    canonical(sn).should == "Polypodium pectinatum"
+    sn = "Polypodium pectinatum (L. f.) typica Rosent."
+    canonical(sn).should == "Polypodium pectinatum typica"
+    sn = "Polypodium pectinatum L. f. thisisjunk Rosent."
+    canonical(sn).should == "Polypodium pectinatum thisisjunk"
   end
 
   it 'should parse unknown original authors (auct.)/(hort.)/(?)' do

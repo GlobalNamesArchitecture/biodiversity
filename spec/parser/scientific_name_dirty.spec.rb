@@ -93,7 +93,7 @@ describe ScientificNameDirty do
   end
   
   it 'should parse names with "common" utf-8 charactes' do
-    names = ["Rühlella","Sténométope laevissimus Bibron 1855"].each do |name|
+    names = ["Rühlella","Sténométope laevissimus Bibron 1855", "Döringina Ihering 1929"].each do |name|
       parse(name).should_not be_nil
     end
   end
