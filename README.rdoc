@@ -31,9 +31,9 @@ to return a canonical form of the name string
 
   parserver --output=canonical_with_rank
 
-the same as above, but infracpecies' rank is shown if available
+the same as above, but infraspecies' rank is shown if available
 
-  praserver --port 5555
+  parserver --port 5555
 
 run socket server on a different port
 
