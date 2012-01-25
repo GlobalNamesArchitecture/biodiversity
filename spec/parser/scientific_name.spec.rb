@@ -70,4 +70,16 @@ describe ParallelParser do
     names.size.should > 100
     res.keys.size.should == names.size
   end
+
+  it "should have parsed name in native ruby format and in returned as a hash with name as a key and parsed data as value" do
+    names = []
+    read_test_file { |n| names << (n[:name]) if n[:name] }
+    names.uniq!
+    pparser = ParallelParser.new(4)
+    res = pparser.parse(names)
+    names.each_with_index do |name, i|
+      res[name].is_a?(Hash).should be_true
+      res[name][:scientificName][:verbatim].should == name
+    end
+  end
 end

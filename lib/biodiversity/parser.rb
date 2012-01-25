@@ -47,7 +47,7 @@ class ParallelParser
   private
   def parse_process(name)
     p = ScientificNameParser.new
-    p.parse(name).to_json rescue {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
+    p.parse(name) rescue {:scientificName => {:parsed => false, :verbatim => name,  :error => 'Parser error'}}
   end
 end
 
