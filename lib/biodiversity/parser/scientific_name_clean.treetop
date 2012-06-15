@@ -403,8 +403,7 @@ grammar ScientificNameClean
   end
   
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"α" 
-    /"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
+    ("morph."/"f.sp."/"B"/"ssp."/"ssp"/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"forma"/"form."/"form"/"fo."/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
         text_value.strip
@@ -428,27 +427,6 @@ grammar ScientificNameClean
     }
     /
     rank_forma
-  end
-  
-  rule rank_forma
-    ("forma"/"form."/"form"/"fo."/"f.")
-    {
-      def value
-        "f."
-      end
-      def apply(a)
-        " " + value + " " + a.value
-      end
-      def canonical(a)
-        " " + a.value
-      end
-      def pos(a)
-        {interval.begin => ['infraspecific_type', interval.end], a.interval.begin => ['infraspecies', a.interval.end]}
-      end
-      def details(a = nil)
-        {:infraspecies => {:string => (a.value rescue nil), :rank => value}}
-      end
-    }
   end
   
   rule species

@@ -10,7 +10,7 @@ module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
-  TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p.\s?p.)\s*$/i  
+  TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
   LAST_WORD_JUNK  = /(,\s*|\s+)(von|van|sensu|new|non|nec|cf|ssp|subsp|subgen|hybrid|hort.|hort)\s*$/i
   

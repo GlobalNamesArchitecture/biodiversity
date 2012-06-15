@@ -91,9 +91,9 @@ describe ScientificNameClean do
       [ "Cerastium arvense var. fuegianum Hook.f.", [{:genus=>{:string=>"Cerastium"}, :species=>{:string=>"arvense"}, :infraspecies=>[{:string=>"fuegianum", :rank=>"var.", :authorship=>"Hook.f.", :basionymAuthorTeam=>{:authorTeam=>"Hook.f.", :author=>["Hook.f."]}}]}], 'Cerastium arvense var. fuegianum Hook.f.'],
       [ "Cerastium arvense ssp. velutinum var. velutinum (Raf.) Britton f.", [{:genus=>{:string=>"Cerastium"}, :species=>{:string=>"arvense"}, :infraspecies=>[{:string=>"velutinum", :rank=>"ssp."}, {:string=>"velutinum", :rank=>"var.", :authorship=>"(Raf.) Britton f.", :combinationAuthorTeam=>{:authorTeam=>"Britton f.", :author=>["Britton f."]}, :basionymAuthorTeam=>{:authorTeam=>"Raf.", :author=>["Raf."]}}]}], "Cerastium arvense ssp. velutinum var. velutinum (Raf.) Britton f."],
       ["Amelanchier arborea f. hirsuta (Michx. f.) Fernald", [{:infraspecies=>[{:basionymAuthorTeam=>{:author=>["Michx. f."], :authorTeam=>"Michx. f."}, :string=>"hirsuta", :rank=>"f.", :combinationAuthorTeam=>{:author=>["Fernald"], :authorTeam=>"Fernald"}, :authorship=>"(Michx. f.) Fernald"}], :genus=>{:string=>"Amelanchier"}, :species=>{:string=>"arborea"}}], "Amelanchier arborea f. hirsuta (Michx. f.) Fernald"],
-      ["Betula pendula fo. dalecarlica (L. f.) C.K. Schneid.", [{:infraspecies=>[{:basionymAuthorTeam=>{:author=>["L. f."], :authorTeam=>"L. f."}, :string=>"dalecarlica", :rank=>"f.", :combinationAuthorTeam=>{:author=>["C.K. Schneid."], :authorTeam=>"C.K. Schneid."}, :authorship=>"(L. f.) C.K. Schneid."}], :genus=>{:string=>"Betula"}, :species=>{:string=>"pendula"}}], "Betula pendula f. dalecarlica (L. f.) C.K. Schneid."],
+      ["Betula pendula fo. dalecarlica (L. f.) C.K. Schneid.", [{:infraspecies=>[{:basionymAuthorTeam=>{:author=>["L. f."], :authorTeam=>"L. f."}, :string=>"dalecarlica", :rank=>"fo.", :combinationAuthorTeam=>{:author=>["C.K. Schneid."], :authorTeam=>"C.K. Schneid."}, :authorship=>"(L. f.) C.K. Schneid."}], :genus=>{:string=>"Betula"}, :species=>{:string=>"pendula"}}], "Betula pendula fo. dalecarlica (L. f.) C.K. Schneid."],
       ["Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk.", [{:genus=>{:string=>"Racomitrium"}, :species=>{:string=>"canescens"}, :infraspecies=>[{:string=>"ericoides", :rank=>"f.", :authorship=>"(F. Weber ex Brid.) Mönk.", :combinationAuthorTeam=>{:authorTeam=>"Mönk.", :author=>["Mönk."]}, :basionymAuthorTeam=>{:authorTeam=>"F. Weber", :author=>["F. Weber"], :exAuthorTeam=>{:authorTeam=>"Brid.", :author=>["Brid."]}}}]}], "Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk."],
-      ["Racomitrium canescens forma ericoides (F. Weber ex Brid.) Mönk.", [{:genus=>{:string=>"Racomitrium"}, :species=>{:string=>"canescens"}, :infraspecies=>[{:string=>"ericoides", :rank=>"f.", :authorship=>"(F. Weber ex Brid.) Mönk.", :combinationAuthorTeam=>{:authorTeam=>"Mönk.", :author=>["Mönk."]}, :basionymAuthorTeam=>{:authorTeam=>"F. Weber", :author=>["F. Weber"], :exAuthorTeam=>{:authorTeam=>"Brid.", :author=>["Brid."]}}}]}], "Racomitrium canescens f. ericoides (F. Weber ex Brid.) Mönk."],
+      ["Racomitrium canescens forma ericoides (F. Weber ex Brid.) Mönk.", [{:genus=>{:string=>"Racomitrium"}, :species=>{:string=>"canescens"}, :infraspecies=>[{:string=>"ericoides", :rank=>"forma", :authorship=>"(F. Weber ex Brid.) Mönk.", :combinationAuthorTeam=>{:authorTeam=>"Mönk.", :author=>["Mönk."]}, :basionymAuthorTeam=>{:authorTeam=>"F. Weber", :author=>["F. Weber"], :exAuthorTeam=>{:authorTeam=>"Brid.", :author=>["Brid."]}}}]}], "Racomitrium canescens forma ericoides (F. Weber ex Brid.) Mönk."],
     ]
     names.each do |sn, sn_details, sn_value|  
       parse(sn).should_not be_nil
@@ -363,21 +363,21 @@ describe ScientificNameClean do
   it "should parse name with forma/fo./form./f." do
     sn = "Caulerpa cupressoides forma nuda"
     parse(sn).should_not be_nil
-    value(sn).should == "Caulerpa cupressoides f. nuda"
+    value(sn).should == "Caulerpa cupressoides forma nuda"
     canonical(sn).should == "Caulerpa cupressoides nuda"
-    details(sn).should == [{:genus=>{:string=>"Caulerpa"}, :species=>{:string=>"cupressoides"}, :infraspecies=>[{:string=>"nuda", :rank=>"f."}]}]
+    details(sn).should == [{:genus=>{:string=>"Caulerpa"}, :species=>{:string=>"cupressoides"}, :infraspecies=>[{:string=>"nuda", :rank=>"forma"}]}]
     pos(sn).should == {0=>["genus", 8], 9=>["species", 21], 22=>["infraspecific_type", 27], 28=>["infraspecies", 32]}
     sn = "Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó"
     parse(sn).should_not be_nil
-    value("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == "Chlorocyperus glaber f. fasciculariforme (Lojac.) Soó"
+    value("Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó").should == "Chlorocyperus glaber form. fasciculariforme (Lojac.) Soó"
     canonical(sn).should == "Chlorocyperus glaber fasciculariforme"
-    details(sn).should == [{:genus=>{:string=>"Chlorocyperus"}, :species=>{:string=>"glaber"}, :infraspecies=>[{:string=>"fasciculariforme", :rank=>"f.", :authorship=>"(Lojac.) Soó", :combinationAuthorTeam=>{:authorTeam=>"Soó", :author=>["Soó"]}, :basionymAuthorTeam=>{:authorTeam=>"Lojac.", :author=>["Lojac."]}}]}]
+    details(sn).should == [{:genus=>{:string=>"Chlorocyperus"}, :species=>{:string=>"glaber"}, :infraspecies=>[{:string=>"fasciculariforme", :rank=>"form.", :authorship=>"(Lojac.) Soó", :combinationAuthorTeam=>{:authorTeam=>"Soó", :author=>["Soó"]}, :basionymAuthorTeam=>{:authorTeam=>"Lojac.", :author=>["Lojac."]}}]}]
     pos(sn).should == {0=>["genus", 13], 14=>["species", 20], 21=>["infraspecific_type", 26], 27=>["infraspecies", 43], 45=>["author_word", 51], 53=>["author_word", 56]}
     sn = "Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
     parse(sn).should_not be_nil
-    value(sn).should == "Bambusa nana Roxb. f. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
+    value(sn).should == "Bambusa nana Roxb. fo. alphonse-karri (Mitford ex Satow) Makino ex Shiros."
     canonical(sn).should == "Bambusa nana alphonse-karri"
-    details(sn).should == [{:genus=>{:string=>"Bambusa"}, :species=>{:string=>"nana", :authorship=>"Roxb.", :basionymAuthorTeam=>{:authorTeam=>"Roxb.", :author=>["Roxb."]}}, :infraspecies=>[{:string=>"alphonse-karri", :rank=>"f.", :authorship=>"(Mitford ex Satow) Makino ex Shiros.", :combinationAuthorTeam=>{:authorTeam=>"Makino", :author=>["Makino"], :exAuthorTeam=>{:authorTeam=>"Shiros.", :author=>["Shiros."]}}, :basionymAuthorTeam=>{:authorTeam=>"Mitford", :author=>["Mitford"], :exAuthorTeam=>{:authorTeam=>"Satow", :author=>["Satow"]}}}]}]
+    details(sn).should == [{:genus=>{:string=>"Bambusa"}, :species=>{:string=>"nana", :authorship=>"Roxb.", :basionymAuthorTeam=>{:authorTeam=>"Roxb.", :author=>["Roxb."]}}, :infraspecies=>[{:string=>"alphonse-karri", :rank=>"fo.", :authorship=>"(Mitford ex Satow) Makino ex Shiros.", :combinationAuthorTeam=>{:authorTeam=>"Makino", :author=>["Makino"], :exAuthorTeam=>{:authorTeam=>"Shiros.", :author=>["Shiros."]}}, :basionymAuthorTeam=>{:authorTeam=>"Mitford", :author=>["Mitford"], :exAuthorTeam=>{:authorTeam=>"Satow", :author=>["Satow"]}}}]}]
     pos(sn).should == {0=>["genus", 7], 8=>["species", 12], 13=>["author_word", 18], 19=>["infraspecific_type", 22], 23=>["infraspecies", 37], 39=>["author_word", 46], 50=>["author_word", 55], 57=>["author_word", 63], 67=>["author_word", 74]}
     sn = "   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    "
     sn = "Sphaerotheca    fuliginea    f.     dahliae    Movss.     1967"
@@ -556,6 +556,8 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}]
     sn = 'Schottera nicaeënsis (J.V. Lamouroux ex Duby) Guiry & Hollenberg'
     details(sn).should == [{:genus=>{:string=>"Schottera"}, :species=>{:string=>"nicaeënsis", :authorship=>"(J.V. Lamouroux ex Duby) Guiry & Hollenberg", :combinationAuthorTeam=>{:authorTeam=>"Guiry & Hollenberg", :author=>["Guiry", "Hollenberg"]}, :basionymAuthorTeam=>{:authorTeam=>"J.V. Lamouroux", :author=>["J.V. Lamouroux"], :exAuthorTeam=>{:authorTeam=>"Duby", :author=>["Duby"]}}}}]
+    sn = 'Deschampsia cespitosa ssp pumila'
+    details(sn).should == [{:genus=>{:string=>"Deschampsia"}, :species=>{:string=>"cespitosa"}, :infraspecies=>[{:string=>"pumila", :rank=>"ssp"}]}]
   end
   
   # Combination genus names should be merged without dash or capital letter
