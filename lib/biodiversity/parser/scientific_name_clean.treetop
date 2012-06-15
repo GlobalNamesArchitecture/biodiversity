@@ -425,8 +425,6 @@ grammar ScientificNameClean
         {:infraspecies => {:string => (a.value rescue nil), :rank => text_value}}
       end
     }
-    /
-    rank_forma
   end
   
   rule species
