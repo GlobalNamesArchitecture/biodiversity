@@ -8,6 +8,8 @@ group :development do
 end
 
 group :test do
-  gem "ruby-debug19", :require => "ruby-debug"
+  if RUBY_VERSION =~ /^1\.9/
+    gem "ruby-debug19", :require => "ruby-debug"
+  end
   gem "rspec"
 end
