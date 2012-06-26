@@ -1,0 +1,7 @@
+1.0.13 -- canonical forms for cf. aff. qualifiers are modified: canonical for 
+'Aus cf. bus' is now 'Aus bus'; canonical for 'Aus aff. bus' is now 'Aus'.
+Ranks at the end of the name like 'var', 'ssp', 'spp' are considered junk and
+are ignored
+
+1.0.12 -- bug is fixed which prevented 'Cucurbita pepo' be parsed correctly, 
+f., forma, fr. are now treated as any other ranks.
