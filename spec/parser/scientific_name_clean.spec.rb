@@ -131,9 +131,9 @@ describe ScientificNameClean do
   
   it 'should parse names with e-umlaut' do
    sn = 'Kalanchoë tuberosa'
-   canonical(sn).should == 'Kalanchoë tuberosa'
+   canonical(sn).should == 'Kalanchoe tuberosa'
    sn = 'Isoëtes asplundii H. P. Fuchs'
-   canonical(sn).should == 'Isoëtes asplundii'
+   canonical(sn).should == 'Isoetes asplundii'
   end
 
   it 'should parse infragenus (ICZN code)' do
@@ -555,7 +555,7 @@ describe ScientificNameClean do
     sn = 'Flexibacter elegans Soriano 1945, non Lewin 1969'
     details(sn).should == [{:genus=>{:string=>"Flexibacter"}, :species=>{:string=>"elegans", :authorship=>"Soriano 1945, non Lewin 1969", :basionymAuthorTeam=>{:authorTeam=>"Soriano", :author=>["Soriano"], :year=>"1945"}}}]
     sn = 'Schottera nicaeënsis (J.V. Lamouroux ex Duby) Guiry & Hollenberg'
-    details(sn).should == [{:genus=>{:string=>"Schottera"}, :species=>{:string=>"nicaeënsis", :authorship=>"(J.V. Lamouroux ex Duby) Guiry & Hollenberg", :combinationAuthorTeam=>{:authorTeam=>"Guiry & Hollenberg", :author=>["Guiry", "Hollenberg"]}, :basionymAuthorTeam=>{:authorTeam=>"J.V. Lamouroux", :author=>["J.V. Lamouroux"], :exAuthorTeam=>{:authorTeam=>"Duby", :author=>["Duby"]}}}}]
+    details(sn).should == [{:genus=>{:string=>"Schottera"}, :species=>{:string=>"nicaeensis", :authorship=>"(J.V. Lamouroux ex Duby) Guiry & Hollenberg", :combinationAuthorTeam=>{:authorTeam=>"Guiry & Hollenberg", :author=>["Guiry", "Hollenberg"]}, :basionymAuthorTeam=>{:authorTeam=>"J.V. Lamouroux", :author=>["J.V. Lamouroux"], :exAuthorTeam=>{:authorTeam=>"Duby", :author=>["Duby"]}}}}]
     sn = 'Deschampsia cespitosa ssp pumila'
     details(sn).should == [{:genus=>{:string=>"Deschampsia"}, :species=>{:string=>"cespitosa"}, :infraspecies=>[{:string=>"pumila", :rank=>"ssp"}]}]
   end

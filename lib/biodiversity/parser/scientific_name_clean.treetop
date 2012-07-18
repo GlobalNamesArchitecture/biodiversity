@@ -1167,9 +1167,9 @@ grammar ScientificNameClean
         text_value.split('').each do |l|
           l = 'ae' if l == 'æ'
           l = 'oe' if l == 'œ'
-          # not sure if we should normalize ë as well. It is legal in botanical code, but it 
-          # might be beneficial to normalize it for the reconsiliation purposes
-          # l = 'e' if l == 'ë' 
+          # We normalize ë as well. It is legal in botanical code, but it 
+          # is beneficial to normalize it for the reconsiliation purposes
+          l = 'e' if l == 'ë' 
           res << l
         end
         res
