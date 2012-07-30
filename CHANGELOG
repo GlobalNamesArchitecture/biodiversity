@@ -1,3 +1,5 @@
+1.0.15 -- additional rules added for names ending with ssp. sp sp. and cf.
+
 1.0.14 -- canonical forms had allowed ë as a character until now. After this 
 version the only utf-8 character allowed in canonical forms should be the 
 multiplication sign for hybrids.

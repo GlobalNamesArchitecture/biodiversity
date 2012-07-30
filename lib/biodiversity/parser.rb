@@ -14,7 +14,7 @@ module PreProcessor
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
   COMPARATORS     = /\s+(aff\.|aff)\b.*$/i
   CF_COMPARATOR   = /\s+(cf\.|cf)\s+/i
-  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|sensu|new|non|nec|cf|ssp|subsp|subgen|hybrid|hort\.|hort)\s*$/i
+  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|sensu|new|non|nec|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\s*$/i
   
   def self.clean(a_string)
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, COMPARATORS, LAST_WORD_JUNK].each do |i|
