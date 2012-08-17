@@ -1,5 +1,7 @@
 = Biodiversity
 
+{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/GlobalNamesArchitecture/taxamatch_rb]
+
 Parses taxonomic scientific name and breaks it into semantic elements.
 
 == Installation
