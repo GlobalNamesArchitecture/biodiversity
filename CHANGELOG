@@ -1,3 +1,5 @@
+1.0.17 -- fixed a bug which prevented all diacritics be converted correctly
+
 1.0.16 -- dirty mode now converts ë to e
 
 1.0.15 -- additional rules added for names ending with ssp. sp sp. and cf.
