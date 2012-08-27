@@ -1,3 +1,5 @@
+1.0.16 -- dirty mode now converts ë to e
+
 1.0.15 -- additional rules added for names ending with ssp. sp sp. and cf.
 
 1.0.14 -- canonical forms had allowed ë as a character until now. After this 
