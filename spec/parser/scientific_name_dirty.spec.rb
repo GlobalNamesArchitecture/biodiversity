@@ -96,7 +96,7 @@ describe ScientificNameDirty do
     names = ["Rühlella","Sténométope laevissimus Bibron 1855", "Döringina Ihering 1929"].each do |name|
       parse(name).should_not be_nil
     end
-    details("Hirsutëlla mâle").should == [{:uninomial=>{:string=>"Hirsutella"}}]
+    details("Hirsutëlla mâle").should == [{:genus=>{:string=>"Hirsutella"}, :species=>{:string=>"male"}}] 
   end
   
 # AsterophUa japonica

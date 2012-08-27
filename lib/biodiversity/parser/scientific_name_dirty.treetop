@@ -144,13 +144,6 @@ grammar ScientificNameDirty
       end
     }
   end
-  rule valid_name_letters
-    [a-z\-ëüäöïéåóç]+ {
-      def value
-        text_value
-      end
-    }
-  end
 
   rule right_paren
    ")" space ")"
