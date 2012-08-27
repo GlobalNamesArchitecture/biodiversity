@@ -97,6 +97,7 @@ describe ScientificNameDirty do
       parse(name).should_not be_nil
     end
     details("Hirsutëlla mâle").should == [{:genus=>{:string=>"Hirsutella"}, :species=>{:string=>"male"}}] 
+    details("Triticum repens vulgäre").should == [{:genus=>{:string=>"Triticum"}, :species=>{:string=>"repens"}, :infraspecies=>[{:string=>"vulgare", :rank=>"n/a"}]}]
   end
   
 # AsterophUa japonica

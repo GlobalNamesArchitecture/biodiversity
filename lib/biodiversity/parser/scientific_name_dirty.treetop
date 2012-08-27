@@ -92,6 +92,44 @@ grammar ScientificNameDirty
     super
   end
   
+  rule infraspecies_string
+    sel:rank space_hard a:species_word {
+      def value 
+        sel.apply(a)
+      end
+      def canonical
+        sel.canonical(a)
+      end
+      
+      def pos
+        sel.pos(a)
+      end
+    
+      def details
+        sel.details(a)
+      end
+    }
+    /
+    species_word ![\.] {
+      def value
+        text_value.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
+                     'aaaaaacceeeiiinnnoooooouuurrrsssz')
+      end
+      
+      def canonical
+        value
+      end
+  
+      def pos
+        {interval.begin => ['infraspecies', interval.end]}
+      end
+  
+      def details
+        {:infraspecies => {:string => value, :rank => 'n/a'}}
+      end
+    }
+  end
+  
   rule species
     a:species_string space b:year {
        def value
