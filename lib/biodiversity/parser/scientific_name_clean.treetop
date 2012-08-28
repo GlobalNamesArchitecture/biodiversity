@@ -369,9 +369,9 @@ grammar ScientificNameClean
       end
     }
     /
-    species_word ![\.] {
+    a:species_word ![\.] {
       def value
-        text_value
+        a.value
       end
       
       def canonical

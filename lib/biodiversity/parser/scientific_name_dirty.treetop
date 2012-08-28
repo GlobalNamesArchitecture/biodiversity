@@ -110,10 +110,9 @@ grammar ScientificNameDirty
       end
     }
     /
-    species_word ![\.] {
+    a:species_word ![\.] {
       def value
-        text_value.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
-                     'aaaaaacceeeiiinnnoooooouuurrrsssz')
+        a.value
       end
       
       def canonical
