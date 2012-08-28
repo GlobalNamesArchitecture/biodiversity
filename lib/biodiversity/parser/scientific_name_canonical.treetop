@@ -40,7 +40,7 @@ grammar ScientificNameCanonical
       end
       
       def canonical
-        a.canonical + " " + b.canonical + " " + c.canonical
+        a.canonical + " " + c.canonical
       end
       
       def pos
@@ -58,7 +58,7 @@ grammar ScientificNameCanonical
       end
       
       def canonical
-        a.canonical + " " + b.canonical
+        a.canonical
       end
       
       def pos
