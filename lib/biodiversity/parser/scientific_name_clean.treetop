@@ -1183,6 +1183,7 @@ grammar ScientificNameClean
         res = text_value
         res = 'ae' if res == 'æ'
         res = 'oe' if res == 'œ'
+        res = 'e'  if res == 'ë' 
         res
       end
     }
