@@ -110,6 +110,8 @@ grammar ScientificNameCanonical
   end
   
   rule garbage
+    space "$$g@rbg3$$"
+    /
     space (["',.]) space [^щ]*
     /
     space_hard [^ш]+

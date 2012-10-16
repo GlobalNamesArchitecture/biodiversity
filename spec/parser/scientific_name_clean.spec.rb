@@ -28,6 +28,12 @@ describe ScientificNameClean do
     details(sn).should == [{:uninomial=>{:string=>"Pseudocercospora", :authorship=>"Spegazzini, 1910", :basionymAuthorTeam=>{:authorTeam=>"Spegazzini", :author=>["Spegazzini"], :year=>"1910"}}}]
     pos(sn).should == {0=>["uninomial", 16], 17=>["author_word", 27], 29=>["year", 33]}
   end
+
+  it "should parse uninomials with uninomial ranks" do
+    sn = "Epacridaceae trib. Archerieae Crayn & Quinn"
+    parse(sn).should_not be_nil
+    details(sn).should == [{:uninomial=>{:string=>"Epacridaceae"}, :rank_uninomials=>"trib.", :uninomial2=>{:uninomial=>{:string=>"Archerieae", :authorship=>"Crayn & Quinn", :basionymAuthorTeam=>{:authorTeam=>"Crayn & Quinn", :author=>["Crayn", "Quinn"]}}}}]
+  end
   
   it 'should parse names with a valid 2 letter genus' do
     ["Ca Dyar 1914",
@@ -206,12 +212,16 @@ describe ScientificNameClean do
   end  
 
   it "should be able to parse name with aff or cf" do 
-    # sn = 'Diplocephalus aff. procerus Thaler, 1972'
-    # details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff."}]
+    sn = 'Diplocephalus aff. procerus Thaler, 1972'
+    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff."}]
     sn = 'Diplocephalus aff procerus Thaler, 1972'
     details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff"}]
-    # sn = 'Diplocephalus affprocerus Thaler, 1972'
-    # details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff."}]
+    sn = 'Diplocephalus affprocerus Thaler, 1972'
+    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species=>{:string=>"affprocerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}]
+    sn = 'Diplocephalus cf. procerus Thaler, 1972'
+    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"cf.", :species=>{:species=>{:string=>"procerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}}]
+    sn = 'Diplocephalus cf procerus Thaler, 1972'
+    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"cf", :species=>{:species=>{:string=>"procerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}}]
   end
   
   it 'should parse scientific name' do

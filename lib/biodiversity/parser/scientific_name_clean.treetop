@@ -178,6 +178,8 @@ grammar ScientificNameClean
   end
 
   rule scientific_name_1
+    multiuninomial_name
+    /
     multinomial_name
     /
     uninomial_name  
@@ -332,6 +334,31 @@ grammar ScientificNameClean
       end
     }
   end
+
+  rule multiuninomial_name
+    a:uninomial_name space b:rank_uninomial space c:uninomial_name {
+
+      def value 
+        a.value + " " + b.value + " " + c.value
+      end
+
+      def canonical
+        a.canonical
+      end
+
+      def hybrid
+        false
+      end
+
+      def pos
+        a.pos.merge(b.pos(c))
+      end
+
+      def details
+        a.details.merge(b.details(c))
+      end
+    }
+  end
   
   rule infraspecies_mult
     a:infraspecies space b:infraspecies_mult {
@@ -456,6 +483,22 @@ grammar ScientificNameClean
       
       def details(a = nil)
         {:infraspecies => {:string => (a.value rescue nil), :rank => text_value.strip}}
+      end
+    }
+  end
+
+  rule rank_uninomial
+    ("trib."/"trib ") {
+      def value
+        text_value.strip
+      end
+
+      def pos(uni)
+        {interval.begin => ['rank_uninomial', interval.end], uni.interval.begin => ['uninomial', uni.interval.end]}
+      end
+      
+      def details(uni)
+        {:rank_uninomials => value, :uninomial2 => uni.details}
       end
     }
   end
