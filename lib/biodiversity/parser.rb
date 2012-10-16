@@ -8,7 +8,7 @@ require 'json'
 
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
-  DOTS = /\.[\s]*/
+  # DOTS = /\\b(morph|ssp|mut|nat|nothosubsp|convar|pseudovar|sect|ser|var|subvar|subsp|subf|fma|form|fo|f)\\.[\\s]?(?![\\)|\\]|,])/
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
@@ -24,9 +24,9 @@ module PreProcessor
     [CF_COMPARATOR].each do |i|
       a_string = a_string.gsub(i, ' ')
     end
-    a_string = a_string.gsub(DOTS, '. ')
+    # a_string = a_string.gsub(DOTS, '\\1. ')
     a_string = a_string.tr('ſ','s') #old 's'
-    a_string
+    a_string.rstrip
   end   
 end
 

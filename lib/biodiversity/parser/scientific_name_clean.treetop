@@ -352,7 +352,7 @@ grammar ScientificNameClean
   end
   
   rule infraspecies_string
-    sel:rank space_hard a:species_word {
+    sel:rank space a:species_word {
       def value 
         sel.apply(a)
       end
@@ -403,14 +403,14 @@ grammar ScientificNameClean
   end
 
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"ssp"/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"forma"/"fma."/"fma"/"form."/"form"/"fo."/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
+    ("morph."/"f.sp."/"B "/"ssp."/"ssp "/"mut."/"nat "/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var "/"subsp."/"subsp "/"subf."/"race "/"forma "/"fma."/"fma "/"form."/"form "/"fo."/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
         text_value.strip
       end
 
       def apply(a)
-        " " + text_value + " " + a.value
+        " " + text_value.strip + " " + a.value
       end
 
       def canonical(a)
@@ -418,11 +418,12 @@ grammar ScientificNameClean
       end
       
       def pos(a)
-        {interval.begin => ['infraspecific_type', interval.end], a.interval.begin => ['infraspecies', a.interval.end]}
+        interval_end =  text_value[-1] == ' ' ? interval.end - 1 : interval.end 
+        {interval.begin => ['infraspecific_type', interval_end], a.interval.begin => ['infraspecies', a.interval.end]}
       end
       
       def details(a = nil)
-        {:infraspecies => {:string => (a.value rescue nil), :rank => text_value}}
+        {:infraspecies => {:string => (a.value rescue nil), :rank => text_value.strip}}
       end
     }
   end
@@ -1241,7 +1242,7 @@ grammar ScientificNameClean
   end
   
   rule year_number
-    [12] [7890] [0-9] [0-9]? [\?]? {
+    [12] [7890] [0-9] ([0-9] [\?]?/"?") {
       def value
         text_value
       end
