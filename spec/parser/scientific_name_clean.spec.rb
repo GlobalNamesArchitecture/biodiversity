@@ -204,6 +204,15 @@ describe ScientificNameClean do
     parse("Zophosis persis (Chatanay) 1914").should_not be_nil
     #parse("Zophosis persis Chatanay (1914)").should_not be_nil
   end  
+
+  it "should be able to parse name with aff or cf" do 
+    # sn = 'Diplocephalus aff. procerus Thaler, 1972'
+    # details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff."}]
+    sn = 'Diplocephalus aff procerus Thaler, 1972'
+    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff"}]
+    # sn = 'Diplocephalus affprocerus Thaler, 1972'
+    # details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species_prefix=>"aff."}]
+  end
   
   it 'should parse scientific name' do
     sn = "Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003"
@@ -545,8 +554,6 @@ describe ScientificNameClean do
     parse('Dipoena yoshidai Ono, in Ono et al., 1991').should_not be_nil
     sn = 'Latrodectus mactans bishopi Kaston, 1938'
     details(sn).should == [{:genus=>{:string=>"Latrodectus"}, :species=>{:string=>"mactans"}, :infraspecies=>[{:string=>"bishopi", :rank=>"n/a", :authorship=>"Kaston, 1938", :basionymAuthorTeam=>{:authorTeam=>"Kaston", :author=>["Kaston"], :year=>"1938"}}]}]
-    sn = 'Diplocephalus aff. procerus Thaler, 1972'
-    details(sn).should == [{:genus=>{:string=>"Diplocephalus"}, :species=>{:string=>"procerus", :authorship=>"Thaler, 1972", :basionymAuthorTeam=>{:authorTeam=>"Thaler", :author=>["Thaler"], :year=>"1972"}}}]
     sn = 'Thiobacillus x Parker and Prisk 1953' #have to figure out black lists for this one
     sn = 'Bacille de Plaut, Kritchevsky and Séguin 1921'
     details(sn).should == [{:uninomial=>{:string=>"Bacille", :authorship=>"de Plaut, Kritchevsky and Séguin 1921", :basionymAuthorTeam=>{:authorTeam=>"de Plaut, Kritchevsky and Séguin", :author=>["de Plaut", "Kritchevsky", "Séguin"], :year=>"1921"}}}]

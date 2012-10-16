@@ -212,7 +212,7 @@ grammar ScientificNameClean
   
   
   rule multinomial_name
-    a:genus space b:infragenus space species_prefix? space c:species space_hard d:infraspecies_mult {
+    a:genus space b:infragenus space spf:species_prefix? space c:species space_hard d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
@@ -234,17 +234,29 @@ grammar ScientificNameClean
       end
     }
     /  
-    a:genus space b:infragenus space species_prefix? space c:species {
+    a:genus space b:infragenus space spf:species_prefix? space c:species {
       def value
-        a.value + " " + b.value + " " + c.value
+        if defined? spf.apply
+          a.value + " " + b.value + spf.apply(c)
+        else
+          a.value + " " + b.value + " " + c.value
+        end
       end
       
       def canonical
-        a.canonical + " " + c.canonical
+        if defined? spf.apply
+          a.canonical + spf.canonical(c)
+        else
+          a.canonical + " " + c.canonical
+        end
       end
       
       def pos
-        a.pos.merge(b.pos).merge(c.pos)
+        if defined? spf.apply
+          a.pos.merge(b.pos).merge(spf.pos(c))
+        else
+          a.pos.merge(b.pos).merge(c.pos)
+        end
       end
       
       def hybrid
@@ -252,11 +264,15 @@ grammar ScientificNameClean
       end
       
       def details
-        a.details.merge(b.details).merge(c.details)
+        if defined? spf.apply
+          a.details.merge(b.details).merge(spf.apply(c))
+        else
+          a.details.merge(b.details).merge(c.details)
+        end
       end
     }
     /
-    a:genus space species_prefix? space b:species space_hard c:infraspecies_mult {
+    a:genus space spf:species_prefix? space b:species space_hard c:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value 
       end
@@ -278,17 +294,29 @@ grammar ScientificNameClean
       end
     }
     /
-    a:genus space species_prefix? space b:species {
+    a:genus space spf:species_prefix? space b:species {
       def value
-        a.value + " " + b.value 
+        if defined? spf.apply
+          a.value + spf.apply(b)
+        else
+          a.value + " " + b.value 
+        end
       end
 
       def canonical
-        a.canonical + " " + b.canonical
+        if defined? spf.apply
+          a.canonical + spf.canonical(b)
+        else
+          a.canonical + " " + b.canonical
+        end
       end
       
       def pos
-        a.pos.merge(b.pos)
+        if defined? spf.apply
+          a.pos.merge(spf.pos(b))
+        else
+          a.pos.merge(b.pos)
+        end
       end
       
       def hybrid
@@ -296,7 +324,11 @@ grammar ScientificNameClean
       end
       
       def details
-        a.details.merge(b.details)
+        if defined? spf.apply
+          a.details.merge(spf.details(b))
+        else
+          a.details.merge(b.details)
+        end
       end
     }
   end
@@ -455,28 +487,6 @@ grammar ScientificNameClean
   end
   
   rule species_string
-    # a:species_word &(space_hard author_prefix_word space_hard) {
-    #   def value 
-    #     a.value
-    #   end
-    #   
-    #   def canonical
-    #     a.value
-    #   end
-    #   
-    #   def hybrid
-    #     a.hybrid rescue false
-    #   end
-    # 
-    #   def pos
-    #     {a.interval.begin => ['species', a.interval.end]}
-    #   end
-    # 
-    #   def details
-    #     {:species => {:string => a.value}}
-    #   end
-    # }
-    # /
     species_word {
       def canonical
         value
@@ -1132,9 +1142,54 @@ grammar ScientificNameClean
   end
 
   rule species_prefix
-    ("aff."/"corrig."/"?") &space_hard
+    ("sp.aff."/"sp. aff."/"aff."/"aff "/"?") {
+
+      def value
+        text_value.strip
+      end
+
+      def apply(sp)
+        ''
+      end
+
+      def canonical(sp)
+        ''
+      end
+
+      def pos(sp)
+        interval_end = text_value[-1] == ' ' ? interval.end - 1 : interval.end
+        {interval.begin => ['species_prefix', interval.end]}
+      end
+
+      def details(sp)
+        {:species_prefix => value}
+      end
+    }
+    /
+    ("cf."/"cf ") {
+      def value
+        text_value.strip
+      end
+
+      def apply(sp)
+        ' ' + value + ' ' + sp.value
+      end
+
+      def canonical(sp)
+        ' ' + sp.canonical
+      end
+
+      def pos(sp)
+        interval_end = text_value[-1] == ' ' ? interval.end - 1 : interval.end
+        {interval.begin => ['species_prefix', interval.end], sp.interval.begin => ['species', sp.interval.end]}
+      end
+
+      def details(sp)
+        {:species_prefix => value, :species => sp.details}
+      end
+    }
   end
-  
+
   rule species_word
     a:[0-9]+ "-"? b:latin_word {
       def value

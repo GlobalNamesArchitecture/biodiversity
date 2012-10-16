@@ -76,8 +76,6 @@ describe ScientificNameDirty do
     details(sn).should == [{:genus=>{:string=>"Campylobacter"}, :species=>{:string=>"pyloridis", :authorship=>"Marshall et al.1985.", :basionymAuthorTeam=>{:authorTeam=>"Marshall et al.", :author=>["Marshall et al."], :year=>"1985"}}}]
     sn = 'Staphylococcus hyicus chromogenes Devriese et al. 1978 (Approved Lists 1980).'
     details(sn).should == [{:genus=>{:string=>"Staphylococcus"}, :species=>{:string=>"hyicus"}, :infraspecies=>[{:string=>"chromogenes", :rank=>"n/a", :authorship=>"Devriese et al. 1978", :basionymAuthorTeam=>{:authorTeam=>"Devriese et al.", :author=>["Devriese et al."], :year=>"1978"}}]}]
-    sn = 'Kitasatospora corrig. griseola Takahashi et al. 1985.'
-    details(sn).should == [{:genus=>{:string=>"Kitasatospora"}, :species=>{:string=>"griseola", :authorship=>"Takahashi et al. 1985.", :basionymAuthorTeam=>{:authorTeam=>"Takahashi et al.", :author=>["Takahashi et al."], :year=>"1985"}}}]
     sn = 'Beijerinckia derxii venezuelae corrig. Thompson and Skerman, 1981'
     details(sn).should == [{:genus=>{:string=>"Beijerinckia"}, :species=>{:string=>"derxii"}, :infraspecies=>[{:string=>"venezuelae", :rank=>"n/a", :authorship=>"Thompson and Skerman, 1981", :basionymAuthorTeam=>{:authorTeam=>"Thompson and Skerman", :author=>["Thompson", "Skerman"], :year=>"1981"}}]}]
     details('Streptomyces parvisporogenes ignotus 1960').should == [{:genus=>{:string=>"Streptomyces"}, :species=>{:string=>"parvisporogenes"}, :infraspecies=>[{:string=>"ignotus", :rank=>"n/a", :year=>"1960"}]}]

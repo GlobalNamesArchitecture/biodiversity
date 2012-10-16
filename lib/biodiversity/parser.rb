@@ -8,25 +8,18 @@ require 'json'
 
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
-  # DOTS = /\\b(morph|ssp|mut|nat|nothosubsp|convar|pseudovar|sect|ser|var|subvar|subsp|subf|fma|form|fo|f)\\.[\\s]?(?![\\)|\\]|,])/
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
-  COMPARATORS     = /\s+(aff\.|aff)\b.*$/i
-  CF_COMPARATOR   = /\s+(cf\.|cf)\s+/i
   LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|sensu|new|non|nec|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\s*$/i
   
   def self.clean(a_string)
-    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, COMPARATORS, LAST_WORD_JUNK].each do |i|
+    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
       a_string = a_string.gsub(i, '')
     end
-    [CF_COMPARATOR].each do |i|
-      a_string = a_string.gsub(i, ' ')
-    end
-    # a_string = a_string.gsub(DOTS, '\\1. ')
     a_string = a_string.tr('ſ','s') #old 's'
-    a_string.rstrip
+    a_string
   end   
 end
 
