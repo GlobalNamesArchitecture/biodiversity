@@ -291,6 +291,12 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     pos(sn).should == {0=>["genus", 4], 5=>["species", 10], 11=>["unknown_author", 14]}
   end
+
+  it 'should parse normal names with hort or anon in them' do
+    sn = "Mus musculus hortulanus"
+    pr = parse(sn).should_not be_nil
+    pos(sn).should == {0=>["genus", 3], 4=>["species", 12], 13=>["infraspecies", 23]}
+  end
   
   it 'should parse real world examples' do
     sn = "Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934"

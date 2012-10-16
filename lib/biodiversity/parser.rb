@@ -8,6 +8,7 @@ require 'json'
 
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
+  DOTS = /\.[\s]*/
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
@@ -23,6 +24,7 @@ module PreProcessor
     [CF_COMPARATOR].each do |i|
       a_string = a_string.gsub(i, ' ')
     end
+    a_string = a_string.gsub(DOTS, '. ')
     a_string = a_string.tr('ſ','s') #old 's'
     a_string
   end   
@@ -100,7 +102,17 @@ class ScientificNameParser
     elsif unknown_placement?(a_string)
       @parsed = { :verbatim => a_string }
     else
-      @parsed = @clean.parse(a_string) || @dirty.parse(a_string) || @canonical.parse(a_string) || { :verbatim => a_string }
+      begin
+        @parsed = @clean.parse(a_string) || @dirty.parse(a_string) 
+        unless @parsed
+          index = @dirty.index || @clean.index
+          salvage_match = a_string[0..index].match(/(.*[^,|\s]+)[,|\s]?\b.+$/)
+          salvage_string = salvage_match ? salvage_match[1] : a_string
+          @parsed =  @dirty.parse(salvage_string) || @canonical.parse(a_string) || { :verbatim => a_string }
+        end
+      rescue
+        @parsed = {:scientificName => {:parsed => false, :verbatim => name,  :error => 'Parser error'}}
+      end
     end
 
     def @parsed.verbatim=(a_string)

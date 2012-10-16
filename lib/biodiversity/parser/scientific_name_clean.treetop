@@ -403,7 +403,7 @@ grammar ScientificNameClean
   end
 
   rule rank
-    ("morph."/"f.sp."/"B"/"ssp."/"ssp"/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"forma"/"form."/"form"/"fo."/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
+    ("morph."/"f.sp."/"B"/"ssp."/"ssp"/"mut."/"nat"/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var"/"subsp."/"subsp"/"subf."/"race"/"forma"/"fma."/"fma"/"form."/"form"/"fo."/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
         text_value.strip
@@ -847,7 +847,7 @@ grammar ScientificNameClean
   
   
   rule unknown_auth
-    ("auct."/"auct"/"hort."/"hort"/"anon."/"anon"/"ht."/"ht") {
+    ("auct."/"auct"/"hort."/"hort"/"anon."/"anon"/"ht."/"ht") !latin_word {
       def value
         text_value
       end
