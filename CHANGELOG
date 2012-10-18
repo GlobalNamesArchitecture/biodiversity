@@ -1,3 +1,6 @@
+1.1.0  -- added multiuninomials, fixes in identification annotations (aff.,
+cf., sp. etc), bug fixes, more robust salvage mode
+
 1.0.17 -- fixed a bug which prevented all diacritics be converted correctly
 
 1.0.16 -- dirty mode now converts ë to e
