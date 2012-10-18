@@ -562,7 +562,7 @@ grammar ScientificNameClean
   end
 
   rule rank_uninomial
-    ("sect."/"sect "/"trib."/"trib "/"subtrib."/"subtrib "/"fam."/"fam "/"subfam."/"subfam "/"supertrib."/"supertrib ") {
+    ("sect."/"sect "/"subsect."/"subsect "/"trib."/"trib "/"subtrib."/"subtrib "/"fam."/"fam "/"subfam."/"subfam "/"supertrib."/"supertrib ") {
       def value
         text_value.strip
       end
