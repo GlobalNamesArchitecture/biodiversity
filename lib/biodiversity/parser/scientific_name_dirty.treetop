@@ -30,28 +30,6 @@ grammar ScientificNameDirty
     }
   end
 
-  rule scientific_name_5
-    a:scientific_name_4 garbage {
-      def value
-        a.value
-      end
-      
-      def canonical
-        a.canonical
-      end
-      
-      def pos
-        a.pos
-      end
-      
-      def details
-        a.details
-      end
-    }
-    /
-    super
-  end
-  
   rule infraspecies
     a:infraspecies_string space b:year {
       def value
@@ -91,43 +69,6 @@ grammar ScientificNameDirty
     /
     super
   end
-  
-  # rule infraspecies_string
-  #   sel:rank space_hard a:species_word {
-  #     def value 
-  #       sel.apply(a)
-  #     end
-  #     def canonical
-  #       sel.canonical(a)
-  #     end
-  #     
-  #     def pos
-  #       sel.pos(a)
-  #     end
-  #   
-  #     def details
-  #       sel.details(a)
-  #     end
-  #   }
-  #   /
-  #   a:species_word ![\\.] {
-  #     def value
-  #       a.value
-  #     end
-  #     
-  #     def canonical
-  #       value
-  #     end
-  # 
-  #     def pos
-  #       {interval.begin => ['infraspecies', interval.end]}
-  #     end
-  # 
-  #     def details
-  #       {:infraspecies => {:string => value, :rank => 'n/a'}}
-  #     end
-  #   }
-  # end
   
   rule species
     a:species_string space b:year {
@@ -292,12 +233,6 @@ grammar ScientificNameDirty
   
   rule string_authorship_inconsistencies
     ("corrig.")
-  end
-  
-  rule garbage
-    space (["',.]) space [^щ]*
-    /
-    space_hard [^ш]+
   end
   
 end

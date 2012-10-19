@@ -68,6 +68,16 @@ describe ScientificNameClean do
     details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii"}}]
     pos(sn).should == {0=>["genus", 16], 21=>["species", 30]}
   end
+
+  it 'should parse abbreviated canonical' do
+    sn = 'P.    dendrobii'
+    parse(sn).should_not be_nil
+    value(sn).should == 'P. dendrobii'
+    sn = 'Ps.    dendrobii'
+    parse(sn).should_not be_nil
+    value(sn).should == 'Ps. dendrobii'
+    details(sn).should == [{:genus=>{:string=>"Ps."}, :species=>{:string=>"dendrobii"}}]
+  end
   
   
   it 'should parse species name with author and year' do
@@ -86,6 +96,19 @@ describe ScientificNameClean do
     parse("Platypus bicaudatulus Schedl 1935").should_not be_nil
   end
   
+  it 'should parse species name with abbreviated genus, author and year' do
+    sn = "P. bicaudatulus Schedl 1935"
+    parse(sn).should_not be_nil
+    value(sn).should == "P. bicaudatulus Schedl 1935"
+    sn = "Pl.  bicaudatulus Schedl, 1935h"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pl. bicaudatulus Schedl 1935"
+    details(sn).should == [{:genus=>{:string=>"Pl."}, :species=>{:string=>"bicaudatulus", :authorship=>"Schedl, 1935h", :basionymAuthorTeam=>{:authorTeam=>"Schedl", :author=>["Schedl"], :year=>"1935"}}}]
+    sn = "Pla.  bicaudatulus Schedl, 1935h"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pla. bicaudatulus Schedl 1935"
+  end
+
   it "should parse species name with author's postfix f., filius (son of)" do
     names = [ 
       [ "Platypus bicaudatulus Schedl f. 1935", [{:genus=>{:string=>"Platypus"}, :species=>{:string=>"bicaudatulus", :authorship=>"Schedl f. 1935", :basionymAuthorTeam=>{:authorTeam=>"Schedl f.", :author=>["Schedl f."], :year=>"1935"}}}], 'Platypus bicaudatulus Schedl f. 1935'],

@@ -12,7 +12,7 @@ module PreProcessor
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
-  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|sensu|new|non|nec|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\s*$/i
+  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|ined\.|ined|sensu|new|non|nec|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/i
   
   def self.clean(a_string)
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
@@ -75,8 +75,8 @@ class ScientificNameParser
   end
 
   def virus?(a_string)
-    !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i))
-  end 
+    !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) || a_string.match(/[A-Z]?[a-z]+virus\b/))
+  end
 
   def unknown_placement?(a_string)
     !!(a_string.match(/incertae\s+sedis/i) || a_string.match(/inc\.\s*sed\./i))
@@ -99,8 +99,8 @@ class ScientificNameParser
         @parsed = @clean.parse(a_string) || @dirty.parse(a_string) 
         unless @parsed
           index = @dirty.index || @clean.index
-          salvage_match = a_string[0..index].match(/(.*[^,|\s]+)[,|\s]?\b.+$/)
-          salvage_string = salvage_match ? salvage_match[1] : a_string
+          salvage_match = a_string[0..index].split(/\s+/)[0..-2]
+          salvage_string = salvage_match ? salvage_match.join(' ') : a_string
           @parsed =  @dirty.parse(salvage_string) || @canonical.parse(a_string) || { :verbatim => a_string }
         end
       rescue

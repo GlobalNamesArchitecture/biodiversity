@@ -646,7 +646,7 @@ grammar ScientificNameClean
   end
   
   rule genus
-    a:uninomial_string !(space_hard author_prefix_word space_hard author_word) {
+    a:(abbreviated_genus/uninomial_string) !(space_hard author_prefix_word space_hard author_word) {
       def value
         a.value
       end
@@ -663,6 +663,26 @@ grammar ScientificNameClean
         {:genus => {:string => a.value}}
       end
     }
+  end
+
+  rule abbreviated_genus
+    [A-Z] [a-z]? [a-z]? [\\.] space {
+      def value
+        text_value.strip
+      end
+
+      def canonical
+        value
+      end
+
+      def pos
+        {interval.begin => ["abbreviated_genus", interval.end]}
+      end
+
+      def details
+        {:abbreviated_genus => {:string => value}}
+      end
+    } 
   end
   
   rule uninomial_name
@@ -995,10 +1015,10 @@ grammar ScientificNameClean
   end
   
   rule author_separator
-    ("&"/","/"and"/"et") {
+    ("&amp;"/"&"/","/"and"/"et") {
       def apply(a,b)
         sep = text_value.strip
-        sep = " et" if ["&","and","et"].include? sep
+        sep = " et" if ["&amp;", "&","and","et"].include? sep
         a.value + sep + " " + b.value
       end
       
@@ -1124,7 +1144,7 @@ grammar ScientificNameClean
   end
   
   rule author_prefix_word
-    space ("ab"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"af"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
@@ -1259,7 +1279,7 @@ grammar ScientificNameClean
   end
 
   rule annotation_identification
-    ("sp.aff."/"sp. aff."/"sp."/"sp "/"spp."/"spp "/"aff."/"aff "/"?") {
+    ("sp.nr."/"sp. nr."/"nr."/"nr "/"sp.aff."/"sp. aff."/"sp."/"sp "/"spp."/"spp "/"aff."/"aff "/"monst."/"?") {
 
       def value
         text_value.strip
@@ -1323,6 +1343,12 @@ grammar ScientificNameClean
     a:valid_name_letters "-" b:latin_word {
       def value
         a.value + "-" + b.value
+      end
+    }
+    /
+    "o\'donelli" {
+      def value
+        "odonelli"
       end
     }
     /
