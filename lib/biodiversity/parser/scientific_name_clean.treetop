@@ -1020,7 +1020,7 @@ grammar ScientificNameClean
     ("&amp;"/"&"/","/"and"/"et") {
       def apply(a,b)
         sep = text_value.strip
-        sep = " et" if ["&amp;", "&","and","et"].include? sep
+        sep = " &" if ["&amp;", "&","and","et"].include? sep
         a.value + sep + " " + b.value
       end
       

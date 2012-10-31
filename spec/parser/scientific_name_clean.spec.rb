@@ -189,17 +189,17 @@ describe ScientificNameClean do
   it 'should parse several authors without a year' do
     sn = "Pseudocercospora dendrobii U. Braun & Crous"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should ==  [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii", :authorship=>"U. Braun & Crous", :basionymAuthorTeam=>{:authorTeam=>"U. Braun & Crous", :author=>["U. Braun", "Crous"]}}}]
     pos(sn).should == {0=>["genus", 16], 17=>["species", 26], 27=>["author_word", 29], 30=>["author_word", 35], 38=>["author_word", 43]}
     sn = "Pseudocercospora dendrobii U. Braun and Crous"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous"
     pos(sn).should == {0=>["genus", 16], 17=>["species", 26], 27=>["author_word", 29], 30=>["author_word", 35], 40=>["author_word", 45]}
     sn = "Pseudocercospora dendrobii U. Braun et Crous"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous"    
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous"    
     sn = "Arthopyrenia hyalospora(Nyl.)R.C.     Harris"
     parse(sn).should_not be_nil
     value(sn).should == "Arthopyrenia hyalospora (Nyl.) R.C. Harris"
@@ -210,7 +210,7 @@ describe ScientificNameClean do
   it 'should parse several authors with a year' do
     sn = "Pseudocercospora dendrobii U. Braun & Crous 2003"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii U. Braun et Crous 2003"
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous 2003"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii", :authorship=>"U. Braun & Crous 2003", :basionymAuthorTeam=>{:authorTeam=>"U. Braun & Crous", :author=>["U. Braun", "Crous"], :year=>"2003"}}}]
     pos(sn).should == {0=>["genus", 16], 17=>["species", 26], 27=>["author_word", 29], 30=>["author_word", 35], 38=>["author_word", 43], 44=>["year", 48]}
@@ -254,19 +254,19 @@ describe ScientificNameClean do
   it 'should parse scientific name' do
     sn = "Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun et Crous 2003"
+    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii", :authorship=>"(H.C.     Burnett)U. Braun & Crous     2003", :combinationAuthorTeam=>{:authorTeam=>"U. Braun & Crous", :author=>["U. Braun", "Crous"], :year=>"2003"}, :basionymAuthorTeam=>{:authorTeam=>"H.C.     Burnett", :author=>["H.C. Burnett"]}}}]
     sn = "Pseudocercospora dendrobii(H.C.     Burnett,1873)U. Braun & Crous     2003"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett 1873) U. Braun et Crous 2003"
+    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett 1873) U. Braun & Crous 2003"
     details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii", :authorship=>"(H.C.     Burnett,1873)U. Braun & Crous     2003", :combinationAuthorTeam=>{:authorTeam=>"U. Braun & Crous", :author=>["U. Braun", "Crous"], :year=>"2003"}, :basionymAuthorTeam=>{:authorTeam=>"H.C.     Burnett", :author=>["H.C. Burnett"], :year=>"1873"}}}]
   end
   
   it 'should parse several authors with several years' do
     sn = "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003"
     parse(sn).should_not be_nil
-    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun et Crous 2003"
+    value(sn).should == "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003"
     canonical(sn).should == "Pseudocercospora dendrobii"
     details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii", :authorship=>"(H.C. Burnett 1883) U. Braun & Crous 2003", :combinationAuthorTeam=>{:authorTeam=>"U. Braun & Crous", :author=>["U. Braun", "Crous"], :year=>"2003"}, :basionymAuthorTeam=>{:authorTeam=>"H.C. Burnett", :author=>["H.C. Burnett"], :year=>"1883"}}}]
     pos(sn).should == {0=>["genus", 16], 17=>["species", 26], 28=>["author_word", 32], 33=>["author_word", 40], 41=>["year", 45], 47=>["author_word", 49], 50=>["author_word", 55], 58=>["author_word", 63], 64=>["year", 68]}
@@ -275,7 +275,7 @@ describe ScientificNameClean do
   it "should parse name with subspecies without rank Zoological Code" do
     sn = "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     parse(sn).should_not be_nil
-    value(sn).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall et D.E. Stuntz 1972"
+    value(sn).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     canonical(sn).should == "Hydnellum scrobiculatum zonatum"
     details(sn).should == [{:genus=>{:string=>"Hydnellum"}, :species=>{:string=>"scrobiculatum"}, :infraspecies=>[{:string=>"zonatum", :rank=>"n/a", :authorship=>"(Banker) D. Hall & D.E. Stuntz 1972", :combinationAuthorTeam=>{:authorTeam=>"D. Hall & D.E. Stuntz", :author=>["D. Hall", "D.E. Stuntz"], :year=>"1972"}, :basionymAuthorTeam=>{:authorTeam=>"Banker", :author=>["Banker"]}}]}]
     pos(sn).should == {0=>["genus", 9], 10=>["species", 23], 24=>["infraspecies", 31], 33=>["author_word", 39], 41=>["author_word", 43], 44=>["author_word", 48], 51=>["author_word", 55], 56=>["author_word", 62], 63=>["year", 67]}
@@ -347,13 +347,13 @@ describe ScientificNameClean do
   it 'should parse real world examples' do
     sn = "Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934"
     parse(sn).should_not be_nil
-    value(sn).should == "Stagonospora polyspora M.T. Lucas et Sousa da Câmara 1934"
+    value(sn).should == "Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934"
     details(sn).should == [{:genus=>{:string=>"Stagonospora"}, :species=>{:string=>"polyspora", :authorship=>"M.T. Lucas & Sousa da Câmara 1934", :basionymAuthorTeam=>{:authorTeam=>"M.T. Lucas & Sousa da Câmara", :author=>["M.T. Lucas", "Sousa da Câmara"], :year=>"1934"}}}]
     pos(sn).should == {0=>["genus", 12], 13=>["species", 22], 23=>["author_word", 27], 28=>["author_word", 33], 36=>["author_word", 41], 42=>["author_word", 44], 45=>["author_word", 51], 52=>["year", 56]}
     parse("Cladoniicola staurospora Diederich, van den Boom & Aptroot 2001").should_not be_nil
     sn = "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981"
     parse(sn).should_not be_nil
-    value(sn).should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman et E.A. Herrm.) Van der Walt et Arx 1981"
+    value(sn).should == "Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981"
     pos(sn).should == {0=>["genus", 8], 9=>["species", 19], 20=>["infraspecific_type", 24], 25=>["infraspecies", 35], 37=>["author_word", 42], 44=>["author_word", 52], 55=>["author_word", 59], 60=>["author_word", 66], 68=>["author_word", 71], 72=>["author_word", 75], 76=>["author_word", 80], 83=>["author_word", 86], 87=>["year", 91]}
     parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
     parse("Pleurotus ëous (Berk.) Sacc. 1887").should_not be_nil
@@ -444,7 +444,7 @@ describe ScientificNameClean do
   it "should parse name with several subspecies names NOT BOTANICAL CODE BUT NOT INFREQUENT" do
     sn = "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
     parse(sn).should_not be_nil
-    value(sn).should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall et D.E. Stuntz 1972"
+    value(sn).should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
     details(sn).should ==  [{:genus=>{:string=>"Hydnellum"}, :species=>{:string=>"scrobiculatum"}, :infraspecies=>[{:string=>"zonatum", :rank=>"var."}, {:string=>"parvum", :rank=>"f.", :authorship=>"(Banker) D. Hall & D.E. Stuntz 1972", :combinationAuthorTeam=>{:authorTeam=>"D. Hall & D.E. Stuntz", :author=>["D. Hall", "D.E. Stuntz"], :year=>"1972"}, :basionymAuthorTeam=>{:authorTeam=>"Banker", :author=>["Banker"]}}]}]
     pos(sn).should == {0=>["genus", 9], 10=>["species", 23], 24=>["infraspecific_type", 28], 29=>["infraspecies", 36], 37=>["infraspecific_type", 39], 40=>["infraspecies", 46], 48=>["author_word", 54], 56=>["author_word", 58], 59=>["author_word", 63], 66=>["author_word", 70], 71=>["author_word", 77], 78=>["year", 82]} 
     parse('Senecio fuchsii C.C.Gmel. subsp. fuchsii var. expansus (Boiss. & Heldr.) Hayek').should_not be_nil

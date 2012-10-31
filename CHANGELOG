@@ -1,5 +1,6 @@
 1.1.2  -- static method for fixins all-caps canonical names, fixing caps 
-for authors words
+for authors words, ampersand instead of 'et' in normalization
+
 1.1.1  -- more multi-uninomials cases, expanded viruses detection, added
 abbreviated genera and a few small fixes
 
