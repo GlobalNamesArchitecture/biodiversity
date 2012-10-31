@@ -69,6 +69,9 @@ You can use it as a library
 
   parser = ScientificNameParser.new
 
+  # to fix capitalization in canonicals
+  ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA") # Quercus (Quercus) alba
+
   # to parse a scientific name into a ruby hash
   parser.parse("Plantago major")
 

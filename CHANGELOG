@@ -1,4 +1,9 @@
-1.1.0  -- added multiuninomials, fixes in identification annotations (aff.,
+1.1.2  -- static method for fixins all-caps canonical names, fixing caps 
+for authors words
+1.1.1  -- more multi-uninomials cases, expanded viruses detection, added
+abbreviated genera and a few small fixes
+
+1.1.0  -- added multi-uninomials, fixes in identification annotations (aff.,
 cf., sp. etc), bug fixes, more robust salvage mode
 
 1.0.17 -- fixed a bug which prevented all diacritics be converted correctly
