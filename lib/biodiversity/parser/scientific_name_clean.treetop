@@ -1,4 +1,6 @@
 # encoding: UTF-8
+require 'unicode_utils'
+
 grammar ScientificNameClean
 
   rule root
@@ -1114,7 +1116,9 @@ grammar ScientificNameClean
     / 
     ("Å"/"Ö"/"Á"/"Ø"/"Ô"/"Š"/"Ś"/"Č"/"Ķ"/"Ł"/"É"/"Ž"/[A-W]/[Y-Z]) [^0-9\[\]\(\)\s&,]* {
       def value
-        text_value
+        text_value.gsub(/([\p{Lu}]{3,})/) do |match|
+          UnicodeUtils.titlecase(match)
+        end
       end
       
       def pos

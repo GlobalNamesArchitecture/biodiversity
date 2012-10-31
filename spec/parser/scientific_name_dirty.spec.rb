@@ -45,8 +45,8 @@ describe ScientificNameDirty do
   it 'should parse year with page number' do
     sn = "Gymnodactylus irregularis WERMUTH 1965: 54"
     parse(sn).should_not be_nil
-    value(sn).should == "Gymnodactylus irregularis WERMUTH 1965"
-    details(sn).should == [{:genus=>{:string=>"Gymnodactylus"}, :species=>{:string=>"irregularis", :authorship=>"WERMUTH 1965: 54", :basionymAuthorTeam=>{:authorTeam=>"WERMUTH", :author=>["WERMUTH"], :year=>"1965"}}}]
+    value(sn).should == "Gymnodactylus irregularis Wermuth 1965"
+    details(sn).should == [{:genus=>{:string=>"Gymnodactylus"}, :species=>{:string=>"irregularis", :authorship=>"WERMUTH 1965: 54", :basionymAuthorTeam=>{:authorTeam=>"WERMUTH", :author=>["Wermuth"], :year=>"1965"}}}]
     pos(sn).should ==  {0=>["genus", 13], 14=>["species", 25], 26=>["author_word", 33], 34=>["year", 38]} 
   end
   

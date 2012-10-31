@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem "treetop"
 gem "parallel"
+gem "unicode_utils"
 
 group :development do
   gem "jeweler"

@@ -33,6 +33,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    unicode_utils (1.4.0)
 
 PLATFORMS
   ruby
@@ -43,3 +44,4 @@ DEPENDENCIES
   parallel
   rspec
   treetop
+  unicode_utils
