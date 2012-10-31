@@ -1,3 +1,4 @@
+# encoding: utf-8
 #NOTE: this spec needs compiled treetop files.
 dir = File.dirname("__FILE__")
 require File.expand_path(dir + '../../spec/parser/spec_helper')
@@ -6,6 +7,18 @@ require File.expand_path(dir + '../../lib/biodiversity/parser')
 describe ScientificNameParser do
   before(:all) do
     set_parser(ScientificNameParser.new)
+  end
+
+  it 'should ScientificNameParser::fix_case' do
+    names = [ 
+      ["QUERCUS ALBA", "Quercus alba"], 
+      ["QUERCUS (QUERCUS) ALBA", "Quercus (Quercus) alba"], 
+      ["QÜERCUS", "Qüercus"],
+      ["PARDOSA MOéSTA", "Pardosa moésta"],
+    ]
+    names.each do |name, capitalization|
+      ScientificNameParser::fix_case(name).should == capitalization
+    end
   end
   
   it 'should generate standardized json' do
