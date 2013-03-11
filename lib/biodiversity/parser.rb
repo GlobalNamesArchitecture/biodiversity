@@ -12,7 +12,7 @@ module PreProcessor
   TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
-  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|ined\.|ined|sensu|new|non|nec|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/i
+  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|ined\.|ined|sensu|new|non|nec|nudum|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/i
   
   def self.clean(a_string)
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
@@ -36,7 +36,9 @@ class ParallelParser
   end
 
   def parse(names_list)
-    parsed = Parallel.map(names_list.uniq, :in_processes => @processes_num) { |n| [n, parse_process(n)] }
+    parsed = Parallel.map(names_list.uniq, in_processes: @processes_num) do |n| 
+      [n, parse_process(n)]
+    end
     parsed.inject({}) { |res, x| res[x[0]] = x[1]; res }
   end
 
@@ -47,7 +49,10 @@ class ParallelParser
   private
   def parse_process(name)
     p = ScientificNameParser.new
-    p.parse(name) rescue {:scientificName => {:parsed => false, :verbatim => name,  :error => 'Parser error'}}
+    failed_res = { scientificName: { parsed: false, 
+                                     verbatim: name,  
+                                     error: 'Parser error' } }
+    p.parse(name) rescue failed_res 
   end
 end
 
@@ -64,7 +69,10 @@ end
 # end
 
 class ScientificNameParser
-  VERSION = open(File.join(File.dirname(__FILE__), '..', '..', 'VERSION')).readline.strip
+  VERSION = open(File.join(File.dirname(__FILE__), 
+                           '..',
+                           '..',
+                           'VERSION')).readline.strip
   
   def self.fix_case(name_string)
     name_ary = name_string.split(/\s+/)
@@ -96,7 +104,8 @@ class ScientificNameParser
   end
 
   
-  def initialize
+  def initialize(opts = {})
+    @canonical_with_rank = !!opts[:canonical_with_rank]
     @verbatim = ''
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
@@ -134,7 +143,9 @@ class ScientificNameParser
           @parsed =  @dirty.parse(salvage_string) || @canonical.parse(a_string) || { :verbatim => a_string }
         end
       rescue
-        @parsed = {:scientificName => {:parsed => false, :verbatim => name,  :error => 'Parser error'}}
+        @parsed = { scientificName: { parsed: false, 
+                                      verbatim: name,  
+                                      error: 'Parser error' } }
       end
     end
 
@@ -142,7 +153,8 @@ class ScientificNameParser
       @verbatim = a_string
     end
 
-    def @parsed.all(verbatim = @verbatim)
+    def @parsed.all(opts = {})
+      canonical_with_rank = !!opts[:canonical_with_rank]
       parsed = self.class != Hash
       res = { :parsed => parsed, :parser_version => ScientificNameParser::VERSION}
       if parsed
@@ -159,8 +171,10 @@ class ScientificNameParser
       else
         res.merge!(self)
       end
+      if canonical_with_rank && canonical.count(" ") > 1 && res[:details][0][:infraspecies]
+        ScientificNameParser.add_rank_to_canonical(res)
+      end
       res = {:scientificName => res}
-      res
     end
     
     def @parsed.pos_json
@@ -172,7 +186,21 @@ class ScientificNameParser
     end
 
     @parsed.verbatim = @verbatim
-    @parsed.all
+    @parsed.all(canonical_with_rank: @canonical_with_rank)
   end
+  
+  private
+
+  def self.add_rank_to_canonical(parsed)
+    parts = parsed[:canonical].split(" ")
+    name_ary = parts[0..1]
+    parsed[:details][0][:infraspecies].each do |data|
+      infrasp = data[:string]
+      rank = data[:rank]
+      name_ary << (rank && rank != 'n/a' ? "#{rank} #{infrasp}" : infrasp)
+    end
+    parsed[:canonical] = name_ary.join(" ")
+  end
+  
 end
 

@@ -26,6 +26,7 @@ describe ScientificNameParser do
       JSON.load(json(y[:name])).should == JSON.load(y[:jsn]) unless y[:comment]
     end
   end
+
   
   # it 'should generate new test_file' do
   #   new_test = open(File.expand_path(dir + "../../spec/parser/test_data_new.txt"),'w')
@@ -57,6 +58,36 @@ describe ScientificNameParser do
   end
 end
 
+describe "ScientificNameParser with ranked canonicals" do 
+  before(:all) do
+    @parser = ScientificNameParser.new(canonical_with_rank: true)
+  end
+
+  it 'should not influence output for uninomials and binomials' do
+    data = [
+      ['Ekbainacanthus Yakowlew 1902','Ekbainacanthus'],
+      ['Ekboarmia sagnesi herrerai Exposito 2007', 'Ekboarmia sagnesi herrerai'],
+      ['Ekboarmia holli Oberthür', 'Ekboarmia holli']]
+
+    data.each do |d| 
+      parsed = @parser.parse(d[0])[:scientificName][:canonical]
+      parsed.should == d[1]
+    end
+  end
+
+  it 'should preserve rank for ranked multinomials' do
+    data = [
+      ['Cola cordifolia var. puberula A. Chev.', 'Cola cordifolia var. puberula'],
+      ['Abies homolepis forma umbilicata (Mayr) Schelle', 'Abies homolepis forma umbilicata'],
+      ['Quercus ilex ssp. ballota (Desf.) Samp', 'Quercus ilex ssp. ballota']
+    ]
+    data.each do |d|
+      parsed = @parser.parse(d[0])[:scientificName][:canonical]
+      parsed.should == d[1] 
+    end
+  end
+
+end
 
 describe ParallelParser do
   it "should find number of cpus" do

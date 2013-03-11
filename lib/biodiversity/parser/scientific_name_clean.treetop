@@ -262,6 +262,28 @@ grammar ScientificNameClean
       end
     }
     /  
+    a:genus space b:infragenus space aid:annotation_identification? space c:species space aid:annotation_identification space d:infraspecies_mult {
+      def value
+        a.value + " " + b.value + " " + c.value + " " + d.value
+      end
+    
+      def canonical
+        a.canonical + " " + c.canonical + " " + d.canonical
+      end
+    
+      def pos
+        a.pos.merge(b.pos).merge(c.pos).merge(d.pos)
+      end
+      
+      def hybrid
+        c.hybrid rescue false
+      end
+    
+      def details
+        a.details.merge(b.details).merge(c.details).merge(d.details)
+      end
+    }
+    /  
     a:genus space b:infragenus space aid:annotation_identification? space c:species {
       def value
         if defined? aid.apply
