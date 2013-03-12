@@ -88,7 +88,8 @@ You can use it as a library in Ruby, JRuby etc.
     parser = ScientificNameParser.new
     
     # to fix capitalization in canonicals
-    ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA") # Quercus (Quercus) alba
+    ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA") 
+    # Output: Quercus (Quercus) alba
     
     # to parse a scientific name into a ruby hash
     parser.parse("Plantago major")
@@ -100,7 +101,7 @@ You can use it as a library in Ruby, JRuby etc.
     parser.all_json
     
     # to clean name up
-    parser.parse("             Plantago       major    ")[:scientificName][:normalized]
+    parser.parse("      Plantago       major    ")[:scientificName][:normalized]
     
     # to get only cleaned up latin part of the name
     parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:canonical]
@@ -108,17 +109,14 @@ You can use it as a library in Ruby, JRuby etc.
     # to get detailed information about elements of the name
     parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:scientificName][:details]
     
-    # to parse using several CPUs (4 seem to be optimal)
-    parser = ParallelParser.new # ParallelParser.new(4) will try to run 4 processes if hardware allows
-    array_of_names = ["Betula alba", "Homo sapiens"....]
-    parser.parse(array_of_names) # -> {"Betula alba" => {:scientificName...}, "Homo sapiens" => {:scientificName...}, ...}
-
 
 To parse using several CPUs (4 seem to be optimal)
 
-    parser = ParallelParser.new # ParallelParser.new(4) will try to run 4 processes if hardware allows
+    parser = ParallelParser.new 
+    # ParallelParser.new(4) will try to run 4 processes if hardware allows
     array_of_names = ["Betula alba", "Homo sapiens"....]
-    parser.parse(array_of_names) # -> {"Betula alba" => {:scientificName...}, "Homo sapiens" => {:scientificName...}, ...}
+    parser.parse(array_of_names) 
+    # Output: {"Betula alba" => {:scientificName...}, "Homo sapiens" => {:scientificName...}, ...}
 
 parallel parser takes list of names and returns back a hash with names as keys and parsed data as values
 
@@ -126,7 +124,7 @@ To get canonicals with ranks for infraspecific epithets:
 
     parser = ScientificNameParser.new(canonical_with_rank: true)
     parser.parse('Cola cordifolia var. puberula A. Chev.')[:scientificName][:canonical]
-    # should get 'Cola cordifolia var. puberula'
+    # Output: Cola cordifolia var. puberula
 
 To resolve lsid and get back RDF file
 
