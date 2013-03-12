@@ -11,10 +11,11 @@ Parses taxonomic scientific name and breaks it into semantic elements.
 Installation
 ------------
 
-To install gem you need RubyGems >= 1.3.6
+*WARNING* Do not use Ruby 1.8.7 it is a security risk and oudated branch. The
+biodiversity gem for Ruby 1.8.7 is not getting updated anymore
 
-    $ sudo gem install biodiversity #for ruby 1.8.x
-    $ sudo gem install biodiversity19 #for ruby 1.9.x
+    sudo gem install biodiversity #for ruby 1.8.x
+    sudo gem install biodiversity19 #for ruby 1.9.x
 
 Example usage
 -------------
