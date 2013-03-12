@@ -35,7 +35,7 @@ you can use a socket server
     parserver
 
     parserver -h
-    Usage: ruby parserver [options]
+    Usage: parserver [options]
 
         -r, --canonical_with_rank        Adds infraspecies rank to canonical forms
 
