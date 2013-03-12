@@ -123,7 +123,7 @@ describe ParallelParser do
     res = pparser.parse(names)
     names.each_with_index do |name, i|
       res[name].is_a?(Hash).should be_true
-      res[name][:scientificName][:verbatim].should == name
+      res[name][:scientificName][:verbatim].should == name.strip
     end
   end
 end
