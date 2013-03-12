@@ -1,5 +1,6 @@
 = Biodiversity
 
+{<img src="https://badge.fury.io/rb/biodiversity19.png" alt="Gem Version" />}[http://badge.fury.io/rb/biodiversity19]
 {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity]
 
 Parses taxonomic scientific name and breaks it into semantic elements.
