@@ -1,3 +1,11 @@
+2.0.0 -- backward incompatibe change in parserver, therefore new major number.
+In parserver removed option --output=canonical_with_rank, instead added -r
+option which allows to have canonical with rank with either json or canonical 
+outputs
+
+1.2.0 -- changed method invocation signature ScientificNameParser.new 
+Now it can take options
+
 1.1.3 -- added 'fo' as rank
 
 1.1.2  -- static method for fixins all-caps canonical names, fixing caps 

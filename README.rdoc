@@ -31,13 +31,13 @@ options:
 
 to return a canonical form of the name string
 
-  parserver --output=canonical_with_rank
-
-the same as above, but infraspecies' rank is shown if available
-
   parserver --port 5555
 
 run socket server on a different port
+
+  parserver --canonical_with_rank
+
+to add rank to canonical forms with infraspecific epithet, if it is given
 
 Then you can access it via 4334 port using a socket client library of your programming language.  You can find socket client script example in the examples directory of the gem.
 

@@ -15,7 +15,8 @@ module PreProcessor
   LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|ined\.|ined|sensu|new|non|nec|nudum|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/i
   
   def self.clean(a_string)
-    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
+    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, 
+     TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
       a_string = a_string.gsub(i, '')
     end
     a_string = a_string.tr('ſ','s') #old 's'
@@ -49,10 +50,7 @@ class ParallelParser
   private
   def parse_process(name)
     p = ScientificNameParser.new
-    failed_res = { scientificName: { parsed: false, 
-                                     verbatim: name,  
-                                     error: 'Parser error' } }
-    p.parse(name) rescue failed_res 
+    p.parse(name) rescue ScientificNameParser::FAILED_RESULT.(name)
   end
 end
 
@@ -73,6 +71,12 @@ class ScientificNameParser
                            '..',
                            '..',
                            'VERSION')).readline.strip
+
+  FAILED_RESULT = ->(name) do
+    { scientificName: 
+      { parsed: false, verbatim: name.to_s.strip,  error: 'Parser error' } 
+    }
+  end
   
   def self.fix_case(name_string)
     name_ary = name_string.split(/\s+/)
@@ -87,17 +91,21 @@ class ScientificNameParser
       end
     else
       if name_ary[0].size > 1
-        word1 = UnicodeUtils.upcase(name_ary[0][0]) + UnicodeUtils.downcase(name_ary[0][1..-1])
+        word1 = UnicodeUtils.upcase(name_ary[0][0]) + 
+          UnicodeUtils.downcase(name_ary[0][1..-1])
       else
         word1 = name_ary[0]
       end
       if name_ary[1].match(/^\(/)
-        word2 = name_ary[1].gsub(/\)$/, '') + ")"
-        word2 = word2[0] + UnicodeUtils.upcase(word2[1]) + UnicodeUtils.downcase(word2[2..-1])
+        word2 = name_ary[1].gsub(/\)$/, '') + ')'
+        word2 = word2[0] + UnicodeUtils.upcase(word2[1]) + 
+          UnicodeUtils.downcase(word2[2..-1])
       else
         word2 = UnicodeUtils.downcase(name_ary[1])
       end
-      res = word1 + " " + word2 + " " + name_ary[2..-1].map { |w| UnicodeUtils.downcase(w) }.join(" ")
+      res = word1 + ' ' + 
+        word2 + ' ' + 
+        name_ary[2..-1].map { |w| UnicodeUtils.downcase(w) }.join(' ')
       res.strip!
     end
     res
@@ -114,7 +122,9 @@ class ScientificNameParser
   end
 
   def virus?(a_string)
-    !!(a_string.match(/\sICTV\s*$/) || a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) || a_string.match(/[A-Z]?[a-z]+virus\b/))
+    !!(a_string.match(/\sICTV\s*$/) || 
+       a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) || 
+       a_string.match(/[A-Z]?[a-z]+virus\b/))
   end
 
   def unknown_placement?(a_string)
@@ -126,13 +136,13 @@ class ScientificNameParser
   end
   
   def parse(a_string)
-    @verbatim = a_string
+    @verbatim = a_string.strip
     a_string = PreProcessor::clean(a_string)
     
     if virus?(a_string)
-      @parsed = { :verbatim => a_string, :virus => true }
+      @parsed = { verbatim: a_string, virus: true }
     elsif unknown_placement?(a_string)
-      @parsed = { :verbatim => a_string }
+      @parsed = { verbatim: a_string }
     else
       begin
         @parsed = @clean.parse(a_string) || @dirty.parse(a_string) 
@@ -140,12 +150,12 @@ class ScientificNameParser
           index = @dirty.index || @clean.index
           salvage_match = a_string[0..index].split(/\s+/)[0..-2]
           salvage_string = salvage_match ? salvage_match.join(' ') : a_string
-          @parsed =  @dirty.parse(salvage_string) || @canonical.parse(a_string) || { :verbatim => a_string }
+          @parsed =  @dirty.parse(salvage_string) || 
+                     @canonical.parse(a_string) || 
+                     { verbatim: a_string }
         end
       rescue
-        @parsed = { scientificName: { parsed: false, 
-                                      verbatim: name,  
-                                      error: 'Parser error' } }
+        @parsed = FAILED_RESULT.(@verbatim)
       end
     end
 
@@ -156,22 +166,24 @@ class ScientificNameParser
     def @parsed.all(opts = {})
       canonical_with_rank = !!opts[:canonical_with_rank]
       parsed = self.class != Hash
-      res = { :parsed => parsed, :parser_version => ScientificNameParser::VERSION}
+      res = { parsed: parsed, parser_version: ScientificNameParser::VERSION}
       if parsed
         hybrid = self.hybrid rescue false
         res.merge!({
-          :verbatim => @verbatim,
-          :normalized => self.value,
-          :canonical => self.canonical,
-          :hybrid => hybrid,
-          :details => self.details,
-          :parser_run => self.parser_run,
-          :positions => self.pos
+          verbatim: @verbatim,
+          normalized: self.value,
+          canonical: self.canonical,
+          hybrid: hybrid,
+          details: self.details,
+          parser_run: self.parser_run,
+          positions: self.pos
           })
       else
         res.merge!(self)
       end
-      if canonical_with_rank && canonical.count(" ") > 1 && res[:details][0][:infraspecies]
+      if (canonical_with_rank && 
+          canonical.count(' ') > 1 && 
+          res[:details][0][:infraspecies])
         ScientificNameParser.add_rank_to_canonical(res)
       end
       res = {:scientificName => res}
@@ -192,14 +204,14 @@ class ScientificNameParser
   private
 
   def self.add_rank_to_canonical(parsed)
-    parts = parsed[:canonical].split(" ")
+    parts = parsed[:canonical].split(' ')
     name_ary = parts[0..1]
     parsed[:details][0][:infraspecies].each do |data|
       infrasp = data[:string]
       rank = data[:rank]
       name_ary << (rank && rank != 'n/a' ? "#{rank} #{infrasp}" : infrasp)
     end
-    parsed[:canonical] = name_ary.join(" ")
+    parsed[:canonical] = name_ary.join(' ')
   end
   
 end
