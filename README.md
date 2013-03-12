@@ -14,8 +14,8 @@ Installation
 *WARNING:* Do not use Ruby 1.8.7 -- it is outdated. The
 biodiversity gem for Ruby 1.8.7 is not getting updated anymore
 
-    sudo gem install biodiversity #for ruby 1.8.x
     sudo gem install biodiversity19 #for ruby 1.9.x
+    sudo gem install biodiversity #for ruby 1.8.x
 
 Example usage
 -------------
