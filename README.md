@@ -1,7 +1,7 @@
 Biodiversity
 ============
 
-[![Gem Version]([1])]([2])
+[![Gem Version][1]][2]
 [![Continuous Integration Status](https://secure.travis-ci.org/GlobalNamesArchitecture/biodiversity.png)(http://travis-ci.org/GlobalNamesArchitecture/biodiversity)
 [![CodePolice](https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity.png)(https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity)
 [![Dependency Status](https://gemnasium.com/GlobalNamesArchitecture/biodiversity.png)](https://gemnasium.com/GlobalNamesArchitecture/biodiversity)
