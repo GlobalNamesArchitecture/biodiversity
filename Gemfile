@@ -1,14 +1,15 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem "treetop"
-gem "parallel"
-gem "unicode_utils"
+gem 'rake'
+gem 'treetop'
+gem 'parallel'
+gem 'unicode_utils'
 
 group :development do
-  gem "debugger"
-  gem "jeweler"
+  gem 'debugger'
+  gem 'jeweler'
 end
 
 group :test do
-  gem "rspec"
+  gem 'rspec'
 end
