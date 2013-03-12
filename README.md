@@ -11,7 +11,7 @@ Parses taxonomic scientific name and breaks it into semantic elements.
 Installation
 ------------
 
-*WARNING* Do not use Ruby 1.8.7 it is a security risk and oudated branch. The
+*WARNING:* Do not use Ruby 1.8.7 -- it is outdated. The
 biodiversity gem for Ruby 1.8.7 is not getting updated anymore
 
     sudo gem install biodiversity #for ruby 1.8.x
