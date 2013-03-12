@@ -81,7 +81,7 @@ of scientific name
 
 ### As a library
 
-    You can use it as a library
+You can use it as a library in Ruby, JRuby etc.
     
     require 'biodiversity'
     
