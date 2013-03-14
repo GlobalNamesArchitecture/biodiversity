@@ -22,14 +22,14 @@ Example usage
 
 ### As a command line script
 
-You can parse file with taxonomic names from command line. 
+You can parse file with taxonomic names from command line.
 File should contain one scientific name per line
 
     nnparser file_with_names
 
 ### As a socket server
 
-If you do not use Ruby and need a fast access to the parser functionality  
+If you do not use Ruby and need a fast access to the parser functionality
 you can use a socket server
 
     parserver
@@ -53,8 +53,8 @@ you can use a socket server
 
 
 
-With default settings you can access parserserver via 4334 port using a 
-socket client library of your programming language.  You can find 
+With default settings you can access parserserver via 4334 port using a
+socket client library of your programming language.  You can find
 [socket client script example][9] in the examples directory of the gem.
 
 If you want to check if socket server works for you:
@@ -65,10 +65,10 @@ If you want to check if socket server works for you:
     #in another terminal window type
     telnet localhost 4334
 
-If you enter a line with a scientific name -- server will send you back 
+If you enter a line with a scientific name -- server will send you back
 parsed information in json format.
 
-To stop telnet client type any of `end`,`exit`,`q`, `.` instead 
+To stop telnet client type any of `end`,`exit`,`q`, `.` instead
 of scientific name
 
     $ telnet localhost 4334
@@ -82,40 +82,43 @@ of scientific name
 ### As a library
 
 You can use it as a library in Ruby, JRuby etc.
-    
+
     require 'biodiversity'
-    
+
     parser = ScientificNameParser.new
-    
+
+    #to find version number
+    ScientificNameParser.version
+
     # to fix capitalization in canonicals
-    ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA") 
+    ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA")
     # Output: Quercus (Quercus) alba
-    
+
     # to parse a scientific name into a ruby hash
     parser.parse("Plantago major")
-    
+
     #to get json representation
     parser.parse("Plantago").to_json
     #or
     parser.parse("Plantago")
     parser.all_json
-    
+
     # to clean name up
     parser.parse("      Plantago       major    ")[:scientificName][:normalized]
-    
+
     # to get only cleaned up latin part of the name
     parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:canonical]
-    
+
     # to get detailed information about elements of the name
     parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:scientificName][:details]
-    
+
 
 To parse using several CPUs (4 seem to be optimal)
 
-    parser = ParallelParser.new 
+    parser = ParallelParser.new
     # ParallelParser.new(4) will try to run 4 processes if hardware allows
     array_of_names = ["Betula alba", "Homo sapiens"....]
-    parser.parse(array_of_names) 
+    parser.parse(array_of_names)
     # Output: {"Betula alba" => {:scientificName...}, "Homo sapiens" => {:scientificName...}, ...}
 
 parallel parser takes list of names and returns back a hash with names as keys and parsed data as values

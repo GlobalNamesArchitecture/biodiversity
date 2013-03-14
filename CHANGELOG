@@ -1,14 +1,16 @@
+2.1.0 -- added ScientificNameParser.version method
+
 2.0.0 -- backward incompatibe change in parserver, therefore new major number.
 In parserver removed option --output=canonical_with_rank, instead added -r
-option which allows to have canonical with rank with either json or canonical 
+option which allows to have canonical with rank with either json or canonical
 outputs
 
-1.2.0 -- changed method invocation signature ScientificNameParser.new 
+1.2.0 -- changed method invocation signature ScientificNameParser.new
 Now it can take options
 
 1.1.3 -- added 'fo' as rank
 
-1.1.2  -- static method for fixins all-caps canonical names, fixing caps 
+1.1.2  -- static method for fixins all-caps canonical names, fixing caps
 for authors words, ampersand instead of 'et' in normalization
 
 1.1.1  -- more multi-uninomials cases, expanded viruses detection, added
@@ -23,14 +25,14 @@ cf., sp. etc), bug fixes, more robust salvage mode
 
 1.0.15 -- additional rules added for names ending with ssp. sp sp. and cf.
 
-1.0.14 -- canonical forms had allowed ë as a character until now. After this 
-version the only utf-8 character allowed in canonical forms should be the 
+1.0.14 -- canonical forms had allowed ë as a character until now. After this
+version the only utf-8 character allowed in canonical forms should be the
 multiplication sign for hybrids.
 
-1.0.13 -- canonical forms for cf. aff. qualifiers are modified: canonical for 
+1.0.13 -- canonical forms for cf. aff. qualifiers are modified: canonical for
 'Aus cf. bus' is now 'Aus bus'; canonical for 'Aus aff. bus' is now 'Aus'.
 Ranks at the end of the name like 'var', 'ssp', 'spp' are considered junk and
 are ignored
 
-1.0.12 -- bug is fixed which prevented 'Cucurbita pepo' be parsed correctly, 
+1.0.12 -- bug is fixed which prevented 'Cucurbita pepo' be parsed correctly,
 f., forma, fr. are now treated as any other ranks.
