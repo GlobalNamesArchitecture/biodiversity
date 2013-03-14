@@ -101,7 +101,8 @@ end
 #     @family    = /^\s*[A-Z][a-z]\+viridae|viroidae/i
 #     @subfamily = /^\s*[A-Z][a-z]\+virinae|viroinae/i
 #     @genus     = /^\s*[A-Z][a-z]\+virus|viroid/i
-#     @species   = /^\s*[A-z0-9u0391-u03C9\[\] ]\+virus|phage|viroid|satellite|prion[A-z0-9u0391-u03C9\[\] ]\+/i
+#     @species   = /^\s*[A-z0-9u0391-u03C9\[\] ]\+virus|phage|
+#                   viroid|satellite|prion[A-z0-9u0391-u03C9\[\] ]\+/ix
 #     @parsed    = nil
 #   end
 # end
@@ -167,7 +168,9 @@ class ScientificNameParser
 
   def virus?(a_string)
     !!(a_string.match(/\sICTV\s*$/) ||
-       a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) ||
+       a_string.match(/\b(virus|viruses|
+                          phage|phages|viroid|viroids|
+                          satellite|satellites|prion|prions)\b/ix) ||
        a_string.match(/[A-Z]?[a-z]+virus\b/))
   end
 
