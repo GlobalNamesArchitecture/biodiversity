@@ -2,12 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     columnize (0.3.6)
-    debugger (1.4.0)
+    debugger (1.5.0)
       columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
+      debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.0)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
+    debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
     git (1.2.5)
@@ -39,10 +38,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debugger
-  jeweler
-  parallel
-  rake
-  rspec
-  treetop
-  unicode_utils
+  debugger (~> 1.5)
+  jeweler (~> 1.8)
+  parallel (~> 0.6)
+  rake (~> 10.0)
+  rspec (~> 2.13)
+  treetop (~> 1.4)
+  unicode_utils (~> 1.4)

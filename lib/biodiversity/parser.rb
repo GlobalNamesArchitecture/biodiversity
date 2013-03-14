@@ -9,23 +9,44 @@ require 'json'
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
   TAXON_CONCEPTS1 = /\s+(sensu\.|sensu|auct\.|auct)\b.*$/i
-  TAXON_CONCEPTS2 = /\s+(\(?s\.\s?s\.|\(?s\.\s?l\.|\(?s\.\s?str\.|\(?s\.\s?lat\.|sec\.|sec|near)\b.*$/
-  TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i  
+  TAXON_CONCEPTS2 = /\s+
+                     (\(?s\.\s?s\.|
+                     \(?s\.\s?l\.|
+                     \(?s\.\s?str\.|
+                     \(?s\.\s?lat\.|
+                    sec\.|sec|near)\b.*$/x
+  TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i
   NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
-  LAST_WORD_JUNK  = /(,\s*|\s+)(spp\.|spp|var\.|var|von|van|ined\.|ined|sensu|new|non|nec|nudum|cf\.|cf|sp\.|sp|ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/i
-  
+  LAST_WORD_JUNK  = /(,\s*|\s+)
+                    (spp\.|spp|var\.|
+                     var|von|van|ined\.|
+                     ined|sensu|new|non|nec|
+                     nudum|cf\.|cf|sp\.|sp|
+                     ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/ix
+
   def self.clean(a_string)
-    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2, 
+    [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2,
      TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
       a_string = a_string.gsub(i, '')
     end
     a_string = a_string.tr('ſ','s') #old 's'
     a_string
-  end   
+  end
 end
 
+# Public: Parser which runs in parallel.
+#
+# Examples
+#
+# parser = ParallelParser.new(4)
+# parser.parse(['Betula L.', 'Pardosa moesta'])
 class ParallelParser
 
+  # Public: Initialize ParallelParser.
+  #
+  # processes_num - an Integer to setup the number of processes (default: nil).
+  #                 If processes number is not set it will be determined
+  #                 automatically.
   def initialize(processes_num = nil)
     require 'parallel'
     cpu_num
@@ -36,13 +57,32 @@ class ParallelParser
     end
   end
 
+  # Public: Parses an array of scientific names using several processes
+  # in parallel.
+  #
+  # Scientific names are deduplicated in the process, so every string is
+  # parsed only once.
+  #
+  # names_list - takes an Array of scientific names,
+  #              each element should be a String.
+  #
+  # Examples
+  #
+  # parser = ParallelParser.new(4)
+  # parser.parse(['Homo sapiens L.', 'Quercus quercus'])
+  #
+  # Returns a Hash with scientific names as a key, and parsing results as
+  # a value.
   def parse(names_list)
-    parsed = Parallel.map(names_list.uniq, in_processes: @processes_num) do |n| 
+    parsed = Parallel.map(names_list.uniq, in_processes: @processes_num) do |n|
       [n, parse_process(n)]
     end
     parsed.inject({}) { |res, x| res[x[0]] = x[1]; res }
   end
 
+  # Public: Returns the number of cores/CPUs.
+  #
+  # Returns Integer of cores/CPUs.
   def cpu_num
     @cpu_num ||= Parallel.processor_count
   end
@@ -67,17 +107,21 @@ end
 # end
 
 class ScientificNameParser
-  VERSION = open(File.join(File.dirname(__FILE__), 
+  VERSION = open(File.join(File.dirname(__FILE__),
                            '..',
                            '..',
                            'VERSION')).readline.strip
 
   FAILED_RESULT = ->(name) do
-    { scientificName: 
-      { parsed: false, verbatim: name.to_s.strip,  error: 'Parser error' } 
+    { scientificName:
+      { parsed: false, verbatim: name.to_s.strip,  error: 'Parser error' }
     }
   end
-  
+
+  def self.version
+    VERSION
+  end
+
   def self.fix_case(name_string)
     name_ary = name_string.split(/\s+/)
     words_num = name_ary.size
@@ -91,27 +135,27 @@ class ScientificNameParser
       end
     else
       if name_ary[0].size > 1
-        word1 = UnicodeUtils.upcase(name_ary[0][0]) + 
+        word1 = UnicodeUtils.upcase(name_ary[0][0]) +
           UnicodeUtils.downcase(name_ary[0][1..-1])
       else
         word1 = name_ary[0]
       end
       if name_ary[1].match(/^\(/)
         word2 = name_ary[1].gsub(/\)$/, '') + ')'
-        word2 = word2[0] + UnicodeUtils.upcase(word2[1]) + 
+        word2 = word2[0] + UnicodeUtils.upcase(word2[1]) +
           UnicodeUtils.downcase(word2[2..-1])
       else
         word2 = UnicodeUtils.downcase(name_ary[1])
       end
-      res = word1 + ' ' + 
-        word2 + ' ' + 
+      res = word1 + ' ' +
+        word2 + ' ' +
         name_ary[2..-1].map { |w| UnicodeUtils.downcase(w) }.join(' ')
       res.strip!
     end
     res
   end
 
-  
+
   def initialize(opts = {})
     @canonical_with_rank = !!opts[:canonical_with_rank]
     @verbatim = ''
@@ -122,8 +166,8 @@ class ScientificNameParser
   end
 
   def virus?(a_string)
-    !!(a_string.match(/\sICTV\s*$/) || 
-       a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) || 
+    !!(a_string.match(/\sICTV\s*$/) ||
+       a_string.match(/\b(virus|viruses|phage|phages|viroid|viroids|satellite|satellites|prion|prions)\b/i) ||
        a_string.match(/[A-Z]?[a-z]+virus\b/))
   end
 
@@ -134,24 +178,24 @@ class ScientificNameParser
   def parsed
     @parsed
   end
-  
+
   def parse(a_string)
     @verbatim = a_string.strip
     a_string = PreProcessor::clean(a_string)
-    
+
     if virus?(a_string)
       @parsed = { verbatim: a_string, virus: true }
     elsif unknown_placement?(a_string)
       @parsed = { verbatim: a_string }
     else
       begin
-        @parsed = @clean.parse(a_string) || @dirty.parse(a_string) 
+        @parsed = @clean.parse(a_string) || @dirty.parse(a_string)
         unless @parsed
           index = @dirty.index || @clean.index
           salvage_match = a_string[0..index].split(/\s+/)[0..-2]
           salvage_string = salvage_match ? salvage_match.join(' ') : a_string
-          @parsed =  @dirty.parse(salvage_string) || 
-                     @canonical.parse(a_string) || 
+          @parsed =  @dirty.parse(salvage_string) ||
+                     @canonical.parse(a_string) ||
                      { verbatim: a_string }
         end
       rescue
@@ -181,18 +225,18 @@ class ScientificNameParser
       else
         res.merge!(self)
       end
-      if (canonical_with_rank && 
-          canonical.count(' ') > 1 && 
+      if (canonical_with_rank &&
+          canonical.count(' ') > 1 &&
           res[:details][0][:infraspecies])
         ScientificNameParser.add_rank_to_canonical(res)
       end
       res = {:scientificName => res}
     end
-    
+
     def @parsed.pos_json
       self.pos.to_json rescue ''
     end
-    
+
     def @parsed.all_json
       self.all.to_json rescue ''
     end
@@ -200,7 +244,7 @@ class ScientificNameParser
     @parsed.verbatim = @verbatim
     @parsed.all(canonical_with_rank: @canonical_with_rank)
   end
-  
+
   private
 
   def self.add_rank_to_canonical(parsed)
@@ -213,6 +257,6 @@ class ScientificNameParser
     end
     parsed[:canonical] = name_ary.join(' ')
   end
-  
+
 end
 
