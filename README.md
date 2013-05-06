@@ -25,7 +25,7 @@ Example usage
 You can parse file with taxonomic names from command line.
 File should contain one scientific name per line
 
-    nnparser file_with_names
+    nnparse file_with_names
 
 ### As a socket server
 
