@@ -1,3 +1,5 @@
+3.0.1 -- updated gems
+
 3.0.0 -- removing support for ruby 1.8.7, making biodiversity gem be the same
 as biodiversity19, deprecating biodiversity19. A few newly discovered bugs
 are fixed.
