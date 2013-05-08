@@ -1,3 +1,7 @@
+3.0.0 -- removing support for ruby 1.8.7, making biodiversity gem be the same
+as biodiversity19, deprecating biodiversity19. A few newly discovered bugs
+are fixed.
+
 2.1.0 -- added ScientificNameParser.version method
 
 2.0.0 -- backward incompatibe change in parserver, therefore new major number.

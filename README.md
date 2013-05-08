@@ -8,14 +8,18 @@ Biodiversity
 
 Parses taxonomic scientific name and breaks it into semantic elements.
 
+*WARNING, IMPORTANT!:*
+Support for Ruby 1.8.7 IS DROPPED. Both biodiversity and
+biodiversity19 will be for Ruby > 1.9.1 and will be identical gems.
+
+biodiversity19 is now deprecated and will be phased out in a couple of years.
+You are strongly encouraged to change your dependencies from
+biodiversity19 to biodiversity
+
 Installation
 ------------
 
-*WARNING:* Do not use Ruby 1.8.7 -- it is outdated. The
-biodiversity gem for Ruby 1.8.7 is not getting updated anymore
-
-    sudo gem install biodiversity19 #for ruby 1.9.x
-    sudo gem install biodiversity #for ruby 1.8.x
+    sudo gem install biodiversity
 
 Example usage
 -------------
@@ -26,6 +30,11 @@ You can parse file with taxonomic names from command line.
 File should contain one scientific name per line
 
     nnparse file_with_names
+
+The resuls will be put into parsed.json file in the current directory.
+To save results into a different file:
+
+    nnparse file_with_names output_file
 
 ### As a socket server
 
@@ -112,6 +121,18 @@ You can use it as a library in Ruby, JRuby etc.
     # to get detailed information about elements of the name
     parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:scientificName][:details]
 
+Returned result is not always linear, if name is complex. To get simple linear
+representation of the name you can use:
+
+    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:position]
+    # returns {0=>["genus", 16], 17=>["species", 26],
+    # 28=>["author_word", 32], 33=>["author_word", 40],
+    # 42=>["author_word", 44], 45=>["author_word", 50],
+    # 53=>["author_word", 58], 59=>["year", 63]}
+    # where the key is the char index of the start of
+    # a word, first element of the value is a semantic meaning
+    # of the word, second element of the value is the character index
+    # of end of the word
 
 To parse using several CPUs (4 seem to be optimal)
 
