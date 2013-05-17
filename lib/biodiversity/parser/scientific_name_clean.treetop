@@ -8,19 +8,19 @@ grammar ScientificNameClean
       def value
         a.value.gsub(/\s{2,}/, ' ').strip
       end
-      
+
       def canonical
         a.canonical.gsub(/\s{2,}/, ' ').strip
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def hybrid
         a.hybrid
       end
-      
+
       def details
         a.details.class == Array ? a.details : [a.details]
       end
@@ -30,25 +30,25 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule scientific_name_5
     a:multinomial_name space_hard hybrid_character space_hard b:species {
       def value
         a.value + " × " + b.value
       end
-      
+
       def canonical
         a.canonical + " × " + b.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def hybrid
         true
       end
-      
+
       def details
         [a.details, b.details.merge({:genus => a.details[:genus]})]
       end
@@ -58,19 +58,19 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.apply(c)
       end
-    
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos.merge(c.pos)
       end
-      
+
       def hybrid
         a.hybrid
       end
-      
+
       def details
         a.details.merge(b.details(c))
       end
@@ -78,25 +78,25 @@ grammar ScientificNameClean
     /
     scientific_name_4
   end
-  
+
   rule scientific_name_4
     a:scientific_name_1 space hybrid_character space b:scientific_name_1 {
       def value
         a.value + " × " + b.value
       end
-      
+
       def canonical
         a.canonical + " × " + b.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def hybrid
         true
       end
-      
+
       def details
         [a.details, b.details]
       end
@@ -106,19 +106,19 @@ grammar ScientificNameClean
       def value
         a.value + " × ?"
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def hybrid
         true
       end
-      
+
       def details
         [a.details, "?"]
       end
@@ -126,25 +126,25 @@ grammar ScientificNameClean
     /
     scientific_name_3
   end
-  
+
   rule scientific_name_3
     a:hybrid_character space b:scientific_name_2 {
       def  value
         a.value + " " + b.value
       end
-      
+
       def canonical
         b.canonical
       end
-      
+
       def pos
         b.pos
       end
-      
+
       def hybrid
         true
       end
-      
+
       def details
         b.details
       end
@@ -152,25 +152,25 @@ grammar ScientificNameClean
     /
     scientific_name_2
   end
-  
+
   rule scientific_name_2
     a:scientific_name_1 space b:status_part {
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def hybrid
         a.hybrid rescue false
       end
-      
+
       def details
         a.details.merge(b.details)
       end
@@ -184,10 +184,10 @@ grammar ScientificNameClean
     /
     multinomial_name
     /
-    uninomial_name  
+    uninomial_name
   end
-  
-  
+
+
   rule status_part
     a:status_word space b:status_part {
       def value
@@ -200,7 +200,7 @@ grammar ScientificNameClean
     /
     status_word
   end
-  
+
   rule status_word
     latin_word [\.] {
       def value
@@ -216,7 +216,7 @@ grammar ScientificNameClean
 
   rule unparsed
     .+ space {
-    
+
       def value
         ''
       end
@@ -238,52 +238,52 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule multinomial_name
     a:genus space b:infragenus space aid:annotation_identification? space c:species space_hard d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
-    
+
       def canonical
         a.canonical + " " + c.canonical + " " + d.canonical
       end
-    
+
       def pos
         a.pos.merge(b.pos).merge(c.pos).merge(d.pos)
       end
-      
+
       def hybrid
         c.hybrid rescue false
       end
-    
+
       def details
         a.details.merge(b.details).merge(c.details).merge(d.details)
       end
     }
-    /  
+    /
     a:genus space b:infragenus space aid:annotation_identification? space c:species space aid:annotation_identification space d:infraspecies_mult {
       def value
         a.value + " " + b.value + " " + c.value + " " + d.value
       end
-    
+
       def canonical
         a.canonical + " " + c.canonical + " " + d.canonical
       end
-    
+
       def pos
         a.pos.merge(b.pos).merge(c.pos).merge(d.pos)
       end
-      
+
       def hybrid
         c.hybrid rescue false
       end
-    
+
       def details
         a.details.merge(b.details).merge(c.details).merge(d.details)
       end
     }
-    /  
+    /
     a:genus space b:infragenus space aid:annotation_identification? space c:species {
       def value
         if defined? aid.apply
@@ -292,7 +292,7 @@ grammar ScientificNameClean
           a.value + " " + b.value + " " + c.value
         end
       end
-      
+
       def canonical
         if defined? aid.apply
           a.canonical + aid.canonical(c)
@@ -300,7 +300,7 @@ grammar ScientificNameClean
           a.canonical + " " + c.canonical
         end
       end
-      
+
       def pos
         if defined? aid.apply
           a.pos.merge(b.pos).merge(aid.pos(c))
@@ -308,11 +308,11 @@ grammar ScientificNameClean
           a.pos.merge(b.pos).merge(c.pos)
         end
       end
-      
+
       def hybrid
         c.hybrid rescue false
       end
-      
+
       def details
         if defined? aid.apply
           a.details.merge(b.details).merge(aid.apply(c))
@@ -324,21 +324,21 @@ grammar ScientificNameClean
     /
     a:genus space aid:annotation_identification? space b:species space_hard c:infraspecies_mult {
       def value
-        a.value + " " + b.value + " " + c.value 
+        a.value + " " + b.value + " " + c.value
       end
 
       def canonical
         a.canonical + " " + b.canonical + " " + c.canonical
       end
-    
+
       def pos
         a.pos.merge(b.pos).merge(c.pos)
       end
-      
+
       def hybrid
         b.hybrid rescue false
       end
-    
+
       def details
         a.details.merge(b.details).merge(c.details)
       end
@@ -349,7 +349,7 @@ grammar ScientificNameClean
         if defined? aid.apply
           a.value + aid.apply(b)
         else
-          a.value + " " + b.value 
+          a.value + " " + b.value
         end
       end
 
@@ -360,7 +360,7 @@ grammar ScientificNameClean
           a.canonical + " " + b.canonical
         end
       end
-      
+
       def pos
         if defined? aid.apply
           a.pos.merge(aid.pos(b))
@@ -368,11 +368,11 @@ grammar ScientificNameClean
           a.pos.merge(b.pos)
         end
       end
-      
+
       def hybrid
         b.hybrid rescue false
       end
-      
+
       def details
         if defined? aid.apply
           a.details.merge(aid.details(b))
@@ -390,15 +390,15 @@ grammar ScientificNameClean
       def canonical
         a.canonical + aid.canonical(b)
       end
-      
+
       def pos
         a.pos.merge(aid.pos(b))
       end
-      
+
       def hybrid
         false
       end
-      
+
       def details
         a.details.merge(aid.details(b))
       end
@@ -408,7 +408,7 @@ grammar ScientificNameClean
   rule multiuninomial_name
     a:uninomial_name space b:rank_uninomial space c:uninomial_name {
 
-      def value 
+      def value
         a.value + " " + b.value + " " + c.value
       end
 
@@ -429,23 +429,23 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule infraspecies_mult
     a:infraspecies space b:infraspecies_mult {
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical + " " + b.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
-        a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]] 
+        a_array =  a.details[:infraspecies].class == Array ? a.details[:infraspecies] : [a.details[:infraspecies]]
         b_array = b.details[:infraspecies].class == Array ? b.details[:infraspecies] : [b.details[:infraspecies]]
         a.details.merge({:infraspecies => a_array + b_array})
       end
@@ -461,42 +461,42 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule infraspecies
     a:infraspecies_string space b:authorship {
       def value
         a.value + " " + b.value
       end
-  
+
       def canonical
         a.canonical
       end
-  
+
       def pos
         a.pos.merge(b.pos)
       end
-  
+
       def details
         {:infraspecies => a.details[:infraspecies].merge(b.details)}
       end
     }
     /
-    infraspecies_string 
+    infraspecies_string
   end
-  
+
   rule infraspecies_string
     sel:rank space a:species_word {
-      def value 
+      def value
         sel.apply(a)
       end
       def canonical
         sel.canonical(a)
       end
-      
+
       def pos
         sel.pos(a)
       end
-    
+
       def details
         sel.details(a)
       end
@@ -506,18 +506,18 @@ grammar ScientificNameClean
       def value
         aid.apply(a)
       end
-      
+
       def canonical
         aid.canonical(a)
       end
-  
+
       def pos
         def a.pos
           {interval.begin => ['infraspecies', a.interval.end]}
         end
         aid.pos(a)
       end
-  
+
       def details
         def a.details
           {:infraspecies => {:string => value, :rank => 'n/a'}}
@@ -530,21 +530,21 @@ grammar ScientificNameClean
       def value
         a.value
       end
-      
+
       def canonical
         value
       end
-  
+
       def pos
         {interval.begin => ['infraspecies', interval.end]}
       end
-  
+
       def details
         {:infraspecies => {:string => value, :rank => 'n/a'}}
       end
     }
   end
-  
+
   rule taxon_concept_rank
     ("sec."/"sensu.") {
       def value
@@ -555,7 +555,7 @@ grammar ScientificNameClean
       end
       def details(a = nil)
         {:taxon_concept => a.details}
-      end    
+      end
     }
   end
 
@@ -573,12 +573,12 @@ grammar ScientificNameClean
       def canonical(a)
         " " + a.value
       end
-      
+
       def pos(a)
-        interval_end =  text_value[-1] == ' ' ? interval.end - 1 : interval.end 
+        interval_end =  text_value[-1] == ' ' ? interval.end - 1 : interval.end
         {interval.begin => ['infraspecific_type', interval_end], a.interval.begin => ['infraspecies', a.interval.end]}
       end
-      
+
       def details(a = nil)
         {:infraspecies => {:string => (a.value rescue nil), :rank => text_value.strip}}
       end
@@ -594,31 +594,31 @@ grammar ScientificNameClean
       def pos(uni)
         {interval.begin => ['rank_uninomial', interval.end], uni.interval.begin => ['uninomial', uni.interval.end]}
       end
-      
+
       def details(uni)
         {:rank_uninomials => value, :uninomial2 => uni.details[:uninomial]}
       end
     }
   end
-  
+
   rule species
     a:species_string space b:authorship {
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def hybrid
         a.hybrid rescue false
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         {:species => a.details[:species].merge(b.details)}
       end
@@ -626,21 +626,21 @@ grammar ScientificNameClean
     /
     species_string
   end
-  
+
   rule species_string
     species_word {
       def canonical
         value
       end
-      
+
       def pos
         {interval.begin => ['species', interval.end]}
       end
-      
+
       def hybrid
         false
       end
-      
+
       def details
         {:species => {:string => value}}
       end
@@ -648,41 +648,41 @@ grammar ScientificNameClean
     /
     species_word_hybrid
   end
-  
+
   rule infragenus
     left_paren space a:(cap_latin_word/capped_dotted_char) space right_paren {
       def value
         "(" + a.value + ")"
       end
-      
+
       def canonical
         a.value
       end
-      
+
       def pos
         {a.interval.begin => ['infragenus', a.interval.end]}
       end
-      
+
       def details
         {:infragenus => {:string => a.value}}
       end
     }
   end
-  
+
   rule genus
     a:(abbreviated_genus/uninomial_string) !(space_hard author_prefix_word space_hard author_word) {
       def value
         a.value
       end
-      
+
       def pos
         {a.interval.begin => ['genus', a.interval.end]}
       end
-      
+
       def canonical
         a.value
       end
-          
+
       def details
         {:genus => {:string => a.value}}
       end
@@ -706,27 +706,27 @@ grammar ScientificNameClean
       def details
         {:abbreviated_genus => {:string => value}}
       end
-    } 
+    }
   end
-  
+
   rule uninomial_name
     a:uninomial_string space b:infragenus space c:simple_authorship {
       def value
         a.value + " " + b.value + " " + c.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos).merge(c.pos)
       end
-      
+
       def hybrid
         false
       end
-      
+
       def details
         {:uninomial => a.details[:uninomial].merge(b.details).merge(c.details)}
       end
@@ -736,19 +736,19 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def hybrid
         false
       end
-      
+
       def details
         {:uninomial => a.details[:uninomial].merge(b.details)}
       end
@@ -758,19 +758,19 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def hybrid
         false
       end
-      
+
       def details
         {:uninomial => a.details[:uninomial].merge(b.details)}
       end
@@ -784,31 +784,31 @@ grammar ScientificNameClean
       def canonical
         value
       end
-      
+
       def pos
         {interval.begin => ['uninomial', interval.end]}
       end
-      
+
       def hybrid
         false
       end
-      
-      def details 
+
+      def details
         {:uninomial => {:string => value}}
       end
     }
   end
-  
+
   rule authorship
     a:basionym_authorship_with_parenthesis space b:simple_authorship ","? space c:ex_authorship {
       def value
         a.value + " " + b.value + " " + c.value
       end
-      
+
       def pos
         a.pos.merge(b.pos).merge(c.pos)
       end
-      
+
       def details
         val = {:authorship => text_value.strip, :combinationAuthorTeam => b.details[:basionymAuthorTeam], :basionymAuthorTeam => a.details[:basionymAuthorTeam]}
         val[:combinationAuthorTeam].merge!(c.details)
@@ -820,11 +820,11 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         {:authorship => text_value.strip, :combinationAuthorTeam => b.details[:basionymAuthorTeam], :basionymAuthorTeam => a.details[:basionymAuthorTeam]}
       end
@@ -836,11 +836,11 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         val = a.details
         val[:authorship] = text_value.strip
@@ -851,21 +851,21 @@ grammar ScientificNameClean
     /
     simple_authorship
   end
-   
-  
+
+
   rule basionym_authorship_with_parenthesis
     left_paren space a:authors_names space right_paren space [,]? space b:year {
       def value
         "(" + a.value + " " + b.value + ")"
       end
-      
+
       def pos
        a.pos.merge(b.pos)
-      end 
-      
+      end
+
       def details
-        { :authorship => text_value, 
-          :basionymAuthorTeam => {:author_team => text_value}.merge(a.details).merge(b.details)          
+        { :authorship => text_value,
+          :basionymAuthorTeam => {:author_team => text_value}.merge(a.details).merge(b.details)
           }
       end
     }
@@ -874,11 +874,11 @@ grammar ScientificNameClean
       def value
         "(" + a.value + " " + b.value + ")"
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         val = a.details
         val[:basionymAuthorTeam].merge!(b.details)
@@ -891,15 +891,15 @@ grammar ScientificNameClean
       def value
         "(" + a.value + ")"
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def details
         val = a.details
         val[:authorship] = text_value
-        val      
+        val
       end
     }
     /
@@ -907,32 +907,32 @@ grammar ScientificNameClean
       def value
         "(?)"
       end
-      
+
       def pos
         {a.interval.begin => ['unknown_author', a.interval.end]}
       end
-      
+
       def details
         {:authorship => text_value, :basionymAuthorTeam => {:authorTeam => text_value, :author => ['?']}}
       end
     }
   end
-  
+
   rule ex_authorship
     ex_sep space b:simple_authorship {
       def value
         " ex " + b.value
       end
-      
+
       def pos
         b.pos
       end
-      
+
       def details
         val = {:exAuthorTeam => {:authorTeam => b.text_value.strip}.merge(b.details[:basionymAuthorTeam])}
         val
       end
-    } 
+    }
   end
 
   rule simple_authorship
@@ -940,17 +940,17 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         details_with_arg(:basionymAuthorTeam)
       end
-      
+
       def details_with_arg(authorTeamType = 'basionymAuthorTeam')
-        { :authorship => text_value, 
+        { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => a.text_value.strip
           }.merge(a.details).merge(b.details)
@@ -962,17 +962,17 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         details_with_arg(:basionymAuthorTeam)
       end
-      
+
       def details_with_arg(authorTeamType = 'basionymAuthorTeam')
-        { :authorship => text_value, 
+        { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => a.text_value.strip
           }.merge(a.details).merge(b.details)
@@ -986,27 +986,27 @@ grammar ScientificNameClean
         details[:basionymAuthorTeam].merge!(super)
         details
       end
-      
+
       def details_with_arg(authorTeamType = 'basionymAuthorTeam')
-        { :authorship => text_value, 
+        { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => text_value,
           }
-        }      
+        }
       end
     }
   end
-  
+
   rule authors_names
     a:author_name space sep:author_separator space b:authors_names {
       def value
         sep.apply(a,b)
       end
-      
+
       def pos
         sep.pos(a,b)
       end
-      
+
       def details
         sep.details(a,b)
       end
@@ -1016,28 +1016,28 @@ grammar ScientificNameClean
     /
     unknown_auth
   end
-  
-  
+
+
   rule unknown_auth
     ("auct."/"auct"/"hort."/"hort"/"anon."/"anon"/"ht."/"ht") !latin_word {
       def value
         text_value
       end
-      
+
       def pos
        {interval.begin => ['unknown_author', interval.end]}
       end
-      
+
       def details
         {:author => ["unknown"]}
       end
     }
   end
-  
+
   rule ex_sep
     ("ex"/"in") &[\s]
   end
-  
+
   rule author_separator
     ("&amp;"/"&"/","/"and"/"et") {
       def apply(a,b)
@@ -1045,11 +1045,11 @@ grammar ScientificNameClean
         sep = " &" if ["&amp;", "&","and","et"].include? sep
         a.value + sep + " " + b.value
       end
-      
+
       def pos(a,b)
         a.pos.merge(b.pos)
       end
-      
+
       def details(a,b)
         {:author => a.details[:author] + b.details[:author]}
       end
@@ -1061,8 +1061,8 @@ grammar ScientificNameClean
       def value
         a.value + ' ' + b.value
       end
-      
-      def pos 
+
+      def pos
         a.pos.merge(b.pos)
       end
 
@@ -1073,17 +1073,17 @@ grammar ScientificNameClean
     /
     author_name_without_postfix
   end
-  
+
   rule author_name_without_postfix
     space a:author_prefix_word space b:author_name {
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         {:author => [value]}
       end
@@ -1093,11 +1093,11 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         {:author => [value]}
       end
@@ -1105,17 +1105,17 @@ grammar ScientificNameClean
     /
     author_word
   end
-  
+
   rule author_word
     "A S. Xu" {
       def value
         text_value.strip
       end
-      
+
       def pos
         {interval.begin => ['author_word', 1], (interval.begin + 2) => ['author_word', 2], (interval.begin + 5) => ['author_word', 2]}
       end
-      
+
       def details
         {:author => [value]}
       end
@@ -1125,28 +1125,28 @@ grammar ScientificNameClean
       def value
         text_value.strip
       end
-      
+
       def pos
         #cheating because there are several words in some of them
         {interval.begin => ['author_word', interval.end]}
       end
-      
+
       def details
         {:author => [value]}
       end
     }
-    / 
+    /
     ("Å"/"Ö"/"Á"/"Ø"/"Ô"/"Š"/"Ś"/"Č"/"Ķ"/"Ł"/"É"/"Ž"/[A-W]/[Y-Z]) [^0-9\[\]\(\)\s&,]* {
       def value
         text_value.gsub(/([\p{Lu}]{3,})/) do |match|
           UnicodeUtils.titlecase(match)
         end
       end
-      
+
       def pos
         {interval.begin => ['author_word', interval.end]}
       end
-      
+
       def details
         {:author => [value]}
       end
@@ -1156,11 +1156,11 @@ grammar ScientificNameClean
       def value
         text_value
       end
-      
+
       def pos
         {interval.begin => ['author_word', interval.end]}
       end
-      
+
       def details
         {:author => [value]}
       end
@@ -1168,13 +1168,13 @@ grammar ScientificNameClean
     /
     author_prefix_word
   end
-  
+
   rule author_prefix_word
     space ("ab"/"af"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
-      
+
       def pos
         #cheating because there are several words in some of them
         {interval.begin => ['author_word', interval.end]}
@@ -1184,7 +1184,7 @@ grammar ScientificNameClean
 
   rule author_postfix_word
     ("f."/"filius") {
-      def value 
+      def value
         text_value.strip
       end
 
@@ -1193,7 +1193,7 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule cap_latin_word_pair
     a:cap_latin_word "-" b:cap_latin_word {
       def value
@@ -1201,7 +1201,7 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule cap_latin_word
     a:([A-Z]/cap_digraph) b:latin_word "?" {
       def value
@@ -1241,19 +1241,19 @@ grammar ScientificNameClean
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         b.value
       end
-      
+
       def hybrid
         true
       end
-      
+
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
-      
+
       def details
         {:species => {:string => b.value}}
       end
@@ -1263,19 +1263,19 @@ grammar ScientificNameClean
       def value
         "× " + b.value
       end
-      
+
       def canonical
         b.value
       end
-      
+
       def hybrid
         true
       end
-      
+
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
-      
+
       def details
         {:species => {:string => b.value}}
       end
@@ -1285,19 +1285,19 @@ grammar ScientificNameClean
       def value
         "× " + b.value
       end
-      
+
       def canonical
         b.value
       end
-      
+
       def hybrid
         true
       end
-      
+
       def pos
         {b.interval.begin => ['species', b.interval.end]}
       end
-      
+
       def details
         {:species => {:string => b.value}}
       end
@@ -1305,7 +1305,7 @@ grammar ScientificNameClean
   end
 
   rule annotation_identification
-    ("sp.nr."/"sp. nr."/"nr."/"nr "/"sp.aff."/"sp. aff."/"sp."/"sp "/"spp."/"spp "/"aff."/"aff "/"monst."/"?") {
+    ("sp.nr."/"sp. nr."/"nr."/"nr "/"sp.aff."/"sp. aff."/"sp."/"sp "/"species"/"spp."/"spp "/"aff."/"aff "/"monst."/"? ") {
 
       def value
         text_value.strip
@@ -1392,9 +1392,9 @@ grammar ScientificNameClean
         text_value.split('').each do |l|
           l = 'ae' if l == 'æ'
           l = 'oe' if l == 'œ'
-          # We normalize ë as well. It is legal in botanical code, but it 
+          # We normalize ë as well. It is legal in botanical code, but it
           # is beneficial to normalize it for the reconsiliation purposes
-          l = 'e' if l == 'ë' 
+          l = 'e' if l == 'ë'
           res << l
         end
         res
@@ -1408,7 +1408,7 @@ grammar ScientificNameClean
         res = text_value
         res = 'ae' if res == 'æ'
         res = 'oe' if res == 'œ'
-        res = 'e'  if res == 'ë' 
+        res = 'e'  if res == 'ë'
         res
       end
     }
@@ -1426,7 +1426,7 @@ grammar ScientificNameClean
       def value
       'Oe'
       end
-    }  
+    }
   end
 
   rule year
@@ -1434,14 +1434,14 @@ grammar ScientificNameClean
       def value
         a.value
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def details
         a.details
-      end 
+      end
     }
     /
     year_number_with_character
@@ -1464,31 +1464,31 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule year_number
     [12] [7890] [0-9] ([0-9] [\?]?/"?") {
       def value
         text_value
       end
-      
+
       def pos
         {interval.begin => ['year', interval.end]}
       end
-      
+
       def details
         {:year => value}
       end
     }
   end
-  
+
   rule left_paren
     "("
   end
-  
+
   rule right_paren
     ")"
   end
-  
+
   rule hybrid_character
     ("x"/"X") {
       def value
@@ -1498,7 +1498,7 @@ grammar ScientificNameClean
     /
     multiplication_sign
   end
-  
+
   rule multiplication_sign
     ("×"/"*") {
       def value
@@ -1506,7 +1506,7 @@ grammar ScientificNameClean
       end
     }
   end
-  
+
   rule space
     [\s]*
   end
@@ -1514,5 +1514,5 @@ grammar ScientificNameClean
   rule space_hard
     [\s]+
   end
-  
+
 end
