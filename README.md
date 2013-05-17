@@ -37,7 +37,8 @@ you can use a socket server
     parserver -h
     Usage: parserver [options]
 
-        -r, --canonical_with_rank        Adds infraspecies rank to canonical forms
+        -r, --canonical_with_rank        Adds infraspecies rank 
+                                         to canonical forms
 
         -o, --output=output              Specifies the type of the output:
         json - parsed results in json
@@ -107,10 +108,12 @@ You can use it as a library in Ruby, JRuby etc.
     parser.parse("      Plantago       major    ")[:scientificName][:normalized]
 
     # to get only cleaned up latin part of the name
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:canonical]
+    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. \
+    Braun & Crous 2003")[:scientificName][:canonical]
 
     # to get detailed information about elements of the name
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003")[:scientificName][:details]
+    parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
+    Braun & Crous 2003")[:scientificName][:details]
 
 
 To parse using several CPUs (4 seem to be optimal)
@@ -119,20 +122,37 @@ To parse using several CPUs (4 seem to be optimal)
     # ParallelParser.new(4) will try to run 4 processes if hardware allows
     array_of_names = ["Betula alba", "Homo sapiens"....]
     parser.parse(array_of_names)
-    # Output: {"Betula alba" => {:scientificName...}, "Homo sapiens" => {:scientificName...}, ...}
+    # Output: {"Betula alba" => {:scientificName...}, 
+    # "Homo sapiens" => {:scientificName...}, ...}
 
-parallel parser takes list of names and returns back a hash with names as keys and parsed data as values
+parallel parser takes list of names and returns back a hash with names as 
+keys and parsed data as values
 
 To get canonicals with ranks for infraspecific epithets:
 
     parser = ScientificNameParser.new(canonical_with_rank: true)
-    parser.parse('Cola cordifolia var. puberula A. Chev.')[:scientificName][:canonical]
+    parser.parse('Cola cordifolia var. puberula \
+    A. Chev.')[:scientificName][:canonical]
     # Output: Cola cordifolia var. puberula
 
 To resolve lsid and get back RDF file
 
     LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
 
+Troubleshooting
+---------------
+
+If nnparse or parserver do not start -- try to run
+  
+    gem uninstall biodiversity
+    gem uninstall biodiversity19
+
+and make sure you remove all versions and all nnparse and parserver scripts. 
+Then install biodiversity again
+
+    gem install biodiversity
+
+It should fix the problem.
 
 
 [1]: https://badge.fury.io/rb/biodiversity19.png
