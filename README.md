@@ -164,7 +164,7 @@ Troubleshooting
 ---------------
 
 If nnparse or parserver do not start -- try to run
-  
+
     gem uninstall biodiversity
     gem uninstall biodiversity19
 
