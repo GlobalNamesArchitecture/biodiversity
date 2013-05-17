@@ -127,7 +127,8 @@ You can use it as a library in Ruby, JRuby etc.
 Returned result is not always linear, if name is complex. To get simple linear
 representation of the name you can use:
 
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003")[:scientificName][:position]
+    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) \
+    U. Braun & Crous 2003")[:scientificName][:position]
     # returns {0=>["genus", 16], 17=>["species", 26],
     # 28=>["author_word", 32], 33=>["author_word", 40],
     # 42=>["author_word", 44], 45=>["author_word", 50],
@@ -175,6 +176,13 @@ Then install biodiversity again
 
 It should fix the problem.
 
+Copyright
+---------
+
+Authors: [Dmitry Mozzherin][10], 
+
+Copyright (c) 2008-2013 Marine Biological Laboratory. See LICENSE for
+further details.
 
 [1]: https://badge.fury.io/rb/biodiversity19.png
 [2]: http://badge.fury.io/rb/biodiversity19
@@ -184,4 +192,5 @@ It should fix the problem.
 [6]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity
 [7]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity.png
 [8]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity
-[9]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/examples/socket_client.rb
+[9]: http://bit.ly/149iLm5
+[10]: https://github.com/dimus
