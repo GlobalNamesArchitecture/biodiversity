@@ -138,6 +138,11 @@ representation of the name you can use:
     # of the word, second element of the value is the character index
     # of end of the word
 
+'Surrogate' is a broad group which includes 'Barcode of Life' names, and various
+undetermined names with cf. sp. spp. nr. in them:
+    
+    parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
+
 To parse using several CPUs (4 seem to be optimal)
 
     parser = ParallelParser.new
