@@ -233,6 +233,7 @@ class ScientificNameParser
           res[:details][0][:infraspecies])
         ScientificNameParser.add_rank_to_canonical(res)
       end
+      res[:surrogate] = true if ScientificNameParser.surrogate?(res)
       res = {:scientificName => res}
     end
 
@@ -249,6 +250,24 @@ class ScientificNameParser
   end
 
   private
+
+  def self.surrogate?(parsed_data)
+    return false unless parsed_data[:parsed]
+    name = parsed_data[:verbatim]
+    pos = parsed_data[:positions].to_a.flatten
+    surrogate1 = /BOLD:|[\d]{5,}/i
+    surrogate2 = /(spp|sp|nr|cf)[\.]?[\s]*$/i
+    is_surrogate = false
+      
+    ai_index = pos.index('annotation_identification')
+    if ai_index
+      ai = name[pos[ai_index - 1]..pos[ai_index + 1]]
+      is_surrogate = true if ai.match(/^(spp|cf|sp|nr)/)
+    end
+    is_surrogate = true if !is_surrogate && (name.match(surrogate1) ||
+                     name.match(surrogate2))
+    is_surrogate
+  end
 
   def self.add_rank_to_canonical(parsed)
     parts = parsed[:canonical].split(' ')
