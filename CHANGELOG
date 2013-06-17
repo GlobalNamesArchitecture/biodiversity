@@ -1,3 +1,6 @@
+3.1.0 -- added surrogates: Genbank, Barcode of life names. 
+Also cf., sp. spp are flagged as surrogates
+
 3.0.1 -- updated gems
 
 3.0.0 -- removing support for ruby 1.8.7, making biodiversity gem be the same
