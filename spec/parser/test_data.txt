@@ -414,3 +414,10 @@ Buteo borealis ? ventralis|{"scientificName":{"parsed":true, "parser_version":"t
 Cetraria islandica ? islandica|{"scientificName":{"parsed":true, "parser_version":"test_version", "verbatim":"Cetraria islandica ? islandica", "normalized":"Cetraria islandica", "canonical":"Cetraria islandica", "hybrid":false, "details":[{"genus":{"string":"Cetraria"}, "species":{"string":"islandica"}, "infraspecies":[{"annotation_identification":"?", "ignored":{"infraspecies":{"string":"islandica", "rank":"n/a"}}}]}], "parser_run":1, "positions":{"0":["genus", 8], "9":["species", 18], "19":["annotation_identification", 21]}}}
 Euxoa nr. idahoensis sp. 1clay|{"scientificName":{"parsed":true, "parser_version":"test_version", "verbatim":"Euxoa nr. idahoensis sp. 1clay", "normalized":"Euxoa idahoensis", "canonical":"Euxoa idahoensis", "hybrid":false, "details":[{"genus":{"string":"Euxoa"}, "species":{"string":"idahoensis"}, "infraspecies":[{"annotation_identification":"sp.", "ignored":{"infraspecies":{"string":"uniclay", "rank":"n/a"}}}]}], "parser_run":1, "positions":{"0":["genus", 5], "10":["species", 20], "21":["annotation_identification", 24]}}}
 Parus caeruleus species complex|{"scientificName":{"parsed":true, "parser_version":"test_version", "verbatim":"Parus caeruleus species complex", "normalized":"Parus caeruleus", "canonical":"Parus caeruleus", "hybrid":false, "details":[{"genus":{"string":"Parus"}, "species":{"string":"caeruleus"}}], "parser_run":1, "positions":{"0":["genus", 5], "6":["species", 15]}}}
+
+#should flag surrogate names
+Coleoptera sp. BOLD:AAV0432|{}
+
+
+#should not flag as surrogates similar to surrogates names
+Dryopteris X separabilis Small (pro sp.)|{}
