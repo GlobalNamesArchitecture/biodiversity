@@ -184,8 +184,8 @@ Authors: [Dmitry Mozzherin][10],
 Copyright (c) 2008-2013 Marine Biological Laboratory. See LICENSE for
 further details.
 
-[1]: https://badge.fury.io/rb/biodiversity19.png
-[2]: http://badge.fury.io/rb/biodiversity19
+[1]: https://badge.fury.io/rb/biodiversity.png
+[2]: http://badge.fury.io/rb/biodiversity
 [3]: https://secure.travis-ci.org/GlobalNamesArchitecture/biodiversity.png
 [4]: http://travis-ci.org/GlobalNamesArchitecture/biodiversity
 [5]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity.png
