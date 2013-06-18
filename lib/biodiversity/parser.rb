@@ -256,7 +256,7 @@ class ScientificNameParser
     name = parsed_data[:verbatim]
     pos = parsed_data[:positions].to_a.flatten
     surrogate1 = /BOLD:|[\d]{5,}/i
-    surrogate2 = /(spp|sp|nr|cf)[\.]?[\s]*$/i
+    surrogate2 = /\b(spp|sp|nr|cf)[\.]?[\s]*$/i
     is_surrogate = false
       
     ai_index = pos.index('annotation_identification')
