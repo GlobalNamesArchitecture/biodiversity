@@ -1,6 +1,9 @@
-3.1.1 -- fixed problem with names ending on sp 
+3.1.2 -- fixed problems with infraspecies epithets starting with fo,
+for example Peristernia nassatula forskali Tapparone-Canefri 1875
 
-3.1.0 -- added surrogates: Genbank, Barcode of life names. 
+3.1.1 -- fixed problem with names ending on sp
+
+3.1.0 -- added surrogates: Genbank, Barcode of life names.
 Also cf., sp. spp are flagged as surrogates
 
 3.0.1 -- updated gems
