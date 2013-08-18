@@ -6,7 +6,7 @@ gem 'parallel',       '~> 0.6'
 gem 'unicode_utils',  '~> 1.4'
 
 group :development do
-  gem 'debugger',     '~> 1.5'
+  gem 'debugger',     '~> 1.6'
   gem 'jeweler',      '~> 1.8'
 end
 
