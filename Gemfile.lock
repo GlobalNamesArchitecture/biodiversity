@@ -72,8 +72,8 @@ PLATFORMS
 DEPENDENCIES
   debugger (~> 1.6)
   jeweler (~> 1.8)
-  parallel (~> 0.6)
-  rake (~> 10.0)
+  parallel (~> 0.7)
+  rake (~> 10.1)
   rspec (~> 2.13)
   treetop (~> 1.4)
   unicode_utils (~> 1.4)

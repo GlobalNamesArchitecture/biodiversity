@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rake',           '~> 10.0'
+gem 'rake',           '~> 10.1'
 gem 'treetop',        '~> 1.4'
-gem 'parallel',       '~> 0.6'
+gem 'parallel',       '~> 0.7'
 gem 'unicode_utils',  '~> 1.4'
 
 group :development do
