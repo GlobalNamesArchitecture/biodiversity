@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class LsidResolver
   def self.resolve(lsid)
     http_get_rdf(lsid)

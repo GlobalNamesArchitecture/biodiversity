@@ -19,19 +19,36 @@ describe ScientificNameClean do
   it 'should parse uninomial with author and year' do
     sn = 'Pseudocercospora Speg.'
     parse(sn).should_not be_nil
-    details(sn).should == [{:uninomial=>{:string=>"Pseudocercospora", :authorship=>"Speg.", :basionymAuthorTeam=>{:authorTeam=>"Speg.", :author=>["Speg."]}}}]
+    details(sn).should == [{:uninomial=>
+                            {:string=>"Pseudocercospora", 
+                             :authorship=>"Speg.", 
+                             :basionymAuthorTeam=>
+                          {:authorTeam=>"Speg.", :author=>["Speg."]}}}]
     pos(sn).should == {0=>["uninomial", 16], 17=>["author_word", 22]}
     sn = 'Pseudocercospora Spegazzini, 1910'
     parse(sn).should_not be_nil
     value(sn).should == 'Pseudocercospora Spegazzini 1910'
-    details(sn).should == [{:uninomial=>{:string=>"Pseudocercospora", :authorship=>"Spegazzini, 1910", :basionymAuthorTeam=>{:authorTeam=>"Spegazzini", :author=>["Spegazzini"], :year=>"1910"}}}]
-    pos(sn).should == {0=>["uninomial", 16], 17=>["author_word", 27], 29=>["year", 33]}
+    details(sn).should == [{:uninomial=>
+                            {:string=>"Pseudocercospora", 
+                             :authorship=>"Spegazzini, 1910", 
+                             :basionymAuthorTeam=>
+                            {:authorTeam=>"Spegazzini", 
+                             :author=>["Spegazzini"], :year=>"1910"}}}]
+    pos(sn).should == {0=>["uninomial", 16], 
+                       17=>["author_word", 27], 29=>["year", 33]}
   end
 
   it "should parse uninomials with uninomial ranks" do
     sn = "Epacridaceae trib. Archerieae Crayn & Quinn"
     parse(sn).should_not be_nil
-    details(sn).should == [{:uninomial=>{:string=>"Epacridaceae"}, :rank_uninomials=>"trib.", :uninomial2=>{:string=>"Archerieae", :authorship=>"Crayn & Quinn", :basionymAuthorTeam=>{:authorTeam=>"Crayn & Quinn", :author=>["Crayn", "Quinn"]}}}]
+    details(sn).should == [{:uninomial=>
+                            {:string=>"Epacridaceae"}, 
+                              :rank_uninomials=>"trib.", 
+                              :uninomial2=>{:string=>"Archerieae", 
+                                            :authorship=>"Crayn & Quinn", 
+                                            :basionymAuthorTeam=>
+                            {:authorTeam=>"Crayn & Quinn", 
+                             :author=>["Crayn", "Quinn"]}}}]
   end
 
   it 'should parse names with a valid 2 letter genus' do
@@ -64,7 +81,9 @@ describe ScientificNameClean do
     parse(sn).should_not be_nil
     value(sn).should == 'Pseudocercospora dendrobii'
     canonical(sn).should == 'Pseudocercospora dendrobii'
-    details(sn).should == [{:genus=>{:string=>"Pseudocercospora"}, :species=>{:string=>"dendrobii"}}]
+    details(sn).should == [{:genus=>
+                            {:string=>"Pseudocercospora"}, 
+                              :species=>{:string=>"dendrobii"}}]
     pos(sn).should == {0=>["genus", 16], 21=>["species", 30]}
   end
 
@@ -75,7 +94,9 @@ describe ScientificNameClean do
     sn = 'Ps.    dendrobii'
     parse(sn).should_not be_nil
     value(sn).should == 'Ps. dendrobii'
-    details(sn).should == [{:genus=>{:string=>"Ps."}, :species=>{:string=>"dendrobii"}}]
+    details(sn).should == [{:genus=>
+                            {:string=>"Ps."}, 
+                              :species=>{:string=>"dendrobii"}}]
   end
 
 
@@ -86,8 +107,16 @@ describe ScientificNameClean do
     sn = "Platypus bicaudatulus Schedl, 1935h"
     parse(sn).should_not be_nil
     value(sn).should == "Platypus bicaudatulus Schedl 1935"
-    details(sn).should == [{:genus=>{:string=>"Platypus"}, :species=>{:string=>"bicaudatulus", :authorship=>"Schedl, 1935h", :basionymAuthorTeam=>{:authorTeam=>"Schedl", :author=>["Schedl"], :year=>"1935"}}}]
-    pos(sn).should == {0=>["genus", 8], 9=>["species", 21], 22=>["author_word", 28], 30=>["year", 35]}
+    details(sn).should == [{:genus=>
+                            {:string=>"Platypus"}, 
+                              :species=>{:string=>"bicaudatulus", 
+                                         :authorship=>"Schedl, 1935h", 
+                                         :basionymAuthorTeam=>
+                            {:authorTeam=>"Schedl", :author=>["Schedl"], 
+                             :year=>"1935"}}}]
+    pos(sn).should == {0=>["genus", 8],
+                       9=>["species", 21], 22=>["author_word", 28], 
+                       30=>["year", 35]}
     parse("Platypus bicaudatulus Schedl, 1935B").should_not be_nil
     sn = "Platypus bicaudatulus Schedl (1935h)"
     parse(sn).should_not be_nil

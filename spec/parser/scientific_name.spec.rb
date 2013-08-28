@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 #NOTE: this spec needs compiled treetop files.
 require_relative '../spec_helper'
 
@@ -13,10 +14,10 @@ describe ScientificNameParser do
 
   it 'should ScientificNameParser::fix_case' do
     names = [
-      ["QUERCUS ALBA", "Quercus alba"],
-      ["QUERCUS (QUERCUS) ALBA", "Quercus (Quercus) alba"],
-      ["QÜERCUS", "Qüercus"],
-      ["PARDOSA MOéSTA", "Pardosa moésta"],
+      ['QUERCUS ALBA', 'Quercus alba'],
+      ['QUERCUS (QUERCUS) ALBA', 'Quercus (Quercus) alba'],
+      ['QÜERCUS', 'Qüercus'],
+      ['PARDOSA MOéSTA', 'Pardosa moésta'],
     ]
     names.each do |name, capitalization|
       ScientificNameParser::fix_case(name).should == capitalization
@@ -32,7 +33,7 @@ describe ScientificNameParser do
 
   # it 'should generate new test_file' do
   #   new_test = open(File.expand_path(dir +
-  #                    "../../spec/parser/test_data_new.txt"),'w')
+  #                    '../../spec/parser/test_data_new.txt'),'w')
   #   read_test_file do |y|
   #     if y[:comment]
   #       new_test.write y[:comment]
@@ -50,20 +51,20 @@ describe ScientificNameParser do
       '"parser_version":"test_version","verbatim":"ddd sljlkj 3223452432"}}'
   end
 
-  it "should show version when the flag :show_version set to true" do
+  it 'should show version when the flag :show_version set to true' do
     parse('Homo sapiens')[:scientificName][:parser_version].should_not be_nil
   end
 
-  it "should show version for not spelled names" do
+  it 'should show version for not spelled names' do
     parse('not_a_name')[:scientificName][:parser_version].should_not be_nil
   end
 
-  it "should generate version for viruses" do
+  it 'should generate version for viruses' do
     parse('Nile virus')[:scientificName][:parser_version].should_not be_nil
   end
 end
 
-describe "ScientificNameParser with ranked canonicals" do
+describe 'ScientificNameParser with ranked canonicals' do
   before(:all) do
     @parser = ScientificNameParser.new(canonical_with_rank: true)
   end
@@ -99,12 +100,12 @@ describe "ScientificNameParser with ranked canonicals" do
 end
 
 describe ParallelParser do
-  it "should find number of cpus" do
+  it 'should find number of cpus' do
     pparser = ParallelParser.new
     pparser.cpu_num.should > 0
   end
 
-  it "should parse several names in parallel" do
+  it 'should parse several names in parallel' do
     names = []
     read_test_file { |n| names << (n[:name]) if n[:name] }
     names.uniq!
@@ -114,7 +115,7 @@ describe ParallelParser do
     res.keys.size.should == names.size
   end
 
-  it "should parse several names in parallel with given num of processes" do
+  it 'should parse several names in parallel with given num of processes' do
     names = []
     read_test_file { |n| names << (n[:name]) if n[:name] }
     names.uniq!
@@ -124,8 +125,8 @@ describe ParallelParser do
     res.keys.size.should == names.size
   end
 
-  it "should have parsed name in native ruby format and in returned as \
-      a hash with name as a key and parsed data as value" do
+  it 'should have parsed name in native ruby format and in returned as \
+      a hash with name as a key and parsed data as value' do
     names = []
     read_test_file { |n| names << (n[:name]) if n[:name] }
     names.uniq!

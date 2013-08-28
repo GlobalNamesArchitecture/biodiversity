@@ -1,10 +1,7 @@
 # encoding: UTF-8
-dir = File.dirname(__FILE__)
-require File.join(dir, *%w[parser scientific_name_clean])
-require File.join(dir, *%w[parser scientific_name_dirty])
-require File.join(dir, *%w[parser scientific_name_canonical])
-require 'rubygems'
-require 'json'
+require_relative 'parser/scientific_name_clean'
+require_relative 'parser/scientific_name_dirty'
+require_relative 'parser/scientific_name_canonical'
 
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i

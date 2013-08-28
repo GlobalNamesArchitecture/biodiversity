@@ -1,4 +1,3 @@
-dir = File.dirname(__FILE__)
 require_relative '../spec_helper'
 
 describe LsidResolver do
