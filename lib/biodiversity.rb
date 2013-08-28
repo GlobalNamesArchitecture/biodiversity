@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'treetop'
 
-dir = File.dirname(__FILE__)
+module Biodiversity
+  VERSION = '3.1.2'
+  LSID_RESOLVER_URL = 'http://lsid.tdwg.org/'
+end
 
-BIODIVERSITY_ROOT = File.join(dir, 'biodiversity')
-require File.join(dir, "/../conf/environment")
-require File.join(BIODIVERSITY_ROOT, "parser")
-require File.join(BIODIVERSITY_ROOT, "guid")
+require_relative 'biodiversity/parser'
+require_relative 'biodiversity/guid'
+

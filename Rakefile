@@ -1,45 +1,12 @@
 dir = File.dirname(__FILE__)
-require 'rubygems'
 require 'rake'
-#$LOAD_PATH.unshift(File.join(dir, 'vendor', 'rspec', 'lib'))
 require 'rspec/core'
 require 'rspec/core/rake_task'
-
-#Gem::manage_gems
-#require 'rake/gempackagetask'
 
 task :default => :spec
 
 RSpec::Core::RakeTask.new do |t|
   t.pattern = 'spec/**/*spec.rb'
-end
-
-ruby_version = RUBY_VERSION.split('.')[0..1].join('').to_i
-
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = 'biodiversity'
-    #To delete ruby_version < 19 ? 'biodiversity' : 'biodiversity19'
-    gem.summary = 'Parser of scientific names'
-    gem.description = 'Tools for biodiversity informatics'
-    gem.email = 'dmozzherin@gmail.com'
-    gem.homepage = 'http://github.com/GlobalNamesArchitecture/biodiversity'
-    gem.authors = ['Dmitry Mozzherin']
-    gem.has_rdoc = false
-    gem.bindir = 'bin'
-    gem.executables = ['nnparse', 'parserver']
-    gem.add_dependency('treetop')
-    gem.add_dependency('parallel')
-    # gem.add_dependency('json') if ruby_version < 19
-    gem.add_development_dependency "rspec"
-    # gem is a Gem::Specification...
-    # see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-rescue LoadError
-  puts 'Jeweler (or a dependency) not available. ' +
-    'Install it with: sudo gem install jeweler'
 end
 
 task :tt do

@@ -1,8 +1,6 @@
 # encoding: utf-8
 #NOTE: this spec needs compiled treetop files.
-dir = File.dirname("__FILE__")
-require File.expand_path(dir + '../../spec/parser/spec_helper')
-require File.expand_path(dir + '../../lib/biodiversity/parser')
+require_relative '../spec_helper'
 
 describe ScientificNameParser do
   before(:all) do

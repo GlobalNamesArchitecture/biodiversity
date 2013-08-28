@@ -1,6 +1,5 @@
 # encoding: UTF-8
-dir = File.dirname("__FILE__")
-require File.expand_path(dir + '../../spec/parser/spec_helper')
+require_relative '../spec_helper'
 
 describe ScientificNameDirty do
   before(:all) do
@@ -15,7 +14,13 @@ describe ScientificNameDirty do
     sn = "Eichornia crassipes ( (Martius) ) Solms-Laub."
     parse(sn).should_not be_nil
     value(sn).should == "Eichornia crassipes (Martius) Solms-Laub."
-    details(sn).should == [{:genus=>{:string=>"Eichornia"}, :species=>{:string=>"crassipes", :authorship=>"( (Martius) ) Solms-Laub.", :combinationAuthorTeam=>{:authorTeam=>"Solms-Laub.", :author=>["Solms-Laub."]}, :basionymAuthorTeam=>{:authorTeam=>"Martius", :author=>["Martius"]}}}]
+    details(sn).should == [{:genus=>{:string=>"Eichornia"}, 
+      :species=>{:string=>"crassipes", 
+      :authorship=>"( (Martius) ) Solms-Laub.", 
+      :combinationAuthorTeam=>{:authorTeam=>"Solms-Laub.", 
+        :author=>["Solms-Laub."]}, 
+        :basionymAuthorTeam=>{:authorTeam=>"Martius", 
+          :author=>["Martius"]}}}]
     pos(sn).should == {0=>["genus", 9], 10=>["species", 19], 23=>["author_word", 30], 34=>["author_word", 45]} 
   end
   

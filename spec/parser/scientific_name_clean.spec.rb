@@ -1,6 +1,5 @@
 # encoding: UTF-8
-dir = File.dirname("__FILE__")
-require File.expand_path(dir + '../../spec/parser/spec_helper')
+require_relative '../spec_helper'
 
 
 describe ScientificNameClean do

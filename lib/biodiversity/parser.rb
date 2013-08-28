@@ -108,10 +108,6 @@ end
 # end
 
 class ScientificNameParser
-  VERSION = open(File.join(File.dirname(__FILE__),
-                           '..',
-                           '..',
-                           'VERSION')).readline.strip
 
   FAILED_RESULT = ->(name) do
     { scientificName:
@@ -120,7 +116,7 @@ class ScientificNameParser
   end
 
   def self.version
-    VERSION
+    Biodiversity::VERSION
   end
 
   def self.fix_case(name_string)
@@ -213,7 +209,7 @@ class ScientificNameParser
     def @parsed.all(opts = {})
       canonical_with_rank = !!opts[:canonical_with_rank]
       parsed = self.class != Hash
-      res = { parsed: parsed, parser_version: ScientificNameParser::VERSION}
+      res = { parsed: parsed, parser_version: ScientificNameParser::version}
       if parsed
         hybrid = self.hybrid rescue false
         res.merge!({
