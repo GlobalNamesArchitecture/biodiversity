@@ -1,5 +1,4 @@
-dir = File.dirname(__FILE__)
-require 'rake'
+require 'bundler/gem_tasks'
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
@@ -10,6 +9,7 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 task :tt do
+  dir = File.dirname(__FILE__)
   ['scientific_name_clean',
    'scientific_name_dirty',
    'scientific_name_canonical'].each do |f|
