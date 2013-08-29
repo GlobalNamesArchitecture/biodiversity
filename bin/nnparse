@@ -1,24 +1,20 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
-ruby_min_version = RUBY_VERSION.split(".")[0..1].join('').to_i
-if ruby_min_version < 19
-  require 'rubygems'
-  gem_name = 'biodiversity'
-else
-  gem_name = 'biodiversity19'
-end
-gem gem_name rescue nil
 
-$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'biodiversity'
 require 'json'
 
 def parser_error(name)
-  {'scientificName' => {'parsed' => false, 'verbatim' => name,  'error' => 'Parser error'}}.to_json
+  { 'scientificName' => 
+    { 'parsed' => false, 
+      'verbatim' => name,  
+      'error' => 'Parser error' } }.to_json
 end
 
 if ARGV.empty?
-  puts "Usage:\n\nnnparse file_with_scientific_names [output_file]\n\ndefault output_file is parsed.json\n\n"
+  puts "Usage:\n\n" + 
+    "nnparse file_with_scientific_names [output_file]\n\n" + 
+    "default output_file is parsed.json\n\n"
   exit
 end
 
@@ -30,21 +26,14 @@ p = ScientificNameParser.new
 o = open(output, 'w')
 count = 0
 puts 'Parsing...'
-f = ruby_min_version < 19 ? open(input) : open(input, 'r:utf-8')
+f = open(input, 'r:utf-8')
 f.each do |line|
   count += 1
   puts("%s lines parsed" % count) if count % 10000 == 0
   name = line.gsub(/^[\d]*\s*/, '').strip
   begin
-    if ruby_min_version < 19
-      old_kcode = $KCODE
-      $KCODE = 'NONE'
-    end
     p.parse(name) 
     parsed_data = p.parsed.all_json rescue parser_error(name)
-    if ruby_min_version < 19
-      $KCODE = old_kcode
-    end
   rescue 
     parsed_data = parser_error(name)
   end
