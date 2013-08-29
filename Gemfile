@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bundler'         '~> 1.3'
 gem 'rake',           '~> 10.1'
 gem 'treetop',        '~> 1.4'
 gem 'parallel',       '~> 0.7'
