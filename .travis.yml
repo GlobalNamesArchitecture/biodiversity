@@ -1,6 +1,8 @@
 rvm:
-  - 1.9.3
-  - 2.0.0
+  - 1.9.3-p448
+  - 2.0.0-p535
 branches:
   only:
       - master
+before_script:
+  - bundle exec rake tt
