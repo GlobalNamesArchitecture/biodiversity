@@ -15,3 +15,5 @@ spec/parser/test_data_new.txt
 t
 bin
 .bundle
+bundle_bin
+Gemfile.lock

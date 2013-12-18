@@ -1,7 +1,7 @@
 require 'yaml'
 require 'treetop'
 require 'json'
-require_relative '../lib/biodiversity'
+require 'biodiversity'
 
 
 RSpec.configure do |c|
