@@ -1,4 +1,3 @@
-lib/biodiversity/parser/*rb
 *.sw?
 .DS_Store
 coverage
