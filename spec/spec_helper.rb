@@ -2,6 +2,7 @@ require 'yaml'
 require 'treetop'
 require 'json'
 require 'biodiversity'
+require 'webmock/rspec'
 
 
 RSpec.configure do |c|
@@ -67,8 +68,7 @@ def debug(input)
 end
 
 def read_test_file
-  f = open(File.expand_path(File.join(File.dirname(__FILE__), 
-                            'parser/test_data.txt')))
+  f = open(File.expand_path('../files/test_data.txt', __FILE__))
   f.each do |line|
     name, jsn = line.split("|")
     if line.match(/^\s*#/) == nil && name && jsn

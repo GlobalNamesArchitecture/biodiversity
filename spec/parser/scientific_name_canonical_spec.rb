@@ -6,7 +6,7 @@ describe ScientificNameCanonical do
     set_parser(ScientificNameCanonicalParser.new)
   end
 
-  it 'should parse names with valid name part and unparseable rest' do
+  it 'parses names with valid name part and unparseable rest' do
     [
       ['Morea ssjjlajajaj324$33 234243242','Morea', 
        [{:uninomial=>{:string=>"Morea"}}], {0=>["uninomial", 5]}],
@@ -26,11 +26,11 @@ describe ScientificNameCanonical do
        [{:genus=>{:string=>"Verpericola"}, :species=>{:string=>"megasoma"}}], 
        {0=>["genus", 11], 12=>["species", 20]}] 
     ].each do |n|
-      parse(n[0]).should_not be_nil
-      value(n[0]).should == n[1]
-      details(n[0]).should == n[2]
-      pos(n[0]).should == n[3]
-      parse(n[0]).hybrid.should be_false
+      expect(parse(n[0])).not_to be_nil
+      expect(value(n[0])).to eq n[1]
+      expect(details(n[0])).to eq n[2]
+      expect(pos(n[0])).to eq n[3]
+      expect(parse(n[0]).hybrid).to be_false
     end
   end  
   

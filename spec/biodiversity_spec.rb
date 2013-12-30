@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe Biodiversity do
-  it 'should have version' do
-    version = Biodiversity::VERSION
-    version.should =~ /^\d+\.\d+\.\d+/
-    version.should == Biodiversity.version
+  describe '.version' do
+    it 'returns version' do
+      expect(subject.version).to match /^\d+\.\d+\.\d+/
+    end
+
+    it 'is the same as Biodiversity::Version constant' do
+      expect(subject.version).to eq Biodiversity::VERSION
+    end
   end
 end
