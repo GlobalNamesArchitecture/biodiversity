@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>        <rdf:RDF
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:dcterms="http://purl.org/dc/terms/"
+            xmlns:ubio="urn:lsid:ubio.org:predicates:"
+            xmlns:gla="urn:lsid:lsid.zoology.gla.ac.uk:predicates:"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        	<rdf:Description rdf:about="urn:lsid:ubio.org:classificationbank:2232671">
+        		<dc:identifier>urn:lsid:ubio.org:classificationbank:2232671</dc:identifier>
+        		<ubio:namebankIdentifier rdf:resource="urn:lsid:ubio.org:namebank:2035"/>
+        		<dc:creator rdf:resource="http://www.ubio.org"/>
+        		<dc:title>Pternistis Wagler 1832</dc:title>
+        <ubio:classificationName>Integrated Taxonomic Information System ITIS (July. 2004)</ubio:classificationName>
+<ubio:classificationDescription><![CDATA[This compilation was transcribed from the monthly  (July 2004)<A href=http://www.itis.usda.gov/ftp_download.html>ITIS export file</A>.  Automated and manual parsing tools map ITIS data elements to uBio identifiers.   Refer to <A href=http://www.itis.usda.gov/>ITIS</A> for an authoritative version of these data.]]></ubio:classificationDescription>
+<gla:rank>Genus</gla:rank>
+<ubio:canonicalName>Pternistis</ubio:canonicalName>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233019"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233020"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233021"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233022"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233023"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233024"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233025"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233026"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233027"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233028"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233029"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233030"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233031"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233032"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233033"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233034"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233035"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233036"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233037"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233038"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233039"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233040"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233041"/>
+<ubio:hasChild rdf:resource="urn:lsid:ubio.org:classificationbank:2233042"/>
+<gla:parent rdf:resource="urn:lsid:ubio.org:classificationbank:2182740"/>
+<gla:lineage>
+<rdf:Seq>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2182740"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2182585"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2181316"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2208549"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2169118"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2203051"/>
+<rdf:li rdf:resource="urn:lsid:ubio.org:classificationbank:2344847"/>
+</rdf:Seq>
+</gla:lineage>        	</rdf:Description>
+        </rdf:RDF>
