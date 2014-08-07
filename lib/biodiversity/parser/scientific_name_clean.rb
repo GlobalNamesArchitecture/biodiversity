@@ -56,7 +56,7 @@ module ScientificNameClean
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:root][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -180,7 +180,7 @@ module ScientificNameClean
     if node_cache[:scientific_name_5].has_key?(index)
       cached = node_cache[:scientific_name_5][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_5][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -215,6 +215,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i7, s7 = index, []
@@ -245,10 +246,12 @@ module ScientificNameClean
         r7 = nil
       end
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         r13 = _nt_scientific_name_4
         if r13
+          r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
           r0 = r13
         else
           @index = i0
@@ -352,7 +355,7 @@ module ScientificNameClean
     if node_cache[:scientific_name_4].has_key?(index)
       cached = node_cache[:scientific_name_4][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_4][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -387,6 +390,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i7, s7 = index, []
@@ -402,10 +406,11 @@ module ScientificNameClean
             r11 = _nt_space
             s7 << r11
             if r11
-              if has_terminal?('\G[\\?]', true, index)
+              if has_terminal?(@regexps[gr = '\A[\\?]'] ||= Regexp.new(gr), :regexp, index)
                 r13 = true
                 @index += 1
               else
+                terminal_parse_failure('[\\?]')
                 r13 = nil
               end
               if r13
@@ -427,10 +432,12 @@ module ScientificNameClean
         r7 = nil
       end
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         r14 = _nt_scientific_name_3
         if r14
+          r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
           r0 = r14
         else
           @index = i0
@@ -485,7 +492,7 @@ module ScientificNameClean
     if node_cache[:scientific_name_3].has_key?(index)
       cached = node_cache[:scientific_name_3][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_3][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -512,10 +519,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_scientific_name_2
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -569,7 +578,7 @@ module ScientificNameClean
     if node_cache[:scientific_name_2].has_key?(index)
       cached = node_cache[:scientific_name_2][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_2][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -596,10 +605,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_scientific_name_1
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -617,7 +628,7 @@ module ScientificNameClean
     if node_cache[:scientific_name_1].has_key?(index)
       cached = node_cache[:scientific_name_1][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_1][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -626,14 +637,17 @@ module ScientificNameClean
     i0 = index
     r1 = _nt_multiuninomial_name
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r2 = _nt_multinomial_name
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
       else
         r3 = _nt_uninomial_name
         if r3
+          r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
           r0 = r3
         else
           @index = i0
@@ -675,7 +689,7 @@ module ScientificNameClean
     if node_cache[:status_part].has_key?(index)
       cached = node_cache[:status_part][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:status_part][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -702,10 +716,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_status_word
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -739,7 +755,7 @@ module ScientificNameClean
     if node_cache[:status_word].has_key?(index)
       cached = node_cache[:status_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:status_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -749,10 +765,11 @@ module ScientificNameClean
     r1 = _nt_latin_word
     s0 << r1
     if r1
-      if has_terminal?('\G[\\.]', true, index)
+      if has_terminal?(@regexps[gr = '\A[\\.]'] ||= Regexp.new(gr), :regexp, index)
         r2 = true
         @index += 1
       else
+        terminal_parse_failure('[\\.]')
         r2 = nil
       end
       s0 << r2
@@ -805,7 +822,7 @@ module ScientificNameClean
     if node_cache[:unparsed].has_key?(index)
       cached = node_cache[:unparsed][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:unparsed][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -815,7 +832,7 @@ module ScientificNameClean
     s1, i1 = [], index
     loop do
       if index < input_length
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r2 = true
         @index += 1
       else
         terminal_parse_failure("any character")
@@ -1209,7 +1226,7 @@ module ScientificNameClean
     if node_cache[:multinomial_name].has_key?(index)
       cached = node_cache[:multinomial_name][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:multinomial_name][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1265,6 +1282,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i12, s12 = index, []
@@ -1324,6 +1342,7 @@ module ScientificNameClean
         r12 = nil
       end
       if r12
+        r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
         r0 = r12
       else
         i25, s25 = index, []
@@ -1367,6 +1386,7 @@ module ScientificNameClean
           r25 = nil
         end
         if r25
+          r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
           r0 = r25
         else
           i34, s34 = index, []
@@ -1410,6 +1430,7 @@ module ScientificNameClean
             r34 = nil
           end
           if r34
+            r34 = SyntaxNode.new(input, (index-1)...index) if r34 == true
             r0 = r34
           else
             i43, s43 = index, []
@@ -1445,6 +1466,7 @@ module ScientificNameClean
               r43 = nil
             end
             if r43
+              r43 = SyntaxNode.new(input, (index-1)...index) if r43 == true
               r0 = r43
             else
               i50, s50 = index, []
@@ -1475,6 +1497,7 @@ module ScientificNameClean
                 r50 = nil
               end
               if r50
+                r50 = SyntaxNode.new(input, (index-1)...index) if r50 == true
                 r0 = r50
               else
                 @index = i0
@@ -1541,7 +1564,7 @@ module ScientificNameClean
     if node_cache[:multiuninomial_name].has_key?(index)
       cached = node_cache[:multiuninomial_name][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:multiuninomial_name][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1629,7 +1652,7 @@ module ScientificNameClean
     if node_cache[:infraspecies_mult].has_key?(index)
       cached = node_cache[:infraspecies_mult][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:infraspecies_mult][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1656,11 +1679,13 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_infraspecies
       r5.extend(InfraspeciesMult2)
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -1710,7 +1735,7 @@ module ScientificNameClean
     if node_cache[:infraspecies].has_key?(index)
       cached = node_cache[:infraspecies][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:infraspecies][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1737,10 +1762,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_infraspecies_string
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -1853,7 +1880,7 @@ module ScientificNameClean
     if node_cache[:infraspecies_string].has_key?(index)
       cached = node_cache[:infraspecies_string][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:infraspecies_string][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1880,6 +1907,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i5, s5 = index, []
@@ -1893,10 +1921,11 @@ module ScientificNameClean
           s5 << r8
           if r8
             i9 = index
-            if has_terminal?('\G[\\.]', true, index)
+            if has_terminal?(@regexps[gr = '\A[\\.]'] ||= Regexp.new(gr), :regexp, index)
               r10 = true
               @index += 1
             else
+              terminal_parse_failure('[\\.]')
               r10 = nil
             end
             if r10
@@ -1918,6 +1947,7 @@ module ScientificNameClean
         r5 = nil
       end
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         i11, s11 = index, []
@@ -1925,10 +1955,11 @@ module ScientificNameClean
         s11 << r12
         if r12
           i13 = index
-          if has_terminal?('\G[\\.]', true, index)
+          if has_terminal?(@regexps[gr = '\A[\\.]'] ||= Regexp.new(gr), :regexp, index)
             r14 = true
             @index += 1
           else
+            terminal_parse_failure('[\\.]')
             r14 = nil
           end
           if r14
@@ -1948,6 +1979,7 @@ module ScientificNameClean
           r11 = nil
         end
         if r11
+          r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
           r0 = r11
         else
           @index = i0
@@ -1978,32 +2010,34 @@ module ScientificNameClean
     if node_cache[:taxon_concept_rank].has_key?(index)
       cached = node_cache[:taxon_concept_rank][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:taxon_concept_rank][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("sec.", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 4))
-      @index += 4
+    if (match_len = has_terminal?("sec.", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("sec.")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(TaxonConceptRank0)
     else
-      if has_terminal?("sensu.", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
-        @index += 6
+      if (match_len = has_terminal?("sensu.", false, index))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("sensu.")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(TaxonConceptRank0)
       else
@@ -2045,527 +2079,574 @@ module ScientificNameClean
     if node_cache[:rank].has_key?(index)
       cached = node_cache[:rank][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:rank][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("morph.", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 6))
-      @index += 6
+    if (match_len = has_terminal?("morph.", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("morph.")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(Rank0)
     else
-      if has_terminal?("f.sp.", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
-        @index += 5
+      if (match_len = has_terminal?("f.sp.", false, index))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("f.sp.")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(Rank0)
       else
-        if has_terminal?("B ", false, index)
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        if (match_len = has_terminal?("B ", false, index))
+          r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("B ")
           r3 = nil
         end
         if r3
+          r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
           r0 = r3
           r0.extend(Rank0)
         else
-          if has_terminal?("ssp.", false, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 4))
-            @index += 4
+          if (match_len = has_terminal?("ssp.", false, index))
+            r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("ssp.")
             r4 = nil
           end
           if r4
+            r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
             r0 = r4
             r0.extend(Rank0)
           else
-            if has_terminal?("ssp ", false, index)
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 4))
-              @index += 4
+            if (match_len = has_terminal?("ssp ", false, index))
+              r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("ssp ")
               r5 = nil
             end
             if r5
+              r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
               r0 = r5
               r0.extend(Rank0)
             else
-              if has_terminal?("mut.", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                @index += 4
+              if (match_len = has_terminal?("mut.", false, index))
+                r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("mut.")
                 r6 = nil
               end
               if r6
+                r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                 r0 = r6
                 r0.extend(Rank0)
               else
-                if has_terminal?("nat ", false, index)
-                  r7 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                  @index += 4
+                if (match_len = has_terminal?("nat ", false, index))
+                  r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("nat ")
                   r7 = nil
                 end
                 if r7
+                  r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                   r0 = r7
                   r0.extend(Rank0)
                 else
-                  if has_terminal?("nothosubsp.", false, index)
-                    r8 = instantiate_node(SyntaxNode,input, index...(index + 11))
-                    @index += 11
+                  if (match_len = has_terminal?("nothosubsp.", false, index))
+                    r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("nothosubsp.")
                     r8 = nil
                   end
                   if r8
+                    r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                     r0 = r8
                     r0.extend(Rank0)
                   else
-                    if has_terminal?("convar.", false, index)
-                      r9 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                      @index += 7
+                    if (match_len = has_terminal?("convar.", false, index))
+                      r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("convar.")
                       r9 = nil
                     end
                     if r9
+                      r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                       r0 = r9
                       r0.extend(Rank0)
                     else
-                      if has_terminal?("pseudovar.", false, index)
-                        r10 = instantiate_node(SyntaxNode,input, index...(index + 10))
-                        @index += 10
+                      if (match_len = has_terminal?("pseudovar.", false, index))
+                        r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        @index += match_len
                       else
                         terminal_parse_failure("pseudovar.")
                         r10 = nil
                       end
                       if r10
+                        r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
                         r0 = r10
                         r0.extend(Rank0)
                       else
-                        if has_terminal?("sect.", false, index)
-                          r11 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                          @index += 5
+                        if (match_len = has_terminal?("sect.", false, index))
+                          r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                          @index += match_len
                         else
                           terminal_parse_failure("sect.")
                           r11 = nil
                         end
                         if r11
+                          r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
                           r0 = r11
                           r0.extend(Rank0)
                         else
-                          if has_terminal?("ser.", false, index)
-                            r12 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                            @index += 4
+                          if (match_len = has_terminal?("ser.", false, index))
+                            r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                            @index += match_len
                           else
                             terminal_parse_failure("ser.")
                             r12 = nil
                           end
                           if r12
+                            r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                             r0 = r12
                             r0.extend(Rank0)
                           else
-                            if has_terminal?("var.", false, index)
-                              r13 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                              @index += 4
+                            if (match_len = has_terminal?("var.", false, index))
+                              r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                              @index += match_len
                             else
                               terminal_parse_failure("var.")
                               r13 = nil
                             end
                             if r13
+                              r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                               r0 = r13
                               r0.extend(Rank0)
                             else
-                              if has_terminal?("subvar.", false, index)
-                                r14 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                                @index += 7
+                              if (match_len = has_terminal?("subvar.", false, index))
+                                r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                @index += match_len
                               else
                                 terminal_parse_failure("subvar.")
                                 r14 = nil
                               end
                               if r14
+                                r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                                 r0 = r14
                                 r0.extend(Rank0)
                               else
-                                if has_terminal?("[var.]", false, index)
-                                  r15 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                                  @index += 6
+                                if (match_len = has_terminal?("[var.]", false, index))
+                                  r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                  @index += match_len
                                 else
                                   terminal_parse_failure("[var.]")
                                   r15 = nil
                                 end
                                 if r15
+                                  r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                                   r0 = r15
                                   r0.extend(Rank0)
                                 else
-                                  if has_terminal?("var ", false, index)
-                                    r16 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                    @index += 4
+                                  if (match_len = has_terminal?("var ", false, index))
+                                    r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                    @index += match_len
                                   else
                                     terminal_parse_failure("var ")
                                     r16 = nil
                                   end
                                   if r16
+                                    r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                                     r0 = r16
                                     r0.extend(Rank0)
                                   else
-                                    if has_terminal?("subsp.", false, index)
-                                      r17 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                                      @index += 6
+                                    if (match_len = has_terminal?("subsp.", false, index))
+                                      r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                      @index += match_len
                                     else
                                       terminal_parse_failure("subsp.")
                                       r17 = nil
                                     end
                                     if r17
+                                      r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
                                       r0 = r17
                                       r0.extend(Rank0)
                                     else
-                                      if has_terminal?("subsp ", false, index)
-                                        r18 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                                        @index += 6
+                                      if (match_len = has_terminal?("subsp ", false, index))
+                                        r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                        @index += match_len
                                       else
                                         terminal_parse_failure("subsp ")
                                         r18 = nil
                                       end
                                       if r18
+                                        r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
                                         r0 = r18
                                         r0.extend(Rank0)
                                       else
-                                        if has_terminal?("subf.", false, index)
-                                          r19 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                                          @index += 5
+                                        if (match_len = has_terminal?("subf.", false, index))
+                                          r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                          @index += match_len
                                         else
                                           terminal_parse_failure("subf.")
                                           r19 = nil
                                         end
                                         if r19
+                                          r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
                                           r0 = r19
                                           r0.extend(Rank0)
                                         else
-                                          if has_terminal?("race ", false, index)
-                                            r20 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                                            @index += 5
+                                          if (match_len = has_terminal?("race ", false, index))
+                                            r20 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                            @index += match_len
                                           else
                                             terminal_parse_failure("race ")
                                             r20 = nil
                                           end
                                           if r20
+                                            r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
                                             r0 = r20
                                             r0.extend(Rank0)
                                           else
-                                            if has_terminal?("forma ", false, index)
-                                              r21 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                                              @index += 6
+                                            if (match_len = has_terminal?("forma ", false, index))
+                                              r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                              @index += match_len
                                             else
                                               terminal_parse_failure("forma ")
                                               r21 = nil
                                             end
                                             if r21
+                                              r21 = SyntaxNode.new(input, (index-1)...index) if r21 == true
                                               r0 = r21
                                               r0.extend(Rank0)
                                             else
-                                              if has_terminal?("fma.", false, index)
-                                                r22 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                                @index += 4
+                                              if (match_len = has_terminal?("fma.", false, index))
+                                                r22 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                @index += match_len
                                               else
                                                 terminal_parse_failure("fma.")
                                                 r22 = nil
                                               end
                                               if r22
+                                                r22 = SyntaxNode.new(input, (index-1)...index) if r22 == true
                                                 r0 = r22
                                                 r0.extend(Rank0)
                                               else
-                                                if has_terminal?("fma ", false, index)
-                                                  r23 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                                  @index += 4
+                                                if (match_len = has_terminal?("fma ", false, index))
+                                                  r23 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                  @index += match_len
                                                 else
                                                   terminal_parse_failure("fma ")
                                                   r23 = nil
                                                 end
                                                 if r23
+                                                  r23 = SyntaxNode.new(input, (index-1)...index) if r23 == true
                                                   r0 = r23
                                                   r0.extend(Rank0)
                                                 else
-                                                  if has_terminal?("form.", false, index)
-                                                    r24 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                                                    @index += 5
+                                                  if (match_len = has_terminal?("form.", false, index))
+                                                    r24 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                    @index += match_len
                                                   else
                                                     terminal_parse_failure("form.")
                                                     r24 = nil
                                                   end
                                                   if r24
+                                                    r24 = SyntaxNode.new(input, (index-1)...index) if r24 == true
                                                     r0 = r24
                                                     r0.extend(Rank0)
                                                   else
-                                                    if has_terminal?("form ", false, index)
-                                                      r25 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                                                      @index += 5
+                                                    if (match_len = has_terminal?("form ", false, index))
+                                                      r25 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                      @index += match_len
                                                     else
                                                       terminal_parse_failure("form ")
                                                       r25 = nil
                                                     end
                                                     if r25
+                                                      r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
                                                       r0 = r25
                                                       r0.extend(Rank0)
                                                     else
-                                                      if has_terminal?("fo.", false, index)
-                                                        r26 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                                                        @index += 3
+                                                      if (match_len = has_terminal?("fo.", false, index))
+                                                        r26 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                        @index += match_len
                                                       else
                                                         terminal_parse_failure("fo.")
                                                         r26 = nil
                                                       end
                                                       if r26
+                                                        r26 = SyntaxNode.new(input, (index-1)...index) if r26 == true
                                                         r0 = r26
                                                         r0.extend(Rank0)
                                                       else
-                                                        if has_terminal?("fo ", false, index)
-                                                          r27 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                                                          @index += 3
+                                                        if (match_len = has_terminal?("fo ", false, index))
+                                                          r27 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                          @index += match_len
                                                         else
                                                           terminal_parse_failure("fo ")
                                                           r27 = nil
                                                         end
                                                         if r27
+                                                          r27 = SyntaxNode.new(input, (index-1)...index) if r27 == true
                                                           r0 = r27
                                                           r0.extend(Rank0)
                                                         else
-                                                          if has_terminal?("f.", false, index)
-                                                            r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                            @index += 2
+                                                          if (match_len = has_terminal?("f.", false, index))
+                                                            r28 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                            @index += match_len
                                                           else
                                                             terminal_parse_failure("f.")
                                                             r28 = nil
                                                           end
                                                           if r28
+                                                            r28 = SyntaxNode.new(input, (index-1)...index) if r28 == true
                                                             r0 = r28
                                                             r0.extend(Rank0)
                                                           else
-                                                            if has_terminal?("α", false, index)
-                                                              r29 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                              @index += 1
+                                                            if (match_len = has_terminal?("α", false, index))
+                                                              r29 = true
+                                                              @index += match_len
                                                             else
                                                               terminal_parse_failure("α")
                                                               r29 = nil
                                                             end
                                                             if r29
+                                                              r29 = SyntaxNode.new(input, (index-1)...index) if r29 == true
                                                               r0 = r29
                                                               r0.extend(Rank0)
                                                             else
-                                                              if has_terminal?("ββ", false, index)
-                                                                r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                @index += 2
+                                                              if (match_len = has_terminal?("ββ", false, index))
+                                                                r30 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                @index += match_len
                                                               else
                                                                 terminal_parse_failure("ββ")
                                                                 r30 = nil
                                                               end
                                                               if r30
+                                                                r30 = SyntaxNode.new(input, (index-1)...index) if r30 == true
                                                                 r0 = r30
                                                                 r0.extend(Rank0)
                                                               else
-                                                                if has_terminal?("β", false, index)
-                                                                  r31 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                  @index += 1
+                                                                if (match_len = has_terminal?("β", false, index))
+                                                                  r31 = true
+                                                                  @index += match_len
                                                                 else
                                                                   terminal_parse_failure("β")
                                                                   r31 = nil
                                                                 end
                                                                 if r31
+                                                                  r31 = SyntaxNode.new(input, (index-1)...index) if r31 == true
                                                                   r0 = r31
                                                                   r0.extend(Rank0)
                                                                 else
-                                                                  if has_terminal?("γ", false, index)
-                                                                    r32 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                    @index += 1
+                                                                  if (match_len = has_terminal?("γ", false, index))
+                                                                    r32 = true
+                                                                    @index += match_len
                                                                   else
                                                                     terminal_parse_failure("γ")
                                                                     r32 = nil
                                                                   end
                                                                   if r32
+                                                                    r32 = SyntaxNode.new(input, (index-1)...index) if r32 == true
                                                                     r0 = r32
                                                                     r0.extend(Rank0)
                                                                   else
-                                                                    if has_terminal?("δ", false, index)
-                                                                      r33 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                      @index += 1
+                                                                    if (match_len = has_terminal?("δ", false, index))
+                                                                      r33 = true
+                                                                      @index += match_len
                                                                     else
                                                                       terminal_parse_failure("δ")
                                                                       r33 = nil
                                                                     end
                                                                     if r33
+                                                                      r33 = SyntaxNode.new(input, (index-1)...index) if r33 == true
                                                                       r0 = r33
                                                                       r0.extend(Rank0)
                                                                     else
-                                                                      if has_terminal?("ε", false, index)
-                                                                        r34 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                        @index += 1
+                                                                      if (match_len = has_terminal?("ε", false, index))
+                                                                        r34 = true
+                                                                        @index += match_len
                                                                       else
                                                                         terminal_parse_failure("ε")
                                                                         r34 = nil
                                                                       end
                                                                       if r34
+                                                                        r34 = SyntaxNode.new(input, (index-1)...index) if r34 == true
                                                                         r0 = r34
                                                                         r0.extend(Rank0)
                                                                       else
-                                                                        if has_terminal?("φ", false, index)
-                                                                          r35 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                          @index += 1
+                                                                        if (match_len = has_terminal?("φ", false, index))
+                                                                          r35 = true
+                                                                          @index += match_len
                                                                         else
                                                                           terminal_parse_failure("φ")
                                                                           r35 = nil
                                                                         end
                                                                         if r35
+                                                                          r35 = SyntaxNode.new(input, (index-1)...index) if r35 == true
                                                                           r0 = r35
                                                                           r0.extend(Rank0)
                                                                         else
-                                                                          if has_terminal?("θ", false, index)
-                                                                            r36 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                            @index += 1
+                                                                          if (match_len = has_terminal?("θ", false, index))
+                                                                            r36 = true
+                                                                            @index += match_len
                                                                           else
                                                                             terminal_parse_failure("θ")
                                                                             r36 = nil
                                                                           end
                                                                           if r36
+                                                                            r36 = SyntaxNode.new(input, (index-1)...index) if r36 == true
                                                                             r0 = r36
                                                                             r0.extend(Rank0)
                                                                           else
-                                                                            if has_terminal?("μ", false, index)
-                                                                              r37 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                              @index += 1
+                                                                            if (match_len = has_terminal?("μ", false, index))
+                                                                              r37 = true
+                                                                              @index += match_len
                                                                             else
                                                                               terminal_parse_failure("μ")
                                                                               r37 = nil
                                                                             end
                                                                             if r37
+                                                                              r37 = SyntaxNode.new(input, (index-1)...index) if r37 == true
                                                                               r0 = r37
                                                                               r0.extend(Rank0)
                                                                             else
-                                                                              if has_terminal?("a.", false, index)
-                                                                                r38 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                @index += 2
+                                                                              if (match_len = has_terminal?("a.", false, index))
+                                                                                r38 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                @index += match_len
                                                                               else
                                                                                 terminal_parse_failure("a.")
                                                                                 r38 = nil
                                                                               end
                                                                               if r38
+                                                                                r38 = SyntaxNode.new(input, (index-1)...index) if r38 == true
                                                                                 r0 = r38
                                                                                 r0.extend(Rank0)
                                                                               else
-                                                                                if has_terminal?("b.", false, index)
-                                                                                  r39 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                  @index += 2
+                                                                                if (match_len = has_terminal?("b.", false, index))
+                                                                                  r39 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                  @index += match_len
                                                                                 else
                                                                                   terminal_parse_failure("b.")
                                                                                   r39 = nil
                                                                                 end
                                                                                 if r39
+                                                                                  r39 = SyntaxNode.new(input, (index-1)...index) if r39 == true
                                                                                   r0 = r39
                                                                                   r0.extend(Rank0)
                                                                                 else
-                                                                                  if has_terminal?("c.", false, index)
-                                                                                    r40 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                    @index += 2
+                                                                                  if (match_len = has_terminal?("c.", false, index))
+                                                                                    r40 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                    @index += match_len
                                                                                   else
                                                                                     terminal_parse_failure("c.")
                                                                                     r40 = nil
                                                                                   end
                                                                                   if r40
+                                                                                    r40 = SyntaxNode.new(input, (index-1)...index) if r40 == true
                                                                                     r0 = r40
                                                                                     r0.extend(Rank0)
                                                                                   else
-                                                                                    if has_terminal?("d.", false, index)
-                                                                                      r41 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                      @index += 2
+                                                                                    if (match_len = has_terminal?("d.", false, index))
+                                                                                      r41 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                      @index += match_len
                                                                                     else
                                                                                       terminal_parse_failure("d.")
                                                                                       r41 = nil
                                                                                     end
                                                                                     if r41
+                                                                                      r41 = SyntaxNode.new(input, (index-1)...index) if r41 == true
                                                                                       r0 = r41
                                                                                       r0.extend(Rank0)
                                                                                     else
-                                                                                      if has_terminal?("e.", false, index)
-                                                                                        r42 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                        @index += 2
+                                                                                      if (match_len = has_terminal?("e.", false, index))
+                                                                                        r42 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                        @index += match_len
                                                                                       else
                                                                                         terminal_parse_failure("e.")
                                                                                         r42 = nil
                                                                                       end
                                                                                       if r42
+                                                                                        r42 = SyntaxNode.new(input, (index-1)...index) if r42 == true
                                                                                         r0 = r42
                                                                                         r0.extend(Rank0)
                                                                                       else
-                                                                                        if has_terminal?("g.", false, index)
-                                                                                          r43 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                          @index += 2
+                                                                                        if (match_len = has_terminal?("g.", false, index))
+                                                                                          r43 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                          @index += match_len
                                                                                         else
                                                                                           terminal_parse_failure("g.")
                                                                                           r43 = nil
                                                                                         end
                                                                                         if r43
+                                                                                          r43 = SyntaxNode.new(input, (index-1)...index) if r43 == true
                                                                                           r0 = r43
                                                                                           r0.extend(Rank0)
                                                                                         else
-                                                                                          if has_terminal?("k.", false, index)
-                                                                                            r44 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                            @index += 2
+                                                                                          if (match_len = has_terminal?("k.", false, index))
+                                                                                            r44 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                            @index += match_len
                                                                                           else
                                                                                             terminal_parse_failure("k.")
                                                                                             r44 = nil
                                                                                           end
                                                                                           if r44
+                                                                                            r44 = SyntaxNode.new(input, (index-1)...index) if r44 == true
                                                                                             r0 = r44
                                                                                             r0.extend(Rank0)
                                                                                           else
-                                                                                            if has_terminal?("****", false, index)
-                                                                                              r45 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                                                                              @index += 4
+                                                                                            if (match_len = has_terminal?("****", false, index))
+                                                                                              r45 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                              @index += match_len
                                                                                             else
                                                                                               terminal_parse_failure("****")
                                                                                               r45 = nil
                                                                                             end
                                                                                             if r45
+                                                                                              r45 = SyntaxNode.new(input, (index-1)...index) if r45 == true
                                                                                               r0 = r45
                                                                                               r0.extend(Rank0)
                                                                                             else
-                                                                                              if has_terminal?("**", false, index)
-                                                                                                r46 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                                                                @index += 2
+                                                                                              if (match_len = has_terminal?("**", false, index))
+                                                                                                r46 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                                @index += match_len
                                                                                               else
                                                                                                 terminal_parse_failure("**")
                                                                                                 r46 = nil
                                                                                               end
                                                                                               if r46
+                                                                                                r46 = SyntaxNode.new(input, (index-1)...index) if r46 == true
                                                                                                 r0 = r46
                                                                                                 r0.extend(Rank0)
                                                                                               else
-                                                                                                if has_terminal?("*", false, index)
-                                                                                                  r47 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                                                                                  @index += 1
+                                                                                                if (match_len = has_terminal?("*", false, index))
+                                                                                                  r47 = true
+                                                                                                  @index += match_len
                                                                                                 else
                                                                                                   terminal_parse_failure("*")
                                                                                                   r47 = nil
                                                                                                 end
                                                                                                 if r47
+                                                                                                  r47 = SyntaxNode.new(input, (index-1)...index) if r47 == true
                                                                                                   r0 = r47
                                                                                                   r0.extend(Rank0)
                                                                                                 else
@@ -2643,208 +2724,226 @@ module ScientificNameClean
     if node_cache[:rank_uninomial].has_key?(index)
       cached = node_cache[:rank_uninomial][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:rank_uninomial][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("sect.", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 5))
-      @index += 5
+    if (match_len = has_terminal?("sect.", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("sect.")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(RankUninomial0)
     else
-      if has_terminal?("sect ", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
-        @index += 5
+      if (match_len = has_terminal?("sect ", false, index))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("sect ")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(RankUninomial0)
       else
-        if has_terminal?("subsect.", false, index)
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 8))
-          @index += 8
+        if (match_len = has_terminal?("subsect.", false, index))
+          r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("subsect.")
           r3 = nil
         end
         if r3
+          r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
           r0 = r3
           r0.extend(RankUninomial0)
         else
-          if has_terminal?("subsect ", false, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 8))
-            @index += 8
+          if (match_len = has_terminal?("subsect ", false, index))
+            r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("subsect ")
             r4 = nil
           end
           if r4
+            r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
             r0 = r4
             r0.extend(RankUninomial0)
           else
-            if has_terminal?("trib.", false, index)
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 5))
-              @index += 5
+            if (match_len = has_terminal?("trib.", false, index))
+              r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("trib.")
               r5 = nil
             end
             if r5
+              r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
               r0 = r5
               r0.extend(RankUninomial0)
             else
-              if has_terminal?("trib ", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                @index += 5
+              if (match_len = has_terminal?("trib ", false, index))
+                r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("trib ")
                 r6 = nil
               end
               if r6
+                r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                 r0 = r6
                 r0.extend(RankUninomial0)
               else
-                if has_terminal?("subtrib.", false, index)
-                  r7 = instantiate_node(SyntaxNode,input, index...(index + 8))
-                  @index += 8
+                if (match_len = has_terminal?("subtrib.", false, index))
+                  r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("subtrib.")
                   r7 = nil
                 end
                 if r7
+                  r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                   r0 = r7
                   r0.extend(RankUninomial0)
                 else
-                  if has_terminal?("subtrib ", false, index)
-                    r8 = instantiate_node(SyntaxNode,input, index...(index + 8))
-                    @index += 8
+                  if (match_len = has_terminal?("subtrib ", false, index))
+                    r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("subtrib ")
                     r8 = nil
                   end
                   if r8
+                    r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                     r0 = r8
                     r0.extend(RankUninomial0)
                   else
-                    if has_terminal?("ser.", false, index)
-                      r9 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                      @index += 4
+                    if (match_len = has_terminal?("ser.", false, index))
+                      r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("ser.")
                       r9 = nil
                     end
                     if r9
+                      r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                       r0 = r9
                       r0.extend(RankUninomial0)
                     else
-                      if has_terminal?("ser ", false, index)
-                        r10 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                        @index += 4
+                      if (match_len = has_terminal?("ser ", false, index))
+                        r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        @index += match_len
                       else
                         terminal_parse_failure("ser ")
                         r10 = nil
                       end
                       if r10
+                        r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
                         r0 = r10
                         r0.extend(RankUninomial0)
                       else
-                        if has_terminal?("subgen.", false, index)
-                          r11 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                          @index += 7
+                        if (match_len = has_terminal?("subgen.", false, index))
+                          r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                          @index += match_len
                         else
                           terminal_parse_failure("subgen.")
                           r11 = nil
                         end
                         if r11
+                          r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
                           r0 = r11
                           r0.extend(RankUninomial0)
                         else
-                          if has_terminal?("subgen ", false, index)
-                            r12 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                            @index += 7
+                          if (match_len = has_terminal?("subgen ", false, index))
+                            r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                            @index += match_len
                           else
                             terminal_parse_failure("subgen ")
                             r12 = nil
                           end
                           if r12
+                            r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                             r0 = r12
                             r0.extend(RankUninomial0)
                           else
-                            if has_terminal?("fam.", false, index)
-                              r13 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                              @index += 4
+                            if (match_len = has_terminal?("fam.", false, index))
+                              r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                              @index += match_len
                             else
                               terminal_parse_failure("fam.")
                               r13 = nil
                             end
                             if r13
+                              r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                               r0 = r13
                               r0.extend(RankUninomial0)
                             else
-                              if has_terminal?("fam ", false, index)
-                                r14 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                                @index += 4
+                              if (match_len = has_terminal?("fam ", false, index))
+                                r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                @index += match_len
                               else
                                 terminal_parse_failure("fam ")
                                 r14 = nil
                               end
                               if r14
+                                r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                                 r0 = r14
                                 r0.extend(RankUninomial0)
                               else
-                                if has_terminal?("subfam.", false, index)
-                                  r15 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                                  @index += 7
+                                if (match_len = has_terminal?("subfam.", false, index))
+                                  r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                  @index += match_len
                                 else
                                   terminal_parse_failure("subfam.")
                                   r15 = nil
                                 end
                                 if r15
+                                  r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                                   r0 = r15
                                   r0.extend(RankUninomial0)
                                 else
-                                  if has_terminal?("subfam ", false, index)
-                                    r16 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                                    @index += 7
+                                  if (match_len = has_terminal?("subfam ", false, index))
+                                    r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                    @index += match_len
                                   else
                                     terminal_parse_failure("subfam ")
                                     r16 = nil
                                   end
                                   if r16
+                                    r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                                     r0 = r16
                                     r0.extend(RankUninomial0)
                                   else
-                                    if has_terminal?("supertrib.", false, index)
-                                      r17 = instantiate_node(SyntaxNode,input, index...(index + 10))
-                                      @index += 10
+                                    if (match_len = has_terminal?("supertrib.", false, index))
+                                      r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                      @index += match_len
                                     else
                                       terminal_parse_failure("supertrib.")
                                       r17 = nil
                                     end
                                     if r17
+                                      r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
                                       r0 = r17
                                       r0.extend(RankUninomial0)
                                     else
-                                      if has_terminal?("supertrib ", false, index)
-                                        r18 = instantiate_node(SyntaxNode,input, index...(index + 10))
-                                        @index += 10
+                                      if (match_len = has_terminal?("supertrib ", false, index))
+                                        r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                        @index += match_len
                                       else
                                         terminal_parse_failure("supertrib ")
                                         r18 = nil
                                       end
                                       if r18
+                                        r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
                                         r0 = r18
                                         r0.extend(RankUninomial0)
                                       else
@@ -2915,7 +3014,7 @@ module ScientificNameClean
     if node_cache[:species].has_key?(index)
       cached = node_cache[:species][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:species][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -2942,10 +3041,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = _nt_species_string
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -2981,7 +3082,7 @@ module ScientificNameClean
     if node_cache[:species_string].has_key?(index)
       cached = node_cache[:species_string][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:species_string][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -2991,10 +3092,12 @@ module ScientificNameClean
     r1 = _nt_species_word
     r1.extend(SpeciesString0)
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r2 = _nt_species_word_hybrid
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
       else
         @index = i0
@@ -3052,7 +3155,7 @@ module ScientificNameClean
     if node_cache[:infragenus].has_key?(index)
       cached = node_cache[:infragenus][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:infragenus][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -3068,10 +3171,12 @@ module ScientificNameClean
         i3 = index
         r4 = _nt_cap_latin_word
         if r4
+          r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
           r3 = r4
         else
           r5 = _nt_capped_dotted_char
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r3 = r5
           else
             @index = i3
@@ -3151,7 +3256,7 @@ module ScientificNameClean
     if node_cache[:genus].has_key?(index)
       cached = node_cache[:genus][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:genus][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -3161,10 +3266,12 @@ module ScientificNameClean
     i1 = index
     r2 = _nt_abbreviated_genus
     if r2
+      r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
       r1 = r2
     else
       r3 = _nt_uninomial_string
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r1 = r3
       else
         @index = i1
@@ -3247,25 +3354,27 @@ module ScientificNameClean
     if node_cache[:abbreviated_genus].has_key?(index)
       cached = node_cache[:abbreviated_genus][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:abbreviated_genus][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[A-Z]', true, index)
+    if has_terminal?(@regexps[gr = '\A[A-Z]'] ||= Regexp.new(gr), :regexp, index)
       r1 = true
       @index += 1
     else
+      terminal_parse_failure('[A-Z]')
       r1 = nil
     end
     s0 << r1
     if r1
-      if has_terminal?('\G[a-z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
         r3 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z]')
         r3 = nil
       end
       if r3
@@ -3275,10 +3384,11 @@ module ScientificNameClean
       end
       s0 << r2
       if r2
-        if has_terminal?('\G[a-z]', true, index)
+        if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
           r5 = true
           @index += 1
         else
+          terminal_parse_failure('[a-z]')
           r5 = nil
         end
         if r5
@@ -3288,10 +3398,11 @@ module ScientificNameClean
         end
         s0 << r4
         if r4
-          if has_terminal?('\G[\\\\.]', true, index)
+          if has_terminal?(@regexps[gr = '\A[\\\\.]'] ||= Regexp.new(gr), :regexp, index)
             r6 = true
             @index += 1
           else
+            terminal_parse_failure('[\\\\.]')
             r6 = nil
           end
           s0 << r6
@@ -3437,7 +3548,7 @@ module ScientificNameClean
     if node_cache[:uninomial_name].has_key?(index)
       cached = node_cache[:uninomial_name][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:uninomial_name][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -3472,6 +3583,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i7, s7 = index, []
@@ -3494,6 +3606,7 @@ module ScientificNameClean
         r7 = nil
       end
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         i11, s11 = index, []
@@ -3516,10 +3629,12 @@ module ScientificNameClean
           r11 = nil
         end
         if r11
+          r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
           r0 = r11
         else
           r15 = _nt_uninomial_string
           if r15
+            r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
             r0 = r15
           else
             @index = i0
@@ -3557,7 +3672,7 @@ module ScientificNameClean
     if node_cache[:uninomial_string].has_key?(index)
       cached = node_cache[:uninomial_string][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:uninomial_string][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -3566,11 +3681,13 @@ module ScientificNameClean
     i0 = index
     r1 = _nt_cap_latin_word_pair
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(UninomialString0)
     else
       r2 = _nt_cap_latin_word
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(UninomialString0)
       else
@@ -3686,7 +3803,7 @@ module ScientificNameClean
     if node_cache[:authorship].has_key?(index)
       cached = node_cache[:authorship][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:authorship][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -3703,9 +3820,9 @@ module ScientificNameClean
         r4 = _nt_simple_authorship
         s1 << r4
         if r4
-          if has_terminal?(",", false, index)
-            r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?(",", false, index))
+            r6 = true
+            @index += match_len
           else
             terminal_parse_failure(",")
             r6 = nil
@@ -3736,6 +3853,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i9, s9 = index, []
@@ -3758,19 +3876,21 @@ module ScientificNameClean
         r9 = nil
       end
       if r9
+        r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
         r0 = r9
       else
         r13 = _nt_basionym_authorship_with_parenthesis
         if r13
+          r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
           r0 = r13
         else
           i14, s14 = index, []
           r15 = _nt_simple_authorship
           s14 << r15
           if r15
-            if has_terminal?(",", false, index)
-              r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?(",", false, index))
+              r17 = true
+              @index += match_len
             else
               terminal_parse_failure(",")
               r17 = nil
@@ -3799,10 +3919,12 @@ module ScientificNameClean
             r14 = nil
           end
           if r14
+            r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
             r0 = r14
           else
             r20 = _nt_simple_authorship
             if r20
+              r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
               r0 = r20
             else
               @index = i0
@@ -3994,7 +4116,7 @@ module ScientificNameClean
     if node_cache[:basionym_authorship_with_parenthesis].has_key?(index)
       cached = node_cache[:basionym_authorship_with_parenthesis][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:basionym_authorship_with_parenthesis][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4020,10 +4142,11 @@ module ScientificNameClean
               r7 = _nt_space
               s1 << r7
               if r7
-                if has_terminal?('\G[,]', true, index)
+                if has_terminal?(@regexps[gr = '\A[,]'] ||= Regexp.new(gr), :regexp, index)
                   r9 = true
                   @index += 1
                 else
+                  terminal_parse_failure('[,]')
                   r9 = nil
                 end
                 if r9
@@ -4055,6 +4178,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i12, s12 = index, []
@@ -4067,9 +4191,9 @@ module ScientificNameClean
           r15 = _nt_simple_authorship
           s12 << r15
           if r15
-            if has_terminal?(",", false, index)
-              r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?(",", false, index))
+              r17 = true
+              @index += match_len
             else
               terminal_parse_failure(",")
               r17 = nil
@@ -4108,6 +4232,7 @@ module ScientificNameClean
         r12 = nil
       end
       if r12
+        r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
         r0 = r12
       else
         i22, s22 = index, []
@@ -4138,6 +4263,7 @@ module ScientificNameClean
           r22 = nil
         end
         if r22
+          r22 = SyntaxNode.new(input, (index-1)...index) if r22 == true
           r0 = r22
         else
           i28, s28 = index, []
@@ -4147,9 +4273,9 @@ module ScientificNameClean
             r30 = _nt_space
             s28 << r30
             if r30
-              if has_terminal?("?", false, index)
-                r31 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?("?", false, index))
+                r31 = true
+                @index += match_len
               else
                 terminal_parse_failure("?")
                 r31 = nil
@@ -4174,6 +4300,7 @@ module ScientificNameClean
             r28 = nil
           end
           if r28
+            r28 = SyntaxNode.new(input, (index-1)...index) if r28 == true
             r0 = r28
           else
             @index = i0
@@ -4222,7 +4349,7 @@ module ScientificNameClean
     if node_cache[:ex_authorship].has_key?(index)
       cached = node_cache[:ex_authorship][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:ex_authorship][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4378,7 +4505,7 @@ module ScientificNameClean
     if node_cache[:simple_authorship].has_key?(index)
       cached = node_cache[:simple_authorship][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:simple_authorship][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4392,10 +4519,11 @@ module ScientificNameClean
       r3 = _nt_space
       s1 << r3
       if r3
-        if has_terminal?('\G[,]', true, index)
+        if has_terminal?(@regexps[gr = '\A[,]'] ||= Regexp.new(gr), :regexp, index)
           r5 = true
           @index += 1
         else
+          terminal_parse_failure('[,]')
           r5 = nil
         end
         if r5
@@ -4416,10 +4544,11 @@ module ScientificNameClean
             end
             s1 << r7
             if r7
-              if has_terminal?('\G[,]', true, index)
+              if has_terminal?(@regexps[gr = '\A[,]'] ||= Regexp.new(gr), :regexp, index)
                 r10 = true
                 @index += 1
               else
+                terminal_parse_failure('[,]')
                 r10 = nil
               end
               if r10
@@ -4432,9 +4561,9 @@ module ScientificNameClean
                 r11 = _nt_space
                 s1 << r11
                 if r11
-                  if has_terminal?("non", false, index)
-                    r12 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                    @index += 3
+                  if (match_len = has_terminal?("non", false, index))
+                    r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("non")
                     r12 = nil
@@ -4450,10 +4579,11 @@ module ScientificNameClean
                         r15 = _nt_space
                         s1 << r15
                         if r15
-                          if has_terminal?('\G[,]', true, index)
+                          if has_terminal?(@regexps[gr = '\A[,]'] ||= Regexp.new(gr), :regexp, index)
                             r17 = true
                             @index += 1
                           else
+                            terminal_parse_failure('[,]')
                             r17 = nil
                           end
                           if r17
@@ -4490,6 +4620,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i20, s20 = index, []
@@ -4499,10 +4630,11 @@ module ScientificNameClean
         r22 = _nt_space
         s20 << r22
         if r22
-          if has_terminal?('\G[,]', true, index)
+          if has_terminal?(@regexps[gr = '\A[,]'] ||= Regexp.new(gr), :regexp, index)
             r24 = true
             @index += 1
           else
+            terminal_parse_failure('[,]')
             r24 = nil
           end
           if r24
@@ -4530,11 +4662,13 @@ module ScientificNameClean
         r20 = nil
       end
       if r20
+        r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
         r0 = r20
       else
         r27 = _nt_authors_names
         r27.extend(SimpleAuthorship4)
         if r27
+          r27 = SyntaxNode.new(input, (index-1)...index) if r27 == true
           r0 = r27
         else
           @index = i0
@@ -4589,7 +4723,7 @@ module ScientificNameClean
     if node_cache[:authors_names].has_key?(index)
       cached = node_cache[:authors_names][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:authors_names][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4624,14 +4758,17 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r7 = _nt_author_name
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         r8 = _nt_unknown_auth
         if r8
+          r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
           r0 = r8
         else
           @index = i0
@@ -4667,7 +4804,7 @@ module ScientificNameClean
     if node_cache[:unknown_auth].has_key?(index)
       cached = node_cache[:unknown_auth][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:unknown_auth][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4675,84 +4812,92 @@ module ScientificNameClean
 
     i0, s0 = index, []
     i1 = index
-    if has_terminal?("auct.", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
-      @index += 5
+    if (match_len = has_terminal?("auct.", false, index))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("auct.")
       r2 = nil
     end
     if r2
+      r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
       r1 = r2
     else
-      if has_terminal?("auct", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 4))
-        @index += 4
+      if (match_len = has_terminal?("auct", false, index))
+        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("auct")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r1 = r3
       else
-        if has_terminal?("hort.", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 5))
-          @index += 5
+        if (match_len = has_terminal?("hort.", false, index))
+          r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("hort.")
           r4 = nil
         end
         if r4
+          r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
           r1 = r4
         else
-          if has_terminal?("hort", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 4))
-            @index += 4
+          if (match_len = has_terminal?("hort", false, index))
+            r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("hort")
             r5 = nil
           end
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r1 = r5
           else
-            if has_terminal?("anon.", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 5))
-              @index += 5
+            if (match_len = has_terminal?("anon.", false, index))
+              r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("anon.")
               r6 = nil
             end
             if r6
+              r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
               r1 = r6
             else
-              if has_terminal?("anon", false, index)
-                r7 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                @index += 4
+              if (match_len = has_terminal?("anon", false, index))
+                r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("anon")
                 r7 = nil
               end
               if r7
+                r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                 r1 = r7
               else
-                if has_terminal?("ht.", false, index)
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                  @index += 3
+                if (match_len = has_terminal?("ht.", false, index))
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("ht.")
                   r8 = nil
                 end
                 if r8
+                  r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                   r1 = r8
                 else
-                  if has_terminal?("ht", false, index)
-                    r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
+                  if (match_len = has_terminal?("ht", false, index))
+                    r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("ht")
                     r9 = nil
                   end
                   if r9
+                    r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                     r1 = r9
                   else
                     @index = i1
@@ -4799,7 +4944,7 @@ module ScientificNameClean
     if node_cache[:ex_sep].has_key?(index)
       cached = node_cache[:ex_sep][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:ex_sep][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -4807,24 +4952,26 @@ module ScientificNameClean
 
     i0, s0 = index, []
     i1 = index
-    if has_terminal?("ex", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
-      @index += 2
+    if (match_len = has_terminal?("ex", false, index))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("ex")
       r2 = nil
     end
     if r2
+      r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
       r1 = r2
     else
-      if has_terminal?("in", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
-        @index += 2
+      if (match_len = has_terminal?("in", false, index))
+        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("in")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r1 = r3
       else
         @index = i1
@@ -4834,10 +4981,11 @@ module ScientificNameClean
     s0 << r1
     if r1
       i4 = index
-      if has_terminal?('\G[\\s]', true, index)
+      if has_terminal?(@regexps[gr = '\A[\\s]'] ||= Regexp.new(gr), :regexp, index)
         r5 = true
         @index += 1
       else
+        terminal_parse_failure('[\\s]')
         r5 = nil
       end
       if r5
@@ -4882,65 +5030,70 @@ module ScientificNameClean
     if node_cache[:author_separator].has_key?(index)
       cached = node_cache[:author_separator][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_separator][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("&amp;", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 5))
-      @index += 5
+    if (match_len = has_terminal?("&amp;", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("&amp;")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(AuthorSeparator0)
     else
-      if has_terminal?("&", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("&", false, index))
+        r2 = true
+        @index += match_len
       else
         terminal_parse_failure("&")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(AuthorSeparator0)
       else
-        if has_terminal?(",", false, index)
-          r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(",", false, index))
+          r3 = true
+          @index += match_len
         else
           terminal_parse_failure(",")
           r3 = nil
         end
         if r3
+          r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
           r0 = r3
           r0.extend(AuthorSeparator0)
         else
-          if has_terminal?("and", false, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
-            @index += 3
+          if (match_len = has_terminal?("and", false, index))
+            r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("and")
             r4 = nil
           end
           if r4
+            r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
             r0 = r4
             r0.extend(AuthorSeparator0)
           else
-            if has_terminal?("et", false, index)
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+            if (match_len = has_terminal?("et", false, index))
+              r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("et")
               r5 = nil
             end
             if r5
+              r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
               r0 = r5
               r0.extend(AuthorSeparator0)
             else
@@ -4999,7 +5152,7 @@ module ScientificNameClean
     if node_cache[:author_name].has_key?(index)
       cached = node_cache[:author_name][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_name][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -5045,10 +5198,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r9 = _nt_author_name_without_postfix
       if r9
+        r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
         r0 = r9
       else
         @index = i0
@@ -5126,7 +5281,7 @@ module ScientificNameClean
     if node_cache[:author_name_without_postfix].has_key?(index)
       cached = node_cache[:author_name_without_postfix][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_name_without_postfix][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -5157,6 +5312,7 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i6, s6 = index, []
@@ -5179,10 +5335,12 @@ module ScientificNameClean
         r6 = nil
       end
       if r6
+        r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
         r0 = r6
       else
         r10 = _nt_author_word
         if r10
+          r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
           r0 = r10
         else
           @index = i0
@@ -5266,66 +5424,71 @@ module ScientificNameClean
     if node_cache[:author_word].has_key?(index)
       cached = node_cache[:author_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("A S. Xu", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 7))
+    if (match_len = has_terminal?("A S. Xu", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
       r1.extend(AuthorWord0)
-      @index += 7
+      @index += match_len
     else
       terminal_parse_failure("A S. Xu")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i2 = index
-      if has_terminal?("arg.", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 4))
-        @index += 4
+      if (match_len = has_terminal?("arg.", false, index))
+        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("arg.")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r2 = r3
         r2.extend(AuthorWord1)
       else
-        if has_terminal?("et al.\{\?\}", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 9))
-          @index += 9
+        if (match_len = has_terminal?("et al.\{\?\}", false, index))
+          r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("et al.\{\?\}")
           r4 = nil
         end
         if r4
+          r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
           r2 = r4
           r2.extend(AuthorWord1)
         else
-          if has_terminal?("et al.", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 6))
-            @index += 6
+          if (match_len = has_terminal?("et al.", false, index))
+            r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("et al.")
             r5 = nil
           end
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r2 = r5
             r2.extend(AuthorWord1)
           else
-            if has_terminal?("et al", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 5))
-              @index += 5
+            if (match_len = has_terminal?("et al", false, index))
+              r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("et al")
               r6 = nil
             end
             if r6
+              r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
               r2 = r6
               r2.extend(AuthorWord1)
             else
@@ -5336,146 +5499,163 @@ module ScientificNameClean
         end
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
       else
         i7, s7 = index, []
         i8 = index
-        if has_terminal?("Å", false, index)
-          r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("Å", false, index))
+          r9 = true
+          @index += match_len
         else
           terminal_parse_failure("Å")
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r8 = r9
         else
-          if has_terminal?("Ö", false, index)
-            r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("Ö", false, index))
+            r10 = true
+            @index += match_len
           else
             terminal_parse_failure("Ö")
             r10 = nil
           end
           if r10
+            r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
             r8 = r10
           else
-            if has_terminal?("Á", false, index)
-              r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("Á", false, index))
+              r11 = true
+              @index += match_len
             else
               terminal_parse_failure("Á")
               r11 = nil
             end
             if r11
+              r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
               r8 = r11
             else
-              if has_terminal?("Ø", false, index)
-                r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?("Ø", false, index))
+                r12 = true
+                @index += match_len
               else
                 terminal_parse_failure("Ø")
                 r12 = nil
               end
               if r12
+                r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                 r8 = r12
               else
-                if has_terminal?("Ô", false, index)
-                  r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
+                if (match_len = has_terminal?("Ô", false, index))
+                  r13 = true
+                  @index += match_len
                 else
                   terminal_parse_failure("Ô")
                   r13 = nil
                 end
                 if r13
+                  r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                   r8 = r13
                 else
-                  if has_terminal?("Š", false, index)
-                    r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                    @index += 1
+                  if (match_len = has_terminal?("Š", false, index))
+                    r14 = true
+                    @index += match_len
                   else
                     terminal_parse_failure("Š")
                     r14 = nil
                   end
                   if r14
+                    r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                     r8 = r14
                   else
-                    if has_terminal?("Ś", false, index)
-                      r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                      @index += 1
+                    if (match_len = has_terminal?("Ś", false, index))
+                      r15 = true
+                      @index += match_len
                     else
                       terminal_parse_failure("Ś")
                       r15 = nil
                     end
                     if r15
+                      r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                       r8 = r15
                     else
-                      if has_terminal?("Č", false, index)
-                        r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                        @index += 1
+                      if (match_len = has_terminal?("Č", false, index))
+                        r16 = true
+                        @index += match_len
                       else
                         terminal_parse_failure("Č")
                         r16 = nil
                       end
                       if r16
+                        r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                         r8 = r16
                       else
-                        if has_terminal?("Ķ", false, index)
-                          r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                          @index += 1
+                        if (match_len = has_terminal?("Ķ", false, index))
+                          r17 = true
+                          @index += match_len
                         else
                           terminal_parse_failure("Ķ")
                           r17 = nil
                         end
                         if r17
+                          r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
                           r8 = r17
                         else
-                          if has_terminal?("Ł", false, index)
-                            r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                            @index += 1
+                          if (match_len = has_terminal?("Ł", false, index))
+                            r18 = true
+                            @index += match_len
                           else
                             terminal_parse_failure("Ł")
                             r18 = nil
                           end
                           if r18
+                            r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
                             r8 = r18
                           else
-                            if has_terminal?("É", false, index)
-                              r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                              @index += 1
+                            if (match_len = has_terminal?("É", false, index))
+                              r19 = true
+                              @index += match_len
                             else
                               terminal_parse_failure("É")
                               r19 = nil
                             end
                             if r19
+                              r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
                               r8 = r19
                             else
-                              if has_terminal?("Ž", false, index)
-                                r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                                @index += 1
+                              if (match_len = has_terminal?("Ž", false, index))
+                                r20 = true
+                                @index += match_len
                               else
                                 terminal_parse_failure("Ž")
                                 r20 = nil
                               end
                               if r20
+                                r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
                                 r8 = r20
                               else
-                                if has_terminal?('\G[A-W]', true, index)
+                                if has_terminal?(@regexps[gr = '\A[A-W]'] ||= Regexp.new(gr), :regexp, index)
                                   r21 = true
                                   @index += 1
                                 else
+                                  terminal_parse_failure('[A-W]')
                                   r21 = nil
                                 end
                                 if r21
+                                  r21 = SyntaxNode.new(input, (index-1)...index) if r21 == true
                                   r8 = r21
                                 else
-                                  if has_terminal?('\G[Y-Z]', true, index)
+                                  if has_terminal?(@regexps[gr = '\A[Y-Z]'] ||= Regexp.new(gr), :regexp, index)
                                     r22 = true
                                     @index += 1
                                   else
+                                    terminal_parse_failure('[Y-Z]')
                                     r22 = nil
                                   end
                                   if r22
+                                    r22 = SyntaxNode.new(input, (index-1)...index) if r22 == true
                                     r8 = r22
                                   else
                                     @index = i8
@@ -5498,10 +5678,11 @@ module ScientificNameClean
         if r8
           s23, i23 = [], index
           loop do
-            if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
+            if has_terminal?(@regexps[gr = '\A[^0-9\\[\\]\\(\\)\\s&,]'] ||= Regexp.new(gr), :regexp, index)
               r24 = true
               @index += 1
             else
+              terminal_parse_failure('[^0-9\\[\\]\\(\\)\\s&,]')
               r24 = nil
             end
             if r24
@@ -5522,12 +5703,13 @@ module ScientificNameClean
           r7 = nil
         end
         if r7
+          r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
           r0 = r7
         else
           i25, s25 = index, []
-          if has_terminal?("X", false, index)
-            r26 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("X", false, index))
+            r26 = true
+            @index += match_len
           else
             terminal_parse_failure("X")
             r26 = nil
@@ -5536,10 +5718,11 @@ module ScientificNameClean
           if r26
             s27, i27 = [], index
             loop do
-              if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
+              if has_terminal?(@regexps[gr = '\A[^0-9\\[\\]\\(\\)\\s&,]'] ||= Regexp.new(gr), :regexp, index)
                 r28 = true
                 @index += 1
               else
+                terminal_parse_failure('[^0-9\\[\\]\\(\\)\\s&,]')
                 r28 = nil
               end
               if r28
@@ -5565,10 +5748,12 @@ module ScientificNameClean
             r25 = nil
           end
           if r25
+            r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
             r0 = r25
           else
             r29 = _nt_author_prefix_word
             if r29
+              r29 = SyntaxNode.new(input, (index-1)...index) if r29 == true
               r0 = r29
             else
               @index = i0
@@ -5607,7 +5792,7 @@ module ScientificNameClean
     if node_cache[:author_prefix_word].has_key?(index)
       cached = node_cache[:author_prefix_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_prefix_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -5618,164 +5803,180 @@ module ScientificNameClean
     s0 << r1
     if r1
       i2 = index
-      if has_terminal?("ab", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 2))
-        @index += 2
+      if (match_len = has_terminal?("ab", false, index))
+        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("ab")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r2 = r3
       else
-        if has_terminal?("af", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        if (match_len = has_terminal?("af", false, index))
+          r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("af")
           r4 = nil
         end
         if r4
+          r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
           r2 = r4
         else
-          if has_terminal?("bis", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 3))
-            @index += 3
+          if (match_len = has_terminal?("bis", false, index))
+            r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("bis")
             r5 = nil
           end
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r2 = r5
           else
-            if has_terminal?("da", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+            if (match_len = has_terminal?("da", false, index))
+              r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("da")
               r6 = nil
             end
             if r6
+              r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
               r2 = r6
             else
-              if has_terminal?("der", false, index)
-                r7 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                @index += 3
+              if (match_len = has_terminal?("der", false, index))
+                r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("der")
                 r7 = nil
               end
               if r7
+                r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                 r2 = r7
               else
-                if has_terminal?("des", false, index)
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                  @index += 3
+                if (match_len = has_terminal?("des", false, index))
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("des")
                   r8 = nil
                 end
                 if r8
+                  r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                   r2 = r8
                 else
-                  if has_terminal?("den", false, index)
-                    r9 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                    @index += 3
+                  if (match_len = has_terminal?("den", false, index))
+                    r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("den")
                     r9 = nil
                   end
                   if r9
+                    r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                     r2 = r9
                   else
-                    if has_terminal?("della", false, index)
-                      r10 = instantiate_node(SyntaxNode,input, index...(index + 5))
-                      @index += 5
+                    if (match_len = has_terminal?("della", false, index))
+                      r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("della")
                       r10 = nil
                     end
                     if r10
+                      r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
                       r2 = r10
                     else
-                      if has_terminal?("dela", false, index)
-                        r11 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                        @index += 4
+                      if (match_len = has_terminal?("dela", false, index))
+                        r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        @index += match_len
                       else
                         terminal_parse_failure("dela")
                         r11 = nil
                       end
                       if r11
+                        r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
                         r2 = r11
                       else
-                        if has_terminal?("de", false, index)
-                          r12 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                          @index += 2
+                        if (match_len = has_terminal?("de", false, index))
+                          r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                          @index += match_len
                         else
                           terminal_parse_failure("de")
                           r12 = nil
                         end
                         if r12
+                          r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                           r2 = r12
                         else
-                          if has_terminal?("di", false, index)
-                            r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                            @index += 2
+                          if (match_len = has_terminal?("di", false, index))
+                            r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                            @index += match_len
                           else
                             terminal_parse_failure("di")
                             r13 = nil
                           end
                           if r13
+                            r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                             r2 = r13
                           else
-                            if has_terminal?("du", false, index)
-                              r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                              @index += 2
+                            if (match_len = has_terminal?("du", false, index))
+                              r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                              @index += match_len
                             else
                               terminal_parse_failure("du")
                               r14 = nil
                             end
                             if r14
+                              r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                               r2 = r14
                             else
-                              if has_terminal?("la", false, index)
-                                r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                @index += 2
+                              if (match_len = has_terminal?("la", false, index))
+                                r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                @index += match_len
                               else
                                 terminal_parse_failure("la")
                                 r15 = nil
                               end
                               if r15
+                                r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                                 r2 = r15
                               else
-                                if has_terminal?("ter", false, index)
-                                  r16 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                                  @index += 3
+                                if (match_len = has_terminal?("ter", false, index))
+                                  r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                  @index += match_len
                                 else
                                   terminal_parse_failure("ter")
                                   r16 = nil
                                 end
                                 if r16
+                                  r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                                   r2 = r16
                                 else
-                                  if has_terminal?("van", false, index)
-                                    r17 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                                    @index += 3
+                                  if (match_len = has_terminal?("van", false, index))
+                                    r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                    @index += match_len
                                   else
                                     terminal_parse_failure("van")
                                     r17 = nil
                                   end
                                   if r17
+                                    r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
                                     r2 = r17
                                   else
-                                    if has_terminal?("von", false, index)
-                                      r18 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                                      @index += 3
+                                    if (match_len = has_terminal?("von", false, index))
+                                      r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                      @index += match_len
                                     else
                                       terminal_parse_failure("von")
                                       r18 = nil
                                     end
                                     if r18
+                                      r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
                                       r2 = r18
                                     else
                                       @index = i2
@@ -5838,32 +6039,34 @@ module ScientificNameClean
     if node_cache[:author_postfix_word].has_key?(index)
       cached = node_cache[:author_postfix_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:author_postfix_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("f.", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
-      @index += 2
+    if (match_len = has_terminal?("f.", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("f.")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(AuthorPostfixWord0)
     else
-      if has_terminal?("filius", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
-        @index += 6
+      if (match_len = has_terminal?("filius", false, index))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("filius")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(AuthorPostfixWord0)
       else
@@ -5898,7 +6101,7 @@ module ScientificNameClean
     if node_cache[:cap_latin_word_pair].has_key?(index)
       cached = node_cache[:cap_latin_word_pair][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:cap_latin_word_pair][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -5908,9 +6111,9 @@ module ScientificNameClean
     r1 = _nt_cap_latin_word
     s0 << r1
     if r1
-      if has_terminal?("-", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("-", false, index))
+        r2 = true
+        @index += match_len
       else
         terminal_parse_failure("-")
         r2 = nil
@@ -5995,7 +6198,7 @@ module ScientificNameClean
     if node_cache[:cap_latin_word].has_key?(index)
       cached = node_cache[:cap_latin_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:cap_latin_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -6004,17 +6207,20 @@ module ScientificNameClean
     i0 = index
     i1, s1 = index, []
     i2 = index
-    if has_terminal?('\G[A-Z]', true, index)
+    if has_terminal?(@regexps[gr = '\A[A-Z]'] ||= Regexp.new(gr), :regexp, index)
       r3 = true
       @index += 1
     else
+      terminal_parse_failure('[A-Z]')
       r3 = nil
     end
     if r3
+      r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
       r2 = r3
     else
       r4 = _nt_cap_digraph
       if r4
+        r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
         r2 = r4
       else
         @index = i2
@@ -6026,9 +6232,9 @@ module ScientificNameClean
       r5 = _nt_latin_word
       s1 << r5
       if r5
-        if has_terminal?("?", false, index)
-          r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("?", false, index))
+          r6 = true
+          @index += match_len
         else
           terminal_parse_failure("?")
           r6 = nil
@@ -6045,21 +6251,25 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i7, s7 = index, []
       i8 = index
-      if has_terminal?('\G[A-Z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[A-Z]'] ||= Regexp.new(gr), :regexp, index)
         r9 = true
         @index += 1
       else
+        terminal_parse_failure('[A-Z]')
         r9 = nil
       end
       if r9
+        r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
         r8 = r9
       else
         r10 = _nt_cap_digraph
         if r10
+          r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
           r8 = r10
         else
           @index = i8
@@ -6080,28 +6290,31 @@ module ScientificNameClean
         r7 = nil
       end
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         i12, s12 = index, []
         i13 = index
-        if has_terminal?("AE", false, index)
-          r14 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        if (match_len = has_terminal?("AE", false, index))
+          r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("AE")
           r14 = nil
         end
         if r14
+          r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
           r13 = r14
         else
-          if has_terminal?("OE", false, index)
-            r15 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
+          if (match_len = has_terminal?("OE", false, index))
+            r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("OE")
             r15 = nil
           end
           if r15
+            r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
             r13 = r15
           else
             @index = i13
@@ -6122,215 +6335,235 @@ module ScientificNameClean
           r12 = nil
         end
         if r12
+          r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
           r0 = r12
         else
           i17 = index
-          if has_terminal?("Ca", false, index)
-            r18 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
+          if (match_len = has_terminal?("Ca", false, index))
+            r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("Ca")
             r18 = nil
           end
           if r18
+            r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
             r17 = r18
             r17.extend(CapLatinWord6)
           else
-            if has_terminal?("Ea", false, index)
-              r19 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+            if (match_len = has_terminal?("Ea", false, index))
+              r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("Ea")
               r19 = nil
             end
             if r19
+              r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
               r17 = r19
               r17.extend(CapLatinWord6)
             else
-              if has_terminal?("Ge", false, index)
-                r20 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                @index += 2
+              if (match_len = has_terminal?("Ge", false, index))
+                r20 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("Ge")
                 r20 = nil
               end
               if r20
+                r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
                 r17 = r20
                 r17.extend(CapLatinWord6)
               else
-                if has_terminal?("Ia", false, index)
-                  r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                  @index += 2
+                if (match_len = has_terminal?("Ia", false, index))
+                  r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("Ia")
                   r21 = nil
                 end
                 if r21
+                  r21 = SyntaxNode.new(input, (index-1)...index) if r21 == true
                   r17 = r21
                   r17.extend(CapLatinWord6)
                 else
-                  if has_terminal?("Io", false, index)
-                    r22 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
+                  if (match_len = has_terminal?("Io", false, index))
+                    r22 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("Io")
                     r22 = nil
                   end
                   if r22
+                    r22 = SyntaxNode.new(input, (index-1)...index) if r22 == true
                     r17 = r22
                     r17.extend(CapLatinWord6)
                   else
-                    if has_terminal?("Io", false, index)
-                      r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                      @index += 2
+                    if (match_len = has_terminal?("Io", false, index))
+                      r23 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("Io")
                       r23 = nil
                     end
                     if r23
+                      r23 = SyntaxNode.new(input, (index-1)...index) if r23 == true
                       r17 = r23
                       r17.extend(CapLatinWord6)
                     else
-                      if has_terminal?("Ix", false, index)
-                        r24 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                        @index += 2
+                      if (match_len = has_terminal?("Ix", false, index))
+                        r24 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        @index += match_len
                       else
                         terminal_parse_failure("Ix")
                         r24 = nil
                       end
                       if r24
+                        r24 = SyntaxNode.new(input, (index-1)...index) if r24 == true
                         r17 = r24
                         r17.extend(CapLatinWord6)
                       else
-                        if has_terminal?("Lo", false, index)
-                          r25 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                          @index += 2
+                        if (match_len = has_terminal?("Lo", false, index))
+                          r25 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                          @index += match_len
                         else
                           terminal_parse_failure("Lo")
                           r25 = nil
                         end
                         if r25
+                          r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
                           r17 = r25
                           r17.extend(CapLatinWord6)
                         else
-                          if has_terminal?("Oa", false, index)
-                            r26 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                            @index += 2
+                          if (match_len = has_terminal?("Oa", false, index))
+                            r26 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                            @index += match_len
                           else
                             terminal_parse_failure("Oa")
                             r26 = nil
                           end
                           if r26
+                            r26 = SyntaxNode.new(input, (index-1)...index) if r26 == true
                             r17 = r26
                             r17.extend(CapLatinWord6)
                           else
-                            if has_terminal?("Ra", false, index)
-                              r27 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                              @index += 2
+                            if (match_len = has_terminal?("Ra", false, index))
+                              r27 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                              @index += match_len
                             else
                               terminal_parse_failure("Ra")
                               r27 = nil
                             end
                             if r27
+                              r27 = SyntaxNode.new(input, (index-1)...index) if r27 == true
                               r17 = r27
                               r17.extend(CapLatinWord6)
                             else
-                              if has_terminal?("Ty", false, index)
-                                r28 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                @index += 2
+                              if (match_len = has_terminal?("Ty", false, index))
+                                r28 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                @index += match_len
                               else
                                 terminal_parse_failure("Ty")
                                 r28 = nil
                               end
                               if r28
+                                r28 = SyntaxNode.new(input, (index-1)...index) if r28 == true
                                 r17 = r28
                                 r17.extend(CapLatinWord6)
                               else
-                                if has_terminal?("Ua", false, index)
-                                  r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                  @index += 2
+                                if (match_len = has_terminal?("Ua", false, index))
+                                  r29 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                  @index += match_len
                                 else
                                   terminal_parse_failure("Ua")
                                   r29 = nil
                                 end
                                 if r29
+                                  r29 = SyntaxNode.new(input, (index-1)...index) if r29 == true
                                   r17 = r29
                                   r17.extend(CapLatinWord6)
                                 else
-                                  if has_terminal?("Aa", false, index)
-                                    r30 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                    @index += 2
+                                  if (match_len = has_terminal?("Aa", false, index))
+                                    r30 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                    @index += match_len
                                   else
                                     terminal_parse_failure("Aa")
                                     r30 = nil
                                   end
                                   if r30
+                                    r30 = SyntaxNode.new(input, (index-1)...index) if r30 == true
                                     r17 = r30
                                     r17.extend(CapLatinWord6)
                                   else
-                                    if has_terminal?("Ja", false, index)
-                                      r31 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                      @index += 2
+                                    if (match_len = has_terminal?("Ja", false, index))
+                                      r31 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                      @index += match_len
                                     else
                                       terminal_parse_failure("Ja")
                                       r31 = nil
                                     end
                                     if r31
+                                      r31 = SyntaxNode.new(input, (index-1)...index) if r31 == true
                                       r17 = r31
                                       r17.extend(CapLatinWord6)
                                     else
-                                      if has_terminal?("Zu", false, index)
-                                        r32 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                        @index += 2
+                                      if (match_len = has_terminal?("Zu", false, index))
+                                        r32 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                        @index += match_len
                                       else
                                         terminal_parse_failure("Zu")
                                         r32 = nil
                                       end
                                       if r32
+                                        r32 = SyntaxNode.new(input, (index-1)...index) if r32 == true
                                         r17 = r32
                                         r17.extend(CapLatinWord6)
                                       else
-                                        if has_terminal?("La", false, index)
-                                          r33 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                          @index += 2
+                                        if (match_len = has_terminal?("La", false, index))
+                                          r33 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                          @index += match_len
                                         else
                                           terminal_parse_failure("La")
                                           r33 = nil
                                         end
                                         if r33
+                                          r33 = SyntaxNode.new(input, (index-1)...index) if r33 == true
                                           r17 = r33
                                           r17.extend(CapLatinWord6)
                                         else
-                                          if has_terminal?("Qu", false, index)
-                                            r34 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                            @index += 2
+                                          if (match_len = has_terminal?("Qu", false, index))
+                                            r34 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                            @index += match_len
                                           else
                                             terminal_parse_failure("Qu")
                                             r34 = nil
                                           end
                                           if r34
+                                            r34 = SyntaxNode.new(input, (index-1)...index) if r34 == true
                                             r17 = r34
                                             r17.extend(CapLatinWord6)
                                           else
-                                            if has_terminal?("As", false, index)
-                                              r35 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                              @index += 2
+                                            if (match_len = has_terminal?("As", false, index))
+                                              r35 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                              @index += match_len
                                             else
                                               terminal_parse_failure("As")
                                               r35 = nil
                                             end
                                             if r35
+                                              r35 = SyntaxNode.new(input, (index-1)...index) if r35 == true
                                               r17 = r35
                                               r17.extend(CapLatinWord6)
                                             else
-                                              if has_terminal?("Ba", false, index)
-                                                r36 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                                @index += 2
+                                              if (match_len = has_terminal?("Ba", false, index))
+                                                r36 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                @index += match_len
                                               else
                                                 terminal_parse_failure("Ba")
                                                 r36 = nil
                                               end
                                               if r36
+                                                r36 = SyntaxNode.new(input, (index-1)...index) if r36 == true
                                                 r17 = r36
                                                 r17.extend(CapLatinWord6)
                                               else
@@ -6356,6 +6589,7 @@ module ScientificNameClean
             end
           end
           if r17
+            r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
             r0 = r17
           else
             @index = i0
@@ -6384,24 +6618,25 @@ module ScientificNameClean
     if node_cache[:capped_dotted_char].has_key?(index)
       cached = node_cache[:capped_dotted_char][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:capped_dotted_char][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[A-Z]', true, index)
+    if has_terminal?(@regexps[gr = '\A[A-Z]'] ||= Regexp.new(gr), :regexp, index)
       r1 = true
       @index += 1
     else
+      terminal_parse_failure('[A-Z]')
       r1 = nil
     end
     s0 << r1
     if r1
-      if has_terminal?(".", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?(".", false, index))
+        r2 = true
+        @index += match_len
       else
         terminal_parse_failure(".")
         r2 = nil
@@ -6535,7 +6770,7 @@ module ScientificNameClean
     if node_cache[:species_word_hybrid].has_key?(index)
       cached = node_cache[:species_word_hybrid][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:species_word_hybrid][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -6562,12 +6797,13 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i5, s5 = index, []
-      if has_terminal?("X", false, index)
-        r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("X", false, index))
+        r6 = true
+        @index += match_len
       else
         terminal_parse_failure("X")
         r6 = nil
@@ -6590,12 +6826,13 @@ module ScientificNameClean
         r5 = nil
       end
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         i9, s9 = index, []
-        if has_terminal?("x", false, index)
-          r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("x", false, index))
+          r10 = true
+          @index += match_len
         else
           terminal_parse_failure("x")
           r10 = nil
@@ -6618,6 +6855,7 @@ module ScientificNameClean
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           @index = i0
@@ -6683,7 +6921,7 @@ module ScientificNameClean
     if node_cache[:annotation_identification].has_key?(index)
       cached = node_cache[:annotation_identification][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:annotation_identification][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -6691,168 +6929,183 @@ module ScientificNameClean
 
     i0 = index
     i1 = index
-    if has_terminal?("sp.nr.", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
-      @index += 6
+    if (match_len = has_terminal?("sp.nr.", false, index))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("sp.nr.")
       r2 = nil
     end
     if r2
+      r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
       r1 = r2
       r1.extend(AnnotationIdentification0)
     else
-      if has_terminal?("sp. nr.", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 7))
-        @index += 7
+      if (match_len = has_terminal?("sp. nr.", false, index))
+        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("sp. nr.")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r1 = r3
         r1.extend(AnnotationIdentification0)
       else
-        if has_terminal?("nr.", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
-          @index += 3
+        if (match_len = has_terminal?("nr.", false, index))
+          r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("nr.")
           r4 = nil
         end
         if r4
+          r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
           r1 = r4
           r1.extend(AnnotationIdentification0)
         else
-          if has_terminal?("nr ", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 3))
-            @index += 3
+          if (match_len = has_terminal?("nr ", false, index))
+            r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure("nr ")
             r5 = nil
           end
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r1 = r5
             r1.extend(AnnotationIdentification0)
           else
-            if has_terminal?("sp.aff.", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 7))
-              @index += 7
+            if (match_len = has_terminal?("sp.aff.", false, index))
+              r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("sp.aff.")
               r6 = nil
             end
             if r6
+              r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
               r1 = r6
               r1.extend(AnnotationIdentification0)
             else
-              if has_terminal?("sp. aff.", false, index)
-                r7 = instantiate_node(SyntaxNode,input, index...(index + 8))
-                @index += 8
+              if (match_len = has_terminal?("sp. aff.", false, index))
+                r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure("sp. aff.")
                 r7 = nil
               end
               if r7
+                r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                 r1 = r7
                 r1.extend(AnnotationIdentification0)
               else
-                if has_terminal?("sp.", false, index)
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                  @index += 3
+                if (match_len = has_terminal?("sp.", false, index))
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("sp.")
                   r8 = nil
                 end
                 if r8
+                  r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                   r1 = r8
                   r1.extend(AnnotationIdentification0)
                 else
-                  if has_terminal?("sp ", false, index)
-                    r9 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                    @index += 3
+                  if (match_len = has_terminal?("sp ", false, index))
+                    r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("sp ")
                     r9 = nil
                   end
                   if r9
+                    r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                     r1 = r9
                     r1.extend(AnnotationIdentification0)
                   else
-                    if has_terminal?("species", false, index)
-                      r10 = instantiate_node(SyntaxNode,input, index...(index + 7))
-                      @index += 7
+                    if (match_len = has_terminal?("species", false, index))
+                      r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("species")
                       r10 = nil
                     end
                     if r10
+                      r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
                       r1 = r10
                       r1.extend(AnnotationIdentification0)
                     else
-                      if has_terminal?("spp.", false, index)
-                        r11 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                        @index += 4
+                      if (match_len = has_terminal?("spp.", false, index))
+                        r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        @index += match_len
                       else
                         terminal_parse_failure("spp.")
                         r11 = nil
                       end
                       if r11
+                        r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
                         r1 = r11
                         r1.extend(AnnotationIdentification0)
                       else
-                        if has_terminal?("spp ", false, index)
-                          r12 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                          @index += 4
+                        if (match_len = has_terminal?("spp ", false, index))
+                          r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                          @index += match_len
                         else
                           terminal_parse_failure("spp ")
                           r12 = nil
                         end
                         if r12
+                          r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                           r1 = r12
                           r1.extend(AnnotationIdentification0)
                         else
-                          if has_terminal?("aff.", false, index)
-                            r13 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                            @index += 4
+                          if (match_len = has_terminal?("aff.", false, index))
+                            r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                            @index += match_len
                           else
                             terminal_parse_failure("aff.")
                             r13 = nil
                           end
                           if r13
+                            r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                             r1 = r13
                             r1.extend(AnnotationIdentification0)
                           else
-                            if has_terminal?("aff ", false, index)
-                              r14 = instantiate_node(SyntaxNode,input, index...(index + 4))
-                              @index += 4
+                            if (match_len = has_terminal?("aff ", false, index))
+                              r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                              @index += match_len
                             else
                               terminal_parse_failure("aff ")
                               r14 = nil
                             end
                             if r14
+                              r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                               r1 = r14
                               r1.extend(AnnotationIdentification0)
                             else
-                              if has_terminal?("monst.", false, index)
-                                r15 = instantiate_node(SyntaxNode,input, index...(index + 6))
-                                @index += 6
+                              if (match_len = has_terminal?("monst.", false, index))
+                                r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                @index += match_len
                               else
                                 terminal_parse_failure("monst.")
                                 r15 = nil
                               end
                               if r15
+                                r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                                 r1 = r15
                                 r1.extend(AnnotationIdentification0)
                               else
-                                if has_terminal?("? ", false, index)
-                                  r16 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                                  @index += 2
+                                if (match_len = has_terminal?("? ", false, index))
+                                  r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                  @index += match_len
                                 else
                                   terminal_parse_failure("? ")
                                   r16 = nil
                                 end
                                 if r16
+                                  r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                                   r1 = r16
                                   r1.extend(AnnotationIdentification0)
                                 else
@@ -6874,28 +7127,31 @@ module ScientificNameClean
       end
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i17 = index
-      if has_terminal?("cf.", false, index)
-        r18 = instantiate_node(SyntaxNode,input, index...(index + 3))
-        @index += 3
+      if (match_len = has_terminal?("cf.", false, index))
+        r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("cf.")
         r18 = nil
       end
       if r18
+        r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
         r17 = r18
         r17.extend(AnnotationIdentification1)
       else
-        if has_terminal?("cf ", false, index)
-          r19 = instantiate_node(SyntaxNode,input, index...(index + 3))
-          @index += 3
+        if (match_len = has_terminal?("cf ", false, index))
+          r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("cf ")
           r19 = nil
         end
         if r19
+          r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
           r17 = r19
           r17.extend(AnnotationIdentification1)
         else
@@ -6904,6 +7160,7 @@ module ScientificNameClean
         end
       end
       if r17
+        r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
         r0 = r17
       else
         @index = i0
@@ -6939,7 +7196,7 @@ module ScientificNameClean
     if node_cache[:species_word].has_key?(index)
       cached = node_cache[:species_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:species_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -6949,10 +7206,11 @@ module ScientificNameClean
     i1, s1 = index, []
     s2, i2 = [], index
     loop do
-      if has_terminal?('\G[0-9]', true, index)
+      if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
         r3 = true
         @index += 1
       else
+        terminal_parse_failure('[0-9]')
         r3 = nil
       end
       if r3
@@ -6969,9 +7227,9 @@ module ScientificNameClean
     end
     s1 << r2
     if r2
-      if has_terminal?("-", false, index)
-        r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("-", false, index))
+        r5 = true
+        @index += match_len
       else
         terminal_parse_failure("-")
         r5 = nil
@@ -6996,10 +7254,12 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r7 = _nt_latin_word
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         @index = i0
@@ -7055,7 +7315,7 @@ module ScientificNameClean
     if node_cache[:latin_word].has_key?(index)
       cached = node_cache[:latin_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:latin_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7066,9 +7326,9 @@ module ScientificNameClean
     r2 = _nt_valid_name_letters
     s1 << r2
     if r2
-      if has_terminal?("-", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("-", false, index))
+        r3 = true
+        @index += match_len
       else
         terminal_parse_failure("-")
         r3 = nil
@@ -7088,17 +7348,19 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
-      if has_terminal?("o\'donelli", false, index)
-        r5 = instantiate_node(SyntaxNode,input, index...(index + 9))
+      if (match_len = has_terminal?("o\'donelli", false, index))
+        r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
         r5.extend(LatinWord2)
-        @index += 9
+        @index += match_len
       else
         terminal_parse_failure("o\'donelli")
         r5 = nil
       end
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         i6, s6 = index, []
@@ -7117,6 +7379,7 @@ module ScientificNameClean
           r6 = nil
         end
         if r6
+          r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
           r0 = r6
         else
           @index = i0
@@ -7150,7 +7413,7 @@ module ScientificNameClean
     if node_cache[:valid_name_letters].has_key?(index)
       cached = node_cache[:valid_name_letters][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:valid_name_letters][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7158,10 +7421,11 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[a-zëæœ]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-zëæœ]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-zëæœ]')
         r1 = nil
       end
       if r1
@@ -7198,17 +7462,18 @@ module ScientificNameClean
     if node_cache[:valid_name_letter].has_key?(index)
       cached = node_cache[:valid_name_letter][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:valid_name_letter][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
-    if has_terminal?('\G[a-zëæœ]', true, index)
+    if has_terminal?(@regexps[gr = '\A[a-zëæœ]'] ||= Regexp.new(gr), :regexp, index)
       r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
       r0.extend(ValidNameLetter0)
       @index += 1
     else
+      terminal_parse_failure('[a-zëæœ]')
       r0 = nil
     end
 
@@ -7234,33 +7499,35 @@ module ScientificNameClean
     if node_cache[:cap_digraph].has_key?(index)
       cached = node_cache[:cap_digraph][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:cap_digraph][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("Æ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+    if (match_len = has_terminal?("Æ", false, index))
+      r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
       r1.extend(CapDigraph0)
-      @index += 1
+      @index += match_len
     else
       terminal_parse_failure("Æ")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
-      if has_terminal?("Œ", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+      if (match_len = has_terminal?("Œ", false, index))
+        r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
         r2.extend(CapDigraph1)
-        @index += 1
+        @index += match_len
       else
         terminal_parse_failure("Œ")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
       else
         @index = i0
@@ -7314,7 +7581,7 @@ module ScientificNameClean
     if node_cache[:year].has_key?(index)
       cached = node_cache[:year][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:year][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7331,10 +7598,12 @@ module ScientificNameClean
         i4 = index
         r5 = _nt_year_number_with_character
         if r5
+          r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
           r4 = r5
         else
           r6 = _nt_year_number
           if r6
+            r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
             r4 = r6
           else
             @index = i4
@@ -7361,14 +7630,17 @@ module ScientificNameClean
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r9 = _nt_year_number_with_character
       if r9
+        r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
         r0 = r9
       else
         r10 = _nt_year_number
         if r10
+          r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
           r0 = r10
         else
           @index = i0
@@ -7408,7 +7680,7 @@ module ScientificNameClean
     if node_cache[:year_number_with_character].has_key?(index)
       cached = node_cache[:year_number_with_character][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:year_number_with_character][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7418,10 +7690,11 @@ module ScientificNameClean
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if has_terminal?('\G[a-zA-Z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-zA-Z]'] ||= Regexp.new(gr), :regexp, index)
         r2 = true
         @index += 1
       else
+        terminal_parse_failure('[a-zA-Z]')
         r2 = nil
       end
       s0 << r2
@@ -7465,51 +7738,56 @@ module ScientificNameClean
     if node_cache[:year_number].has_key?(index)
       cached = node_cache[:year_number][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:year_number][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[12]', true, index)
+    if has_terminal?(@regexps[gr = '\A[12]'] ||= Regexp.new(gr), :regexp, index)
       r1 = true
       @index += 1
     else
+      terminal_parse_failure('[12]')
       r1 = nil
     end
     s0 << r1
     if r1
-      if has_terminal?('\G[7890]', true, index)
+      if has_terminal?(@regexps[gr = '\A[7890]'] ||= Regexp.new(gr), :regexp, index)
         r2 = true
         @index += 1
       else
+        terminal_parse_failure('[7890]')
         r2 = nil
       end
       s0 << r2
       if r2
-        if has_terminal?('\G[0-9]', true, index)
+        if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
           r3 = true
           @index += 1
         else
+          terminal_parse_failure('[0-9]')
           r3 = nil
         end
         s0 << r3
         if r3
           i4 = index
           i5, s5 = index, []
-          if has_terminal?('\G[0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
             r6 = true
             @index += 1
           else
+            terminal_parse_failure('[0-9]')
             r6 = nil
           end
           s5 << r6
           if r6
-            if has_terminal?('\G[\\?]', true, index)
+            if has_terminal?(@regexps[gr = '\A[\\?]'] ||= Regexp.new(gr), :regexp, index)
               r8 = true
               @index += 1
             else
+              terminal_parse_failure('[\\?]')
               r8 = nil
             end
             if r8
@@ -7527,16 +7805,18 @@ module ScientificNameClean
             r5 = nil
           end
           if r5
+            r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
             r4 = r5
           else
-            if has_terminal?("?", false, index)
-              r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("?", false, index))
+              r9 = true
+              @index += match_len
             else
               terminal_parse_failure("?")
               r9 = nil
             end
             if r9
+              r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
               r4 = r9
             else
               @index = i4
@@ -7566,15 +7846,15 @@ module ScientificNameClean
     if node_cache[:left_paren].has_key?(index)
       cached = node_cache[:left_paren][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:left_paren][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
-    if has_terminal?("(", false, index)
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?("(", false, index))
+      r0 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure("(")
       r0 = nil
@@ -7590,15 +7870,15 @@ module ScientificNameClean
     if node_cache[:right_paren].has_key?(index)
       cached = node_cache[:right_paren][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:right_paren][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
-    if has_terminal?(")", false, index)
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?(")", false, index))
+      r0 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
       terminal_parse_failure(")")
       r0 = nil
@@ -7620,7 +7900,7 @@ module ScientificNameClean
     if node_cache[:hybrid_character].has_key?(index)
       cached = node_cache[:hybrid_character][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:hybrid_character][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7628,25 +7908,27 @@ module ScientificNameClean
 
     i0 = index
     i1 = index
-    if has_terminal?("x", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?("x", false, index))
+      r2 = true
+      @index += match_len
     else
       terminal_parse_failure("x")
       r2 = nil
     end
     if r2
+      r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
       r1 = r2
       r1.extend(HybridCharacter0)
     else
-      if has_terminal?("X", false, index)
-        r3 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("X", false, index))
+        r3 = true
+        @index += match_len
       else
         terminal_parse_failure("X")
         r3 = nil
       end
       if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
         r1 = r3
         r1.extend(HybridCharacter0)
       else
@@ -7655,10 +7937,12 @@ module ScientificNameClean
       end
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r4 = _nt_multiplication_sign
       if r4
+        r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
         r0 = r4
       else
         @index = i0
@@ -7682,32 +7966,34 @@ module ScientificNameClean
     if node_cache[:multiplication_sign].has_key?(index)
       cached = node_cache[:multiplication_sign][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:multiplication_sign][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0 = index
-    if has_terminal?("×", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?("×", false, index))
+      r1 = true
+      @index += match_len
     else
       terminal_parse_failure("×")
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
       r0.extend(MultiplicationSign0)
     else
-      if has_terminal?("*", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("*", false, index))
+        r2 = true
+        @index += match_len
       else
         terminal_parse_failure("*")
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
         r0.extend(MultiplicationSign0)
       else
@@ -7726,7 +8012,7 @@ module ScientificNameClean
     if node_cache[:space].has_key?(index)
       cached = node_cache[:space][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:space][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7734,10 +8020,11 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[\\s]', true, index)
+      if has_terminal?(@regexps[gr = '\A[\\s]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[\\s]')
         r1 = nil
       end
       if r1
@@ -7758,7 +8045,7 @@ module ScientificNameClean
     if node_cache[:space_hard].has_key?(index)
       cached = node_cache[:space_hard][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:space_hard][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -7766,10 +8053,11 @@ module ScientificNameClean
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[\\s]', true, index)
+      if has_terminal?(@regexps[gr = '\A[\\s]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[\\s]')
         r1 = nil
       end
       if r1
