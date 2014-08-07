@@ -12,7 +12,7 @@ Parses taxonomic scientific name and breaks it into semantic elements.
 Support for Ruby 1.8.7 IS DROPPED. Both biodiversity and
 biodiversity19 will be for Ruby > 1.9.1 and will be identical gems.
 
-biodiversity19 is now deprecated and will be phased out in a couple of years.
+biodiversity19 is now deprecated and will be phased out in 2015.
 You are strongly encouraged to change your dependencies from
 biodiversity19 to biodiversity
 
@@ -186,7 +186,7 @@ Copyright
 
 Authors: [Dmitry Mozzherin][10], 
 
-Copyright (c) 2008-2012 Marine Biological Laboratory. See LICENSE for
+Copyright (c) 2008-2014 Marine Biological Laboratory. See LICENSE for
 further details.
 
 [1]: https://badge.fury.io/rb/biodiversity.png
