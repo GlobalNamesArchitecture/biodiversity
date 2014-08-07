@@ -30,7 +30,7 @@ describe ScientificNameCanonical do
       expect(value(n[0])).to eq n[1]
       expect(details(n[0])).to eq n[2]
       expect(pos(n[0])).to eq n[3]
-      expect(parse(n[0]).hybrid).to be_false
+      expect(parse(n[0]).hybrid).to be false
     end
   end  
   
