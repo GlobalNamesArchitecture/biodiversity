@@ -186,7 +186,7 @@ Copyright
 
 Authors: [Dmitry Mozzherin][10], 
 
-Copyright (c) 2008-2013 Marine Biological Laboratory. See LICENSE for
+Copyright (c) 2008-2012 Marine Biological Laboratory. See LICENSE for
 further details.
 
 [1]: https://badge.fury.io/rb/biodiversity.png
