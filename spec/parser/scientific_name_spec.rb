@@ -91,7 +91,9 @@ describe 'ScientificNameParser with ranked canonicals' do
       ['Abies homolepis forma umbilicata (Mayr) Schelle',
        'Abies homolepis forma umbilicata'],
       ['Quercus ilex ssp. ballota (Desf.) Samp',
-       'Quercus ilex ssp. ballota']
+       'Quercus ilex ssp. ballota'],
+      ["Physarum globuliferum forma. flavum Leontyev & Dudka",
+       "Physarum globuliferum forma. flavum"]
     ]
     data.each do |d|
       parsed = @parser.parse(d[0])[:scientificName][:canonical]
