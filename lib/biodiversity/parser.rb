@@ -251,7 +251,7 @@ class ScientificNameParser
     surrogate1 = /BOLD:|[\d]{5,}/i
     surrogate2 = /\b(spp|sp|nr|cf)[\.]?[\s]*$/i
     is_surrogate = false
-      
+
     ai_index = pos.index('annotation_identification')
     if ai_index
       ai = name[pos[ai_index - 1]..pos[ai_index + 1]]

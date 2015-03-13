@@ -5,21 +5,21 @@ grammar ScientificNameDirty
   rule root
     space a:scientific_name_5 space {
       def value
-        a.value.gsub(/\s{2,}/, ' ').strip
+        a.value.gsub(/\s{2,}/, " ").strip
       end
-      
+
       def canonical
-        a.canonical.gsub(/\s{2,}/, ' ').strip
+        a.canonical.gsub(/\s{2,}/, " ").strip
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def hybrid
         a.hybrid
       end
-      
+
       def details
         a.details.class == Array ? a.details : [a.details]
       end
@@ -35,15 +35,15 @@ grammar ScientificNameDirty
       def value
         a.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def details
         a.details
       end
@@ -57,15 +57,15 @@ grammar ScientificNameDirty
       def value
         a.value + " " + b.value
       end
-  
+
       def canonical
         a.canonical
       end
-  
+
       def pos
         a.pos.merge(b.pos)
       end
-  
+
       def details
         {:infraspecies => a.details[:infraspecies].merge(b.details)}
       end
@@ -75,15 +75,15 @@ grammar ScientificNameDirty
       def value
         a.value + " " + b.value
       end
-  
+
       def canonical
         a.canonical
       end
-  
+
       def pos
         a.pos.merge(b.pos)
       end
-  
+
       def details
         {:infraspecies => a.details[:infraspecies].merge(b.details)}
       end
@@ -91,21 +91,21 @@ grammar ScientificNameDirty
     /
     super
   end
-  
+
   rule species
     a:species_string space b:year {
        def value
          a.value + " " + b.value
        end
-     
+
        def canonical
          a.canonical
        end
-     
+
        def pos
          a.pos.merge(b.pos)
        end
-     
+
        def details
          {:species => a.details[:species].merge(b.details)}
        end
@@ -117,14 +117,14 @@ grammar ScientificNameDirty
   rule latin_word
     a:[a-z\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž] b:valid_name_letters {
       def value
-        res = ''
-        text_value.split('').each do |l|
-          l = 'ae' if l == 'æ'
-          l = 'oe' if l == 'œ'
+        res = ""
+        text_value.split("").each do |l|
+          l = "ae" if l == "æ"
+          l = "oe" if l == "œ"
           res << l
         end
-        res.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
-               'aaaaaacceeeiiinnnoooooouuurrrsssz')
+        res.tr("àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž",
+               "aaaaaacceeeiiinnnoooooouuurrrsssz")
       end
      }
   end
@@ -132,14 +132,14 @@ grammar ScientificNameDirty
   rule valid_name_letters
     [a-z\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]+ {
       def value
-        res = ''
-        text_value.split('').each do |l|
-          l = 'ae' if l == 'æ'
-          l = 'oe' if l == 'œ'
+        res = ""
+        text_value.split("").each do |l|
+          l = "ae" if l == "æ"
+          l = "oe" if l == "œ"
           res << l
         end
-        res.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
-               'aaaaaacceeeiiinnnoooooouuurrrsssz')
+        res.tr("àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž",
+               "aaaaaacceeeiiinnnoooooouuurrrsssz")
 
       end
     }
@@ -150,23 +150,23 @@ grammar ScientificNameDirty
    /
    super
   end
-  
+
   rule left_paren
    "(" space "("
    /
    super
   end
-  
+
   rule year
     a:year_number space b:approximate_year {
       def value
         a.value + " " + b.value
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         {:year => a.value, :approximate_year => b.value}
       end
@@ -176,11 +176,11 @@ grammar ScientificNameDirty
       def value
         a.text_value
       end
-      
+
       def pos
-        {a.interval.begin => ['year', a.interval.end]}
+        {a.interval.begin => ["year", a.interval.end]}
       end
-      
+
       def details
         {:year => value}
       end
@@ -194,40 +194,39 @@ grammar ScientificNameDirty
     /
     super
   end
-  
+
   rule approximate_year
     "[" space a:year_number space "]"+ {
       def value
        "(" + a.text_value + ")"
       end
-      
+
       def pos
-        {a.interval.begin => ['year', a.interval.end]}
+        {a.interval.begin => ["year", a.interval.end]}
       end
-      
+
       def details
         {:approximate_year => value}
       end
     }
   end
-  
-  
+
   rule double_year
     year_number "-" [0-9]+ [A-Za-z]? [\?]? {
       def value
         text_value
       end
-      
+
       def pos
-        {interval.begin => ['year', interval.end]}
+        {interval.begin => ["year", interval.end]}
       end
-      
+
       def details
         {:year => value}
       end
     }
   end
-  
+
   rule year_number_with_punctuation
     a:year_number "." {
       def value
@@ -235,7 +234,7 @@ grammar ScientificNameDirty
       end
 
       def pos
-        {interval.begin => ['year', interval.end]}
+        {interval.begin => ["year", interval.end]}
       end
 
       def details
@@ -244,7 +243,6 @@ grammar ScientificNameDirty
     }
   end
 
-  
   rule page_number
     ":" space [\d]+
     {
@@ -252,16 +250,15 @@ grammar ScientificNameDirty
       end
     }
   end
-  
+
   rule string_authorship_inconsistencies
     ("corrig.")
   end
 
-    
   rule garbage
     space (["',]) space [^щ]*
     /
     space_hard [^ш]+
   end
-  
+
 end

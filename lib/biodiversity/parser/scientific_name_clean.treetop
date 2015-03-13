@@ -1,16 +1,16 @@
 # encoding: UTF-8
-require 'unicode_utils'
+require "unicode_utils"
 
 grammar ScientificNameClean
 
   rule root
     space a:scientific_name_5 space {
       def value
-        a.value.gsub(/\s{2,}/, ' ').strip
+        a.value.gsub(/\s{2,}/, " ").strip
       end
 
       def canonical
-        a.canonical.gsub(/\s{2,}/, ' ').strip
+        a.canonical.gsub(/\s{2,}/, " ").strip
       end
 
       def pos
@@ -218,7 +218,7 @@ grammar ScientificNameClean
     .+ space {
 
       def value
-        ''
+        ""
       end
 
       def hybrid
@@ -226,11 +226,11 @@ grammar ScientificNameClean
       end
 
       def canonical
-        ''
+        ""
       end
 
       def pos
-        {interval.begin => ['unparsed', interval.end]}
+        {interval.begin => ["unparsed", interval.end]}
       end
 
       def details
@@ -513,14 +513,14 @@ grammar ScientificNameClean
 
       def pos
         def a.pos
-          {interval.begin => ['infraspecies', a.interval.end]}
+          {interval.begin => ["infraspecies", a.interval.end]}
         end
         aid.pos(a)
       end
 
       def details
         def a.details
-          {:infraspecies => {:string => value, :rank => 'n/a'}}
+          {:infraspecies => {:string => value, :rank => "n/a"}}
         end
         aid.details(a)
       end
@@ -536,11 +536,11 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['infraspecies', interval.end]}
+        {interval.begin => ["infraspecies", interval.end]}
       end
 
       def details
-        {:infraspecies => {:string => value, :rank => 'n/a'}}
+        {:infraspecies => {:string => value, :rank => "n/a"}}
       end
     }
   end
@@ -575,8 +575,8 @@ grammar ScientificNameClean
       end
 
       def pos(a)
-        interval_end =  text_value[-1] == ' ' ? interval.end - 1 : interval.end
-        {interval.begin => ['infraspecific_type', interval_end], a.interval.begin => ['infraspecies', a.interval.end]}
+        interval_end =  text_value[-1] == " " ? interval.end - 1 : interval.end
+        {interval.begin => ["infraspecific_type", interval_end], a.interval.begin => ["infraspecies", a.interval.end]}
       end
 
       def details(a = nil)
@@ -592,7 +592,7 @@ grammar ScientificNameClean
       end
 
       def pos(uni)
-        {interval.begin => ['rank_uninomial', interval.end], uni.interval.begin => ['uninomial', uni.interval.end]}
+        {interval.begin => ["rank_uninomial", interval.end], uni.interval.begin => ["uninomial", uni.interval.end]}
       end
 
       def details(uni)
@@ -634,7 +634,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['species', interval.end]}
+        {interval.begin => ["species", interval.end]}
       end
 
       def hybrid
@@ -660,7 +660,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {a.interval.begin => ['infragenus', a.interval.end]}
+        {a.interval.begin => ["infragenus", a.interval.end]}
       end
 
       def details
@@ -676,7 +676,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {a.interval.begin => ['genus', a.interval.end]}
+        {a.interval.begin => ["genus", a.interval.end]}
       end
 
       def canonical
@@ -786,7 +786,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['uninomial', interval.end]}
+        {interval.begin => ["uninomial", interval.end]}
       end
 
       def hybrid
@@ -909,11 +909,11 @@ grammar ScientificNameClean
       end
 
       def pos
-        {a.interval.begin => ['unknown_author', a.interval.end]}
+        {a.interval.begin => ["unknown_author", a.interval.end]}
       end
 
       def details
-        {:authorship => text_value, :basionymAuthorTeam => {:authorTeam => text_value, :author => ['?']}}
+        {:authorship => text_value, :basionymAuthorTeam => {:authorTeam => text_value, :author => ["?"]}}
       end
     }
   end
@@ -949,7 +949,7 @@ grammar ScientificNameClean
         details_with_arg(:basionymAuthorTeam)
       end
 
-      def details_with_arg(authorTeamType = 'basionymAuthorTeam')
+      def details_with_arg(authorTeamType = "basionymAuthorTeam")
         { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => a.text_value.strip
@@ -971,7 +971,7 @@ grammar ScientificNameClean
         details_with_arg(:basionymAuthorTeam)
       end
 
-      def details_with_arg(authorTeamType = 'basionymAuthorTeam')
+      def details_with_arg(authorTeamType = "basionymAuthorTeam")
         { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => a.text_value.strip
@@ -987,7 +987,7 @@ grammar ScientificNameClean
         details
       end
 
-      def details_with_arg(authorTeamType = 'basionymAuthorTeam')
+      def details_with_arg(authorTeamType = "basionymAuthorTeam")
         { :authorship => text_value,
           authorTeamType.to_sym => {
             :authorTeam => text_value,
@@ -1025,7 +1025,7 @@ grammar ScientificNameClean
       end
 
       def pos
-       {interval.begin => ['unknown_author', interval.end]}
+       {interval.begin => ["unknown_author", interval.end]}
       end
 
       def details
@@ -1059,7 +1059,7 @@ grammar ScientificNameClean
   rule author_name
     space a:author_name_without_postfix space b:author_postfix_word space !latin_word {
       def value
-        a.value + ' ' + b.value
+        a.value + " " + b.value
       end
 
       def pos
@@ -1113,7 +1113,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['author_word', 1], (interval.begin + 2) => ['author_word', 2], (interval.begin + 5) => ['author_word', 2]}
+        {interval.begin => ["author_word", 1], (interval.begin + 2) => ["author_word", 2], (interval.begin + 5) => ["author_word", 2]}
       end
 
       def details
@@ -1128,7 +1128,7 @@ grammar ScientificNameClean
 
       def pos
         #cheating because there are several words in some of them
-        {interval.begin => ['author_word', interval.end]}
+        {interval.begin => ["author_word", interval.end]}
       end
 
       def details
@@ -1144,7 +1144,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['author_word', interval.end]}
+        {interval.begin => ["author_word", interval.end]}
       end
 
       def details
@@ -1158,7 +1158,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['author_word', interval.end]}
+        {interval.begin => ["author_word", interval.end]}
       end
 
       def details
@@ -1177,7 +1177,7 @@ grammar ScientificNameClean
 
       def pos
         #cheating because there are several words in some of them
-        {interval.begin => ['author_word', interval.end]}
+        {interval.begin => ["author_word", interval.end]}
       end
     }
   end
@@ -1189,7 +1189,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['author_word', interval.end]}
+        {interval.begin => ["author_word", interval.end]}
       end
     }
   end
@@ -1217,7 +1217,7 @@ grammar ScientificNameClean
     /
     a:("AE"/"OE") b:latin_word {
       def value
-        a.text_value[0..0] + 'e' + b.value
+        a.text_value[0..0] + "e" + b.value
       end
     }
     /
@@ -1251,7 +1251,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {b.interval.begin => ['species', b.interval.end]}
+        {b.interval.begin => ["species", b.interval.end]}
       end
 
       def details
@@ -1273,7 +1273,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {b.interval.begin => ['species', b.interval.end]}
+        {b.interval.begin => ["species", b.interval.end]}
       end
 
       def details
@@ -1295,7 +1295,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {b.interval.begin => ['species', b.interval.end]}
+        {b.interval.begin => ["species", b.interval.end]}
       end
 
       def details
@@ -1312,16 +1312,16 @@ grammar ScientificNameClean
       end
 
       def apply(sp)
-        ''
+        ""
       end
 
       def canonical(sp)
-        ''
+        ""
       end
 
       def pos(sp)
-        interval_end = text_value[-1] == ' ' ? interval.end - 1 : interval.end
-        {interval.begin => ['annotation_identification', interval.end]}
+        interval_end = text_value[-1] == " " ? interval.end - 1 : interval.end
+        {interval.begin => ["annotation_identification", interval.end]}
       end
 
       def details(sp)
@@ -1335,16 +1335,16 @@ grammar ScientificNameClean
       end
 
       def apply(sp)
-        ' ' + value + ' ' + sp.value
+        " " + value + " " + sp.value
       end
 
       def canonical(sp)
-        ' ' + sp.canonical
+        " " + sp.canonical
       end
 
       def pos(sp)
-        interval_end = text_value[-1] == ' ' ? interval.end - 1 : interval.end
-        {interval.begin => ['annotation_identification', interval.end]}.merge(sp.pos)
+        interval_end = text_value[-1] == " " ? interval.end - 1 : interval.end
+        {interval.begin => ["annotation_identification", interval.end]}.merge(sp.pos)
       end
 
       def details(sp)
@@ -1372,9 +1372,15 @@ grammar ScientificNameClean
       end
     }
     /
-    "o\'donelli" {
+    "o'donelli" {
       def value
         "odonelli"
+      end
+    }
+    /
+    "o'neili" {
+      def value
+        "oneili"
       end
     }
     /
@@ -1388,13 +1394,13 @@ grammar ScientificNameClean
   rule valid_name_letters
     [a-zëæœ]+ {
       def value
-        res = ''
-        text_value.split('').each do |l|
-          l = 'ae' if l == 'æ'
-          l = 'oe' if l == 'œ'
+        res = ""
+        text_value.split("").each do |l|
+          l = "ae" if l == "æ"
+          l = "oe" if l == "œ"
           # We normalize ë as well. It is legal in botanical code, but it
           # is beneficial to normalize it for the reconsiliation purposes
-          l = 'e' if l == 'ë'
+          l = "e" if l == "ë"
           res << l
         end
         res
@@ -1406,9 +1412,9 @@ grammar ScientificNameClean
     [a-zëæœ] {
       def value
         res = text_value
-        res = 'ae' if res == 'æ'
-        res = 'oe' if res == 'œ'
-        res = 'e'  if res == 'ë'
+        res = "ae" if res == "æ"
+        res = "oe" if res == "œ"
+        res = "e"  if res == "ë"
         res
       end
     }
@@ -1418,13 +1424,13 @@ grammar ScientificNameClean
   rule cap_digraph
     "Æ" {
       def value
-      'Ae'
+      "Ae"
       end
     }
     /
     "Œ" {
       def value
-      'Oe'
+      "Oe"
       end
     }
   end
@@ -1456,7 +1462,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['year', interval.end]}
+        {interval.begin => ["year", interval.end]}
       end
 
       def details
@@ -1472,7 +1478,7 @@ grammar ScientificNameClean
       end
 
       def pos
-        {interval.begin => ['year', interval.end]}
+        {interval.begin => ["year", interval.end]}
       end
 
       def details

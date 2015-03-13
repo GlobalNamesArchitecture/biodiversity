@@ -21,7 +21,7 @@ grammar ScientificNameCanonical
       def hybrid
         false
       end
-      
+
       def details
         [super]
       end
@@ -31,22 +31,22 @@ grammar ScientificNameCanonical
       end
     }
   end
-  
+
   rule multinomial_with_garbage
-  
+
     a:genus space b:infragenus space c:species garbage {
       def value
         a.value + " " + b.value + " " + c.value
       end
-      
+
       def canonical
         a.canonical + " " + c.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos).merge(c.pos)
       end
-      
+
       def details
         a.details.merge(b.details).merge(c.details)
       end
@@ -56,15 +56,15 @@ grammar ScientificNameCanonical
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         a.details.merge(b.details)
       end
@@ -74,41 +74,41 @@ grammar ScientificNameCanonical
       def value
         a.value + " " + b.value
       end
-      
+
       def canonical
         a.canonical + " " + b.canonical
       end
-      
+
       def pos
         a.pos.merge(b.pos)
       end
-      
+
       def details
         a.details.merge(b.details)
       end
     }
   end
-  
+
   rule uninomial_with_garbage
     a:uninomial_string b:garbage {
       def value
         a.value
       end
-      
+
       def canonical
         a.canonical
       end
-      
+
       def pos
         a.pos
       end
-      
+
       def details
         {:uninomial => a.details[:uninomial]}
       end
     }
   end
-  
+
   rule garbage
     space "$$g@rbg3$$"
     /
