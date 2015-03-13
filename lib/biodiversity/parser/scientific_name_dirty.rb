@@ -27,21 +27,21 @@ module ScientificNameDirty
 
   module Root1
     def value
-      a.value.gsub(/\s{2,}/, ' ').strip
+      a.value.gsub(/\s{2,}/, " ").strip
     end
-    
+
     def canonical
-      a.canonical.gsub(/\s{2,}/, ' ').strip
+      a.canonical.gsub(/\s{2,}/, " ").strip
     end
-    
+
     def pos
       a.pos
     end
-    
+
     def hybrid
       a.hybrid
     end
-    
+
     def details
       a.details.class == Array ? a.details : [a.details]
     end
@@ -101,15 +101,15 @@ module ScientificNameDirty
     def value
       a.value
     end
-    
+
     def canonical
       a.canonical
     end
-    
+
     def pos
       a.pos
     end
-    
+
     def details
       a.details
     end
@@ -333,15 +333,15 @@ module ScientificNameDirty
     def value
       a.value + " " + b.value
     end
-  
+
     def canonical
       a.canonical
     end
-  
+
     def pos
       a.pos.merge(b.pos)
     end
-  
+
     def details
       {:species => a.details[:species].merge(b.details)}
     end
@@ -409,14 +409,14 @@ module ScientificNameDirty
 
   module LatinWord1
     def value
-      res = ''
-      text_value.split('').each do |l|
-        l = 'ae' if l == 'æ'
-        l = 'oe' if l == 'œ'
+      res = ""
+      text_value.split("").each do |l|
+        l = "ae" if l == "æ"
+        l = "oe" if l == "œ"
         res << l
       end
-      res.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
-             'aaaaaacceeeiiinnnoooooouuurrrsssz')
+      res.tr("àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž",
+             "aaaaaacceeeiiinnnoooooouuurrrsssz")
     end
   end
 
@@ -460,14 +460,14 @@ module ScientificNameDirty
 
   module ValidNameLetters0
     def value
-      res = ''
-      text_value.split('').each do |l|
-        l = 'ae' if l == 'æ'
-        l = 'oe' if l == 'œ'
+      res = ""
+      text_value.split("").each do |l|
+        l = "ae" if l == "æ"
+        l = "oe" if l == "œ"
         res << l
       end
-      res.tr('àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž',
-             'aaaaaacceeeiiinnnoooooouuurrrsssz')
+      res.tr("àâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž",
+             "aaaaaacceeeiiinnnoooooouuurrrsssz")
 
     end
   end
@@ -665,11 +665,11 @@ module ScientificNameDirty
     def value
       a.value + " " + b.value
     end
-    
+
     def pos
       a.pos.merge(b.pos)
     end
-    
+
     def details
       {:year => a.value, :approximate_year => b.value}
     end
@@ -693,11 +693,11 @@ module ScientificNameDirty
     def value
       a.text_value
     end
-    
+
     def pos
-      {a.interval.begin => ['year', a.interval.end]}
+      {a.interval.begin => ["year", a.interval.end]}
     end
-    
+
     def details
       {:year => value}
     end
@@ -814,11 +814,11 @@ module ScientificNameDirty
     def value
      "(" + a.text_value + ")"
     end
-    
+
     def pos
-      {a.interval.begin => ['year', a.interval.end]}
+      {a.interval.begin => ["year", a.interval.end]}
     end
-    
+
     def details
       {:approximate_year => value}
     end
@@ -905,11 +905,11 @@ module ScientificNameDirty
     def value
       text_value
     end
-    
+
     def pos
-      {interval.begin => ['year', interval.end]}
+      {interval.begin => ["year", interval.end]}
     end
-    
+
     def details
       {:year => value}
     end
@@ -1020,7 +1020,7 @@ module ScientificNameDirty
     end
 
     def pos
-      {interval.begin => ['year', interval.end]}
+      {interval.begin => ["year", interval.end]}
     end
 
     def details

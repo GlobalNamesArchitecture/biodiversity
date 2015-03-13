@@ -426,11 +426,11 @@ module ScientificNameCanonical
       r5 = _nt_space
       s4 << r5
       if r5
-        if has_terminal?(@regexps[gr = "\A[\"',.]"] ||= Regexp.new(gr), :regexp, index)
+        if has_terminal?(@regexps[gr = '\A["\',.]'] ||= Regexp.new(gr), :regexp, index)
           r6 = true
           @index += 1
         else
-          terminal_parse_failure("[\"',.]")
+          terminal_parse_failure('["\',.]')
           r6 = nil
         end
         s4 << r6
@@ -440,11 +440,11 @@ module ScientificNameCanonical
           if r7
             s8, i8 = [], index
             loop do
-              if has_terminal?(@regexps[gr = "\A[^щ]"] ||= Regexp.new(gr), :regexp, index)
+              if has_terminal?(@regexps[gr = '\A[^щ]'] ||= Regexp.new(gr), :regexp, index)
                 r9 = true
                 @index += 1
               else
-                terminal_parse_failure("[^щ]")
+                terminal_parse_failure('[^щ]')
                 r9 = nil
               end
               if r9
@@ -475,11 +475,11 @@ module ScientificNameCanonical
         if r11
           s12, i12 = [], index
           loop do
-            if has_terminal?(@regexps[gr = "\A[^ш]"] ||= Regexp.new(gr), :regexp, index)
+            if has_terminal?(@regexps[gr = '\A[^ш]'] ||= Regexp.new(gr), :regexp, index)
               r13 = true
               @index += 1
             else
-              terminal_parse_failure("[^ш]")
+              terminal_parse_failure('[^ш]')
               r13 = nil
             end
             if r13
