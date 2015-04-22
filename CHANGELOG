@@ -1,3 +1,5 @@
+3.1.8 -- downgrading dependency on treetop to 1.4.1
+
 3.1.7 -- fixed travis and dependencies
 
 3.1.6 -- added forma. to ranks, tests for species epithets with apostrophe

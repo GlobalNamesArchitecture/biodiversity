@@ -44,7 +44,7 @@ module ScientificNameCanonical
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
       if cached
-        node_cache[:root][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -54,13 +54,11 @@ module ScientificNameCanonical
     r1 = _nt_multinomial_with_garbage
     r1.extend(Root0)
     if r1
-      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r2 = _nt_uninomial_with_garbage
       r2.extend(Root1)
       if r2
-        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r0 = r2
       else
         @index = i0
@@ -194,7 +192,7 @@ module ScientificNameCanonical
     if node_cache[:multinomial_with_garbage].has_key?(index)
       cached = node_cache[:multinomial_with_garbage][index]
       if cached
-        node_cache[:multinomial_with_garbage][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -233,7 +231,6 @@ module ScientificNameCanonical
       r1 = nil
     end
     if r1
-      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i8, s8 = index, []
@@ -260,7 +257,6 @@ module ScientificNameCanonical
         r8 = nil
       end
       if r8
-        r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
         r0 = r8
       else
         i13, s13 = index, []
@@ -287,7 +283,6 @@ module ScientificNameCanonical
           r13 = nil
         end
         if r13
-          r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
           r0 = r13
         else
           @index = i0
@@ -334,7 +329,7 @@ module ScientificNameCanonical
     if node_cache[:uninomial_with_garbage].has_key?(index)
       cached = node_cache[:uninomial_with_garbage][index]
       if cached
-        node_cache[:uninomial_with_garbage][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -391,7 +386,7 @@ module ScientificNameCanonical
     if node_cache[:garbage].has_key?(index)
       cached = node_cache[:garbage][index]
       if cached
-        node_cache[:garbage][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -402,9 +397,9 @@ module ScientificNameCanonical
     r2 = _nt_space
     s1 << r2
     if r2
-      if (match_len = has_terminal?("$$g@rbg3$$", false, index))
-        r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
-        @index += match_len
+      if has_terminal?("$$g@rbg3$$", false, index)
+        r3 = instantiate_node(SyntaxNode,input, index...(index + 10))
+        @index += 10
       else
         terminal_parse_failure("$$g@rbg3$$")
         r3 = nil
@@ -419,18 +414,16 @@ module ScientificNameCanonical
       r1 = nil
     end
     if r1
-      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i4, s4 = index, []
       r5 = _nt_space
       s4 << r5
       if r5
-        if has_terminal?(@regexps[gr = '\A["\',.]'] ||= Regexp.new(gr), :regexp, index)
+        if has_terminal?('\G["\',.]', true, index)
           r6 = true
           @index += 1
         else
-          terminal_parse_failure('["\',.]')
           r6 = nil
         end
         s4 << r6
@@ -440,11 +433,10 @@ module ScientificNameCanonical
           if r7
             s8, i8 = [], index
             loop do
-              if has_terminal?(@regexps[gr = '\A[^щ]'] ||= Regexp.new(gr), :regexp, index)
+              if has_terminal?('\G[^щ]', true, index)
                 r9 = true
                 @index += 1
               else
-                terminal_parse_failure('[^щ]')
                 r9 = nil
               end
               if r9
@@ -466,7 +458,6 @@ module ScientificNameCanonical
         r4 = nil
       end
       if r4
-        r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
         r0 = r4
       else
         i10, s10 = index, []
@@ -475,11 +466,10 @@ module ScientificNameCanonical
         if r11
           s12, i12 = [], index
           loop do
-            if has_terminal?(@regexps[gr = '\A[^ш]'] ||= Regexp.new(gr), :regexp, index)
+            if has_terminal?('\G[^ш]', true, index)
               r13 = true
               @index += 1
             else
-              terminal_parse_failure('[^ш]')
               r13 = nil
             end
             if r13
@@ -504,7 +494,6 @@ module ScientificNameCanonical
           r10 = nil
         end
         if r10
-          r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
           r0 = r10
         else
           @index = i0
