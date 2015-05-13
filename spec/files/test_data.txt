@@ -358,6 +358,13 @@ Human rhinovirus A11|{"scientificName":{"parsed":false, "parser_version":"test_v
 Kobuvirus korean black goat/South Korea/2010|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Kobuvirus korean black goat/South Korea/2010", "virus":true}}
 Australian bat lyssavirus human/AUS/1998|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Australian bat lyssavirus human/AUS/1998", "virus":true}}
 
+#should not parse non-virus names containing RNA
+ssRNA|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"ssRNA"}}
+Alpha proteobacterium RNA12|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Alpha proteobacterium RNA12"}}
+Ustilaginoidea virens RNA virus|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Ustilaginoidea virens RNA virus", "virus":true}}
+Candida albicans RNA_CTR0-3|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Candida albicans RNA_CTR0-3"}}
+Calathus (Lindrothius) KURNAKOV 1961|{"scientificName":{"parsed":true, "parser_version":"test_version", "verbatim":"Calathus (Lindrothius) KURNAKOV 1961", "normalized":"Calathus (Lindrothius) Kurnakov 1961", "canonical":"Calathus", "hybrid":false, "details":[{"uninomial":{"string":"Calathus", "infragenus":{"string":"Lindrothius"}, "authorship":"KURNAKOV 1961", "basionymAuthorTeam":{"authorTeam":"KURNAKOV", "author":["Kurnakov"], "year":"1961"}}}], "parser_run":1, "positions":{"0":["uninomial", 8], "10":["infragenus", 21], "23":["author_word", 31], "32":["year", 36]}}}
+
 #double parenthesis
 Eichornia crassipes ( (Martius) ) Solms-Laub.|{"scientificName":{"parsed":true, "parser_version":"test_version", "parser_run":2,"verbatim":"Eichornia crassipes ( (Martius) ) Solms-Laub.","normalized":"Eichornia crassipes (Martius) Solms-Laub.","canonical":"Eichornia crassipes","hybrid":false,"details":[{"genus":{"string":"Eichornia"},"species":{"string":"crassipes","authorship":"( (Martius) ) Solms-Laub.","combinationAuthorTeam":{"authorTeam":"Solms-Laub.","author":["Solms-Laub."]},"basionymAuthorTeam":{"authorTeam":"Martius","author":["Martius"]}}}],"positions":{"0":["genus",9],"10":["species",19],"23":["author_word",30],"34":["author_word",45]}}}
 

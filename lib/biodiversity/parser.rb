@@ -167,8 +167,11 @@ class ScientificNameParser
        a_string.match(/[A-Z]?[a-z]+virus\b/))
   end
 
-  def unknown_placement?(a_string)
-    !!(a_string.match(/incertae\s+sedis/i) || a_string.match(/inc\.\s*sed\./i))
+  def noparse?(a_string)
+    incertae_sedis = a_string.match(/incertae\s+sedis/i) ||
+      a_string.match(/inc\.\s*sed\./i)
+    rna = a_string.match(/[^A-Z]RNA[^A-Z]*/)
+    incertae_sedis || rna
   end
 
   def parsed
@@ -181,7 +184,7 @@ class ScientificNameParser
 
     if virus?(a_string)
       @parsed = { verbatim: a_string, virus: true }
-    elsif unknown_placement?(a_string)
+    elsif noparse?(a_string)
       @parsed = { verbatim: a_string }
     else
       begin

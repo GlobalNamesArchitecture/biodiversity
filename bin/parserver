@@ -16,7 +16,7 @@ ARGV.options do |opts|
   script_name = File.basename($0)
   opts.banner = "Usage: #{script_name} [options]"
 
-  opts.separator ''
+  opts.separator ""
 
   opts.on('-r', 
           '--canonical_with_rank', 
