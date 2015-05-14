@@ -165,7 +165,7 @@ class ScientificNameParser
                           phage|phages|viroid|viroids|virophage|
                           prion|prions|NPV)\b/ix) ||
        a_string.match(/[A-Z]?[a-z]+virus\b/) ||
-       a_string.match(/\b[A-Za-z]*satellite[s]?\b/))
+       a_string.match(/\b[A-Za-z]*(satellite[s]?|NPV)\b/))
   end
 
   def noparse?(a_string)
