@@ -161,10 +161,11 @@ class ScientificNameParser
 
   def virus?(a_string)
     !!(a_string.match(/\sICTV\s*$/) ||
-       a_string.match(/\b(virus|viruses|
-                          phage|phages|viroid|viroids|
-                          satellite|satellites|prion|prions)\b/ix) ||
-       a_string.match(/[A-Z]?[a-z]+virus\b/))
+       a_string.match(/\b(virus|viruses|particle|particles|
+                          phage|phages|viroid|viroids|virophage|
+                          prion|prions|NPV)\b/ix) ||
+       a_string.match(/[A-Z]?[a-z]+virus\b/) ||
+       a_string.match(/\b[A-Za-z]*satellite[s]?\b/))
   end
 
   def noparse?(a_string)
