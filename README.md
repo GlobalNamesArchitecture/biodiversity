@@ -93,74 +93,87 @@ of scientific name
 
 You can use it as a library in Ruby, JRuby etc.
 
-    require 'biodiversity'
 
-    parser = ScientificNameParser.new
+```ruby
+require 'biodiversity'
 
-    #to find version number
-    ScientificNameParser.version
+parser = ScientificNameParser.new
 
-    # to fix capitalization in canonicals
-    ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA")
-    # Output: Quercus (Quercus) alba
+#to find version number
+ScientificNameParser.version
 
-    # to parse a scientific name into a ruby hash
-    parser.parse("Plantago major")
+# to fix capitalization in canonicals
+ScientificNameParser.fix_case("QUERCUS (QUERCUS) ALBA")
+# Output: Quercus (Quercus) alba
 
-    #to get json representation
-    parser.parse("Plantago").to_json
-    #or
-    parser.parse("Plantago")
-    parser.all_json
+# to parse a scientific name into a ruby hash
+parser.parse("Plantago major")
 
-    # to clean name up
-    parser.parse("      Plantago       major    ")[:scientificName][:normalized]
+#to get json representation
+parser.parse("Plantago").to_json
+#or
+parser.parse("Plantago")
+parser.all_json
 
-    # to get only cleaned up latin part of the name
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. \
-    Braun & Crous 2003")[:scientificName][:canonical]
+# to clean name up
+parser.parse("      Plantago       major    ")[:scientificName][:normalized]
 
-    # to get detailed information about elements of the name
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
-    Braun & Crous 2003")[:scientificName][:details]
+# to get only cleaned up latin part of the name
+parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. \
+Braun & Crous 2003")[:scientificName][:canonical]
+```
+
+# to get detailed information about elements of the name
+parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
+Braun & Crous 2003")[:scientificName][:details]
 
 Returned result is not always linear, if name is complex. To get simple linear
 representation of the name you can use:
 
-    parser.parse("Pseudocercospora dendrobii (H.C. Burnett) \
-    U. Braun & Crous 2003")[:scientificName][:position]
-    # returns {0=>["genus", 16], 17=>["species", 26],
-    # 28=>["author_word", 32], 33=>["author_word", 40],
-    # 42=>["author_word", 44], 45=>["author_word", 50],
-    # 53=>["author_word", 58], 59=>["year", 63]}
-    # where the key is the char index of the start of
-    # a word, first element of the value is a semantic meaning
-    # of the word, second element of the value is the character index
-    # of end of the word
+
+```ruby
+parser.parse("Pseudocercospora dendrobii (H.C. Burnett) \
+U. Braun & Crous 2003")[:scientificName][:position]
+# returns {0=>["genus", 16], 17=>["species", 26],
+# 28=>["author_word", 32], 33=>["author_word", 40],
+# 42=>["author_word", 44], 45=>["author_word", 50],
+# 53=>["author_word", 58], 59=>["year", 63]}
+# where the key is the char index of the start of
+# a word, first element of the value is a semantic meaning
+# of the word, second element of the value is the character index
+# of end of the word
+```
 
 'Surrogate' is a broad group which includes 'Barcode of Life' names, and various
 undetermined names with cf. sp. spp. nr. in them:
 
-    parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
+```ruby
+parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
+```
 
 To parse using several CPUs (4 seem to be optimal)
 
-    parser = ParallelParser.new
-    # ParallelParser.new(4) will try to run 4 processes if hardware allows
-    array_of_names = ["Betula alba", "Homo sapiens"....]
-    parser.parse(array_of_names)
-    # Output: {"Betula alba" => {:scientificName...},
-    # "Homo sapiens" => {:scientificName...}, ...}
+
+```ruby
+parser = ParallelParser.new
+# ParallelParser.new(4) will try to run 4 processes if hardware allows
+array_of_names = ["Betula alba", "Homo sapiens"....]
+parser.parse(array_of_names)
+# Output: {"Betula alba" => {:scientificName...},
+# "Homo sapiens" => {:scientificName...}, ...}
+```
 
 parallel parser takes list of names and returns back a hash with names as
 keys and parsed data as values
 
 To get canonicals with ranks for infraspecific epithets:
 
-    parser = ScientificNameParser.new(canonical_with_rank: true)
-    parser.parse('Cola cordifolia var. puberula \
-    A. Chev.')[:scientificName][:canonical]
-    # Output: Cola cordifolia var. puberula
+```ruby
+parser = ScientificNameParser.new(canonical_with_rank: true)
+parser.parse('Cola cordifolia var. puberula \
+A. Chev.')[:scientificName][:canonical]
+# Output: Cola cordifolia var. puberula
+```
 
 To resolve lsid and get back RDF file
 
