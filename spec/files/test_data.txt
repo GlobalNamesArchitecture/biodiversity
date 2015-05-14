@@ -373,6 +373,8 @@ Rachiplusia ou MNPV (strain R1)|{"scientificName":{"parsed":false, "parser_versi
 Orgyia pseudotsugata nuclear polyhedrosis virus OpMNPV|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Orgyia pseudotsugata nuclear polyhedrosis virus OpMNPV", "virus":true}}
 Mamestra configurata NPV-A|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Mamestra configurata NPV-A", "virus":true}}
 Helicoverpa armigera SNPV NNg1|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Helicoverpa armigera SNPV NNg1", "virus":true}}
+Zamilon virophage|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Zamilon virophage", "virus":true}}
+Sputnik virophage 3|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"Sputnik virophage 3", "virus":true}}
 
 #should not parse non-virus names containing RNA
 ssRNA|{"scientificName":{"parsed":false, "parser_version":"test_version", "verbatim":"ssRNA"}}

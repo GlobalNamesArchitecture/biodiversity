@@ -1,10 +1,10 @@
 Biodiversity
 ============
 
-[![Gem Version][1]][2]
-[![Continuous Integration Status][3]][4]
-[![CodePolice][5]][6]
-[![Dependency Status][7]][8]
+[![Gem Version][gem_svg]][gem_link]
+[![Continuous Integration Status][ci_svg]][ci_link]
+[![CodePolice][cc_svg]][cc_link]
+[![Dependency Status][deps_svg]][deps_link]
 
 Parses taxonomic scientific name and breaks it into semantic elements.
 
@@ -46,7 +46,7 @@ you can use a socket server
     parserver -h
     Usage: parserver [options]
 
-        -r, --canonical_with_rank        Adds infraspecies rank 
+        -r, --canonical_with_rank        Adds infraspecies rank
                                          to canonical forms
 
         -o, --output=output              Specifies the type of the output:
@@ -65,7 +65,7 @@ you can use a socket server
 
 With default settings you can access parserserver via 4334 port using a
 socket client library of your programming language.  You can find
-[socket client script example][9] in the examples directory of the gem.
+[socket client script example][socket_example] in the examples directory of the gem.
 
 If you want to check if socket server works for you:
 
@@ -140,7 +140,7 @@ representation of the name you can use:
 
 'Surrogate' is a broad group which includes 'Barcode of Life' names, and various
 undetermined names with cf. sp. spp. nr. in them:
-    
+
     parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
 
 To parse using several CPUs (4 seem to be optimal)
@@ -149,10 +149,10 @@ To parse using several CPUs (4 seem to be optimal)
     # ParallelParser.new(4) will try to run 4 processes if hardware allows
     array_of_names = ["Betula alba", "Homo sapiens"....]
     parser.parse(array_of_names)
-    # Output: {"Betula alba" => {:scientificName...}, 
+    # Output: {"Betula alba" => {:scientificName...},
     # "Homo sapiens" => {:scientificName...}, ...}
 
-parallel parser takes list of names and returns back a hash with names as 
+parallel parser takes list of names and returns back a hash with names as
 keys and parsed data as values
 
 To get canonicals with ranks for infraspecific epithets:
@@ -174,7 +174,7 @@ If nnparse or parserver do not start -- try to run
     gem uninstall biodiversity
     gem uninstall biodiversity19
 
-and make sure you remove all versions and all nnparse and parserver scripts. 
+and make sure you remove all versions and all nnparse and parserver scripts.
 Then install biodiversity again
 
     gem install biodiversity
@@ -184,18 +184,19 @@ It should fix the problem.
 Copyright
 ---------
 
-Authors: [Dmitry Mozzherin][10]
+Authors: [Dmitry Mozzherin][dimus]
 
-Copyright (c) 2008-2015 Marine Biological Laboratory. See LICENSE for
-further details.
+Copyright (c) 2008-2015 Marine Biological Laboratory. See [LICENSE][license]
+for further details.
 
-[1]: https://badge.fury.io/rb/biodiversity.png
-[2]: http://badge.fury.io/rb/biodiversity
-[3]: https://secure.travis-ci.org/GlobalNamesArchitecture/biodiversity.png
-[4]: http://travis-ci.org/GlobalNamesArchitecture/biodiversity
-[5]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity.png
-[6]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity
-[7]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity.png
-[8]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity
-[9]: http://bit.ly/149iLm5
-[10]: https://github.com/dimus
+[gem_svg]: https://badge.fury.io/rb/biodiversity.svg
+[gem_link]: http://badge.fury.io/rb/biodiversity
+[ci_svg]: https://secure.travis-ci.org/GlobalNamesArchitecture/biodiversity.svg
+[ci_link]: http://travis-ci.org/GlobalNamesArchitecture/biodiversity
+[cc_svg]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity.svg
+[cc_link]: https://codeclimate.com/github/GlobalNamesArchitecture/biodiversity
+[deps_svg]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity.svg
+[deps_link]: https://gemnasium.com/GlobalNamesArchitecture/biodiversity
+[socket_example]: http://bit.ly/149iLm5
+[dimus]: https://github.com/dimus
+[license]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/LICENSE
