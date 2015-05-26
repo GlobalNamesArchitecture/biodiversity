@@ -1374,7 +1374,7 @@ grammar ScientificNameClean
     /
     a:valid_name_letter "'" b:latin_word {
       def value
-        a.value + "'" + b.value
+        a.value + b.value
       end
     }
     /
