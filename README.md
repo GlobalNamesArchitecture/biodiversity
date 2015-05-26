@@ -12,9 +12,11 @@ Parses taxonomic scientific name and breaks it into semantic elements.
 Support for Ruby 1.8.7 IS DROPPED. Both biodiversity and
 biodiversity19 will be for Ruby > 1.9.1 and will be identical gems.
 
-biodiversity19 is now deprecated and will be phased out in 2015.
+biodiversity19 is now deprecated and will not be updated anymore.
 You are strongly encouraged to change your dependencies from
 biodiversity19 to biodiversity
+
+Follow [biodiversity issues][waffle] on waffle.io
 
 Installation
 ------------
@@ -213,3 +215,4 @@ for further details.
 [socket_example]: http://bit.ly/149iLm5
 [dimus]: https://github.com/dimus
 [license]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/LICENSE
+[waffle]: https://waffle.io/GlobalNamesArchitecture/biodiversity
