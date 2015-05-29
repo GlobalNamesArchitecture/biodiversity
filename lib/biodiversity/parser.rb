@@ -27,7 +27,7 @@ module PreProcessor
       a_string = a_string.gsub(i, '')
     end
     a_string = a_string.tr('ſ','s') #old 's'
-    a_string = a_string.tr('_', ' ') if a_string.match(/\s/).nil?
+    a_string = a_string.tr('_', ' ') if a_string.strip.match(/\s/).nil?
     a_string
   end
 end
