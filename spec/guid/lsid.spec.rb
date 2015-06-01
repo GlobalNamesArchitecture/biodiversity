@@ -1,5 +1,3 @@
-require_relative '../spec_helper'
-
 describe LsidResolver do
   describe '.resolve' do
     let(:lsid) { 'urn:lsid:ubio.org:classificationbank:2232671' }

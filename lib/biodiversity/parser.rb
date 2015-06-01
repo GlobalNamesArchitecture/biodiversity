@@ -1,7 +1,8 @@
 # encoding: UTF-8
-require_relative 'parser/scientific_name_clean'
-require_relative 'parser/scientific_name_dirty'
-require_relative 'parser/scientific_name_canonical'
+require "gn_uuid"
+require_relative "parser/scientific_name_clean"
+require_relative "parser/scientific_name_dirty"
+require_relative "parser/scientific_name_canonical"
 
 module PreProcessor
   NOTES = /\s+(species\s+group|species\s+complex|group|author)\b.*$/i
@@ -24,10 +25,10 @@ module PreProcessor
   def self.clean(a_string)
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2,
      TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
-      a_string = a_string.gsub(i, '')
+      a_string = a_string.gsub(i, "")
     end
-    a_string = a_string.tr('ſ','s') #old 's'
-    a_string = a_string.tr('_', ' ') if a_string.strip.match(/\s/).nil?
+    a_string = a_string.tr("ſ","s") #old "s"
+    a_string = a_string.tr("_", " ") if a_string.strip.match(/\s/).nil?
     a_string
   end
 end
@@ -37,7 +38,7 @@ end
 # Examples
 #
 # parser = ParallelParser.new(4)
-# parser.parse(['Betula L.', 'Pardosa moesta'])
+# parser.parse(["Betula L.", "Pardosa moesta"])
 class ParallelParser
 
   # Public: Initialize ParallelParser.
@@ -46,7 +47,7 @@ class ParallelParser
   #                 If processes number is not set it will be determined
   #                 automatically.
   def initialize(processes_num = nil)
-    require 'parallel'
+    require "parallel"
     cpu_num
     if processes_num.to_i > 0
       @processes_num = [processes_num, cpu_num - 1].min
@@ -67,7 +68,7 @@ class ParallelParser
   # Examples
   #
   # parser = ParallelParser.new(4)
-  # parser.parse(['Homo sapiens L.', 'Quercus quercus'])
+  # parser.parse(["Homo sapiens L.", "Quercus quercus"])
   #
   # Returns a Hash with scientific names as a key, and parsing results as
   # a value.
@@ -109,7 +110,8 @@ class ScientificNameParser
 
   FAILED_RESULT = ->(name) do
     { scientificName:
-      { parsed: false, verbatim: name.to_s.strip,  error: 'Parser error' }
+      { id: GnUUID.uuid(name), parsed: false, verbatim: name,
+        error: "Parser internal error" }
     }
   end
 
@@ -122,7 +124,7 @@ class ScientificNameParser
     words_num = name_ary.size
     res = nil
     if words_num == 1
-      res = name_ary[0].gsub(/[\(\)\{\}]/, '')
+      res = name_ary[0].gsub(/[\(\)\{\}]/, "")
       if res.size > 1
         res = UnicodeUtils.upcase(res[0]) + UnicodeUtils.downcase(res[1..-1])
       else
@@ -136,15 +138,15 @@ class ScientificNameParser
         word1 = name_ary[0]
       end
       if name_ary[1].match(/^\(/)
-        word2 = name_ary[1].gsub(/\)$/, '') + ')'
+        word2 = name_ary[1].gsub(/\)$/, "") + ")"
         word2 = word2[0] + UnicodeUtils.upcase(word2[1]) +
           UnicodeUtils.downcase(word2[2..-1])
       else
         word2 = UnicodeUtils.downcase(name_ary[1])
       end
-      res = word1 + ' ' +
-        word2 + ' ' +
-        name_ary[2..-1].map { |w| UnicodeUtils.downcase(w) }.join(' ')
+      res = word1 + " " +
+        word2 + " " +
+        name_ary[2..-1].map { |w| UnicodeUtils.downcase(w) }.join(" ")
       res.strip!
     end
     res
@@ -153,7 +155,7 @@ class ScientificNameParser
 
   def initialize(opts = {})
     @canonical_with_rank = !!opts[:canonical_with_rank]
-    @verbatim = ''
+    @verbatim = ""
     @clean = ScientificNameCleanParser.new
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
@@ -181,23 +183,23 @@ class ScientificNameParser
   end
 
   def parse(a_string)
-    @verbatim = a_string.strip
+    @verbatim = a_string
     a_string = PreProcessor::clean(a_string)
 
     if virus?(a_string)
-      @parsed = { verbatim: a_string, virus: true }
+      @parsed = { verbatim: @verbatim, virus: true }
     elsif noparse?(a_string)
-      @parsed = { verbatim: a_string }
+      @parsed = { verbatim: @verbatim }
     else
       begin
         @parsed = @clean.parse(a_string) || @dirty.parse(a_string)
         unless @parsed
           index = @dirty.index || @clean.index
           salvage_match = a_string[0..index].split(/\s+/)[0..-2]
-          salvage_string = salvage_match ? salvage_match.join(' ') : a_string
+          salvage_string = salvage_match ? salvage_match.join(" ") : a_string
           @parsed =  @dirty.parse(salvage_string) ||
                      @canonical.parse(a_string) ||
-                     { verbatim: a_string }
+                     { verbatim: @verbatim }
         end
       rescue
         @parsed = FAILED_RESULT.(@verbatim)
@@ -206,12 +208,14 @@ class ScientificNameParser
 
     def @parsed.verbatim=(a_string)
       @verbatim = a_string
+      @id = GnUUID.uuid(@verbatim)
     end
 
     def @parsed.all(opts = {})
       canonical_with_rank = !!opts[:canonical_with_rank]
       parsed = self.class != Hash
-      res = { parsed: parsed, parser_version: ScientificNameParser::version}
+      res = { id: @id, parsed: parsed,
+              parser_version: ScientificNameParser::version}
       if parsed
         hybrid = self.hybrid rescue false
         res.merge!({
@@ -227,7 +231,7 @@ class ScientificNameParser
         res.merge!(self)
       end
       if (canonical_with_rank &&
-          canonical.count(' ') > 1 &&
+          canonical.count(" ") > 1 &&
           res[:details][0][:infraspecies])
         ScientificNameParser.add_rank_to_canonical(res)
       end
@@ -236,11 +240,11 @@ class ScientificNameParser
     end
 
     def @parsed.pos_json
-      self.pos.to_json rescue ''
+      self.pos.to_json rescue ""
     end
 
     def @parsed.all_json
-      self.all.to_json rescue ''
+      self.all.to_json rescue ""
     end
 
     @parsed.verbatim = @verbatim
@@ -257,7 +261,7 @@ class ScientificNameParser
     surrogate2 = /\b(spp|sp|nr|cf)[\.]?[\s]*$/i
     is_surrogate = false
 
-    ai_index = pos.index('annotation_identification')
+    ai_index = pos.index("annotation_identification")
     if ai_index
       ai = name[pos[ai_index - 1]..pos[ai_index + 1]]
       is_surrogate = true if ai.match(/^(spp|cf|sp|nr)/)
@@ -268,15 +272,13 @@ class ScientificNameParser
   end
 
   def self.add_rank_to_canonical(parsed)
-    parts = parsed[:canonical].split(' ')
+    parts = parsed[:canonical].split(" ")
     name_ary = parts[0..1]
     parsed[:details][0][:infraspecies].each do |data|
       infrasp = data[:string]
       rank = data[:rank]
-      name_ary << (rank && rank != 'n/a' ? "#{rank} #{infrasp}" : infrasp)
+      name_ary << (rank && rank != "n/a" ? "#{rank} #{infrasp}" : infrasp)
     end
-    parsed[:canonical] = name_ary.join(' ')
+    parsed[:canonical] = name_ary.join(" ")
   end
-
 end
-

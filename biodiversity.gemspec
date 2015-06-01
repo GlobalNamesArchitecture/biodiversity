@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "treetop", "~> 1.4.1"
   gem.add_runtime_dependency "parallel", "~> 1.4"
   gem.add_runtime_dependency "unicode_utils", "~> 1.4"
+  gem.add_runtime_dependency "gn_uuid", "~> 0.5"
 
   gem.add_development_dependency "bundler", "~> 1.6"
   gem.add_development_dependency "rake", "~> 10.4"

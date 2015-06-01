@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 #NOTE: this spec needs compiled treetop files.
-require_relative '../spec_helper'
 
 describe ScientificNameParser do
   before(:all) do
@@ -48,8 +47,10 @@ describe ScientificNameParser do
 
   it 'generates reasonable output if parser failed' do
     sn = 'ddd sljlkj 3223452432'
-    expect(json(sn)).to eq '{"scientificName":{"parsed":false,' +
-      '"parser_version":"test_version","verbatim":"ddd sljlkj 3223452432"}}'
+    expect(json(sn)).to eq "{\"scientificName\":" \
+      "{\"id\":\"3ebf93d9-b62a-5198-8715-4c8302f0a5d7\",\"parsed\":false," \
+      "\"parser_version\":\"test_version\"," \
+      "\"verbatim\":\"ddd sljlkj 3223452432\"}}"
   end
 
   it 'shows version when the flag :show_version set to true' do
@@ -138,7 +139,7 @@ describe ParallelParser do
     res = pparser.parse(names)
     names.each_with_index do |name, i|
       expect(res[name].is_a?(Hash)).to be true
-      expect(res[name][:scientificName][:verbatim]).to eq name.strip
+      expect(res[name][:scientificName][:verbatim]).to eq name
     end
   end
 end

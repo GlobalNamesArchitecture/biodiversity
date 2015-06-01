@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Biodiversity do
   describe '.version' do
     it 'returns version' do
