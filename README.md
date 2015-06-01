@@ -123,11 +123,11 @@ parser.parse("      Plantago       major    ")[:scientificName][:normalized]
 # to get only cleaned up latin part of the name
 parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. \
 Braun & Crous 2003")[:scientificName][:canonical]
-```
 
 # to get detailed information about elements of the name
 parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
 Braun & Crous 2003")[:scientificName][:details]
+```
 
 Returned result is not always linear, if name is complex. To get simple linear
 representation of the name you can use:
@@ -152,6 +152,12 @@ undetermined names with cf. sp. spp. nr. in them:
 ```ruby
 parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
 ```
+### What is "id" in the parsesd results?
+
+ID field contains UUID v5 hexadecimal string. ID is generated out of bytes
+from the name string itself, and identical id can be generated using [any
+popular programming language][uuid_examples]. You can read more about UUID
+version 5 in a [blog post][uuid_blog]
 
 To parse using several CPUs (4 seem to be optimal)
 
@@ -216,3 +222,5 @@ for further details.
 [dimus]: https://github.com/dimus
 [license]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/LICENSE
 [waffle]: https://waffle.io/GlobalNamesArchitecture/biodiversity
+[uuid_examples]: https://github.com/GlobalNamesArchitecture/gn_uuid_examples
+[uuid_blog]: http://globalnamesarchitecture.github.io/crossmap/gna/2015/05/31/gn-uuid-0-5-0.html
