@@ -7041,14 +7041,18 @@ module ScientificNameClean
   end
 
   module LatinWord2
-    def value
-      "odonelli"
+    def a
+      elements[0]
+    end
+
+    def b
+      elements[2]
     end
   end
 
   module LatinWord3
     def value
-      "oneili"
+      a.value + b.value
     end
   end
 
@@ -7108,49 +7112,54 @@ module ScientificNameClean
     if r1
       r0 = r1
     else
-      if has_terminal?("o'donelli", false, index)
-        r5 = instantiate_node(SyntaxNode,input, index...(index + 9))
+      i5, s5 = index, []
+      r6 = _nt_valid_name_letter
+      s5 << r6
+      if r6
+        if has_terminal?("'", false, index)
+          r7 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure("'")
+          r7 = nil
+        end
+        s5 << r7
+        if r7
+          r8 = _nt_latin_word
+          s5 << r8
+        end
+      end
+      if s5.last
+        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
         r5.extend(LatinWord2)
-        @index += 9
+        r5.extend(LatinWord3)
       else
-        terminal_parse_failure("o'donelli")
+        @index = i5
         r5 = nil
       end
       if r5
         r0 = r5
       else
-        if has_terminal?("o'neili", false, index)
-          r6 = instantiate_node(SyntaxNode,input, index...(index + 7))
-          r6.extend(LatinWord3)
-          @index += 7
-        else
-          terminal_parse_failure("o'neili")
-          r6 = nil
+        i9, s9 = index, []
+        r10 = _nt_valid_name_letter
+        s9 << r10
+        if r10
+          r11 = _nt_valid_name_letters
+          s9 << r11
         end
-        if r6
-          r0 = r6
+        if s9.last
+          r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+          r9.extend(LatinWord4)
+          r9.extend(LatinWord5)
         else
-          i7, s7 = index, []
-          r8 = _nt_valid_name_letter
-          s7 << r8
-          if r8
-            r9 = _nt_valid_name_letters
-            s7 << r9
-          end
-          if s7.last
-            r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
-            r7.extend(LatinWord4)
-            r7.extend(LatinWord5)
-          else
-            @index = i7
-            r7 = nil
-          end
-          if r7
-            r0 = r7
-          else
-            @index = i0
-            r0 = nil
-          end
+          @index = i9
+          r9 = nil
+        end
+        if r9
+          r0 = r9
+        else
+          @index = i0
+          r0 = nil
         end
       end
     end

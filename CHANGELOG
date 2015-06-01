@@ -1,3 +1,8 @@
+3.2.0 -- added UUID version 5 identifiers for every name string, better
+normalizing for the names with apostrophes, underscore-formatted names are
+supported. Minor version increase because of change in the output format ("id"
+field)
+
 3.1.10 -- NPV viruses added
 
 3.1.9 -- more virus keywords, better handling of apostrophes in
