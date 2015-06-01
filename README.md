@@ -159,6 +159,8 @@ from the name string itself, and identical id can be generated using [any
 popular programming language][uuid_examples]. You can read more about UUID
 version 5 in a [blog post][uuid_blog]
 
+For example "Homo sapiens" should generate "16f235a0-e4a3-529c-9b83-bd15fe722110" UUID
+
 ### Parse using several CPUs (4 threads seem to be optimal)
 
 ```ruby
