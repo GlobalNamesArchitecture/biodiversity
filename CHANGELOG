@@ -1,7 +1,11 @@
+3.2.1 -- fix parserver -- it does remove new lines now (before it was not
+necessary as they were stripped in older versions by parser)
+
 3.2.0 -- added UUID version 5 identifiers for every name string, better
 normalizing for the names with apostrophes, underscore-formatted names are
-supported. Minor version increase because of change in the output format ("id"
-field)
+supported. Verbatim field does mean nonchanged input now (before it was
+stripping empty spaces and new lines around name string). Minor version
+increase because of change in the output format ("id" field)
 
 3.1.10 -- NPV viruses added
 

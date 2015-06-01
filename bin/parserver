@@ -50,6 +50,7 @@ OPTIONS[:port] = options[:port].to_i if options[:port].to_i > 0
 OPTIONS[:canonical_with_rank] = !!options[:canonical_with_rank]
 
 def get_output(name_string, parser)
+  name_string.chop!
   begin
     parsed = parser.parse(name_string)
   rescue
