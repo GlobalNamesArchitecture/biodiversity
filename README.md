@@ -173,7 +173,7 @@ parser.parse(array_of_names)
 parallel parser takes list of names and returns back a hash with names as
 keys and parsed data as values
 
-To get canonicals with ranks for infraspecific epithets:
+### Canonicals with ranks for infraspecific epithets:
 
 ```ruby
 parser = ScientificNameParser.new(canonical_with_rank: true)
@@ -182,7 +182,7 @@ A. Chev.')[:scientificName][:canonical]
 # Output: Cola cordifolia var. puberula
 ```
 
-To resolve lsid and get back RDF file
+### Resolving lsid and geting back RDF file
 
     LsidResolver.resolve("urn:lsid:ubio.org:classificationbank:2232671")
 
