@@ -224,4 +224,4 @@ for further details.
 [license]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/LICENSE
 [waffle]: https://waffle.io/GlobalNamesArchitecture/biodiversity
 [uuid_examples]: https://github.com/GlobalNamesArchitecture/gn_uuid_examples
-[uuid_blog]: http://globalnamesarchitecture.github.io/crossmap/gna/2015/05/31/gn-uuid-0-5-0.html
+[uuid_blog]: http://globalnamesarchitecture.github.io/gna/uuid/2015/05/31/gn-uuid-0-5-0.html
