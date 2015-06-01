@@ -152,15 +152,14 @@ undetermined names with cf. sp. spp. nr. in them:
 ```ruby
 parser.parse("Coleoptera BOLD:1234567")[:scientificName][:surrogate]
 ```
-### What is "id" in the parsesd results?
+### What is "id" in the parsed results?
 
 ID field contains UUID v5 hexadecimal string. ID is generated out of bytes
 from the name string itself, and identical id can be generated using [any
 popular programming language][uuid_examples]. You can read more about UUID
 version 5 in a [blog post][uuid_blog]
 
-To parse using several CPUs (4 seem to be optimal)
-
+### Parse using several CPUs (4 threads seem to be optimal)
 
 ```ruby
 parser = ParallelParser.new
