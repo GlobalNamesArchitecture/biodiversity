@@ -54,6 +54,7 @@ ARGV.options do |opts|
 end
 
 OPTIONS[:output] = options[:output] if ['canonical'].include?(options[:output])
+OPTIONS[:host] = options[:host] if options[:host]
 OPTIONS[:port] = options[:port].to_i if options[:port].to_i > 0
 OPTIONS[:canonical_with_rank] = !!options[:canonical_with_rank]
 
