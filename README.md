@@ -52,9 +52,13 @@ you can use a socket server
                                          to canonical forms
 
         -o, --output=output              Specifies the type of the output:
-        json - parsed results in json
-        canonical - canonical form only
+                                         json - parsed results in json
+                                         canonical - canonical form only
                                          Default: json
+
+        -H, --host=host                  Specifies host as "127.0.0.1",
+                                         "localhost" etc.
+                                         Default: 127.0.0.1
 
         -p, --port=port                  Specifies the port number
                                          Default: 4334

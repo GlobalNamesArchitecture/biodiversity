@@ -1,4 +1,8 @@
+
+3.3.0 -- parserver gets new option -- -H for host, default 127.0.0.1
+
 3.2.1 -- fix parserver -- it does remove new lines now (before it was not
+necessary as they were stripped in older versions by parser)
 necessary as they were stripped in older versions by parser)
 
 3.2.0 -- added UUID version 5 identifiers for every name string, better
