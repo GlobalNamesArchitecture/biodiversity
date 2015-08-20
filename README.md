@@ -128,6 +128,15 @@ parser.parse("      Plantago       major    ")[:scientificName][:normalized]
 parser.parse("Pseudocercospora dendrobii (H.C. Burnett) U. \
 Braun & Crous 2003")[:scientificName][:canonical]
 
+# to get canonical form with infraspecies ranks
+parsed = parser.parse("Seddera latifolia Hochst. & Steud. var. latifolia")
+ranked = ScientificNameParser.add_rank_to_canonical(parsed)
+ranked[:scientificName][:canonical]
+#or
+parser = ScientificNameParser.new(canonical_with_rank: true)
+ranked = parser.parse("Seddera latifolia Hochst. & Steud. var. latifolia")
+ranked[:scientificName][:canonical]
+
 # to get detailed information about elements of the name
 parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
 Braun & Crous 2003")[:scientificName][:details]

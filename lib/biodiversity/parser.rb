@@ -115,6 +115,20 @@ class ScientificNameParser
     }
   end
 
+  def self.add_rank_to_canonical(parsed)
+    return parsed if parsed[:scientificName][:hybrid]
+    name = parsed[:scientificName]
+    parts = name[:canonical].split(" ")
+    name_ary = parts[0..1]
+    name[:details][0][:infraspecies].each do |data|
+      infrasp = data[:string]
+      rank = data[:rank]
+      name_ary << (rank && rank != "n/a" ? "#{rank} #{infrasp}" : infrasp)
+    end
+    parsed[:scientificName][:canonical] = name_ary.join(" ")
+    parsed
+  end
+
   def self.version
     Biodiversity::VERSION
   end
@@ -230,13 +244,14 @@ class ScientificNameParser
       else
         res.merge!(self)
       end
-      if (canonical_with_rank &&
-          canonical.count(" ") > 1 &&
-          res[:details][0][:infraspecies])
-        ScientificNameParser.add_rank_to_canonical(res)
-      end
       res[:surrogate] = true if ScientificNameParser.surrogate?(res)
       res = {:scientificName => res}
+      if (canonical_with_rank &&
+          canonical.count(" ") > 1 &&
+          res[:scientificName][:details][0][:infraspecies])
+        ScientificNameParser.add_rank_to_canonical(res)
+      end
+      res
     end
 
     def @parsed.pos_json
@@ -269,16 +284,5 @@ class ScientificNameParser
     is_surrogate = true if !is_surrogate && (name.match(surrogate1) ||
                      name.match(surrogate2))
     is_surrogate
-  end
-
-  def self.add_rank_to_canonical(parsed)
-    parts = parsed[:canonical].split(" ")
-    name_ary = parts[0..1]
-    parsed[:details][0][:infraspecies].each do |data|
-      infrasp = data[:string]
-      rank = data[:rank]
-      name_ary << (rank && rank != "n/a" ? "#{rank} #{infrasp}" : infrasp)
-    end
-    parsed[:canonical] = name_ary.join(" ")
   end
 end
