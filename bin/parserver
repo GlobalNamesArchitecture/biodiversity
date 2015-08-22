@@ -36,7 +36,7 @@ ARGV.options do |opts|
   opts.separator ""
 
   opts.on("-H", "--host=host", String,
-          "Specifies host as "127.0.0.1", "localhost" etc.",
+          "Specifies host as '127.0.0.1', 'localhost' etc.",
           "Default: #{DEFAULT_HOST}") { |host| options[:host] = host }
 
   opts.separator ""
