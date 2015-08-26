@@ -5241,6 +5241,9 @@ module ScientificNameClean
   end
 
   module AuthorWord3
+  end
+
+  module AuthorWord4
     def value
       text_value.gsub(/([\p{Lu}]{3,})/) do |match|
         UnicodeUtils.titlecase(match)
@@ -5256,10 +5259,10 @@ module ScientificNameClean
     end
   end
 
-  module AuthorWord4
+  module AuthorWord5
   end
 
-  module AuthorWord5
+  module AuthorWord6
     def value
       text_value
     end
@@ -5351,11 +5354,29 @@ module ScientificNameClean
         r0 = r2
       else
         i7, s7 = index, []
-        if has_terminal?("d'", false, index)
-          r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        i9, s9 = index, []
+        if has_terminal?("d", false, index)
+          r10 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
         else
-          terminal_parse_failure("d'")
+          terminal_parse_failure("d")
+          r10 = nil
+        end
+        s9 << r10
+        if r10
+          if has_terminal?('\G[\'’]', true, index)
+            r11 = true
+            @index += 1
+          else
+            r11 = nil
+          end
+          s9 << r11
+        end
+        if s9.last
+          r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+          r9.extend(AuthorWord2)
+        else
+          @index = i9
           r9 = nil
         end
         if r9
@@ -5365,147 +5386,147 @@ module ScientificNameClean
         end
         s7 << r8
         if r8
-          i10 = index
+          i12 = index
           if has_terminal?("Å", false, index)
-            r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
             terminal_parse_failure("Å")
-            r11 = nil
+            r13 = nil
           end
-          if r11
-            r10 = r11
+          if r13
+            r12 = r13
           else
             if has_terminal?("Ö", false, index)
-              r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
               @index += 1
             else
               terminal_parse_failure("Ö")
-              r12 = nil
+              r14 = nil
             end
-            if r12
-              r10 = r12
+            if r14
+              r12 = r14
             else
               if has_terminal?("Á", false, index)
-                r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
                 @index += 1
               else
                 terminal_parse_failure("Á")
-                r13 = nil
+                r15 = nil
               end
-              if r13
-                r10 = r13
+              if r15
+                r12 = r15
               else
                 if has_terminal?("Ø", false, index)
-                  r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
                   @index += 1
                 else
                   terminal_parse_failure("Ø")
-                  r14 = nil
+                  r16 = nil
                 end
-                if r14
-                  r10 = r14
+                if r16
+                  r12 = r16
                 else
                   if has_terminal?("Ô", false, index)
-                    r15 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                    r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
                     @index += 1
                   else
                     terminal_parse_failure("Ô")
-                    r15 = nil
+                    r17 = nil
                   end
-                  if r15
-                    r10 = r15
+                  if r17
+                    r12 = r17
                   else
                     if has_terminal?("Š", false, index)
-                      r16 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                      r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
                       @index += 1
                     else
                       terminal_parse_failure("Š")
-                      r16 = nil
+                      r18 = nil
                     end
-                    if r16
-                      r10 = r16
+                    if r18
+                      r12 = r18
                     else
                       if has_terminal?("Ś", false, index)
-                        r17 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                        r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
                         @index += 1
                       else
                         terminal_parse_failure("Ś")
-                        r17 = nil
+                        r19 = nil
                       end
-                      if r17
-                        r10 = r17
+                      if r19
+                        r12 = r19
                       else
                         if has_terminal?("Č", false, index)
-                          r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                          r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
                           @index += 1
                         else
                           terminal_parse_failure("Č")
-                          r18 = nil
+                          r20 = nil
                         end
-                        if r18
-                          r10 = r18
+                        if r20
+                          r12 = r20
                         else
                           if has_terminal?("Ķ", false, index)
-                            r19 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                            r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
                             @index += 1
                           else
                             terminal_parse_failure("Ķ")
-                            r19 = nil
+                            r21 = nil
                           end
-                          if r19
-                            r10 = r19
+                          if r21
+                            r12 = r21
                           else
                             if has_terminal?("Ł", false, index)
-                              r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                              r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
                               @index += 1
                             else
                               terminal_parse_failure("Ł")
-                              r20 = nil
+                              r22 = nil
                             end
-                            if r20
-                              r10 = r20
+                            if r22
+                              r12 = r22
                             else
                               if has_terminal?("É", false, index)
-                                r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                r23 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                 @index += 1
                               else
                                 terminal_parse_failure("É")
-                                r21 = nil
+                                r23 = nil
                               end
-                              if r21
-                                r10 = r21
+                              if r23
+                                r12 = r23
                               else
                                 if has_terminal?("Ž", false, index)
-                                  r22 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                                  r24 = instantiate_node(SyntaxNode,input, index...(index + 1))
                                   @index += 1
                                 else
                                   terminal_parse_failure("Ž")
-                                  r22 = nil
+                                  r24 = nil
                                 end
-                                if r22
-                                  r10 = r22
+                                if r24
+                                  r12 = r24
                                 else
                                   if has_terminal?('\G[A-W]', true, index)
-                                    r23 = true
+                                    r25 = true
                                     @index += 1
                                   else
-                                    r23 = nil
+                                    r25 = nil
                                   end
-                                  if r23
-                                    r10 = r23
+                                  if r25
+                                    r12 = r25
                                   else
                                     if has_terminal?('\G[Y-Z]', true, index)
-                                      r24 = true
+                                      r26 = true
                                       @index += 1
                                     else
-                                      r24 = nil
+                                      r26 = nil
                                     end
-                                    if r24
-                                      r10 = r24
+                                    if r26
+                                      r12 = r26
                                     else
-                                      @index = i10
-                                      r10 = nil
+                                      @index = i12
+                                      r12 = nil
                                     end
                                   end
                                 end
@@ -5520,30 +5541,30 @@ module ScientificNameClean
               end
             end
           end
-          s7 << r10
-          if r10
-            s25, i25 = [], index
+          s7 << r12
+          if r12
+            s27, i27 = [], index
             loop do
               if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
-                r26 = true
+                r28 = true
                 @index += 1
               else
-                r26 = nil
+                r28 = nil
               end
-              if r26
-                s25 << r26
+              if r28
+                s27 << r28
               else
                 break
               end
             end
-            r25 = instantiate_node(SyntaxNode,input, i25...index, s25)
-            s7 << r25
+            r27 = instantiate_node(SyntaxNode,input, i27...index, s27)
+            s7 << r27
           end
         end
         if s7.last
           r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
-          r7.extend(AuthorWord2)
           r7.extend(AuthorWord3)
+          r7.extend(AuthorWord4)
         else
           @index = i7
           r7 = nil
@@ -5551,52 +5572,52 @@ module ScientificNameClean
         if r7
           r0 = r7
         else
-          i27, s27 = index, []
+          i29, s29 = index, []
           if has_terminal?("X", false, index)
-            r28 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            r30 = instantiate_node(SyntaxNode,input, index...(index + 1))
             @index += 1
           else
             terminal_parse_failure("X")
-            r28 = nil
+            r30 = nil
           end
-          s27 << r28
-          if r28
-            s29, i29 = [], index
+          s29 << r30
+          if r30
+            s31, i31 = [], index
             loop do
               if has_terminal?('\G[^0-9\\[\\]\\(\\)\\s&,]', true, index)
-                r30 = true
+                r32 = true
                 @index += 1
               else
-                r30 = nil
+                r32 = nil
               end
-              if r30
-                s29 << r30
+              if r32
+                s31 << r32
               else
                 break
               end
             end
-            if s29.empty?
-              @index = i29
-              r29 = nil
+            if s31.empty?
+              @index = i31
+              r31 = nil
             else
-              r29 = instantiate_node(SyntaxNode,input, i29...index, s29)
+              r31 = instantiate_node(SyntaxNode,input, i31...index, s31)
             end
-            s27 << r29
+            s29 << r31
           end
-          if s27.last
-            r27 = instantiate_node(SyntaxNode,input, i27...index, s27)
-            r27.extend(AuthorWord4)
-            r27.extend(AuthorWord5)
+          if s29.last
+            r29 = instantiate_node(SyntaxNode,input, i29...index, s29)
+            r29.extend(AuthorWord5)
+            r29.extend(AuthorWord6)
           else
-            @index = i27
-            r27 = nil
+            @index = i29
+            r29 = nil
           end
-          if r27
-            r0 = r27
+          if r29
+            r0 = r29
           else
-            r31 = _nt_author_prefix_word
-            if r31
-              r0 = r31
+            r33 = _nt_author_prefix_word
+            if r33
+              r0 = r33
             else
               @index = i0
               r0 = nil
