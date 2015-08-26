@@ -1136,7 +1136,7 @@ grammar ScientificNameClean
       end
     }
     /
-    "d'"? ("Å"/"Ö"/"Á"/"Ø"/"Ô"/"Š"/"Ś"/"Č"/"Ķ"/"Ł"/"É"/"Ž"/[A-W]/[Y-Z]) [^0-9\[\]\(\)\s&,]* {
+    ("d" ['’])? ("Å"/"Ö"/"Á"/"Ø"/"Ô"/"Š"/"Ś"/"Č"/"Ķ"/"Ł"/"É"/"Ž"/[A-W]/[Y-Z]) [^0-9\[\]\(\)\s&,]* {
       def value
         text_value.gsub(/([\p{Lu}]{3,})/) do |match|
           UnicodeUtils.titlecase(match)
