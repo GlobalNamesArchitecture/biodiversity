@@ -1,3 +1,5 @@
+3.4.1 -- support for authors starting with "d'"
+
 3.4.0 -- added ScientificNameParser.add_rank_to_canonical(parsed) method.
          This method allows to add infraspecific rank to a canonical form
          after the fact of parsing.
