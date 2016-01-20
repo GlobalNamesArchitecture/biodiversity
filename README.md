@@ -1,6 +1,7 @@
 Biodiversity
 ============
 
+[![DOI](https://zenodo.org/badge/19435/GlobalNamesArchitecture/biodiversity.svg)](https://zenodo.org/badge/latestdoi/19435/GlobalNamesArchitecture/biodiversity)
 [![Gem Version][gem_svg]][gem_link]
 [![Continuous Integration Status][ci_svg]][ci_link]
 [![CodePolice][cc_svg]][cc_link]
