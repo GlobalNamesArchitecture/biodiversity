@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.executables   = ["nnparse", "parserver"]
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency "treetop", "~> 1.4.1"
+  gem.add_runtime_dependency "treetop", "~> 1.6.8"
   gem.add_runtime_dependency "parallel", "~> 1.4"
   gem.add_runtime_dependency "unicode_utils", "~> 1.4"
   gem.add_runtime_dependency "gn_uuid", "~> 0.5"
