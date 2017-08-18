@@ -1,3 +1,4 @@
+3.4.2 -- update treetop to 1.6
 3.4.1 -- support for authors starting with "d'"
 
 3.4.0 -- added ScientificNameParser.add_rank_to_canonical(parsed) method.
