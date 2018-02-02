@@ -1,3 +1,6 @@
+3.4.3 -- add "fil." as a possible spelling of "filius", add "do" as an author
+         prefix, add "apud" as an author separator, add possible second "ex" or
+         "in"
 3.4.2 -- update treetop to 1.6
 3.4.1 -- support for authors starting with "d'"
 

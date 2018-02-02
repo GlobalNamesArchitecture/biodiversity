@@ -56,7 +56,7 @@ module ScientificNameDirty
     if node_cache[:root].has_key?(index)
       cached = node_cache[:root][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:root][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -120,7 +120,7 @@ module ScientificNameDirty
     if node_cache[:scientific_name_5].has_key?(index)
       cached = node_cache[:scientific_name_5][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:scientific_name_5][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -143,10 +143,12 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r4 = super
       if r4
+        r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
         r0 = r4
       else
         @index = i0
@@ -236,7 +238,7 @@ module ScientificNameDirty
     if node_cache[:infraspecies].has_key?(index)
       cached = node_cache[:infraspecies][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:infraspecies][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -263,6 +265,7 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i5, s5 = index, []
@@ -293,10 +296,12 @@ module ScientificNameDirty
         r5 = nil
       end
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         r11 = super
         if r11
+          r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
           r0 = r11
         else
           @index = i0
@@ -347,7 +352,7 @@ module ScientificNameDirty
     if node_cache[:species].has_key?(index)
       cached = node_cache[:species][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:species][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -374,10 +379,12 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = super
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -418,17 +425,18 @@ module ScientificNameDirty
     if node_cache[:latin_word].has_key?(index)
       cached = node_cache[:latin_word][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:latin_word][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]', true, index)
+    if has_terminal?(@regexps[gr = '\A[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]'] ||= Regexp.new(gr), :regexp, index)
       r1 = true
       @index += 1
     else
+      terminal_parse_failure('[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]')
       r1 = nil
     end
     s0 << r1
@@ -469,7 +477,7 @@ module ScientificNameDirty
     if node_cache[:valid_name_letters].has_key?(index)
       cached = node_cache[:valid_name_letters][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:valid_name_letters][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -477,10 +485,11 @@ module ScientificNameDirty
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z\\-æœàâåãäáçčëéèíìïňññóòôøõöúùüŕřŗššşž]')
         r1 = nil
       end
       if r1
@@ -494,6 +503,7 @@ module ScientificNameDirty
       r0 = nil
     else
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(ValidNameLetters0)
       r0.extend(ValidNameLetters0)
     end
 
@@ -514,7 +524,7 @@ module ScientificNameDirty
     if node_cache[:right_paren].has_key?(index)
       cached = node_cache[:right_paren][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:right_paren][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -522,11 +532,11 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    if has_terminal?(")", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?(")", false, index))
+      r2 = true
+      @index += match_len
     else
-      terminal_parse_failure(")")
+      terminal_parse_failure('")"')
       r2 = nil
     end
     s1 << r2
@@ -534,11 +544,11 @@ module ScientificNameDirty
       r3 = _nt_space
       s1 << r3
       if r3
-        if has_terminal?(")", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(")", false, index))
+          r4 = true
+          @index += match_len
         else
-          terminal_parse_failure(")")
+          terminal_parse_failure('")"')
           r4 = nil
         end
         s1 << r4
@@ -552,10 +562,12 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = super
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -580,7 +592,7 @@ module ScientificNameDirty
     if node_cache[:left_paren].has_key?(index)
       cached = node_cache[:left_paren][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:left_paren][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -588,11 +600,11 @@ module ScientificNameDirty
 
     i0 = index
     i1, s1 = index, []
-    if has_terminal?("(", false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?("(", false, index))
+      r2 = true
+      @index += match_len
     else
-      terminal_parse_failure("(")
+      terminal_parse_failure('"("')
       r2 = nil
     end
     s1 << r2
@@ -600,11 +612,11 @@ module ScientificNameDirty
       r3 = _nt_space
       s1 << r3
       if r3
-        if has_terminal?("(", false, index)
-          r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("(", false, index))
+          r4 = true
+          @index += match_len
         else
-          terminal_parse_failure("(")
+          terminal_parse_failure('"("')
           r4 = nil
         end
         s1 << r4
@@ -618,10 +630,12 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       r5 = super
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         @index = i0
@@ -695,7 +709,7 @@ module ScientificNameDirty
     if node_cache[:year].has_key?(index)
       cached = node_cache[:year][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:year][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -722,6 +736,7 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i5, s5 = index, []
@@ -744,22 +759,27 @@ module ScientificNameDirty
         r5 = nil
       end
       if r5
+        r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
         r0 = r5
       else
         r9 = _nt_year_number_with_punctuation
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           r10 = _nt_approximate_year
           if r10
+            r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
             r0 = r10
           else
             r11 = _nt_double_year
             if r11
+              r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
               r0 = r11
             else
               r12 = super
               if r12
+                r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                 r0 = r12
               else
                 @index = i0
@@ -810,18 +830,18 @@ module ScientificNameDirty
     if node_cache[:approximate_year].has_key?(index)
       cached = node_cache[:approximate_year][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:approximate_year][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?("[", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?("[", false, index))
+      r1 = true
+      @index += match_len
     else
-      terminal_parse_failure("[")
+      terminal_parse_failure('"["')
       r1 = nil
     end
     s0 << r1
@@ -837,11 +857,11 @@ module ScientificNameDirty
           if r4
             s5, i5 = [], index
             loop do
-              if has_terminal?("]", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?("]", false, index))
+                r6 = true
+                @index += match_len
               else
-                terminal_parse_failure("]")
+                terminal_parse_failure('"]"')
                 r6 = nil
               end
               if r6
@@ -901,7 +921,7 @@ module ScientificNameDirty
     if node_cache[:double_year].has_key?(index)
       cached = node_cache[:double_year][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:double_year][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -911,21 +931,22 @@ module ScientificNameDirty
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if has_terminal?("-", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("-", false, index))
+        r2 = true
+        @index += match_len
       else
-        terminal_parse_failure("-")
+        terminal_parse_failure('"-"')
         r2 = nil
       end
       s0 << r2
       if r2
         s3, i3 = [], index
         loop do
-          if has_terminal?('\G[0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
             r4 = true
             @index += 1
           else
+            terminal_parse_failure('[0-9]')
             r4 = nil
           end
           if r4
@@ -942,10 +963,11 @@ module ScientificNameDirty
         end
         s0 << r3
         if r3
-          if has_terminal?('\G[A-Za-z]', true, index)
+          if has_terminal?(@regexps[gr = '\A[A-Za-z]'] ||= Regexp.new(gr), :regexp, index)
             r6 = true
             @index += 1
           else
+            terminal_parse_failure('[A-Za-z]')
             r6 = nil
           end
           if r6
@@ -955,10 +977,11 @@ module ScientificNameDirty
           end
           s0 << r5
           if r5
-            if has_terminal?('\G[\\?]', true, index)
+            if has_terminal?(@regexps[gr = '\A[\\?]'] ||= Regexp.new(gr), :regexp, index)
               r8 = true
               @index += 1
             else
+              terminal_parse_failure('[\\?]')
               r8 = nil
             end
             if r8
@@ -1011,7 +1034,7 @@ module ScientificNameDirty
     if node_cache[:year_number_with_punctuation].has_key?(index)
       cached = node_cache[:year_number_with_punctuation][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:year_number_with_punctuation][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1021,11 +1044,11 @@ module ScientificNameDirty
     r1 = _nt_year_number
     s0 << r1
     if r1
-      if has_terminal?(".", false, index)
-        r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?(".", false, index))
+        r2 = true
+        @index += match_len
       else
-        terminal_parse_failure(".")
+        terminal_parse_failure('"."')
         r2 = nil
       end
       s0 << r2
@@ -1061,18 +1084,18 @@ module ScientificNameDirty
     if node_cache[:page_number].has_key?(index)
       cached = node_cache[:page_number][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:page_number][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
     i0, s0 = index, []
-    if has_terminal?(":", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-      @index += 1
+    if (match_len = has_terminal?(":", false, index))
+      r1 = true
+      @index += match_len
     else
-      terminal_parse_failure(":")
+      terminal_parse_failure('":"')
       r1 = nil
     end
     s0 << r1
@@ -1082,10 +1105,11 @@ module ScientificNameDirty
       if r2
         s3, i3 = [], index
         loop do
-          if has_terminal?('\G[\\d]', true, index)
+          if has_terminal?(@regexps[gr = '\A[\\d]'] ||= Regexp.new(gr), :regexp, index)
             r4 = true
             @index += 1
           else
+            terminal_parse_failure('[\\d]')
             r4 = nil
           end
           if r4
@@ -1122,17 +1146,17 @@ module ScientificNameDirty
     if node_cache[:string_authorship_inconsistencies].has_key?(index)
       cached = node_cache[:string_authorship_inconsistencies][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:string_authorship_inconsistencies][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
     end
 
-    if has_terminal?("corrig.", false, index)
-      r0 = instantiate_node(SyntaxNode,input, index...(index + 7))
-      @index += 7
+    if (match_len = has_terminal?("corrig.", false, index))
+      r0 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+      @index += match_len
     else
-      terminal_parse_failure("corrig.")
+      terminal_parse_failure('"corrig."')
       r0 = nil
     end
 
@@ -1164,7 +1188,7 @@ module ScientificNameDirty
     if node_cache[:garbage].has_key?(index)
       cached = node_cache[:garbage][index]
       if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        node_cache[:garbage][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
       end
       return cached
@@ -1175,10 +1199,11 @@ module ScientificNameDirty
     r2 = _nt_space
     s1 << r2
     if r2
-      if has_terminal?('\G["\',]', true, index)
+      if has_terminal?(@regexps[gr = '\A["\',]'] ||= Regexp.new(gr), :regexp, index)
         r3 = true
         @index += 1
       else
+        terminal_parse_failure('["\',]')
         r3 = nil
       end
       s1 << r3
@@ -1188,10 +1213,11 @@ module ScientificNameDirty
         if r4
           s5, i5 = [], index
           loop do
-            if has_terminal?('\G[^щ]', true, index)
+            if has_terminal?(@regexps[gr = '\A[^щ]'] ||= Regexp.new(gr), :regexp, index)
               r6 = true
               @index += 1
             else
+              terminal_parse_failure('[^щ]')
               r6 = nil
             end
             if r6
@@ -1213,6 +1239,7 @@ module ScientificNameDirty
       r1 = nil
     end
     if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
       r0 = r1
     else
       i7, s7 = index, []
@@ -1221,10 +1248,11 @@ module ScientificNameDirty
       if r8
         s9, i9 = [], index
         loop do
-          if has_terminal?('\G[^ш]', true, index)
+          if has_terminal?(@regexps[gr = '\A[^ш]'] ||= Regexp.new(gr), :regexp, index)
             r10 = true
             @index += 1
           else
+            terminal_parse_failure('[^ш]')
             r10 = nil
           end
           if r10
@@ -1249,6 +1277,7 @@ module ScientificNameDirty
         r7 = nil
       end
       if r7
+        r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
         r0 = r7
       else
         @index = i0

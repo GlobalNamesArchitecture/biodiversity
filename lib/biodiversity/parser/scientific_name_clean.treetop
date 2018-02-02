@@ -816,6 +816,22 @@ grammar ScientificNameClean
       end
     }
     /
+    a:basionym_authorship_with_parenthesis space b:simple_authorship ","? space c:ex_authorship {
+      def value
+        a.value + " " + b.value + " " + c.value
+      end
+
+      def pos
+        a.pos.merge(b.pos).merge(c.pos)
+      end
+
+      def details
+        val = {:authorship => text_value.strip, :combinationAuthorTeam => b.details[:basionymAuthorTeam], :basionymAuthorTeam => a.details[:basionymAuthorTeam]}
+        val[:combinationAuthorTeam].merge!(c.details)
+        val
+      end
+    }
+    /
     a:basionym_authorship_with_parenthesis space b:simple_authorship {
       def value
         a.value + " " + b.value
@@ -919,6 +935,21 @@ grammar ScientificNameClean
   end
 
   rule ex_authorship
+    ex_sep space b:simple_authorship space ex_sep space c:simple_authorship {
+      def value
+        " ex " + b.value + " ex " + c.value
+      end
+
+      def pos
+        b.pos
+      end
+
+      def details
+        val = {:exAuthorTeam => {:authorTeam => b.text_value.strip}.merge(b.details[:basionymAuthorTeam])}
+        val
+      end
+    }
+    /
     ex_sep space b:simple_authorship {
       def value
         " ex " + b.value
@@ -1039,10 +1070,11 @@ grammar ScientificNameClean
   end
 
   rule author_separator
-    ("&amp;"/"&"/","/"and"/"et") {
+    ("&amp;"/"&"/","/"apud"/"and"/"et") {
       def apply(a,b)
         sep = text_value.strip
         sep = " &" if ["&amp;", "&","and","et"].include? sep
+        sep = " apud" if sep == "apud"
         a.value + sep + " " + b.value
       end
 
@@ -1170,7 +1202,7 @@ grammar ScientificNameClean
   end
 
   rule author_prefix_word
-    space ("ab"/"af"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"af"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"do"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
@@ -1183,7 +1215,7 @@ grammar ScientificNameClean
   end
 
   rule author_postfix_word
-    ("f."/"filius") {
+    ("f."/"fil."/"filius") {
       def value
         text_value.strip
       end
