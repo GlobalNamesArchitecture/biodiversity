@@ -14,7 +14,7 @@ module PreProcessor
                      \(?s\.\s?lat\.|
                     sec\.|sec|near)\b.*$/x
   TAXON_CONCEPTS3 = /(,\s*|\s+)(pro parte|p\.\s?p\.)\s*$/i
-  NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen|\(?nom\.|\(?comb\.).*$/i
+  NOMEN_CONCEPTS  = /(,\s*|\s+)(\(?nomen\b|\(?nom\.|\(?comb\.).*$/i
   LAST_WORD_JUNK  = /(,\s*|\s+)
                     (spp\.|spp|var\.|
                      var|von|van|ined\.|

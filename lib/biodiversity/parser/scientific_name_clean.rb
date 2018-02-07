@@ -2212,11 +2212,11 @@ module ScientificNameClean
                       r0.extend(Rank0)
                       r0.extend(Rank0)
                     else
-                      if (match_len = has_terminal?("pseudovar.", false, index))
+                      if (match_len = has_terminal?("nvar.", false, index))
                         r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                         @index += match_len
                       else
-                        terminal_parse_failure('"pseudovar."')
+                        terminal_parse_failure('"nvar."')
                         r10 = nil
                       end
                       if r10
@@ -2225,11 +2225,11 @@ module ScientificNameClean
                         r0.extend(Rank0)
                         r0.extend(Rank0)
                       else
-                        if (match_len = has_terminal?("sect.", false, index))
+                        if (match_len = has_terminal?("pseudovar.", false, index))
                           r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                           @index += match_len
                         else
-                          terminal_parse_failure('"sect."')
+                          terminal_parse_failure('"pseudovar."')
                           r11 = nil
                         end
                         if r11
@@ -2238,11 +2238,11 @@ module ScientificNameClean
                           r0.extend(Rank0)
                           r0.extend(Rank0)
                         else
-                          if (match_len = has_terminal?("ser.", false, index))
+                          if (match_len = has_terminal?("sect.", false, index))
                             r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                             @index += match_len
                           else
-                            terminal_parse_failure('"ser."')
+                            terminal_parse_failure('"sect."')
                             r12 = nil
                           end
                           if r12
@@ -2251,11 +2251,11 @@ module ScientificNameClean
                             r0.extend(Rank0)
                             r0.extend(Rank0)
                           else
-                            if (match_len = has_terminal?("var.", false, index))
+                            if (match_len = has_terminal?("ser.", false, index))
                               r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                               @index += match_len
                             else
-                              terminal_parse_failure('"var."')
+                              terminal_parse_failure('"ser."')
                               r13 = nil
                             end
                             if r13
@@ -2264,11 +2264,11 @@ module ScientificNameClean
                               r0.extend(Rank0)
                               r0.extend(Rank0)
                             else
-                              if (match_len = has_terminal?("subvar.", false, index))
+                              if (match_len = has_terminal?("var.", false, index))
                                 r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                 @index += match_len
                               else
-                                terminal_parse_failure('"subvar."')
+                                terminal_parse_failure('"var."')
                                 r14 = nil
                               end
                               if r14
@@ -2277,11 +2277,11 @@ module ScientificNameClean
                                 r0.extend(Rank0)
                                 r0.extend(Rank0)
                               else
-                                if (match_len = has_terminal?("[var.]", false, index))
+                                if (match_len = has_terminal?("subvar.", false, index))
                                   r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                   @index += match_len
                                 else
-                                  terminal_parse_failure('"[var.]"')
+                                  terminal_parse_failure('"subvar."')
                                   r15 = nil
                                 end
                                 if r15
@@ -2290,11 +2290,11 @@ module ScientificNameClean
                                   r0.extend(Rank0)
                                   r0.extend(Rank0)
                                 else
-                                  if (match_len = has_terminal?("var ", false, index))
+                                  if (match_len = has_terminal?("[var.]", false, index))
                                     r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                     @index += match_len
                                   else
-                                    terminal_parse_failure('"var "')
+                                    terminal_parse_failure('"[var.]"')
                                     r16 = nil
                                   end
                                   if r16
@@ -2303,11 +2303,11 @@ module ScientificNameClean
                                     r0.extend(Rank0)
                                     r0.extend(Rank0)
                                   else
-                                    if (match_len = has_terminal?("subsp.", false, index))
+                                    if (match_len = has_terminal?("var ", false, index))
                                       r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                       @index += match_len
                                     else
-                                      terminal_parse_failure('"subsp."')
+                                      terminal_parse_failure('"var "')
                                       r17 = nil
                                     end
                                     if r17
@@ -2316,11 +2316,11 @@ module ScientificNameClean
                                       r0.extend(Rank0)
                                       r0.extend(Rank0)
                                     else
-                                      if (match_len = has_terminal?("subsp ", false, index))
+                                      if (match_len = has_terminal?("subsp.", false, index))
                                         r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                         @index += match_len
                                       else
-                                        terminal_parse_failure('"subsp "')
+                                        terminal_parse_failure('"subsp."')
                                         r18 = nil
                                       end
                                       if r18
@@ -2329,11 +2329,11 @@ module ScientificNameClean
                                         r0.extend(Rank0)
                                         r0.extend(Rank0)
                                       else
-                                        if (match_len = has_terminal?("subf.", false, index))
+                                        if (match_len = has_terminal?("subsp ", false, index))
                                           r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                           @index += match_len
                                         else
-                                          terminal_parse_failure('"subf."')
+                                          terminal_parse_failure('"subsp "')
                                           r19 = nil
                                         end
                                         if r19
@@ -2342,11 +2342,11 @@ module ScientificNameClean
                                           r0.extend(Rank0)
                                           r0.extend(Rank0)
                                         else
-                                          if (match_len = has_terminal?("race ", false, index))
+                                          if (match_len = has_terminal?("subf.", false, index))
                                             r20 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                             @index += match_len
                                           else
-                                            terminal_parse_failure('"race "')
+                                            terminal_parse_failure('"subf."')
                                             r20 = nil
                                           end
                                           if r20
@@ -2355,11 +2355,11 @@ module ScientificNameClean
                                             r0.extend(Rank0)
                                             r0.extend(Rank0)
                                           else
-                                            if (match_len = has_terminal?("forma.", false, index))
+                                            if (match_len = has_terminal?("race ", false, index))
                                               r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                               @index += match_len
                                             else
-                                              terminal_parse_failure('"forma."')
+                                              terminal_parse_failure('"race "')
                                               r21 = nil
                                             end
                                             if r21
@@ -2368,11 +2368,11 @@ module ScientificNameClean
                                               r0.extend(Rank0)
                                               r0.extend(Rank0)
                                             else
-                                              if (match_len = has_terminal?("forma ", false, index))
+                                              if (match_len = has_terminal?("forma.", false, index))
                                                 r22 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                 @index += match_len
                                               else
-                                                terminal_parse_failure('"forma "')
+                                                terminal_parse_failure('"forma."')
                                                 r22 = nil
                                               end
                                               if r22
@@ -2381,11 +2381,11 @@ module ScientificNameClean
                                                 r0.extend(Rank0)
                                                 r0.extend(Rank0)
                                               else
-                                                if (match_len = has_terminal?("fma.", false, index))
+                                                if (match_len = has_terminal?("forma ", false, index))
                                                   r23 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                   @index += match_len
                                                 else
-                                                  terminal_parse_failure('"fma."')
+                                                  terminal_parse_failure('"forma "')
                                                   r23 = nil
                                                 end
                                                 if r23
@@ -2394,11 +2394,11 @@ module ScientificNameClean
                                                   r0.extend(Rank0)
                                                   r0.extend(Rank0)
                                                 else
-                                                  if (match_len = has_terminal?("fma ", false, index))
+                                                  if (match_len = has_terminal?("fma.", false, index))
                                                     r24 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                     @index += match_len
                                                   else
-                                                    terminal_parse_failure('"fma "')
+                                                    terminal_parse_failure('"fma."')
                                                     r24 = nil
                                                   end
                                                   if r24
@@ -2407,11 +2407,11 @@ module ScientificNameClean
                                                     r0.extend(Rank0)
                                                     r0.extend(Rank0)
                                                   else
-                                                    if (match_len = has_terminal?("form.", false, index))
+                                                    if (match_len = has_terminal?("fma ", false, index))
                                                       r25 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                       @index += match_len
                                                     else
-                                                      terminal_parse_failure('"form."')
+                                                      terminal_parse_failure('"fma "')
                                                       r25 = nil
                                                     end
                                                     if r25
@@ -2420,11 +2420,11 @@ module ScientificNameClean
                                                       r0.extend(Rank0)
                                                       r0.extend(Rank0)
                                                     else
-                                                      if (match_len = has_terminal?("form ", false, index))
+                                                      if (match_len = has_terminal?("form.", false, index))
                                                         r26 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                         @index += match_len
                                                       else
-                                                        terminal_parse_failure('"form "')
+                                                        terminal_parse_failure('"form."')
                                                         r26 = nil
                                                       end
                                                       if r26
@@ -2433,11 +2433,11 @@ module ScientificNameClean
                                                         r0.extend(Rank0)
                                                         r0.extend(Rank0)
                                                       else
-                                                        if (match_len = has_terminal?("fo.", false, index))
+                                                        if (match_len = has_terminal?("form ", false, index))
                                                           r27 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                           @index += match_len
                                                         else
-                                                          terminal_parse_failure('"fo."')
+                                                          terminal_parse_failure('"form "')
                                                           r27 = nil
                                                         end
                                                         if r27
@@ -2446,11 +2446,11 @@ module ScientificNameClean
                                                           r0.extend(Rank0)
                                                           r0.extend(Rank0)
                                                         else
-                                                          if (match_len = has_terminal?("fo ", false, index))
+                                                          if (match_len = has_terminal?("fo.", false, index))
                                                             r28 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                             @index += match_len
                                                           else
-                                                            terminal_parse_failure('"fo "')
+                                                            terminal_parse_failure('"fo."')
                                                             r28 = nil
                                                           end
                                                           if r28
@@ -2459,11 +2459,11 @@ module ScientificNameClean
                                                             r0.extend(Rank0)
                                                             r0.extend(Rank0)
                                                           else
-                                                            if (match_len = has_terminal?("f.", false, index))
+                                                            if (match_len = has_terminal?("fo ", false, index))
                                                               r29 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                               @index += match_len
                                                             else
-                                                              terminal_parse_failure('"f."')
+                                                              terminal_parse_failure('"fo "')
                                                               r29 = nil
                                                             end
                                                             if r29
@@ -2472,11 +2472,11 @@ module ScientificNameClean
                                                               r0.extend(Rank0)
                                                               r0.extend(Rank0)
                                                             else
-                                                              if (match_len = has_terminal?("α", false, index))
-                                                                r30 = true
+                                                              if (match_len = has_terminal?("f.", false, index))
+                                                                r30 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                 @index += match_len
                                                               else
-                                                                terminal_parse_failure('"α"')
+                                                                terminal_parse_failure('"f."')
                                                                 r30 = nil
                                                               end
                                                               if r30
@@ -2485,11 +2485,11 @@ module ScientificNameClean
                                                                 r0.extend(Rank0)
                                                                 r0.extend(Rank0)
                                                               else
-                                                                if (match_len = has_terminal?("ββ", false, index))
-                                                                  r31 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                if (match_len = has_terminal?("α", false, index))
+                                                                  r31 = true
                                                                   @index += match_len
                                                                 else
-                                                                  terminal_parse_failure('"ββ"')
+                                                                  terminal_parse_failure('"α"')
                                                                   r31 = nil
                                                                 end
                                                                 if r31
@@ -2498,11 +2498,11 @@ module ScientificNameClean
                                                                   r0.extend(Rank0)
                                                                   r0.extend(Rank0)
                                                                 else
-                                                                  if (match_len = has_terminal?("β", false, index))
-                                                                    r32 = true
+                                                                  if (match_len = has_terminal?("ββ", false, index))
+                                                                    r32 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                     @index += match_len
                                                                   else
-                                                                    terminal_parse_failure('"β"')
+                                                                    terminal_parse_failure('"ββ"')
                                                                     r32 = nil
                                                                   end
                                                                   if r32
@@ -2511,11 +2511,11 @@ module ScientificNameClean
                                                                     r0.extend(Rank0)
                                                                     r0.extend(Rank0)
                                                                   else
-                                                                    if (match_len = has_terminal?("γ", false, index))
+                                                                    if (match_len = has_terminal?("β", false, index))
                                                                       r33 = true
                                                                       @index += match_len
                                                                     else
-                                                                      terminal_parse_failure('"γ"')
+                                                                      terminal_parse_failure('"β"')
                                                                       r33 = nil
                                                                     end
                                                                     if r33
@@ -2524,11 +2524,11 @@ module ScientificNameClean
                                                                       r0.extend(Rank0)
                                                                       r0.extend(Rank0)
                                                                     else
-                                                                      if (match_len = has_terminal?("δ", false, index))
+                                                                      if (match_len = has_terminal?("γ", false, index))
                                                                         r34 = true
                                                                         @index += match_len
                                                                       else
-                                                                        terminal_parse_failure('"δ"')
+                                                                        terminal_parse_failure('"γ"')
                                                                         r34 = nil
                                                                       end
                                                                       if r34
@@ -2537,11 +2537,11 @@ module ScientificNameClean
                                                                         r0.extend(Rank0)
                                                                         r0.extend(Rank0)
                                                                       else
-                                                                        if (match_len = has_terminal?("ε", false, index))
+                                                                        if (match_len = has_terminal?("δ", false, index))
                                                                           r35 = true
                                                                           @index += match_len
                                                                         else
-                                                                          terminal_parse_failure('"ε"')
+                                                                          terminal_parse_failure('"δ"')
                                                                           r35 = nil
                                                                         end
                                                                         if r35
@@ -2550,11 +2550,11 @@ module ScientificNameClean
                                                                           r0.extend(Rank0)
                                                                           r0.extend(Rank0)
                                                                         else
-                                                                          if (match_len = has_terminal?("φ", false, index))
+                                                                          if (match_len = has_terminal?("ε", false, index))
                                                                             r36 = true
                                                                             @index += match_len
                                                                           else
-                                                                            terminal_parse_failure('"φ"')
+                                                                            terminal_parse_failure('"ε"')
                                                                             r36 = nil
                                                                           end
                                                                           if r36
@@ -2563,11 +2563,11 @@ module ScientificNameClean
                                                                             r0.extend(Rank0)
                                                                             r0.extend(Rank0)
                                                                           else
-                                                                            if (match_len = has_terminal?("θ", false, index))
+                                                                            if (match_len = has_terminal?("φ", false, index))
                                                                               r37 = true
                                                                               @index += match_len
                                                                             else
-                                                                              terminal_parse_failure('"θ"')
+                                                                              terminal_parse_failure('"φ"')
                                                                               r37 = nil
                                                                             end
                                                                             if r37
@@ -2576,11 +2576,11 @@ module ScientificNameClean
                                                                               r0.extend(Rank0)
                                                                               r0.extend(Rank0)
                                                                             else
-                                                                              if (match_len = has_terminal?("μ", false, index))
+                                                                              if (match_len = has_terminal?("θ", false, index))
                                                                                 r38 = true
                                                                                 @index += match_len
                                                                               else
-                                                                                terminal_parse_failure('"μ"')
+                                                                                terminal_parse_failure('"θ"')
                                                                                 r38 = nil
                                                                               end
                                                                               if r38
@@ -2589,11 +2589,11 @@ module ScientificNameClean
                                                                                 r0.extend(Rank0)
                                                                                 r0.extend(Rank0)
                                                                               else
-                                                                                if (match_len = has_terminal?("a.", false, index))
-                                                                                  r39 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                                                                if (match_len = has_terminal?("μ", false, index))
+                                                                                  r39 = true
                                                                                   @index += match_len
                                                                                 else
-                                                                                  terminal_parse_failure('"a."')
+                                                                                  terminal_parse_failure('"μ"')
                                                                                   r39 = nil
                                                                                 end
                                                                                 if r39
@@ -2602,11 +2602,11 @@ module ScientificNameClean
                                                                                   r0.extend(Rank0)
                                                                                   r0.extend(Rank0)
                                                                                 else
-                                                                                  if (match_len = has_terminal?("b.", false, index))
+                                                                                  if (match_len = has_terminal?("a.", false, index))
                                                                                     r40 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                     @index += match_len
                                                                                   else
-                                                                                    terminal_parse_failure('"b."')
+                                                                                    terminal_parse_failure('"a."')
                                                                                     r40 = nil
                                                                                   end
                                                                                   if r40
@@ -2615,11 +2615,11 @@ module ScientificNameClean
                                                                                     r0.extend(Rank0)
                                                                                     r0.extend(Rank0)
                                                                                   else
-                                                                                    if (match_len = has_terminal?("c.", false, index))
+                                                                                    if (match_len = has_terminal?("b.", false, index))
                                                                                       r41 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                       @index += match_len
                                                                                     else
-                                                                                      terminal_parse_failure('"c."')
+                                                                                      terminal_parse_failure('"b."')
                                                                                       r41 = nil
                                                                                     end
                                                                                     if r41
@@ -2628,11 +2628,11 @@ module ScientificNameClean
                                                                                       r0.extend(Rank0)
                                                                                       r0.extend(Rank0)
                                                                                     else
-                                                                                      if (match_len = has_terminal?("d.", false, index))
+                                                                                      if (match_len = has_terminal?("c.", false, index))
                                                                                         r42 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                         @index += match_len
                                                                                       else
-                                                                                        terminal_parse_failure('"d."')
+                                                                                        terminal_parse_failure('"c."')
                                                                                         r42 = nil
                                                                                       end
                                                                                       if r42
@@ -2641,11 +2641,11 @@ module ScientificNameClean
                                                                                         r0.extend(Rank0)
                                                                                         r0.extend(Rank0)
                                                                                       else
-                                                                                        if (match_len = has_terminal?("e.", false, index))
+                                                                                        if (match_len = has_terminal?("d.", false, index))
                                                                                           r43 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                           @index += match_len
                                                                                         else
-                                                                                          terminal_parse_failure('"e."')
+                                                                                          terminal_parse_failure('"d."')
                                                                                           r43 = nil
                                                                                         end
                                                                                         if r43
@@ -2654,11 +2654,11 @@ module ScientificNameClean
                                                                                           r0.extend(Rank0)
                                                                                           r0.extend(Rank0)
                                                                                         else
-                                                                                          if (match_len = has_terminal?("g.", false, index))
+                                                                                          if (match_len = has_terminal?("e.", false, index))
                                                                                             r44 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                             @index += match_len
                                                                                           else
-                                                                                            terminal_parse_failure('"g."')
+                                                                                            terminal_parse_failure('"e."')
                                                                                             r44 = nil
                                                                                           end
                                                                                           if r44
@@ -2667,11 +2667,11 @@ module ScientificNameClean
                                                                                             r0.extend(Rank0)
                                                                                             r0.extend(Rank0)
                                                                                           else
-                                                                                            if (match_len = has_terminal?("k.", false, index))
+                                                                                            if (match_len = has_terminal?("g.", false, index))
                                                                                               r45 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                               @index += match_len
                                                                                             else
-                                                                                              terminal_parse_failure('"k."')
+                                                                                              terminal_parse_failure('"g."')
                                                                                               r45 = nil
                                                                                             end
                                                                                             if r45
@@ -2680,11 +2680,11 @@ module ScientificNameClean
                                                                                               r0.extend(Rank0)
                                                                                               r0.extend(Rank0)
                                                                                             else
-                                                                                              if (match_len = has_terminal?("****", false, index))
+                                                                                              if (match_len = has_terminal?("k.", false, index))
                                                                                                 r46 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                                 @index += match_len
                                                                                               else
-                                                                                                terminal_parse_failure('"****"')
+                                                                                                terminal_parse_failure('"k."')
                                                                                                 r46 = nil
                                                                                               end
                                                                                               if r46
@@ -2693,11 +2693,11 @@ module ScientificNameClean
                                                                                                 r0.extend(Rank0)
                                                                                                 r0.extend(Rank0)
                                                                                               else
-                                                                                                if (match_len = has_terminal?("**", false, index))
+                                                                                                if (match_len = has_terminal?("****", false, index))
                                                                                                   r47 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                                   @index += match_len
                                                                                                 else
-                                                                                                  terminal_parse_failure('"**"')
+                                                                                                  terminal_parse_failure('"****"')
                                                                                                   r47 = nil
                                                                                                 end
                                                                                                 if r47
@@ -2706,11 +2706,11 @@ module ScientificNameClean
                                                                                                   r0.extend(Rank0)
                                                                                                   r0.extend(Rank0)
                                                                                                 else
-                                                                                                  if (match_len = has_terminal?("*", false, index))
-                                                                                                    r48 = true
+                                                                                                  if (match_len = has_terminal?("**", false, index))
+                                                                                                    r48 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                                                                                     @index += match_len
                                                                                                   else
-                                                                                                    terminal_parse_failure('"*"')
+                                                                                                    terminal_parse_failure('"**"')
                                                                                                     r48 = nil
                                                                                                   end
                                                                                                   if r48
@@ -2719,8 +2719,22 @@ module ScientificNameClean
                                                                                                     r0.extend(Rank0)
                                                                                                     r0.extend(Rank0)
                                                                                                   else
-                                                                                                    @index = i0
-                                                                                                    r0 = nil
+                                                                                                    if (match_len = has_terminal?("*", false, index))
+                                                                                                      r49 = true
+                                                                                                      @index += match_len
+                                                                                                    else
+                                                                                                      terminal_parse_failure('"*"')
+                                                                                                      r49 = nil
+                                                                                                    end
+                                                                                                    if r49
+                                                                                                      r49 = SyntaxNode.new(input, (index-1)...index) if r49 == true
+                                                                                                      r0 = r49
+                                                                                                      r0.extend(Rank0)
+                                                                                                      r0.extend(Rank0)
+                                                                                                    else
+                                                                                                      @index = i0
+                                                                                                      r0 = nil
+                                                                                                    end
                                                                                                   end
                                                                                                 end
                                                                                               end
@@ -6195,140 +6209,152 @@ module ScientificNameClean
                 r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                 r2 = r7
               else
-                if (match_len = has_terminal?("des", false, index))
+                if (match_len = has_terminal?("del", false, index))
                   r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                   @index += match_len
                 else
-                  terminal_parse_failure('"des"')
+                  terminal_parse_failure('"del"')
                   r8 = nil
                 end
                 if r8
                   r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
                   r2 = r8
                 else
-                  if (match_len = has_terminal?("den", false, index))
+                  if (match_len = has_terminal?("des", false, index))
                     r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                     @index += match_len
                   else
-                    terminal_parse_failure('"den"')
+                    terminal_parse_failure('"des"')
                     r9 = nil
                   end
                   if r9
                     r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
                     r2 = r9
                   else
-                    if (match_len = has_terminal?("della", false, index))
+                    if (match_len = has_terminal?("den", false, index))
                       r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                       @index += match_len
                     else
-                      terminal_parse_failure('"della"')
+                      terminal_parse_failure('"den"')
                       r10 = nil
                     end
                     if r10
                       r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
                       r2 = r10
                     else
-                      if (match_len = has_terminal?("dela", false, index))
+                      if (match_len = has_terminal?("della", false, index))
                         r11 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                         @index += match_len
                       else
-                        terminal_parse_failure('"dela"')
+                        terminal_parse_failure('"della"')
                         r11 = nil
                       end
                       if r11
                         r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
                         r2 = r11
                       else
-                        if (match_len = has_terminal?("de", false, index))
+                        if (match_len = has_terminal?("dela", false, index))
                           r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                           @index += match_len
                         else
-                          terminal_parse_failure('"de"')
+                          terminal_parse_failure('"dela"')
                           r12 = nil
                         end
                         if r12
                           r12 = SyntaxNode.new(input, (index-1)...index) if r12 == true
                           r2 = r12
                         else
-                          if (match_len = has_terminal?("di", false, index))
+                          if (match_len = has_terminal?("de", false, index))
                             r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                             @index += match_len
                           else
-                            terminal_parse_failure('"di"')
+                            terminal_parse_failure('"de"')
                             r13 = nil
                           end
                           if r13
                             r13 = SyntaxNode.new(input, (index-1)...index) if r13 == true
                             r2 = r13
                           else
-                            if (match_len = has_terminal?("du", false, index))
+                            if (match_len = has_terminal?("di", false, index))
                               r14 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                               @index += match_len
                             else
-                              terminal_parse_failure('"du"')
+                              terminal_parse_failure('"di"')
                               r14 = nil
                             end
                             if r14
                               r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                               r2 = r14
                             else
-                              if (match_len = has_terminal?("do", false, index))
+                              if (match_len = has_terminal?("du", false, index))
                                 r15 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                 @index += match_len
                               else
-                                terminal_parse_failure('"do"')
+                                terminal_parse_failure('"du"')
                                 r15 = nil
                               end
                               if r15
                                 r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                                 r2 = r15
                               else
-                                if (match_len = has_terminal?("la", false, index))
+                                if (match_len = has_terminal?("do", false, index))
                                   r16 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                   @index += match_len
                                 else
-                                  terminal_parse_failure('"la"')
+                                  terminal_parse_failure('"do"')
                                   r16 = nil
                                 end
                                 if r16
                                   r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
                                   r2 = r16
                                 else
-                                  if (match_len = has_terminal?("ter", false, index))
+                                  if (match_len = has_terminal?("la", false, index))
                                     r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                     @index += match_len
                                   else
-                                    terminal_parse_failure('"ter"')
+                                    terminal_parse_failure('"la"')
                                     r17 = nil
                                   end
                                   if r17
                                     r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
                                     r2 = r17
                                   else
-                                    if (match_len = has_terminal?("van", false, index))
+                                    if (match_len = has_terminal?("ter", false, index))
                                       r18 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                       @index += match_len
                                     else
-                                      terminal_parse_failure('"van"')
+                                      terminal_parse_failure('"ter"')
                                       r18 = nil
                                     end
                                     if r18
                                       r18 = SyntaxNode.new(input, (index-1)...index) if r18 == true
                                       r2 = r18
                                     else
-                                      if (match_len = has_terminal?("von", false, index))
+                                      if (match_len = has_terminal?("van", false, index))
                                         r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                                         @index += match_len
                                       else
-                                        terminal_parse_failure('"von"')
+                                        terminal_parse_failure('"van"')
                                         r19 = nil
                                       end
                                       if r19
                                         r19 = SyntaxNode.new(input, (index-1)...index) if r19 == true
                                         r2 = r19
                                       else
-                                        @index = i2
-                                        r2 = nil
+                                        if (match_len = has_terminal?("von", false, index))
+                                          r20 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                                          @index += match_len
+                                        else
+                                          terminal_parse_failure('"von"')
+                                          r20 = nil
+                                        end
+                                        if r20
+                                          r20 = SyntaxNode.new(input, (index-1)...index) if r20 == true
+                                          r2 = r20
+                                        else
+                                          @index = i2
+                                          r2 = nil
+                                        end
                                       end
                                     end
                                   end
@@ -6348,16 +6374,16 @@ module ScientificNameClean
       end
       s0 << r2
       if r2
-        i20 = index
-        r21 = _nt_space_hard
-        if r21
-          @index = i20
-          r20 = instantiate_node(SyntaxNode,input, index...index)
+        i21 = index
+        r22 = _nt_space_hard
+        if r22
+          @index = i21
+          r21 = instantiate_node(SyntaxNode,input, index...index)
         else
-          @index = i20
-          r20 = nil
+          @index = i21
+          r21 = nil
         end
-        s0 << r20
+        s0 << r21
       end
     end
     if s0.last

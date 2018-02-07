@@ -560,7 +560,7 @@ grammar ScientificNameClean
   end
 
   rule rank
-    ("morph."/"f.sp."/"B "/"ssp."/"ssp "/"mut."/"nat "/"nothosubsp."/"convar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var "/"subsp."/"subsp "/"subf."/"race "/"forma."/"forma "/"fma."/"fma "/"form."/"form "/"fo."/"fo "/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
+    ("morph."/"f.sp."/"B "/"ssp."/"ssp "/"mut."/"nat "/"nothosubsp."/"convar."/"nvar."/"pseudovar."/"sect."/"ser."/"var."/"subvar."/ "[var.]" /"var "/"subsp."/"subsp "/"subf."/"race "/"forma."/"forma "/"fma."/"fma "/"form."/"form "/"fo."/"fo "/"f."/"α"/"ββ"/"β"/"γ"/"δ"/"ε"/"φ"/"θ"/"μ"/"a."/"b."/"c."/"d."/"e."/"g."/"k."/"****"/"**"/"*")
     {
       def value
         text_value.strip
@@ -1202,7 +1202,7 @@ grammar ScientificNameClean
   end
 
   rule author_prefix_word
-    space ("ab"/"af"/"bis"/"da"/"der"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"do"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"af"/"bis"/"da"/"der"/"del"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"do"/"la"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
