@@ -816,7 +816,7 @@ grammar ScientificNameClean
       end
     }
     /
-    a:basionym_authorship_with_parenthesis space b:simple_authorship ","? space c:ex_authorship {
+    a:basionym_authorship_with_parenthesis space b:simple_authorship  space c:emend_authorship {
       def value
         a.value + " " + b.value + " " + c.value
       end
@@ -865,6 +865,23 @@ grammar ScientificNameClean
       end
     }
     /
+    a:simple_authorship space b:emend_authorship {
+      def value
+        a.value + " " + b.value
+      end
+
+      def pos
+        a.pos.merge(b.pos)
+      end
+
+      def details
+        val = a.details
+        val[:authorship] = text_value.strip
+        val[:basionymAuthorTeam].merge!(b.details)
+        val
+      end
+    }
+    /
     simple_authorship
   end
 
@@ -887,6 +904,23 @@ grammar ScientificNameClean
     }
     /
     left_paren space a:simple_authorship ","? space b:ex_authorship space right_paren {
+      def value
+        "(" + a.value + " " + b.value + ")"
+      end
+
+      def pos
+        a.pos.merge(b.pos)
+      end
+
+      def details
+        val = a.details
+        val[:basionymAuthorTeam].merge!(b.details)
+        val[:authorship] = text_value.strip
+        val
+      end
+    }
+    /
+    left_paren space a:simple_authorship space b:emend_authorship space right_paren {
       def value
         "(" + a.value + " " + b.value + ")"
       end
@@ -961,6 +995,23 @@ grammar ScientificNameClean
 
       def details
         val = {:exAuthorTeam => {:authorTeam => b.text_value.strip}.merge(b.details[:basionymAuthorTeam])}
+        val
+      end
+    }
+  end
+
+  rule emend_authorship  
+    emend space b:simple_authorship {
+      def value
+        " emend. " + b.value
+      end
+
+      def pos
+        b.pos
+      end
+
+      def details
+        val = {:emendAuthorTeam => {:authorTeam => b.text_value.strip}.merge(b.details[:basionymAuthorTeam])}
         val
       end
     }
@@ -1069,6 +1120,10 @@ grammar ScientificNameClean
     ("ex"/"in") &[\s]
   end
 
+  rule emend
+    ("emend."/"emend") &[\s]
+  end
+
   rule author_separator
     ("&amp;"/"&"/","/"apud"/"and"/"et") {
       def apply(a,b)
@@ -1089,7 +1144,21 @@ grammar ScientificNameClean
   end
 
   rule author_name
-    space a:author_name_without_postfix space b:author_postfix_word space !latin_word {
+    space a:author_name_without_postfix space b:author_maybe_filius space !latin_word {
+      def value
+        a.value + " " + b.value
+      end
+
+      def pos
+        a.pos.merge(b.pos)
+      end
+
+      def details
+        {:author => [value]}
+      end
+    }
+    /
+    space a:author_name_without_postfix space b:author_filius {
       def value
         a.value + " " + b.value
       end
@@ -1153,7 +1222,7 @@ grammar ScientificNameClean
       end
     }
     /
-    ("arg."/"et al.\{\?\}"/"et al."/"et al") {
+    ("arg."/"et al.\{\?\}"/"et al."/"et al"/"& al."/"& al") {
       def value
         text_value.strip
       end
@@ -1202,7 +1271,7 @@ grammar ScientificNameClean
   end
 
   rule author_prefix_word
-    space ("ab"/"af"/"bis"/"da"/"der"/"del"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"do"/"la"/"ter"/"van"/"von") &space_hard {
+    space ("ab"/"af"/"bis"/"da"/"der"/"del"/"des"/"den"/"della"/"dela"/"de"/"di"/"du"/"do"/"la"/"'t"/"ter"/"van"/"von") &space_hard {
       def value
         text_value
       end
@@ -1214,8 +1283,20 @@ grammar ScientificNameClean
     }
   end
 
-  rule author_postfix_word
-    ("f."/"fil."/"filius") {
+  rule author_filius
+    ("fil."/"filius") {
+      def value
+        text_value.strip
+      end
+
+      def pos
+        {interval.begin => ["author_word", interval.end]}
+      end
+    }
+  end
+
+  rule author_maybe_filius
+    "f." {
       def value
         text_value.strip
       end

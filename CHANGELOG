@@ -1,3 +1,7 @@
+3.4.5 -- fix "fil." and "filius" with infraspecies after them, add "'t" as a
+         possible author prefix, add "emend." as "emendatum or rectified by" to
+         authors
+
 3.4.4 -- support "del" as part of authorship, do not truncate epithets that
          start with "nomen", add "nvar." as a rank
 
