@@ -131,6 +131,13 @@ describe ".add_rank_to_canonical" do
     end
   end
 
+  it "returns preprocessing tail if it exists" do
+    sn = "Stenometope laevissimus sensu Eschmeyer 2004"
+    res = parser.parse(sn)
+    expect(res).to_not be_nil
+    expect(res[:scientificName][:tail]).to eq "sensu Eschmeyer 2004"
+  end
+
   it "does not work for hybrids yet" do
     data = [["Corda X cordiflora var. puberula",
             "Corda cordiflora puberula"]]

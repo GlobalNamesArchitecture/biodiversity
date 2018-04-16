@@ -1,3 +1,3 @@
 module Biodiversity
-  VERSION = "3.4.6"
+  VERSION = "3.5.0"
 end

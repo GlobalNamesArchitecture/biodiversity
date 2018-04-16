@@ -23,13 +23,15 @@ module PreProcessor
                      ssp\.|ssp|subsp|subgen|hybrid|hort\.|hort)\??\s*$/ix
 
   def self.clean(a_string)
+    orig = a_string
     [NOTES, TAXON_CONCEPTS1, TAXON_CONCEPTS2,
      TAXON_CONCEPTS3, NOMEN_CONCEPTS, LAST_WORD_JUNK].each do |i|
       a_string = a_string.gsub(i, "")
     end
+    tail = orig[a_string.size..-1]
     a_string = a_string.tr("ſ","s") #old "s"
     a_string = a_string.tr("_", " ") if a_string.strip.match(/\s/).nil?
-    a_string
+    [a_string, tail.strip]
   end
 end
 
@@ -174,6 +176,7 @@ class ScientificNameParser
     @dirty = ScientificNameDirtyParser.new
     @canonical = ScientificNameCanonicalParser.new
     @parsed = nil
+    @tail = nil
   end
 
   def virus?(a_string)
@@ -198,7 +201,7 @@ class ScientificNameParser
 
   def parse(a_string)
     @verbatim = a_string
-    a_string = PreProcessor::clean(a_string)
+    a_string, @tail = PreProcessor::clean(a_string)
 
     if virus?(a_string)
       @parsed = { verbatim: @verbatim, virus: true }
@@ -230,6 +233,7 @@ class ScientificNameParser
       parsed = self.class != Hash
       res = { id: @id, parsed: parsed,
               parser_version: ScientificNameParser::version}
+
       if parsed
         hybrid = self.hybrid rescue false
         res.merge!({
@@ -263,7 +267,9 @@ class ScientificNameParser
     end
 
     @parsed.verbatim = @verbatim
-    @parsed.all(canonical_with_rank: @canonical_with_rank)
+    res = @parsed.all(canonical_with_rank: @canonical_with_rank)
+    res[:scientificName].merge!(tail: @tail) if @tail && @tail != ""
+    res
   end
 
   private

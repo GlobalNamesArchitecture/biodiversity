@@ -222,7 +222,7 @@ Copyright
 
 Authors: [Dmitry Mozzherin][dimus]
 
-Copyright (c) 2008-2015 Marine Biological Laboratory. See [LICENSE][license]
+Copyright (c) 2008-2018 Dmitry Mozzherin. See [LICENSE][license]
 for further details.
 
 [gem_svg]: https://badge.fury.io/rb/biodiversity.svg
