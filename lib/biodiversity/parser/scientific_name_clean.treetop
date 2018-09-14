@@ -1000,7 +1000,7 @@ grammar ScientificNameClean
     }
   end
 
-  rule emend_authorship  
+  rule emend_authorship
     emend space b:simple_authorship {
       def value
         " emend. " + b.value
@@ -1125,10 +1125,11 @@ grammar ScientificNameClean
   end
 
   rule author_separator
-    ("&amp;"/"&"/","/"apud"/"and"/"et") {
+    ("&amp;"/"&"/",&"/", &"/",and"/", and"/"apud"/"and"/"et"/",") {
       def apply(a,b)
         sep = text_value.strip
-        sep = " &" if ["&amp;", "&","and","et"].include? sep
+        sep = " &" if ["&amp;", "&", "and", "et",
+                       ",&", ", &", ",and", ", and"].include? sep
         sep = " apud" if sep == "apud"
         a.value + sep + " " + b.value
       end

@@ -5567,7 +5567,8 @@ module ScientificNameClean
   module AuthorSeparator0
     def apply(a,b)
       sep = text_value.strip
-      sep = " &" if ["&amp;", "&","and","et"].include? sep
+      sep = " &" if ["&amp;", "&", "and", "et",
+                     ",&", ", &", ",and", ", and"].include? sep
       sep = " apud" if sep == "apud"
       a.value + sep + " " + b.value
     end
@@ -5619,11 +5620,11 @@ module ScientificNameClean
         r0.extend(AuthorSeparator0)
         r0.extend(AuthorSeparator0)
       else
-        if (match_len = has_terminal?(",", false, index))
-          r3 = true
+        if (match_len = has_terminal?(",&", false, index))
+          r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
           @index += match_len
         else
-          terminal_parse_failure('","')
+          terminal_parse_failure('",&"')
           r3 = nil
         end
         if r3
@@ -5632,11 +5633,11 @@ module ScientificNameClean
           r0.extend(AuthorSeparator0)
           r0.extend(AuthorSeparator0)
         else
-          if (match_len = has_terminal?("apud", false, index))
+          if (match_len = has_terminal?(", &", false, index))
             r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
             @index += match_len
           else
-            terminal_parse_failure('"apud"')
+            terminal_parse_failure('", &"')
             r4 = nil
           end
           if r4
@@ -5645,11 +5646,11 @@ module ScientificNameClean
             r0.extend(AuthorSeparator0)
             r0.extend(AuthorSeparator0)
           else
-            if (match_len = has_terminal?("and", false, index))
+            if (match_len = has_terminal?(",and", false, index))
               r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
               @index += match_len
             else
-              terminal_parse_failure('"and"')
+              terminal_parse_failure('",and"')
               r5 = nil
             end
             if r5
@@ -5658,11 +5659,11 @@ module ScientificNameClean
               r0.extend(AuthorSeparator0)
               r0.extend(AuthorSeparator0)
             else
-              if (match_len = has_terminal?("et", false, index))
+              if (match_len = has_terminal?(", and", false, index))
                 r6 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                 @index += match_len
               else
-                terminal_parse_failure('"et"')
+                terminal_parse_failure('", and"')
                 r6 = nil
               end
               if r6
@@ -5671,8 +5672,64 @@ module ScientificNameClean
                 r0.extend(AuthorSeparator0)
                 r0.extend(AuthorSeparator0)
               else
-                @index = i0
-                r0 = nil
+                if (match_len = has_terminal?("apud", false, index))
+                  r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
+                else
+                  terminal_parse_failure('"apud"')
+                  r7 = nil
+                end
+                if r7
+                  r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
+                  r0 = r7
+                  r0.extend(AuthorSeparator0)
+                  r0.extend(AuthorSeparator0)
+                else
+                  if (match_len = has_terminal?("and", false, index))
+                    r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
+                  else
+                    terminal_parse_failure('"and"')
+                    r8 = nil
+                  end
+                  if r8
+                    r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
+                    r0 = r8
+                    r0.extend(AuthorSeparator0)
+                    r0.extend(AuthorSeparator0)
+                  else
+                    if (match_len = has_terminal?("et", false, index))
+                      r9 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
+                    else
+                      terminal_parse_failure('"et"')
+                      r9 = nil
+                    end
+                    if r9
+                      r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
+                      r0 = r9
+                      r0.extend(AuthorSeparator0)
+                      r0.extend(AuthorSeparator0)
+                    else
+                      if (match_len = has_terminal?(",", false, index))
+                        r10 = true
+                        @index += match_len
+                      else
+                        terminal_parse_failure('","')
+                        r10 = nil
+                      end
+                      if r10
+                        r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
+                        r0 = r10
+                        r0.extend(AuthorSeparator0)
+                        r0.extend(AuthorSeparator0)
+                      else
+                        @index = i0
+                        r0 = nil
+                      end
+                    end
+                  end
+                end
               end
             end
           end

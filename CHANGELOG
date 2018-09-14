@@ -1,3 +1,5 @@
+3.5.1 -- allow comma before 'and' or '&' in authorship
+
 3.5.0 -- add the tail cut by preprocessing to the results. The tail usually
          contains annotations about the name.
 
