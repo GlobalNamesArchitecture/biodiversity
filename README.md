@@ -9,15 +9,13 @@ Biodiversity
 
 Parses taxonomic scientific name and breaks it into semantic elements.
 
-# Important: Biodiversity parser is in archival state: moving development to https://gitlab.com/gogna/gnparser
+# Important: Biodiversity parser is in 'archive' state: moving development to https://gitlab.com/gogna/gnparser
 
 Developing parsers for scientific names is a very tedious job due to differences between nomenclatural codes, human
 common errors, and gynamic nature of nomenclature. We decided to concentrate on developing one parser and deprecate
 others we developed so far.
 
 We rewrote the parser from scratch in [Go language](https://gitlab.com/gogna/gnparser), making it lighting fast, robust and much better designed than ``biodiversity`` parser. Specifically for Ruby developers we made a [gnparser Ruby Gem](https://rubygems.org/gems/gnparser) that uses gRPC framework to achieve almost native to Go speeds. If by some reason you want to go a different way, ``gnparser`` provides ultrafast [command line tool](https://gitlab.com/gogna/gnparser/releases) as well as good old (and fast) [REST API](http://parser.globalnames.org/doc/api).
-
-Follow [biodiversity issues][waffle] on waffle.io
 
 Installation
 ------------
