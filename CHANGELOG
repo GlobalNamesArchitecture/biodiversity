@@ -1,3 +1,7 @@
+4.0.2 -- add MS Windows libraries
+
+4.0.1 -- fix for simple output
+
 4.0.0 -- migrate code to gnparser C-shared library. This change breaks
          backward compatibility, and makes parser dramatically faster.
 
