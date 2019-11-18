@@ -17,7 +17,7 @@ module Biodiversity
                  'linux'
                when 'darwin'
                  'mac'
-               when 'mswin64'
+               when 'mingw32'
                  'win'
                else
                  raise "Unsupported platform: #{Gem.platforms[1].os}"
