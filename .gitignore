@@ -16,3 +16,4 @@ bin
 .bundle
 bundle_bin
 Gemfile.lock
+.byebug_history

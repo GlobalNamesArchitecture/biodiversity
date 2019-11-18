@@ -1,3 +1,10 @@
+# frozen_string_literal: true
+
+# Biodiversity module provides a namespace for scientific name parser.
 module Biodiversity
-  VERSION = "3.5.1"
+  VERSION = '4.0.0'
+
+  def self.version
+    VERSION
+  end
 end
