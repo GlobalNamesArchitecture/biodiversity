@@ -68,7 +68,8 @@ module Biodiversity
             stem: parsed[4]
           },
           authorship: parsed[5],
-          quality: parsed[6]
+          year: parsed[6],
+          quality: parsed[7]
         }
       else
         JSON.parse(parsed, symbolize_names: true)
