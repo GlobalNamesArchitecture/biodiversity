@@ -40,13 +40,13 @@ Biodiversity.version
 Biodiversity::Parser.parse("Plantago major", simple = true)
 
 # to parse many scientific names using all computer CPUs
-Biodiversity::Parser.parse(["Plantago major", ... ], simple = true)
+Biodiversity::Parser.parse_ary(["Plantago major", ... ], simple = true)
 
 # to parse a scientific name into a very detailed Ruby hash
 Biodiversity::Parser.parse("Plantago major")
 
 # to parse many scientific names with all details using all computer CPUs
-Biodiversity::Parser.parse(["Plantago major", ... ])
+Biodiversity::Parser.parse_ary(["Plantago major", ... ])
 
 #to get json representation
 Biodiversity::Parser.parse("Plantago").to_json
