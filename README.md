@@ -15,6 +15,11 @@ and better than previous versions.
 This gem does not have a remote server or a command line executable anymore.
 For such features use https://gitlab.com/gogna/gnparser.
 
+- [Biodiversity](#biodiversity)
+  - [Installation](#installation)
+  - [Example usage](#example-usage)
+    - [What is "nameStringID" in the parsed results?](#what-is-%22namestringid%22-in-the-parsed-results)
+  - [Copyright](#copyright)
 
 ## Installation
 
