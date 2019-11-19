@@ -17,6 +17,7 @@ For such features use https://gitlab.com/gogna/gnparser.
 
 - [Biodiversity](#biodiversity)
   - [Installation](#installation)
+  - [Benchmarks](#benchmarks)
   - [Example usage](#example-usage)
     - [What is "nameStringID" in the parsed results?](#what-is-%22namestringid%22-in-the-parsed-results)
   - [Copyright](#copyright)
@@ -26,6 +27,38 @@ For such features use https://gitlab.com/gogna/gnparser.
     sudo gem install biodiversity
 
 The gem should work on Linux, Mac and Windows (64bit) machines
+
+## Benchmarks
+
+The fastest way to go through a massive amount of names is to use
+`Biodiversity::Parser.parse_ary([big array], simple = true)` function.
+
+For example parsing a large file with one name per line:
+
+```ruby
+#!/usr/bin/env ruby
+
+require 'biodiversity'
+
+P = Biodiversity::Parser
+count = 0
+File.open('all_names.txt').each_slice(50_000) do |sl|
+  count += 1
+  res = P.parse_ary(sl, true)
+  puts count * 50_000
+  puts res[0]
+end
+```
+
+Here are comparative results of running parsers against a file with 24
+million names on a 4CPU hyperthreaded laptop:
+
+| Program      | Version | Full/Simple | Names/min |
+| ------------ | ------- | ----------- | --------: |
+| gnparser     | 0.12.0  | Simple      | 3,000,000 |
+| biodiversity | 4.0.1   | Simple      | 2,000,000 |
+| biodiversity | 4.0.1   | Full JSON   |   800,000 |
+| biodiversity | 3.5.1   | n/a         |    40,000 |
 
 ## Example usage
 
