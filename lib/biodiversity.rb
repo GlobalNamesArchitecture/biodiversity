@@ -2,6 +2,7 @@
 
 require 'ffi'
 require 'json'
+require 'csv'
 require_relative 'biodiversity/version'
 require_relative 'biodiversity/parser'
 
