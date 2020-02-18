@@ -80,6 +80,10 @@ extern "C" {
 
 extern char* ParseToString(char* p0, char* p1);
 
+// FreeMemory takes a string pointer and frees its memory.
+
+extern void FreeMemory(char* p0);
+
 // ParseAryToStrings function takes an array of names, parsing format and a
 // reference to an output: an empty array of strings to return the the data
 // back. It populates the output array with raw strings of either JSON or
