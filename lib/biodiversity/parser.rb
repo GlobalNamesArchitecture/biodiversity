@@ -25,14 +25,17 @@ module Biodiversity
     ffi_lib File.join(__dir__, '..', '..', 'clib', platform, 'libgnparser.so')
     POINTER_SIZE = FFI.type_size(:pointer)
 
-    attach_function(:parse_go, :ParseToString, %i[string string], :string)
+    attach_function(:parse_go, :ParseToString, %i[string string], :pointer)
     attach_function(:parse_ary_go, :ParseAryToStrings,
                     %i[pointer int string pointer], :void)
 
     def self.parse(name, simple = false)
       format = simple ? 'simple' : 'compact'
-      parsed = parse_go(name, format)
+      p_out = parse_go(name, format)
+      parsed = p_out.get_string(0)
       output(parsed, simple)
+    ensure
+      CLib.free(p_out)
     end
 
     def self.parse_ary(ary, simple = false)
