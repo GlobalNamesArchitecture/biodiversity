@@ -31,11 +31,10 @@ module Biodiversity
 
     def self.parse(name, simple = false)
       format = simple ? 'simple' : 'compact'
-      p_out = parse_go(name, format)
-      parsed = p_out.get_string(0)
+      p_out = FFI::StrPtrConverter.from_native(parse_go(name, format), [])
+      parsed = p_out[0]
+      CLib.free(p_out[1])
       output(parsed, simple)
-    ensure
-      CLib.free(p_out)
     end
 
     def self.parse_ary(ary, simple = false)
