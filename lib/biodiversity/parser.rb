@@ -36,7 +36,8 @@ module Biodiversity
       format = simple ? 'simple' : 'compact'
 
       parsed = nil
-      parse_go(name, format) { |str| parsed = str }
+      callback = FFI::Function.new(:void, [:string]) { |str| parsed = str }
+      parse_go(name, format, callback)
       output(parsed, simple)
     end
 
@@ -49,7 +50,8 @@ module Biodiversity
       )
 
       out_ary = []
-      parse_ary_go(in_ptr, ary.length, format) { |str| out_ary << output(str, simple) }
+      callback = FFI::Function.new(:void, [:string]) { |str| out_ary << output(str, simple) }
+      parse_ary_go(in_ptr, ary.length, format, callback)
       out_ary
     end
 
