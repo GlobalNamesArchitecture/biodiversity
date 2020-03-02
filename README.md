@@ -125,6 +125,10 @@ Copyright
 
 Authors: [Dmitry Mozzherin][dimus]
 
+Contributors: [Patrick Leary][pleary], [Hernán Lucas Pereira][hernan]
+
+
+
 Copyright (c) 2008-2019 Dmitry Mozzherin. See [LICENSE][license]
 for further details.
 
@@ -133,6 +137,8 @@ for further details.
 [ci_svg]: https://secure.travis-ci.org/GlobalNamesArchitecture/biodiversity.svg
 [ci_link]: http://travis-ci.org/GlobalNamesArchitecture/biodiversity
 [dimus]: https://github.com/dimus
+[pleary]: https://github.com/pleary
+[hernan]: https://github.com/LocoDelAssembly
 [license]: https://github.com/GlobalNamesArchitecture/biodiversity/blob/master/LICENSE
 [uuid_examples]: https://github.com/GlobalNamesArchitecture/gn_uuid_examples
 [uuid_blog]: http://globalnamesarchitecture.github.io/gna/uuid/2015/05/31/gn-uuid-0-5-0.html

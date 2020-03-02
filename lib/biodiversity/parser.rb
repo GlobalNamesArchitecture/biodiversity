@@ -50,7 +50,9 @@ module Biodiversity
       )
 
       out_ary = []
-      callback = FFI::Function.new(:void, [:string]) { |str| out_ary << output(str, simple) }
+      callback = FFI::Function.new(:void, [:string]) do |str|
+        out_ary << output(str, simple)
+      end
       parse_ary_go(in_ptr, ary.length, format, callback)
       out_ary
     end

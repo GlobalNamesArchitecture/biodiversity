@@ -22,6 +22,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 #line 3 "main.go"
 
 	#include "stdlib.h"
+	#include "callback_bridge.h"
 
 #line 1 "cgo-generated-wrapper"
 
@@ -77,8 +78,9 @@ extern "C" {
 // ParseToString function takes a name-string, desired format, and parses
 // the name-string to either JSON, or pipe-separated values, depending on
 // the desired format. Format can take values of 'simple', 'compact', 'pretty'.
+// NOTE: Read callback type as "void (*callback)(char *parsed)"
 
-extern char* ParseToString(char* p0, char* p1);
+extern void ParseToString(char* p0, char* p1, void* p2);
 
 // ParseAryToStrings function takes an array of names, parsing format and a
 // reference to an output: an empty array of strings to return the the data
@@ -86,7 +88,7 @@ extern char* ParseToString(char* p0, char* p1);
 // pipe-separated parsed values (depending on a given format). Format can take
 // values of 'simple', 'compact', or 'pretty'.
 
-extern void ParseAryToStrings(char** p0, int p1, char* p2, char*** p3);
+extern void ParseAryToStrings(char** p0, int p1, char* p2, void* p3);
 
 #ifdef __cplusplus
 }
