@@ -33,7 +33,7 @@ module Biodiversity
                     %i[pointer int string parser_callback], :void)
 
     def self.parse(name, simple = false)
-      format = simple ? 'simple' : 'compact'
+      format = simple ? 'csv' : 'compact'
 
       parsed = nil
       callback = FFI::Function.new(:void, [:string]) { |str| parsed = str }
@@ -42,7 +42,7 @@ module Biodiversity
     end
 
     def self.parse_ary(ary, simple = false)
-      format = simple ? 'simple' : 'compact'
+      format = simple ? 'csv' : 'compact'
       in_ptr = FFI::MemoryPointer.new(:pointer, ary.length)
 
       in_ptr.write_array_of_pointer(
@@ -64,14 +64,15 @@ module Biodiversity
         {
           id: parsed[0],
           verbatim: parsed[1],
+          cardinality: parsed[2],
           canonicalName: {
-            full: parsed[2],
-            simple: parsed[3],
-            stem: parsed[4]
+            full: parsed[3],
+            simple: parsed[4],
+            stem: parsed[5]
           },
-          authorship: parsed[5],
-          year: parsed[6],
-          quality: parsed[7]
+          authorship: parsed[6],
+          year: parsed[7],
+          quality: parsed[8]
         }
       else
         JSON.parse(parsed, symbolize_names: true)
