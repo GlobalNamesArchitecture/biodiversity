@@ -129,7 +129,7 @@ Contributors: [Patrick Leary][pleary], [Hernán Lucas Pereira][hernan]
 
 
 
-Copyright (c) 2008-2019 Dmitry Mozzherin. See [LICENSE][license]
+Copyright (c) 2008-2020 Dmitry Mozzherin. See [LICENSE][license]
 for further details.
 
 [gem_svg]: https://badge.fury.io/rb/biodiversity.svg
