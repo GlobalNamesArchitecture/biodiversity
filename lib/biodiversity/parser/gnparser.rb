@@ -54,7 +54,7 @@ module Biodiversity
         path = File.join(__dir__, '..', '..', '..',
                          'ext', "gnparser-#{platform_suffix}")
 
-        @stdin, @stdout, @stderr = Open3.popen3("#{path} --format #{format}")
+        @stdin, @stdout = Open3.popen2("#{path} --format #{format}")
 
         init_gnparser
 
@@ -69,11 +69,23 @@ module Biodiversity
       end
 
       def push(name)
-        @stdin.puts(clean_name(name))
+        name = clean_name(name)
+        begin
+          @stdin.puts(name)
+        rescue Errno::EPIPE
+          @pid = nil
+          raise
+        end
       end
 
       def pull
-        parse_output(@stdout.gets)
+        begin
+          output = @stdout.gets
+        rescue Errno::EPIPE
+          @pid = nil
+          raise
+        end
+        parse_output(output)
       end
 
       def clean_name(name)
