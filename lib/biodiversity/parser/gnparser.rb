@@ -54,7 +54,7 @@ module Biodiversity
         path = File.join(__dir__, '..', '..', '..',
                          'ext', "gnparser-#{platform_suffix}")
 
-        @stdin, @stdout = Open3.popen2("#{path} --format #{format}")
+        @stdin, @stdout = Open3.popen2("#{path} --format #{format} -b1")
 
         init_gnparser
 
@@ -132,7 +132,9 @@ module Biodiversity
       # gnparser interface to JSON-formatted output
       class Compact < self
         def parse_output(output)
-          JSON.parse(output, symbolize_names: true)
+          hsh = JSON.parse(output, symbolize_names: true)
+          hsh[:canonicalName] = hsh.delete :canonical
+          hsh
         end
 
         def format
