@@ -28,20 +28,20 @@ module Biodiversity
     callback(:parser_callback, %i[string], :void)
 
     attach_function(:parse_go, :ParseToString,
-                    %i[string string parser_callback], :void)
-    attach_function(:parse_ary_go, :ParseAryToStrings,
-                    %i[pointer int string parser_callback], :void)
+                    %i[string string int], :strptr)
+    attach_function(:parse_ary_go, :ParseAryToString,
+                    %i[pointer int string int], :strptr)
+    attach_function(:free_mem, :FreeMemory, %i[pointer], :void)
 
-    def self.parse(name, simple = false)
+    def self.parse(name, simple: false)
       format = simple ? 'csv' : 'compact'
 
-      parsed = nil
-      callback = FFI::Function.new(:void, [:string]) { |str| parsed = str }
-      parse_go(name, format, callback)
+      parsed, ptr = parse_go(name, format, 0)
+      free_mem(ptr)
       output(parsed, simple)
     end
 
-    def self.parse_ary(ary, simple = false)
+    def self.parse_ary(ary, simple: false)
       format = simple ? 'csv' : 'compact'
       in_ptr = FFI::MemoryPointer.new(:pointer, ary.length)
 
@@ -49,34 +49,41 @@ module Biodiversity
         ary.map { |s| FFI::MemoryPointer.from_string(s) }
       )
 
-      out_ary = []
-      callback = FFI::Function.new(:void, [:string]) do |str|
-        out_ary << output(str, simple)
+      parsed, ptr = parse_ary_go(in_ptr, ary.length, format, 0)
+      free_mem(ptr)
+      if simple
+        CSV.new(parsed).map do |row|
+          csv_row(row)
+        end
+      else
+        JSON.parse(parsed, symbolize_names: true)
       end
-      parse_ary_go(in_ptr, ary.length, format, callback)
-      out_ary
     end
 
     def self.output(parsed, simple)
       if simple
         csv = CSV.new(parsed)
-        parsed = csv.read[0]
-        {
-          id: parsed[0],
-          verbatim: parsed[1],
-          cardinality: parsed[2],
-          canonicalName: {
-            full: parsed[3],
-            simple: parsed[4],
-            stem: parsed[5]
-          },
-          authorship: parsed[6],
-          year: parsed[7],
-          quality: parsed[8]
-        }
+        row = csv.readlines[0]
+        csv_row(row)
       else
         JSON.parse(parsed, symbolize_names: true)
       end
+    end
+
+    def self.csv_row(row)
+      {
+        id: row[0],
+        verbatim: row[1],
+        cardinality: row[2],
+        canonical: {
+          stem: row[3],
+          simple: row[4],
+          full: row[5]
+        },
+        authorship: row[6],
+        year: row[7],
+        quality: row[8]
+      }
     end
   end
 end
