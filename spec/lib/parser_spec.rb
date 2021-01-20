@@ -14,6 +14,7 @@ describe Biodiversity::Parser do
       parsed = subject.parse('Homo sapiens  Linn.')
       expect(parsed[:canonical][:simple]).to eq 'Homo sapiens'
       expect(parsed[:normalized]).to eq 'Homo sapiens Linn.'
+      expect(parsed[:words].size).to eq 3
     end
 
     it 'gets quality and year correctly in simple form' do
@@ -32,8 +33,9 @@ describe Biodiversity::Parser do
         simple: true
       )
       expect(parsed[0][:canonical][:simple]).to eq 'Homo sapiens'
-      expect(parsed[1][:canonical][:simple]).to eq 'Pardosa moesta'
       expect(parsed[0][:normalized]).to be_nil
+
+      expect(parsed[1][:canonical][:simple]).to eq 'Pardosa moesta'
     end
 
     it 'parsed name in full format' do
@@ -42,8 +44,10 @@ describe Biodiversity::Parser do
       )
       expect(parsed[0][:canonical][:simple]).to eq 'Homo sapiens'
       expect(parsed[0][:normalized]).to eq 'Homo sapiens Linn.'
+      expect(parsed[0][:words].size).to eq 3
       expect(parsed[1][:parsed]).to be false
       expect(parsed[1][:virus]).to be true
+      expect(parsed[1][:words]).to be_nil
     end
   end
 end

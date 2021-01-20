@@ -33,18 +33,18 @@ module Biodiversity
                     %i[pointer int string int], :strptr)
     attach_function(:free_mem, :FreeMemory, %i[pointer], :void)
 
-    def self.parse(name, simple: false, details: false)
+    def self.parse(name, simple: false)
       format = simple ? 'csv' : 'compact'
-      with_details = details ? 1 : 0
+      with_details = simple ? 0 : 1
 
       parsed, ptr = parse_go(name, format, with_details)
       free_mem(ptr)
       output(parsed, simple)
     end
 
-    def self.parse_ary(ary, simple: false, details: false)
+    def self.parse_ary(ary, simple: false)
       format = simple ? 'csv' : 'compact'
-      with_details = details ? 1 : 0
+      with_details = simple ? 0 : 1
 
       in_ptr = FFI::MemoryPointer.new(:pointer, ary.length)
       in_ptr.write_array_of_pointer(
