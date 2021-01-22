@@ -2,7 +2,7 @@
 
 # Biodiversity module provides a namespace for scientific name parser.
 module Biodiversity
-  VERSION = '5.1.1'
+  VERSION = '5.1.2'
 
   def self.version
     VERSION
