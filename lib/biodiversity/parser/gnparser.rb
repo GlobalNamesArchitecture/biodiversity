@@ -22,13 +22,9 @@ module Biodiversity
             ary.each { |n| push(n) }
           end
 
-          hsh = {}
-          count.times do
-            res = pull
-            hsh[res[:verbatim]] = res
-          end
-
-          ary.map { |n| hsh[clean_name(n)] }
+          res = []
+          count.times { res << pull }
+          res
         end
       end
 
@@ -54,7 +50,7 @@ module Biodiversity
         path = File.join(__dir__, '..', '..', '..',
                          'ext', "gnparser-#{platform_suffix}")
 
-        @stdin, @stdout = Open3.popen2("#{path} --format #{format} -b1")
+        @stdin, @stdout = Open3.popen2("#{path} --format #{format} --details --quiet -b1")
 
         init_gnparser
 
@@ -102,10 +98,10 @@ module Biodiversity
             id: get_csv_value(parsed, 'Id'),
             verbatim: get_csv_value(parsed, 'Verbatim'),
             cardinality: get_csv_value(parsed, 'Cardinality'),
-            canonicalName: {
-              full: get_csv_value(parsed, 'CanonicalFull'),
+            canonical: {
+              stemmed: get_csv_value(parsed, 'CanonicalStem'),
               simple: get_csv_value(parsed, 'CanonicalSimple'),
-              stem: get_csv_value(parsed, 'CanonicalStem')
+              full: get_csv_value(parsed, 'CanonicalFull')
             },
             authorship: get_csv_value(parsed, 'Authorship'),
             year: get_csv_value(parsed, 'Year'),
@@ -132,9 +128,7 @@ module Biodiversity
       # gnparser interface to JSON-formatted output
       class Compact < self
         def parse_output(output)
-          hsh = JSON.parse(output, symbolize_names: true)
-          hsh[:canonicalName] = hsh.delete :canonical
-          hsh
+          JSON.parse(output, symbolize_names: true)
         end
 
         def format

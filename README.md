@@ -96,9 +96,9 @@ Biodiversity::Parser.parse("      Plantago       major    ")[:normalized]
 # to get canonical form with or without infraspecies ranks, as well as
 # stemmed version.
 parsed = Biodiversity::Parser.parse("Seddera latifolia H. & S. var. latifolia")
-parsed[:canonicalName][:full]
-parsed[:canonicalName][:simple]
-parsed[:canonicalName][:stem]
+parsed[:canonical][:full]
+parsed[:canonical][:simple]
+parsed[:canonical][:stem]
 
 # to get detailed information about elements of the name
 Biodiversity::Parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
