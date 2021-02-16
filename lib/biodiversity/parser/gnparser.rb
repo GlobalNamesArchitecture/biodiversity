@@ -50,7 +50,7 @@ module Biodiversity
         path = File.join(__dir__, '..', '..', '..',
                          'ext', "gnparser-#{platform_suffix}")
 
-        @stdin, @stdout = Open3.popen2("#{path} --format #{format} --details --quiet -b1")
+        @stdin, @stdout = Open3.popen2("#{path} --format #{format} --details --quiet --stream --jobs 1")
 
         init_gnparser
 
