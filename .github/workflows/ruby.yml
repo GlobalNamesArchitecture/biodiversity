@@ -10,7 +10,7 @@ name: Ruby
 on:
   push:
     branches: [ master, pipe_approach ]
-  pull:
+  pull_request:
     branches: [ master ]
 
 jobs:
