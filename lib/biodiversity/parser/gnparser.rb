@@ -64,23 +64,26 @@ module Biodiversity
         end
       end
 
-      def push(name)
-        name = clean_name(name)
-        begin
-          @stdin.puts(name)
-        rescue Errno::EPIPE
+      def retry_pipe(retries = 1)
+        yield
+      rescue Errno::EPIPE
+        if retries.zero?
           @pid = nil
           raise
+        else
+          start_gnparser
+          retries -= 1
+          retry
         end
       end
 
+      def push(name)
+        name = clean_name(name)
+        retry_pipe { @stdin.puts(name) }
+      end
+
       def pull
-        begin
-          output = @stdout.gets
-        rescue Errno::EPIPE
-          @pid = nil
-          raise
-        end
+        output = retry_pipe { @stdout.gets }
         parse_output(output)
       end
 
