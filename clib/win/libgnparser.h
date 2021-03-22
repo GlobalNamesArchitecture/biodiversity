@@ -19,7 +19,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 /* Start of preamble from import "C" comments.  */
 
 
-#line 3 "main.go"
+#line 5 "main.go"
 
 	#include "stdlib.h"
 
@@ -80,17 +80,17 @@ extern "C" {
 // 'csv', 'compact', 'pretty'. If withDetails argument is 0, additional
 // parsed details are ommited, if it is 1 -- they are included.
 // true.
-extern char* ParseToString(char* name, char* f, int details);
+extern __declspec(dllexport) char* ParseToString(char* name, char* f, int details);
 
 // FreeMemory takes a string pointer and frees its memory.
-extern void FreeMemory(char* p);
+extern __declspec(dllexport) void FreeMemory(char* p);
 
 // ParseAryToString function takes an array of names, parsing format, and a
 // withDetails flag as 0|1 integer.  Parsed outputs are sent as a string in
 // either CSV or JSON format.  Format argument can take values of 'csv',
 // 'compact', or 'pretty'. For withDetails argument 0 means false, 1 means
 // true.
-extern char* ParseAryToString(char** in, int length, char* f, int details);
+extern __declspec(dllexport) char* ParseAryToString(char** in, int length, char* f, int details);
 
 #ifdef __cplusplus
 }
