@@ -49,18 +49,25 @@ describe Biodiversity::Parser do
   describe('parse_ary') do
     it 'parses names in simple format' do
       parsed = subject.parse_ary(
-        ['Homo sapiens Linn.', 'Pardosa moesta'],
-        simple: true
+        ['Homo sapiens Linn.', 'Pardosa moesta', 'Aus bus "White Russian"'],
+        simple: true, with_cultivars: true
       )
       expect(parsed[0][:canonical][:simple]).to eq 'Homo sapiens'
       expect(parsed[0][:normalized]).to be_nil
 
       expect(parsed[1][:canonical][:simple]).to eq 'Pardosa moesta'
+      expect(parsed[2][:canonical][:simple]).to eq 'Aus bus ‘White Russian’'
+      expect(parsed[2][:quality]).to eq 1
     end
 
     it 'parsed name in full format' do
       parsed = subject.parse_ary(
-        ['Homo sapiens  Linn.', 'Tobacco Mosaic Virus']
+        [
+          'Homo sapiens  Linn.',
+          'Tobacco Mosaic Virus',
+          "Aus bus 'White Russian'"
+        ],
+        with_cultivars: true
       )
       expect(parsed[0][:canonical][:simple]).to eq 'Homo sapiens'
       expect(parsed[0][:normalized]).to eq 'Homo sapiens Linn.'
@@ -68,6 +75,9 @@ describe Biodiversity::Parser do
       expect(parsed[1][:parsed]).to be false
       expect(parsed[1][:virus]).to be true
       expect(parsed[1][:words]).to be_nil
+      expect(parsed[2][:canonical][:simple]).to eq 'Aus bus ‘White Russian’'
+      expect(parsed[2][:quality]).to eq 1
+      expect(parsed[2][:parserVersion]).to match(/GNparser/)
     end
   end
 end

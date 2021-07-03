@@ -57,11 +57,14 @@ module Biodiversity
                                  with_details, with_cultivars)
       free_mem(ptr)
       if simple
-        CSV.new(parsed).map do |row|
+        CSV.new(parsed.force_encoding('UTF-8')).map do |row|
           csv_row(row)
         end
       else
-        JSON.parse(parsed, symbolize_names: true)
+        JSON.parse(parsed, symbolize_names: true).map do |item|
+          item[:parserVersion] = Biodiversity.gnparser_version
+          item
+        end
       end
     end
 
