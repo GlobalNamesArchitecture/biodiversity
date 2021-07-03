@@ -80,7 +80,7 @@ extern "C" {
 // 'csv', 'compact', 'pretty'. If withDetails argument is 0, additional
 // parsed details are ommited, if it is 1 -- they are included.
 // true.
-extern __declspec(dllexport) char* ParseToString(char* name, char* f, int details);
+extern __declspec(dllexport) char* ParseToString(char* name, char* f, int details, int cultivars);
 
 // FreeMemory takes a string pointer and frees its memory.
 extern __declspec(dllexport) void FreeMemory(char* p);
@@ -90,7 +90,7 @@ extern __declspec(dllexport) void FreeMemory(char* p);
 // either CSV or JSON format.  Format argument can take values of 'csv',
 // 'compact', or 'pretty'. For withDetails argument 0 means false, 1 means
 // true.
-extern __declspec(dllexport) char* ParseAryToString(char** in, int length, char* f, int details);
+extern __declspec(dllexport) char* ParseAryToString(char** in, int length, char* f, int details, int cultivars);
 
 #ifdef __cplusplus
 }
