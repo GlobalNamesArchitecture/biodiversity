@@ -30,9 +30,10 @@ module Biodiversity
 
       private
 
-      def initialize
+      def initialize(extra_settings = '')
         @semaphore = Mutex.new
         @pid = nil
+        @extra_settings = extra_settings
       end
 
       def start_gnparser
@@ -50,7 +51,9 @@ module Biodiversity
         path = File.join(__dir__, '..', '..', '..',
                          'ext', "gnparser-#{platform_suffix}")
 
-        @stdin, @stdout = Open3.popen2("#{path} --format #{format} --details --quiet --stream --jobs 1")
+        @stdin, @stdout = Open3.popen2(
+          "#{path} --format #{format} --details --quiet --stream --jobs 1 #{@extra_settings}"
+        )
 
         init_gnparser
 
@@ -108,7 +111,7 @@ module Biodiversity
             },
             authorship: get_csv_value(parsed, 'Authorship'),
             year: get_csv_value(parsed, 'Year'),
-            quality: get_csv_value(parsed, 'Quality')
+            quality: get_csv_value(parsed, 'Quality')&.to_i
           }
         end
 
@@ -131,7 +134,7 @@ module Biodiversity
       # gnparser interface to JSON-formatted output
       class Compact < self
         def parse_output(output)
-          JSON.parse(output, symbolize_names: true)
+          JSON.parse(output, symbolize_names: true).tap { |o| o&.dig(:parserVersion)&.sub!(/^/, 'GNparser ') }
         end
 
         def format

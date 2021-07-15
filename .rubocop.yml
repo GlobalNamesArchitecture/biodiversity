@@ -1,5 +1,7 @@
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
+  NewCops: disable
+  SuggestExtensions: false
   Exclude:
     - .bundle/**/*
     - bundle_bin/**/*
@@ -12,6 +14,10 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
 Style/HashEachMethods:
   Enabled: true
 Style/HashTransformKeys:

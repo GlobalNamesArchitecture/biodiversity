@@ -5,6 +5,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'biodiversity/version'
 
 Gem::Specification.new do |gem|
+  gem.required_ruby_version = '>= 2.6'
   gem.name          = 'biodiversity'
   gem.version       = Biodiversity::VERSION
   gem.homepage      = 'https://github.com/GlobalNamesArchitecture/biodiversity'
@@ -17,11 +18,11 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split("\n")
   gem.require_paths = ['lib']
 
-  gem.required_ruby_version = '>= 2.5'
+  gem.add_runtime_dependency 'ffi', '~> 1.14'
 
-  gem.add_development_dependency 'bundler', '~> 2.0'
-  gem.add_development_dependency 'byebug', '~> 11.0'
+  gem.add_development_dependency 'bundler', '~> 2.2'
+  gem.add_development_dependency 'byebug', '~> 11.1'
   gem.add_development_dependency 'rake', '~> 13.0'
-  gem.add_development_dependency 'rspec', '~> 3.9'
-  gem.add_development_dependency 'rubocop', '~> 0.76'
+  gem.add_development_dependency 'rspec', '~> 3.10'
+  gem.add_development_dependency 'rubocop', '~> 1.8'
 end
