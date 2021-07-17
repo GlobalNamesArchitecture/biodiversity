@@ -1,6 +1,6 @@
 # Biodiversity
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3569596.svg)](https://doi.org/10.5281/zenodo.3569596)
+[![DOI](https://zenodo.org/badge/764046.svg)](https://zenodo.org/badge/latestdoi/764046)
 [![Gem Version][gem_svg]][gem_link]
 [![Continuous Integration Status][ci_svg]][ci_link]
 
