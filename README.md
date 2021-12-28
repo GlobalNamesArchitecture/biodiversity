@@ -32,7 +32,7 @@ The gem should work on Linux, Mac and Windows (64bit) machines
 ## Benchmarks
 
 The fastest way to go through a massive amount of names is to use
-`Biodiversity::Parser.parse_ary([big array], simple = true)` function.
+`Biodiversity::Parser.parse_ary([big array], simple: true)` function.
 
 For example parsing a large file with one name per line:
 
@@ -75,10 +75,10 @@ Biodiversity.version
 # gnparser.
 
 # to parse a scientific name into a simple Ruby hash
-Biodiversity::Parser.parse("Plantago major", simple = true)
+Biodiversity::Parser.parse("Plantago major", simple: true)
 
 # to parse many scientific names using all computer CPUs
-Biodiversity::Parser.parse_ary(["Plantago major", ... ], simple = true)
+Biodiversity::Parser.parse_ary(["Plantago major", ... ], simple: true)
 
 # to parse a scientific name into a very detailed Ruby hash
 Biodiversity::Parser.parse("Plantago major")
