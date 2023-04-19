@@ -5,7 +5,7 @@
 
 #line 1 "cgo-builtin-export-prolog"
 
-#include <stddef.h> /* for ptrdiff_t below */
+#include <stddef.h>
 
 #ifndef GO_CGO_EXPORT_PROLOGUE_H
 #define GO_CGO_EXPORT_PROLOGUE_H
@@ -21,7 +21,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 
 #line 5 "main.go"
 
-	#include "stdlib.h"
+  #include "stdlib.h"
 
 #line 1 "cgo-generated-wrapper"
 
@@ -45,11 +45,17 @@ typedef long long GoInt64;
 typedef unsigned long long GoUint64;
 typedef GoInt64 GoInt;
 typedef GoUint64 GoUint;
-typedef __SIZE_TYPE__ GoUintptr;
+typedef size_t GoUintptr;
 typedef float GoFloat32;
 typedef double GoFloat64;
+#ifdef _MSC_VER
+#include <complex.h>
+typedef _Fcomplex GoComplex64;
+typedef _Dcomplex GoComplex128;
+#else
 typedef float _Complex GoComplex64;
 typedef double _Complex GoComplex128;
+#endif
 
 /*
   static assertion to make sure the file is being used on architecture
@@ -80,7 +86,7 @@ extern "C" {
 // 'csv', 'compact', 'pretty'. If withDetails argument is 0, additional
 // parsed details are ommited, if it is 1 -- they are included.
 // true.
-extern char* ParseToString(char* name, char* f, int details, int cultivars);
+extern char* ParseToString(char* name, char* f, int details, int cultivars, int diaereses);
 
 // FreeMemory takes a string pointer and frees its memory.
 extern void FreeMemory(char* p);
@@ -90,7 +96,7 @@ extern void FreeMemory(char* p);
 // either CSV or JSON format.  Format argument can take values of 'csv',
 // 'compact', or 'pretty'. For withDetails argument 0 means false, 1 means
 // true.
-extern char* ParseAryToString(char** in, int length, char* f, int details, int cultivars);
+extern char* ParseAryToString(char** in, int length, char* f, int details, int cultivars, int diaereses);
 
 #ifdef __cplusplus
 }
