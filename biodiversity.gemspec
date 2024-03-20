@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'ffi', '~> 1.15'
 
-  gem.add_development_dependency 'bundler', '~> 2.4'
   gem.add_development_dependency 'byebug', '~> 11.1'
   gem.add_development_dependency 'rake', '~> 13.0'
   gem.add_development_dependency 'rspec', '~> 3.12'

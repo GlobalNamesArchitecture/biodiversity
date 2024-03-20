@@ -31,11 +31,8 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-    - name: Install Ruby gems
-      run: |
-        gem install bundler
-        bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3
+    - name: Install dependencies
+      run: bundle install --path=vendor/bundle --jobs 4 --retry 3
     - name: Show environment
       run: gem environment
     - name: Run tests
