@@ -126,11 +126,11 @@ For example "Homo sapiens" should generate
 
 ## Copyright
 
-Authors: [Dmitry Mozzherin][dimus]
+Authors: [Dmitry Mozzherin][dimus], [Hernán Lucas Pereira][hernan]
 
-Contributors: [Patrick Leary][pleary], [Hernán Lucas Pereira][hernan]
+Contributors: [Patrick Leary][pleary]
 
-Copyright (c) 2008-2021 Dmitry Mozzherin. See [LICENSE][license]
+Copyright (c) 2008-2024 Dmitry Mozzherin. See [LICENSE][license]
 for further details.
 
 [gem_svg]: https://badge.fury.io/rb/biodiversity.svg
