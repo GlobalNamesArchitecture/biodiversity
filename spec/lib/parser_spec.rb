@@ -27,6 +27,12 @@ describe Biodiversity::Parser do
       expect(parsed[:normalized]).to be_nil
     end
 
+    it 'treats newlines as whitespaces' do # Requirement for IPC to work
+      parsed = subject.parse("\nHomo\r\nsapiens\nLinn.\r1758\n")
+      expect(parsed[:verbatim]).to eq ' Homo sapiens Linn. 1758 '
+      expect(parsed[:normalized]).to eq parsed[:verbatim].strip
+    end
+
     it 'parses botanical cultivars in full form' do
       parsed = subject.parse('Aus bus "White Russian"',
                              simple: false, with_cultivars: true)
@@ -78,6 +84,14 @@ describe Biodiversity::Parser do
       expect(parsed[2][:canonical][:simple]).to eq 'Aus bus ‘White Russian’'
       expect(parsed[2][:quality]).to eq 1
       expect(parsed[2][:parserVersion]).to match(/GNparser/)
+    end
+
+    it 'treats newlines as whitespaces' do # Requirement for IPC to work
+      parsed = subject.parse_ary(["\nHomo\r\nsapiens\nLinn.\r1758\n"])
+      expect(parsed.length).to eq 1
+      parsed = parsed.first
+      expect(parsed[:verbatim]).to eq ' Homo sapiens Linn. 1758 '
+      expect(parsed[:normalized]).to eq parsed[:verbatim].strip
     end
   end
 end

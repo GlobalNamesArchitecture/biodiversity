@@ -95,9 +95,9 @@ Biodiversity::Parser.parse("      Plantago       major    ")[:normalized]
 # to get canonical form with or without infraspecies ranks, as well as
 # stemmed version.
 parsed = Biodiversity::Parser.parse("Seddera latifolia H. & S. var. latifolia")
-parsed[:canonicalName][:full]
-parsed[:canonicalName][:simple]
-parsed[:canonicalName][:stem]
+parsed[:canonical][:full]
+parsed[:canonical][:simple]
+parsed[:canonical][:stem]
 
 # to get detailed information about elements of the name
 Biodiversity::Parser.parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. \
@@ -126,11 +126,11 @@ For example "Homo sapiens" should generate
 
 ## Copyright
 
-Authors: [Dmitry Mozzherin][dimus]
+Authors: [Dmitry Mozzherin][dimus], [Hernán Lucas Pereira][hernan]
 
-Contributors: [Patrick Leary][pleary], [Hernán Lucas Pereira][hernan]
+Contributors: [Patrick Leary][pleary]
 
-Copyright (c) 2008-2021 Dmitry Mozzherin. See [LICENSE][license]
+Copyright (c) 2008-2024 Dmitry Mozzherin. See [LICENSE][license]
 for further details.
 
 [gem_svg]: https://badge.fury.io/rb/biodiversity.svg

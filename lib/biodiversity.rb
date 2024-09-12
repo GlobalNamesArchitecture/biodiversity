@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'ffi'
 require 'json'
 require 'csv'
 require_relative 'biodiversity/version'
