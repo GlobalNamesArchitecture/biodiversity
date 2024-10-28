@@ -48,8 +48,20 @@ module Biodiversity
           else
             raise "Unsupported platform: #{Gem.platforms[1].os}"
           end
+
+        target_cpu = RbConfig::CONFIG['target_cpu']
+        cpu_arch =
+          case target_cpu
+          when /x86|x64/
+            'x86'
+          when /aarch|arm/
+            'arm'
+          else
+            raise "Unsupported CPU Architecture: #{target_cpu}"
+          end
+
         path = File.join(__dir__, '..', '..', '..',
-                         'ext', "gnparser-#{platform_suffix}")
+                         'ext', "gnparser-#{cpu_arch}-#{platform_suffix}")
 
         @stdin, @stdout = Open3.popen2(
           "#{path} --format #{format} --details --quiet --stream --jobs 1 #{@extra_settings}"
