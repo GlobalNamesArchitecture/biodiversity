@@ -3,7 +3,7 @@
 # Biodiversity module provides a namespace for scientific name parser.
 module Biodiversity
   VERSION = '6.0.1'
-  GNPARSER_VERSION = 'GNparser 1.10.3'
+  GNPARSER_VERSION = 'GNparser 1.14.1'
 
   def self.version
     VERSION
