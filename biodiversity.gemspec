@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split("\n")
   gem.require_paths = ['lib']
 
+  gem.add_runtime_dependency 'csv'
   gem.add_runtime_dependency 'ffi', '~> 1.15'
 
   gem.add_development_dependency 'byebug', '~> 11.1'
