@@ -18,13 +18,13 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split("\n")
   gem.require_paths = ['lib']
 
-  gem.add_runtime_dependency 'csv'
-  gem.add_runtime_dependency 'ffi', '~> 1.15'
+  gem.add_runtime_dependency 'csv', '~> 3.3'
+  gem.add_runtime_dependency 'ffi', '~> 1.17'
 
-  gem.add_development_dependency 'byebug', '~> 11.1'
-  gem.add_development_dependency 'rake', '~> 13.0'
-  gem.add_development_dependency 'rspec', '~> 3.12'
-  gem.add_development_dependency 'rubocop', '~> 1.50'
-  gem.add_development_dependency 'rubocop-rubycw', '~> 0.1.6'
-  gem.add_development_dependency 'solargraph', '~> 0.49'
+  gem.add_development_dependency 'byebug', '~> 13.0'
+  gem.add_development_dependency 'rake', '~> 13.4'
+  gem.add_development_dependency 'rspec', '~> 3.13'
+  gem.add_development_dependency 'rubocop', '~> 1.91'
+  gem.add_development_dependency 'rubocop-rubycw', '~> 0.2.2'
+  gem.add_development_dependency 'solargraph', '~> 0.60'
 end

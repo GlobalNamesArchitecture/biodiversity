@@ -48,7 +48,7 @@ describe Biodiversity::Parser do
       parsed = subject.parse('Aus bus "White Russian"',
                              simple: true, with_cultivars: false)
       expect(parsed[:canonical][:simple]).to eq 'Aus bus'
-      expect(parsed[:quality]).to eq 2
+      expect(parsed[:quality]).to eq 4
     end
   end
 
